@@ -1,5 +1,9 @@
 # Zyon TFT
 
+## 0.17.11
+
+Pedidos avulsos na Dupla com prioridade Normal, Alta e Urgente, sem mudar a composição. Prioridades sincronizadas no app, overlay e loja do parceiro. Moldura roxa completa para enviar e azul/roxo quando ambos precisam.
+
 ## 0.17.10
 
 Planejador do overlay reformulado com catálogo legível, edição de metas por peça e seleção de sinergias. Campeões, transições e sinergias destacados na loja são compartilhados com a dupla; a leitura associa as características ao campeão reconhecido sem uma segunda passagem de OCR. Proteção ao abrir durante a atualização evita carregar dependências incompletas. A publicação agora verifica todos os arquivos e dependências e testa o aplicativo extraído do próprio Setup, incluindo OCR offline e recuperação de instalação interrompida.
