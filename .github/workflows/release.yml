@@ -1,0 +1,63 @@
+name: Publicar atualização do Zyon
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: zyon-release
+  cancel-in-progress: false
+jobs:
+  release:
+    runs-on: windows-latest
+    timeout-minutes: 35
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Conferir versão
+        shell: pwsh
+        run: |
+          $version = node -p "require('./package.json').version"
+          if ($version -notmatch '^\d+\.\d+\.\d+$') { throw 'Versão inválida' }
+          $tag = "v$version"
+          if ($env:GITHUB_REF_TYPE -eq 'tag' -and $env:GITHUB_REF_NAME -ne $tag) { throw 'A tag difere do package.json' }
+          "RELEASE_TAG=$tag" >> $env:GITHUB_ENV
+          "RELEASE_VERSION=$version" >> $env:GITHUB_ENV
+      - run: npm test
+      - run: npm run build
+      - run: node scripts/release-notes.mjs
+      - name: Preparar rascunho
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          $existing = gh release view $env:RELEASE_TAG --json isDraft 2>$null
+          if ($LASTEXITCODE -eq 0) {
+            if (-not ($existing | ConvertFrom-Json).isDraft) { throw 'Essa versão já foi publicada. Incremente a versão.' }
+          } else {
+            gh release create $env:RELEASE_TAG --draft --title "Zyon TFT $env:RELEASE_VERSION" --target $env:GITHUB_SHA --notes-file .runtime/release-notes.md
+            if ($LASTEXITCODE -ne 0) { throw 'Não foi possível criar o rascunho' }
+          }
+      - name: Gerar e enviar instalador
+        run: npx electron-builder --win nsis --x64 --publish always
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CSC_IDENTITY_AUTO_DISCOVERY: 'false'
+      - run: npm run release:verify
+      - name: Conferir anexos e liberar atualização
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          $release = gh release view $env:RELEASE_TAG --json assets | ConvertFrom-Json
+          $expected = @("Zyon-TFT-Setup-$env:RELEASE_VERSION.exe", "Zyon-TFT-Setup-$env:RELEASE_VERSION.exe.blockmap", 'latest.yml')
+          foreach ($name in $expected) { if ($name -notin $release.assets.name) { throw "Falta o anexo $name" } }
+          gh release edit $env:RELEASE_TAG --draft=false --latest --notes-file .runtime/release-notes.md
+          if ($LASTEXITCODE -ne 0) { throw 'Não foi possível publicar a atualização' }
