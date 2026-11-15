@@ -1,5 +1,9 @@
 # Zyon TFT
 
+## 0.17.24
+
+Tela de duplas reorganizada com cartoes de amigos, convite para dupla explicito, estados de resposta, busca e solicitacoes separadas. Codigo de amigo compacto e remocao de amizade em menu proprio.
+
 ## 0.17.23
 
 Banco de dados com filtros e colunas alinhados, caracteristicas compactas e retratos sem cortes em janelas menores. Acoes de planejar sempre visiveis no layout compacto.
