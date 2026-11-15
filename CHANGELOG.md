@@ -1,5 +1,9 @@
 # Zyon TFT
 
+## 0.17.14
+
+Aprimoramentos do PivotTFT por build no app e overlay, preservando o guia-base depois de editar a composição. Catálogo atualizado periodicamente, sem restaurar o tabuleiro antigo. Filtro de aprimoramentos da comp corrigido no Banco de dados. Etiquetas Fast 9, Fast 8 e Slow roll alinhadas à direita dos cards.
+
 ## 0.17.13
 
 Pedidos da dupla salvos automaticamente ao marcar um campeão e mudar a meta ou a prioridade, no app e no overlay, sem botão de confirmação. Proteção para alterações rápidas, cancelamentos e respostas atrasadas, com aviso de falha e opção de tentar novamente.
