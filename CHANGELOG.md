@@ -1,5 +1,9 @@
 # Zyon TFT
 
+## 0.17.12
+
+Dupla com pedidos avulsos e prioridades Normal, Alta e Urgente, sincronizados no app e overlay sem mudar a comp. Moldura roxa completa para enviar ao parceiro, com aviso Enviar urgente. Retratos quadrados e cards com enquadramento corrigido.
+
 ## 0.17.11
 
 Pedidos avulsos na Dupla com prioridade Normal, Alta e Urgente, sem mudar a composição. Prioridades sincronizadas no app, overlay e loja do parceiro. Moldura roxa completa para enviar e azul/roxo quando ambos precisam.
