@@ -70,6 +70,26 @@ const front = (id, catalog) =>
 export const costOdds = (level, cost) =>
   rules.odds[clamp(level, 1, 10, 6)]?.[cost - 1] || 0;
 
+// A retained item holder can stay on the board until its replacement is ready,
+// but that does not extend the published shopping window for that holder.
+function routeAtLevel(comp, catalog, context) {
+  if (comp.style === "Personalizada") return null;
+  const step = comp.pivot?.levels?.filter(s => s.level <= context.level).at(-1);
+  if (!step) return null;
+  const allowed = id => catalog[id] && !comp.excludedChampions?.includes(id) &&
+    (context.level >= minimumLevel[catalog[id].cost] || context.copies[id] > 0);
+  const alternatives = (step.variants || [])
+    .map(group => ({group, score: group.reduce((n, s) => n +
+      (context.copies[s.championId] || 0) - (context.copies[s.replaces] || 0), 0)}))
+    .filter(v => v.score > 0 && v.group.every(s => allowed(s.championId) && context.copies[s.championId] > 0))
+    .sort((a, b) => b.score - a.score);
+  let units = [...step.units];
+  if (alternatives.length)
+    for (const s of alternatives[0].group)
+      units = units.map(id => id === s.replaces ? s.championId : id);
+  return {...step, units};
+}
+
 export function strategyFor(comp, catalog, context = {}) {
   const ids = [...new Set(comp.champions)].filter((id) => catalog[id]);
   const carry = ids.includes(comp.carry) ? comp.carry : ids[0];
@@ -198,9 +218,7 @@ export function teamAtLevel(comp, catalog, level, context = {}, previous = []) {
   for (const id of strategy.allTargets.filter((id) => state.copies[id] >= 9))
     if (fits(id)) selected.push(id);
   if (activeCarry && fits(activeCarry)) selected.push(activeCarry);
-  const sourceStep =
-    comp.style !== "Personalizada" &&
-    comp.pivot?.levels?.filter((s) => s.level <= level).at(-1);
+  const sourceStep = routeAtLevel(comp, catalog, state);
   if (sourceStep) {
     // Follow the published route, but don't chase scarce costs early or exceed
     // capacity. Natural purchases and completed 3★ holders remain respected.
@@ -211,33 +229,7 @@ export function teamAtLevel(comp, catalog, level, context = {}, previous = []) {
       selected.includes(activeCarry)
     )
       selected.splice(selected.indexOf(activeCarry), 1);
-    let routeIds = [...sourceStep.units];
-    const alternatives = (sourceStep.variants || [])
-      .map((group) => ({
-        group,
-        score: group.reduce(
-          (score, s) =>
-            score +
-            (state.copies[s.championId] || 0) -
-            (state.copies[s.replaces] || 0),
-          0,
-        ),
-      }))
-      .filter(
-        (v) =>
-          v.score > 0 &&
-          v.group.every(
-            (s) =>
-              allowed(s.championId) && (state.copies[s.championId] || 0) > 0,
-          ),
-      )
-      .sort((a, b) => b.score - a.score);
-    if (alternatives.length)
-      for (const s of alternatives[0].group)
-        routeIds = routeIds.map((id) =>
-          id === s.replaces ? s.championId : id,
-        );
-    for (const id of routeIds.filter(allowed)) if (fits(id)) selected.push(id);
+    for (const id of sourceStep.units.filter(allowed)) if (fits(id)) selected.push(id);
     for (const id of previous.filter(allowed)) if (fits(id)) selected.push(id);
   }
   while (true) {
@@ -421,8 +413,11 @@ export function planForLevel(comp, catalog, value = {}) {
   );
   const upgradeGoal = (id) =>
     strategy.targets.includes(id) && !context.contested ? 9 : 3;
+  const route = routeAtLevel(comp, catalog, context);
+  const activePurchases = new Set([...(route?.units || team.ids), ...strategy.ids]);
   const search = team.ids.filter(
     (id) =>
+      activePurchases.has(id) &&
       context.level >= minimumLevel[catalog[id].cost] &&
       (context.copies[id] || 0) < upgradeGoal(id),
   );

@@ -49,3 +49,12 @@ Validação: `node scripts/verify-overlay-continuity.mjs --shop --medal` usa con
 
 
 Na0.17.20, comp Personalizada não transforma os preenchimentos sugeridos pelo planejador adaptativo em compras implícitas. Os destaques próprios e o payload da dupla usam apenas elenco/metas, sinergias marcadas e pedidos explícitos. Rotas publicadas continuam compartilhando suas transições. `verify-overlay-regressions.mjs` testa uma comp pessoal salva, conta real, OCR nativo, pedido avulso e captura real que enxerga o fundo por baixo do overlay protegido. `verify-shop-frame.ps1` confere a geometria em720p/1080p/1440p/ultrawide derivados da captura17.
+
+
+## Compras por etapa de nível (0.17.21)
+
+O nível confirmado pelo OCR escolhe a etapa atual da rota publicada. As compras de transição ficam limitadas às unidades dessa etapa, considerando a variante ativa; peças temporárias das etapas anteriores deixam de receber prioridade, medalha e pedido automático para a dupla. Isso vale mesmo que você ainda tenha um par ou mantenha o portador antigo em campo até comprar o substituto. O tabuleiro e a transferência de itens continuam preservando o portador útil; permanecer no tabuleiro não prolonga a compra de cópias.
+
+A equipe final continua sendo procurada. Sinergias marcadas e pedidos avulsos são escolhas explícitas e podem pedir novamente uma peça antiga; cancelar o pedido volta à regra do nível atual. Comps pessoais mantêm apenas as escolhas explícitas da0.17.20. O nível consultado no guia não controla a loja: só o nível da sessão confirmado pelo leitor altera os avisos. Uma leitura ausente ou inferior não reabre uma etapa anterior.
+
+`tests/transition-shopping.test.mjs` cobre a fronteira4→5, Ornn na rota Teemo6→7, variantes, pedidos, sinergias, prioridades e todas as etapas do catálogo. `verify-transition-shopping.mjs` usa duas contas reais e OCR nativo em composição controlada de pixels reais da loja, com nível6 controlado e nível7 da captura original, verificando remoção das medalhas local e remota sem trocar a loja, perda de OCR e pedido urgente explícito. Não é benchmark de partida ao vivo.
