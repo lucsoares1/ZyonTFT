@@ -9,6 +9,7 @@ import {promisify} from 'node:util';
 import {_electron as electron} from 'playwright';
 import {verifyPackagedFiles} from './packaged-files.mjs';
 const run=promisify(execFile),root=process.cwd(),arg=name=>process.argv[process.argv.indexOf(name)+1];
+await fs.mkdir(path.resolve('.runtime'),{recursive:true});
 const profile=await fs.mkdtemp(path.resolve('.runtime/runtime-check-'));
 let executablePath=path.resolve(process.argv.includes('--exe')?arg('--exe'):'release/win-unpacked/Zyon TFT.exe');
 const fromInstaller=process.argv.includes('--installer');let extractedRoot;
