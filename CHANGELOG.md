@@ -1,5 +1,9 @@
 # Zyon TFT
 
+## 0.17.17
+
+Inter em todo o app, login, overlay e avisos da loja, com a fonte incluída no instalador. Controles das composições agrupados no cabeçalho; fundo neutro translúcido com opacidade discreta (3% normal, 7% ativo). Aprimoramentos dinâmicos corrigidos por composição, inclusive após editar o elenco, no app e overlay. Verificação do marcador do instalador estabilizada no Windows.
+
 ## 0.17.16
 
 Fonte Inter em todo o programa, incluída no instalador para funcionar sem instalar fontes. Controles das composições agrupados no cabeçalho, em cinza translúcido e com seleção mais clara. Corrige os aprimoramentos dinâmicos de cada composição, inclusive após editar o elenco, no app e overlay. Estabiliza a verificação de expiração do marcador do instalador no Windows.
