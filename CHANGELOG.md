@@ -1,5 +1,9 @@
 # Zyon TFT
 
+## 0.17.5
+
+Medalha e aviso unidos e alinhados acima da carta. Moldura de cristal acompanha as bordas originais, preserva as joias e mantém o topo completo nas unidades de custo 1. Destaques mais estáveis durante brilho e hover, com remoção imediata ao vender ou atualizar a loja e posição adaptada à janela do jogo.
+
 ## 0.17.4 (não publicada)
 
 Publicação cancelada durante a revisão visual. Substituída pela versão 0.17.5.
