@@ -31,6 +31,7 @@ declare global {
       minimize: () => void;
       close: () => void;
       onState: (callback: (state: any) => void) => () => void;
+      onShop: (callback: (state: any) => void) => () => void;
       onDetection: (callback: (data: any) => void) => () => void;
       onOverlay: (callback: (enabled: boolean) => void) => () => void;
       onReader: (callback: (enabled: boolean) => void) => () => void;

@@ -4,6 +4,12 @@ import {MatchEndTracker,resultScreen} from "../electron/match-end.cjs";
 import {OverlayGate} from "../electron/overlay-visibility.cjs";
 import {changeSession,normalizeSession} from "../electron/game-session.cjs";
 const frame={matchId:"same-exe",at:1000,levelText:"",goldText:"",endText:"VOCÊ TERMINOU EM 20 LUGAR SAIR AGORA"};
+test('throttled result scans require two actual captures and a recovered HUD cancels pending results',()=>{
+ const tracker=new MatchEndTracker();assert.equal(tracker.observe(frame),false);
+ for(const at of [1100,1200,1300])assert.equal(tracker.observe({...frame,at,endChecked:false}),false);
+ assert.equal(tracker.observe({...frame,at:2100}),true);
+ const reset=new MatchEndTracker();reset.observe(frame);reset.observe({...frame,at:1200,endChecked:false,goldText:'10'});assert.equal(reset.observe({...frame,at:2200}),false);
+});
 test("actual OCR wording from placement screenshot ends only after two HUD-free frames",()=>{
  const tracker=new MatchEndTracker();
  assert.equal(resultScreen(frame.endText),true);

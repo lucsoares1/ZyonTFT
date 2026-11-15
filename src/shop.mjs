@@ -5,6 +5,17 @@ export const normalizeName = (value) =>
     .toLowerCase()
     .replace(/[^a-z]/g, "");
 
+// Full snapshots and the small shop stream share a revision so delayed
+// renderer replies cannot restore a badge after a purchase or reroll.
+export function mergeOverlaySnapshot(previous,next){
+  return (previous?.shopRevision||0)>(next?.shopRevision||0)
+    ? {...next,slots:previous.slots,shopRevision:previous.shopRevision,shopCapturedAt:previous.shopCapturedAt,shopLatencyMs:previous.shopLatencyMs}
+    : next;
+}
+export function mergeShopUpdate(previous,next){
+  return previous&&(next.shopRevision||0)>=(previous.shopRevision||0)?{...previous,...next}:previous;
+}
+
 // Preserve all five positions, including duplicates and sold/empty slots.
 export function matchShop(slots, selected) {
   const wanted = new Set(selected);

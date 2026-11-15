@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { version as appVersion } from "../package.json";
 import {
   ArrowDownToLine,
@@ -42,7 +42,7 @@ import { pivotSnapshot } from "./data";
 import { PivotTiersContext } from "./PivotGuide";
 import { TierBadge, CompTierBadge } from "./CompTier";
 import { buildCompSections, tierSections, compTier } from "./comp-tiers.mjs";
-import { matchShop, recognizeNames } from "./shop.mjs";
+import { matchShop, recognizeNames, mergeOverlaySnapshot, mergeShopUpdate } from "./shop.mjs";
 import ScreenshotProof from "./ScreenshotProof";
 import { Planner, Database, PlanAside, TraitStrip } from "./Workspace";
 import { moveUnit, boardPositions, personalizePlan } from "./planning.mjs";
@@ -170,14 +170,17 @@ function Overlay() {
   useEffect(() => {
     document.body.classList.add("overlay-body");
     document.documentElement.classList.add("overlay-root");
-    window.zyon?.getState().then(setState);
-    return window.zyon?.onState(setState);
+    const accept=(next:any)=>setState((previous:any)=>mergeOverlaySnapshot(previous,next));
+    window.zyon?.getState().then(accept);
+    const offState=window.zyon?.onState(accept);
+    const offShop=window.zyon?.onShop(next=>setState((previous:any)=>mergeShopUpdate(previous,next)));
+    return ()=>{offState?.();offShop?.();};
   }, []);
-  if (!state) return null;
-  const livePlan =
-    state.guideComp && state.pinned
+  const livePlan = useMemo(()=>
+    state?.guideComp && state?.pinned
       ? planForLevel(state.guideComp, byId, state.gameSession?.context)
-      : null;
+      : null,[state?.guideComp,state?.pinned,state?.gameSession?.context]);
+  if (!state) return null;
   const priority = livePlan?.search || [];
   const reserve = livePlan?.reserve || [];
   const send=partnerNeeds(state.social,state.gameSession,clock).map((w:any)=>w.id);
@@ -372,7 +375,7 @@ function Workbench() {
       source: saved.source,
       compact: saved.compact,
     });
-  }, [saved, slots, hydrated, catalogStatus]);
+  }, [saved, hydrated, catalogStatus]);
   useEffect(
     () =>
       window.zyon?.onDetection((data) => {

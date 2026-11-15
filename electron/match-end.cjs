@@ -9,11 +9,14 @@ function resultScreen(text){
 class MatchEndTracker{
   constructor(){this.reset();}
   reset(){this.matchId=null;this.hits=0;this.lastAt=0;}
-  observe({matchId,at,levelText,goldText,endText}){
+  observe({matchId,at,levelText,goldText,endText,endChecked=true}){
     if(this.matchId!==matchId){this.reset();this.matchId=matchId;}
     // A carousel, augment choice, pause, Alt+Tab or ordinary OCR failure is
     // never enough to erase purchases. Require an affirmative result screen.
-    if(parseLevel(levelText)!==null||parseGold(goldText)!==null||!resultScreen(endText)){
+    if(parseLevel(levelText)!==null||parseGold(goldText)!==null){this.hits=0;return false;}
+    // Unscanned frames cannot confirm a result or cancel actual observations.
+    if(!endChecked)return false;
+    if(!resultScreen(endText)){
       this.hits=0;return false;
     }
     if(!Number.isFinite(at)||at<=this.lastAt)return false;

@@ -1,0 +1,28 @@
+# Leitura local da loja
+
+A versão 0.17.3 mantém o Windows.Media.Ocr já usado pelo app. Não adiciona Python, OpenCV, modelos neurais nem chamadas a serviços de reconhecimento. O Tesseract local continua apenas como fallback do nível e ouro.
+
+## Caminho rápido
+
+- O leitor observa os cinco slots com intervalo alvo de 60 ms; reconhecimento, captura e HUD podem alongar esse intervalo. Não é uma garantia de 60 ms em todo PC.
+- Uma impressão visual da arte e dos nomes detecta mudanças. Ela serve apenas para invalidar um slot: nunca atribui a identidade de um campeão por semelhança ou hash.
+- Ao mudar ou esvaziar uma carta, o leitor publica a remoção antes do OCR. Os nomes alterados são reunidos em uma imagem e reconhecidos numa única chamada; palavras voltam aos slots pelas coordenadas. Duplicatas permanecem separadas.
+- Cartas inalteradas usam cache, revalidado em dois segundos. Nomes desconhecidos/fades têm tentativas rápidas e depois reduzem a frequência para evitar trabalho contínuo em ofertas especiais.
+- O processo principal manda um evento pequeno diretamente à janela das medalhas. A loja não espera o fallback do HUD, uma atualização do React da janela principal, gravação das preferências ou a rede da dupla.
+- Uma revisão crescente impede snapshots atrasados de restaurarem medalhas retiradas. O leitor é a fonte dos slots no modo normal; publicações da janela principal não sobrescrevem o resultado.
+- Dados da loja sem heartbeat por 750 ms limpam as medalhas, sem ocultar o guia. Alt+Tab continua ocultando o overlay; pausas ao clicar no guia são preservadas.
+- HUD é amostrado separadamente a cada 400 ms no mesmo leitor. A busca mais cara por texto de fim de partida é limitada a uma por segundo, só quando não há HUD válido. Dois scans reais continuam necessários; frames sem scan não confirmam resultados.
+
+## Dupla
+
+Os pedidos já recebidos ficam no cliente. O reconhecimento local classifica uma carta para comprar, enviar ou ambos sem consultar o servidor por slot. Adicionar/remover pedidos ainda exige a sincronização de rede, sujeita à conexão dos dois PCs. Desconexão, fim de partida ou plano antigo suspendem os avisos de envio.
+
+## Medições e limites
+
+O leitor anterior levou aproximadamente 1,25 s por ciclo numa captura de referência: cerca de 400 ms de trabalho e espera fixa de 850 ms. O fluxo rápido elimina essa espera fixa e as cinco chamadas sequenciais de OCR da loja.
+
+`scripts/verify-shop-speed.mjs` usa OCR nativo de verdade sobre uma sequência de imagens derivadas da captura 17. Inclui o atraso de polling desde a troca programada, verifica slots duplicados/posicionais, carta vendida e rejeição da oferta especial. Nas execuções de desenvolvimento, as transições ficaram na ordem de dezenas a centenas de milissegundos. Resultados não constituem um benchmark de partida ao vivo nem promessa de latência para outro hardware.
+
+`scripts/verify-overlay-continuity.mjs --shop` verifica também as medalhas no DOM do Electron, remoção e proteção contra publicação atrasada, além de Alt+Tab, perda de OCR, fim de partida e rodada nova. `scripts/verify-duo.mjs --live-shop --background --no-captures` valida pedidos reais entre clientes isolados e a medalha de envio com nomes reconhecidos pelo leitor, sem injetar os slots nesse modo.
+
+Template matching pode ser útil em uma etapa futura, mas uma imagem de retrato oficial não é automaticamente um template da arte recortada da loja. Escala, recorte, animações e estados visuais exigem referências próprias e limiares de rejeição. Não há promessa de zero erros ou de 1–5 ms para o fluxo completo. Esta versão usa comparação visual para invalidar rapidamente e nomes exatos para confirmar a identidade.

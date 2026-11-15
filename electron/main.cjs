@@ -44,6 +44,8 @@ let planTools,socialService,updateService;
 const { champions } = require("../src/generated/catalog.json");
 const championById=Object.fromEntries(champions.map(c=>[c.id,c]));
 const shopModule = import("../src/shop.mjs");
+let recognizeShopNames;
+shopModule.then(module=>{recognizeShopNames=module.recognizeNames;});
 const purchases = new PurchaseTracker(champions);
 const {MatchEndTracker}=require("./match-end.cjs");
 const matchEnd=new MatchEndTracker();
@@ -85,6 +87,7 @@ let state = {
   rect: { x: 0.2295, y: 0.858, width: 0.53, height: 0.139 },
 };
 let lastCapture = 0;
+let lastShopCapture = 0;
 let lastOverlayVisibilityReason = null;
 let quitting = false;
 const devUrl = process.env.ZYON_DEV_URL;
@@ -157,10 +160,20 @@ function validRect(r) {
 function mainSender(event) {
   return mainWindow && event.sender === mainWindow.webContents;
 }
+let publishedShopSlots='[]';
+function stampShop(){
+  const key=JSON.stringify(state.slots);
+  if(key!==publishedShopSlots){state.shopRevision=(state.shopRevision||0)+1;publishedShopSlots=key;}
+}
 function broadcast() {
+  stampShop();
   for (const window of [overlayWindow, guideWindow])
     if (window && !window.isDestroyed())
       window.webContents.send("state:update", state);
+}
+function broadcastShop(){
+  stampShop();
+  if(overlayWindow&&!overlayWindow.isDestroyed())overlayWindow.webContents.send('shop:update',{slots:state.slots,shopRevision:state.shopRevision,shopLatencyMs:state.shopLatencyMs,shopCapturedAt:state.shopCapturedAt});
 }
 function save() {
   if (!state.saved) return;
@@ -500,6 +513,7 @@ function clearReader(error) {
     proc.kill();
   }
   state.slots = [];
+  lastShopCapture=0;
   state.readerActive = false;
   state.readerPresence = "paused";
   state.readerError = error || "";
@@ -562,7 +576,7 @@ async function processLevel(data, process) {
       matchEpoch !== sessionEpoch
     )
       return;
-    if(!state.gameSession.ended && matchEnd.observe({matchId:data.matchId,at:data.capturedAt,levelText:text,goldText,endText:data.endText})){
+    if(!state.gameSession.ended && matchEnd.observe({matchId:data.matchId,at:data.capturedAt,levelText:text,goldText,endText:data.endText,endChecked:data.endChecked})){
       overlayGate.endGame(data.matchId);
       updateGame({type:"end"});
       overlayEnabled=false;
@@ -692,6 +706,7 @@ function setReader(enabled, { automatic = false } = {}) {
         height: display.bounds.height,
       },
       scale: display.scaleFactor,
+      shopNames:champions.flatMap(c=>[c.name,...(c.aliases||[])]),
     }),
   );
   readerProcess = spawn(
@@ -710,6 +725,8 @@ function setReader(enabled, { automatic = false } = {}) {
             "shop-reader.ps1",
           )
         : path.join(__dirname, "shop-reader.ps1"),
+      "-Fast",
+      ...(process.env.ZYON_USER_DATA&&process.env.ZYON_OCR_FIXTURE&&process.env.ZYON_SHOP_SEQUENCE?['-FixtureSequence',process.env.ZYON_SHOP_SEQUENCE]:[]),
       "-ConfigPath",
       configPath,
       ...(process.env.ZYON_USER_DATA && process.env.ZYON_OCR_FIXTURE
@@ -743,6 +760,20 @@ function setReader(enabled, { automatic = false } = {}) {
           data.capturedAt < focusBoundaryAt)
       )
         return;
+      if(data.kind==='shop'){
+        // Shop badges never wait behind HUD fallback or a renderer round trip.
+        if(Date.now()-data.capturedAt>750||!Array.isArray(data.slots)||data.slots.length!==5)return;
+        lastShopCapture=Date.now();
+        const next=state.gameSession.ended?[]:recognizeShopNames(data.slots,champions);
+        if(JSON.stringify(next)!==JSON.stringify(state.slots)){
+          state.slots=next;
+          state.shopLatencyMs=Date.now()-data.capturedAt;
+          state.shopCapturedAt=data.capturedAt;
+          broadcastShop();
+          mainWindow?.webContents.send('reader:data',{slots:data.slots,idle:false,matchEnded:state.gameSession.ended});
+        }
+        return;
+      }
       const epoch = readerEpoch;
       // Serial processing preserves clicks and image order during fallback OCR.
       hudQueue = hudQueue
@@ -758,7 +789,7 @@ function setReader(enabled, { automatic = false } = {}) {
         .catch((error) => console.error("HUD:", error.message));
       const { levelImage, goldImage, clicks, ...publicData } = data;
       if(state.gameSession.ended){publicData.slots=[];publicData.matchEnded=true;}
-      mainWindow?.webContents.send("reader:data", publicData);
+      if(data.kind!=='hud')mainWindow?.webContents.send("reader:data", publicData);
       if (data.error) clearReader();
     } catch {
       /* Ignore non-JSON diagnostic output. */
@@ -778,7 +809,11 @@ function setReader(enabled, { automatic = false } = {}) {
   );
   lastCapture = Date.now();
   staleTimer = setInterval(() => {
-    if (Date.now() - lastCapture > 4000) {
+    if(lastShopCapture && Date.now()-lastShopCapture>750 && state.slots.length && !overlayGate.interacting){
+      state.slots=[];lastShopCapture=0;broadcastShop();
+      mainWindow?.webContents.send('reader:data',{slots:[],idle:false});
+    }
+    if (Date.now() - lastCapture > 4000 && (state.slots.length||state.levelReading.status!=='waiting'||state.goldReading.status!=='waiting')) {
       state.slots = [];
       state.levelReading = pauseLevelReading(state.levelReading);
       state.goldReading = pauseGoldReading(state.goldReading);
@@ -786,7 +821,7 @@ function setReader(enabled, { automatic = false } = {}) {
       broadcast();
       mainWindow?.webContents.send("reader:data", { slots: [], idle: true });
     }
-  }, 1000);
+  }, 100);
   state.readerActive = true;
   state.readerPresence = "waiting";
   state.readerError = "";
@@ -956,6 +991,12 @@ if (primaryInstance)
       state = {
         ...state,
         ...next,
+        // Live shop detections belong to the native reader. A delayed main
+        // renderer publication must never restore a removed/sold champion.
+        slots: !overlayPreview ? state.slots : next.slots,
+        shopRevision:state.shopRevision,
+        shopCapturedAt:state.shopCapturedAt,
+        shopLatencyMs:state.shopLatencyMs,
         opacity: Math.max(30, Math.min(100, Number(next.opacity) || 92)),
         selected: next.selected
           .filter((id) => typeof id === "string" && /^[a-zA-Z0-9_]+$/.test(id))

@@ -1,4 +1,4 @@
-param([string]$ConfigPath,[string]$ImagePath,[switch]$Once,[switch]$ShopFixture,[switch]$LevelFixture,[switch]$GoldFixture,[switch]$RepeatFixture)
+param([string]$ConfigPath,[string]$ImagePath,[switch]$Once,[switch]$ShopFixture,[switch]$LevelFixture,[switch]$GoldFixture,[switch]$RepeatFixture,[switch]$Fast,[string]$FixtureSequence)
 $ErrorActionPreference='Stop'
 [Console]::OutputEncoding = New-Object System.Text.UTF8Encoding($false)
 try {
@@ -44,6 +44,23 @@ public class ZyonWindows {
     var found = new List<Click>();
     lock(clicks) { while(clicks.Count > 0 && clicks.Peek().at <= until) found.Add(clicks.Dequeue()); }
     return found.ToArray();
+  }
+  public static string SlotFingerprint(System.Drawing.Bitmap image, int left, int top, int width, int height, int textTop, int textHeight) {
+    // Change detection only: this hash never assigns a champion identity.
+    // Include art as well as name ink so a reroll clears the old badge even
+    // before the replacement name finishes fading into view.
+    ulong hash=14695981039346656037UL;
+    unchecked {
+      for(int y=0;y<8;y++) for(int x=0;x<16;x++) {
+        var p=image.GetPixel(left+width/8+x*width*3/4/16,top+height/12+y*height/3/8);
+        hash=(hash^(uint)((p.R/32)*64+(p.G/32)*8+p.B/32))*1099511628211UL;
+      }
+      for(int y=0;y<textHeight;y+=2) for(int x=0;x<width*9/10;x+=2) {
+        var p=image.GetPixel(left+x,textTop+y);
+        hash=(hash^(uint)(p.R>140 && p.G>140 && p.B>140 ? 1:0))*1099511628211UL;
+      }
+    }
+    return hash.ToString("x16");
   }
   public static bool EmptyCard(System.Drawing.Bitmap image, int left, int top, int width, int height) {
     double sum=0, square=0; int count=0, bright=0;
@@ -203,6 +220,17 @@ public class ZyonWindows {
   $goldHeight=[int]($bounds.Height*$goldRect.height)
   $matchProcess=$null
   $matchId=$null
+  $cachedNames=@('','','','','')
+  $fingerprints=@('','','','','')
+  $lastRead=@(0L,0L,0L,0L,0L)
+  $nameMisses=@(0,0,0,0,0)
+  $lastHudAt=0L
+  $lastEndScanAt=0L
+  $pendingClicks=@()
+  $knownNames=@{}
+  if($Fast -and $config.shopNames){foreach($name in $config.shopNames){$knownNames[($name.Normalize([Text.NormalizationForm]::FormD) -replace '[\u0300-\u036f]','' -replace '[^a-zA-Z]','').ToLowerInvariant()]=$true}}
+  $sequence=$null;$sequenceIndex=-1;$sequenceUntil=0L;$sequenceChangedAt=0L
+  if($ShopFixture -and $FixtureSequence){$sequence=Get-Content -LiteralPath $FixtureSequence -Raw|ConvertFrom-Json}
   if(-not $ShopFixture){[ZyonWindows]::ObserveClicks($left,$cardTop,$totalWidth,$cardHeight)}
   do {
     if(-not $ShopFixture){
@@ -212,16 +240,25 @@ public class ZyonWindows {
     $foregroundProcess=Get-Process -Id $foregroundId -ErrorAction SilentlyContinue
     $foregroundName=$foregroundProcess.ProcessName
     if(-not (Test-ZyonGameProcess $foregroundName)){
+      $cachedNames=@('','','','','');$fingerprints=@('','','','','');$lastRead=@(0L,0L,0L,0L,0L);$nameMisses=@(0,0,0,0,0);$pendingClicks=@()
       $ended=$null
       if($matchProcess -and $matchProcess.HasExited){$ended=$matchId;$matchProcess=$null;$matchId=$null}
       $null=[ZyonWindows]::Drain([ZyonWindows]::Now())
       @{slots=@('','','','','');idle=$true;foregroundWindow=$foregroundWindow.ToInt64().ToString();matchId=$matchId;endedMatchId=$ended;reason='TFT fora de foco'}|ConvertTo-Json -Compress
-      if($Once){break};Start-Sleep -Milliseconds 1200;continue
+      if($Once){break};Start-Sleep -Milliseconds $(if($Fast){100}else{1200});continue
     }
     $matchProcess=$foregroundProcess
     $matchId="$foregroundId-$($foregroundProcess.StartTime.ToUniversalTime().Ticks)"
     }
     else{$matchId='fixture-17'}
+    if($sequence -and [ZyonWindows]::Now() -ge $sequenceUntil -and $sequenceIndex+1 -lt $sequence.Count){
+      $sequenceIndex++
+      $nextFixture=[System.Drawing.Bitmap]::FromFile($sequence[$sequenceIndex].path)
+      if($nextFixture.Width -ne $fixture.Width -or $nextFixture.Height -ne $fixture.Height){$nextFixture.Dispose();throw 'Fixture sequence dimensions differ'}
+      $fixture.Dispose();$fixture=$nextFixture
+      $sequenceChangedAt=if($sequenceIndex -eq 0){[ZyonWindows]::Now()}else{$sequenceUntil}
+      $sequenceUntil=$sequenceChangedAt+[long]$sequence[$sequenceIndex].holdMs
+    }
     $capturedAt=[ZyonWindows]::Now()
     $frame=$fixture
     if(-not $ShopFixture){
@@ -232,6 +269,65 @@ public class ZyonWindows {
     $frameClicks=@([ZyonWindows]::Drain($capturedAt)|Where-Object{$_.pid -eq $foregroundId}|ForEach-Object{@{slot=$_.slot;at=$_.at}})
     $names=@()
     $emptySlots=@()
+    if($Fast){
+      $pendingClicks+=@($frameClicks)
+      $changed=@()
+      for($i=0;$i -lt 5;$i++){
+        $slotLeft=$left-$bounds.X+$i*$slotWidth
+        $emptySlots += [ZyonWindows]::EmptyCard($frame,$slotLeft,($cardTop-$bounds.Y),$slotWidth,$cardHeight)
+        $fingerprint=[ZyonWindows]::SlotFingerprint($frame,$slotLeft,($cardTop-$bounds.Y),$slotWidth,$cardHeight,($textTop-$bounds.Y),$textHeight)
+        if($fingerprint -ne $fingerprints[$i] -or $capturedAt-$lastRead[$i] -ge 2000){
+          if($fingerprint -ne $fingerprints[$i]){$cachedNames[$i]='';$nameMisses[$i]=0}
+          $fingerprints[$i]=$fingerprint
+          if($emptySlots[$i]){$cachedNames[$i]='';$lastRead[$i]=$capturedAt}else{$changed+=,$i}
+        }
+      }
+      # Publish disappearance before spending time on recognition or HUD OCR.
+      @{kind='shop';phase='observed';slots=$cachedNames;capturedAt=$capturedAt;matchId=$matchId;idle=$false;fixtureIndex=$sequenceIndex;fixtureChangedAt=$sequenceChangedAt}|ConvertTo-Json -Compress -Depth 3
+      if($changed.Count -gt 0){
+        $rowHeight=$textHeight*2+24
+        $atlas=New-Object System.Drawing.Bitmap(($slotWidth*2),($rowHeight*$changed.Count))
+        $atlasGraphics=[System.Drawing.Graphics]::FromImage($atlas)
+        try{
+          $atlasGraphics.Clear([System.Drawing.Color]::Black)
+          for($r=0;$r -lt $changed.Count;$r++){
+            $i=$changed[$r]
+            $atlasGraphics.DrawImage($frame,[System.Drawing.Rectangle]::new(0,($r*$rowHeight+12),($slotWidth*2),($textHeight*2)),[System.Drawing.Rectangle]::new(($left-$bounds.X+$i*$slotWidth),($textTop-$bounds.Y),$slotWidth,$textHeight),[System.Drawing.GraphicsUnit]::Pixel)
+            $cachedNames[$i]=''
+          }
+          $batch=Read-ZyonBitmap $atlas
+          foreach($line in $batch.Lines){
+            # OCR may merge neighbouring rows into one line. Assign words by
+            # their actual coordinates, preserving duplicate fixed slots.
+            $rowWords=@{}
+            foreach($word in $line.Words){
+              $row=[int][Math]::Floor(($word.BoundingRect.Y+$word.BoundingRect.Height/2)/$rowHeight)
+              if($row -ge 0 -and $row -lt $changed.Count){$rowWords[$row]=@($rowWords[$row])+$word.Text}
+            }
+            foreach($row in $rowWords.Keys){$i=$changed[$row];$cachedNames[$i]+=(($rowWords[$row] -join ' ').Trim()+"`n")}
+          }
+          foreach($i in $changed){
+            $lastRead[$i]=$capturedAt
+            if($knownNames.Count -gt 0){
+              $known=$false
+              foreach($line in ($cachedNames[$i] -split "`n")){if($knownNames[($line.Normalize([Text.NormalizationForm]::FormD) -replace '[\u0300-\u036f]','' -replace '[^a-zA-Z]','').ToLowerInvariant()]){$known=$true;break}}
+              # A fading/unknown name is retried after120ms, not held for2s.
+              if(-not $known){$nameMisses[$i]++;$lastRead[$i]=$capturedAt-$(if($nameMisses[$i] -le 4){1880}else{1000})}else{$nameMisses[$i]=0}
+            }
+          }
+        }finally{$atlasGraphics.Dispose();$atlas.Dispose()}
+        @{kind='shop';phase='recognized';slots=$cachedNames;capturedAt=$capturedAt;matchId=$matchId;idle=$false;processingMs=([ZyonWindows]::Now()-$capturedAt);fixtureIndex=$sequenceIndex;fixtureChangedAt=$sequenceChangedAt}|ConvertTo-Json -Compress -Depth 3
+      }
+      $names=@($cachedNames)
+      if($capturedAt-$lastHudAt -lt 400){
+        if(-not $ShopFixture){$frame.Dispose()}
+        if($Once -or ($ShopFixture -and -not $RepeatFixture)){break}
+        Start-Sleep -Milliseconds ([Math]::Max(1,(60-([ZyonWindows]::Now()-$capturedAt))))
+        continue
+      }
+      $lastHudAt=$capturedAt
+      $frameClicks=@($pendingClicks);$pendingClicks=@()
+    }else{
     for($i=0;$i -lt 5;$i++){
       $bitmap=New-Object System.Drawing.Bitmap($slotWidth,$textHeight)
       $graphics=[System.Drawing.Graphics]::FromImage($bitmap)
@@ -246,6 +342,7 @@ public class ZyonWindows {
           $names+=($ocr.Lines|ForEach-Object{$_.Text}) -join "`n"
         }finally{$scaleGraphics.Dispose();$scaled.Dispose()}
       }finally{$graphics.Dispose();$bitmap.Dispose()}
+    }
     }
     $levelText=''
     $levelImage=''
@@ -277,8 +374,12 @@ public class ZyonWindows {
       }
     }finally{$goldMemory.Dispose();$goldScaled.Dispose();$goldBitmap.Dispose()}
     $endText=''
+    $endChecked=$true
     try {
       if($levelText -notmatch '(?i)(nv|lv|nivel|level)\s*[.:]?\s*(10|[1-9])(?!\d)' -and $goldText.Trim() -notmatch '^(0|[1-9]\d{0,2})$') {
+        $endChecked=-not $Fast -or $capturedAt-$lastEndScanAt -ge 1000
+        if($endChecked){
+        $lastEndScanAt=$capturedAt
         $endLines=@()
         foreach($region in @(@{x=0;y=0;w=1;h=1})) {
           $area=[System.Drawing.Rectangle]::new([int]($frame.Width*$region.x),[int]($frame.Height*$region.y),[int]($frame.Width*$region.w),[int]($frame.Height*$region.h))
@@ -287,11 +388,12 @@ public class ZyonWindows {
           finally {$resultBitmap.Dispose()}
         }
         $endText=$endLines -join "`n"
+        }
       }
     }finally{if(-not $ShopFixture){$frame.Dispose()}}
-    @{slots=$names;emptySlots=$emptySlots;clicks=$frameClicks;capturedAt=$capturedAt;matchId=$matchId;endText=$endText;levelText=$levelText;levelImage=$levelImage;goldText=$goldText;goldImage=$goldImage;idle=$false;geometry=@{left=$left;top=$cardTop;width=$totalWidth;height=$cardHeight;textTop=$textTop;textHeight=$textHeight;slotWidth=$slotWidth;levelLeft=$levelLeft;levelTop=$levelTop;levelWidth=$levelWidth;levelHeight=$levelHeight;goldLeft=$goldLeft;goldTop=$goldTop;goldWidth=$goldWidth;goldHeight=$goldHeight}}|ConvertTo-Json -Compress -Depth 5
+    @{kind='hud';slots=$names;emptySlots=$emptySlots;clicks=$frameClicks;capturedAt=$capturedAt;matchId=$matchId;endText=$endText;endChecked=$endChecked;levelText=$levelText;levelImage=$levelImage;goldText=$goldText;goldImage=$goldImage;idle=$false;geometry=@{left=$left;top=$cardTop;width=$totalWidth;height=$cardHeight;textTop=$textTop;textHeight=$textHeight;slotWidth=$slotWidth;levelLeft=$levelLeft;levelTop=$levelTop;levelWidth=$levelWidth;levelHeight=$levelHeight;goldLeft=$goldLeft;goldTop=$goldTop;goldWidth=$goldWidth;goldHeight=$goldHeight}}|ConvertTo-Json -Compress -Depth 5
     if($ShopFixture -and -not $RepeatFixture){break}
-    if(-not $Once){Start-Sleep -Milliseconds 850}
+    if(-not $Once){Start-Sleep -Milliseconds $(if($Fast){[Math]::Max(1,(60-([ZyonWindows]::Now()-$capturedAt)))}else{850})}
   }while(-not $Once)
   if($fixture){$fixture.Dispose()}
 }catch{

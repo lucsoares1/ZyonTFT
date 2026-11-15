@@ -33,6 +33,24 @@ try{
  await fs.writeFile(`.runtime/continuity-user-${tag}.json`,JSON.stringify({id:userId,email:`zyon-continuity-${tag}@example.invalid`}));
  const original=await waitFor(s=>s.overlayVisible&&s.levelReading.status==='confirmed'&&s.goldReading.status==='confirmed','game started');
  const id=original.guideComp.champions[0];await page.evaluate(({id,compId})=>window.zyon.gameAction({type:'copies',id,delta:1,compId}),{id,compId:original.pinned});
+ if(process.argv.includes('--shop')){
+  const image=path.resolve('design/references/17-game-ocr.png'),sequence=path.join(profile,'sequence.json');
+  await promisify(execFile)('powershell.exe',['-NoProfile','-NonInteractive','-ExecutionPolicy','Bypass','-File','scripts/create-shop-sequence.ps1','-SourcePath',image,'-OutputDirectory',profile],{windowsHide:true});
+  await fs.writeFile(sequence,JSON.stringify([{path:image,holdMs:1200},{path:path.join(profile,'swapped.png'),holdMs:1200},{path:path.join(profile,'sold.png'),holdMs:1200},{path:image,holdMs:1200}]));
+  await page.evaluate(async()=>{const s=await window.zyon.getState();if(!s.guideComp.champions.includes('DA_Vi18'))await window.zyon.editPlan({compId:s.pinned,type:'toggle',id:'DA_Vi18'});});
+  const overlay=app.windows().find(w=>w.url().includes('view=overlay'));
+  await overlay.evaluate(()=>{window.shopProbe=[];let latest;const record=()=>{if(latest)window.shopProbe.push({ids:latest.slots.map(s=>s.id),ms:Date.now()-latest.shopCapturedAt,badges:[...document.querySelectorAll('.native-slot')].map(s=>!!s.querySelector('.shop-medal'))});};window.zyon.onShop(next=>{latest=next;setTimeout(record,10);});new MutationObserver(record).observe(document.body,{childList:true,subtree:true});});
+  await page.evaluate(()=>window.zyon.setReader(false));await app.evaluate((_,value)=>{process.env.ZYON_SHOP_SEQUENCE=value;},sequence);await page.evaluate(()=>window.zyon.setReader(true));
+  await new Promise(r=>setTimeout(r,6500));
+  const observations=await overlay.evaluate(()=>window.shopProbe),initial=observations.find(s=>s.ids[0]==='DA_Vi18'&&s.badges[0]),swapped=observations.find(s=>s.ids[2]==='DA_Vi18'&&s.badges[2]),removed=observations.find(s=>s.ids[0]==='DA_18_Alistar'&&s.ids[2]===null&&!s.badges[2]);
+  assert.ok(initial,'new native OCR badge rendered');assert.ok(swapped,'reroll moves the badge to the new slot');assert.ok(removed,'sold slot removes the badge');
+  const current=await page.evaluate(()=>window.zyon.getState());assert.equal(current.slots[0].id,'DA_Vi18');
+  await page.evaluate(async()=>{const s=await window.zyon.getState();await window.zyon.publish({...s,slots:[null,null,'DA_Vi18',null,null]});});
+  const protectedState=await page.evaluate(()=>window.zyon.getState());assert.equal(protectedState.slots[0].id,'DA_Vi18');assert.equal(protectedState.slots[2].id,'DA_18_Alistar');
+  await fs.writeFile(path.join(out,'shop-renderer.json'),JSON.stringify({ok:true,captureToBadgeMs:initial.ms,rerollToBadgeMs:swapped.ms,soldSlotRemovalMs:removed.ms,lateRendererCannotRestoreSlots:true,scope:'real native OCR and Electron DOM with synthetic shop sequence and simulated foreground'},null,2));
+  console.log(JSON.stringify({shopRenderer:true,captureToBadgeMs:initial.ms,rerollToBadgeMs:swapped.ms,soldSlotRemovalMs:removed.ms}));
+  await app.evaluate(()=>{delete process.env.ZYON_SHOP_SEQUENCE;});
+ }
  await changeFixture(blank);
  await waitFor(s=>s.levelReading.status==='unreadable'&&s.goldReading.status==='unreadable','HUD absent');
  await new Promise(r=>setTimeout(r,8500));

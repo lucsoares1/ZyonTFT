@@ -1,6 +1,14 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { matchShop, recognizeNames, validateRect } from "../src/shop.mjs";
+import { matchShop, recognizeNames, validateRect, mergeOverlaySnapshot, mergeShopUpdate } from "../src/shop.mjs";
+test('a late HUD snapshot cannot restore a shop badge cleared by a newer visual frame',()=>{
+ const old={slots:['Ashe'],shopRevision:3,gameSession:{level:7}},cleared={...old,slots:[],shopRevision:4,shopCapturedAt:100,shopLatencyMs:4};
+ const next=mergeOverlaySnapshot(cleared,{...old,gameSession:{level:8}});
+ assert.deepEqual(next.slots,[]);assert.equal(next.shopRevision,4);assert.equal(next.gameSession.level,8);assert.equal(next.shopLatencyMs,4);
+ assert.equal(mergeShopUpdate(cleared,old),cleared);
+ assert.deepEqual(mergeShopUpdate(cleared,{slots:['Ahri'],shopRevision:5}).slots,['Ahri']);
+ assert.deepEqual(mergeOverlaySnapshot(cleared,{slots:[],shopRevision:5}).slots,[]);
+});
 test("five fixed slots preserve duplicate targets and sold positions", () => {
   const result = matchShop(
     ["Ashe", null, "Ashe", "Ahri", "Lulu"],
