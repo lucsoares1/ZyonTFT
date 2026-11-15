@@ -62,7 +62,7 @@ import {SidebarComp} from "./SidebarComp";
 import {SocialPanel,useSocial} from './SocialPanel';
 import {SocialNotifications} from './SocialNotifications';
 import {AccountGate,AccountProfile} from './AccountGate';
-import {effectiveComp,partnerNeeds} from './duo-plans.mjs';
+import {effectiveComp,partnerNeeds,shoppingWishes} from './duo-plans.mjs';
 import {UpdateProvider,UpdatesSettings,UpdateIndicator} from './Updates';
 
 type Slot = string | null | { id: string | null; confidence: number };
@@ -157,7 +157,7 @@ function Badge({
   matched: boolean;
   preview?: boolean;
   label?: string;
-  kind?: "buy" | "reserve" | "core" | "send" | "shared";
+  kind?: "buy" | "reserve" | "core" | "send" | "shared" | "trait";
 }) {
   return matched ? (
     <ShopMedal label={label} kind={kind} preview={preview} />
@@ -181,11 +181,13 @@ function Overlay() {
     state?.guideComp && state?.pinned
       ? planForLevel(state.guideComp, byId, state.gameSession?.context)
       : null,[state?.guideComp,state?.pinned,state?.gameSession?.context]);
+  const ownWishes=useMemo(()=>state?.pinned?shoppingWishes(state.guideComp,state.overlayPlans?.[state.pinned],state.gameSession,byId).filter(w=>w.goal>w.owned):[],[state?.pinned,state?.guideComp,state?.overlayPlans,state?.gameSession?.context]);
   if (!state) return null;
   const priority = livePlan?.search || [];
   const reserve = livePlan?.reserve || [];
   const send=partnerNeeds(state.social,state.gameSession,clock).map((w:any)=>w.id);
-  const own=state.pinned?[...new Set([...state.selected,...priority,...reserve])]:[];
+  const own=ownWishes.map(w=>w.id);
+  const traitWishes=new Set(ownWishes.filter(w=>w.reason==='trait').map(w=>w.id));
   const matches = matchShop(
     state.slots || [],
     [...new Set([...own,...send])],
@@ -200,7 +202,7 @@ function Overlay() {
           className="native-slot"
           key={slot.index}
           data-highlighted={slot.highlighted || undefined}
-          data-kind={send.includes(slot.id)?own.includes(slot.id)?'shared':'send':priority.includes(slot.id)?'buy':reserve.includes(slot.id)?'reserve':'core'}
+          data-kind={send.includes(slot.id)?own.includes(slot.id)?'shared':'send':traitWishes.has(slot.id)?'trait':priority.includes(slot.id)?'buy':reserve.includes(slot.id)?'reserve':'core'}
           style={{
             left: `${card.x * 100}%`,
             top: `${card.y * 100}%`,
@@ -213,9 +215,9 @@ function Overlay() {
           {slot.highlighted && state.shopCards?.[slot.index] && <ShopFrostFrame index={slot.index} jewel={(byId[slot.id]?.cost || 0) > 1} />}
           <Badge
             matched={slot.highlighted}
-            kind={send.includes(slot.id)?own.includes(slot.id)?'shared':'send':priority.includes(slot.id) ? "buy" : reserve.includes(slot.id) ? "reserve" : "core"}
+            kind={send.includes(slot.id)?own.includes(slot.id)?'shared':'send':traitWishes.has(slot.id)?'trait':priority.includes(slot.id) ? "buy" : reserve.includes(slot.id) ? "reserve" : "core"}
             label={
-              send.includes(slot.id)?`${own.includes(slot.id)?'Você e sua dupla querem':'Enviar para'} ${state.social?.partner?.display_name||'sua dupla'}`:priority.includes(slot.id)
+              send.includes(slot.id)?`${own.includes(slot.id)?'Você e sua dupla querem':'Enviar para'} ${state.social?.partner?.display_name||'sua dupla'}`:traitWishes.has(slot.id)?`Sinergia: ${(byId[slot.id]?.traits||[]).filter(t=>state.overlayPlans?.[state.pinned]?.traits?.includes(t)).join(', ')}`:priority.includes(slot.id)
                 ? "Comprar agora"
                 : reserve.includes(slot.id)
                   ? "Guardar p/ transição"

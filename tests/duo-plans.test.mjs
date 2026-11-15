@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
-import {effectiveComp,editWorkingPlan,sharingPayload,normalizeSharedPlan,partnerNeeds} from '../src/duo-plans.mjs';
+import {effectiveComp,editWorkingPlan,sharingPayload,normalizeSharedPlan,partnerNeeds,shoppingWishes} from '../src/duo-plans.mjs';
 import {planForLevel} from '../src/level-planner.mjs';
 const catalog=Object.fromEntries(JSON.parse(fs.readFileSync(new URL('../src/generated/catalog.json',import.meta.url))).champions.map(c=>[c.id,c]));
 const comp=JSON.parse(fs.readFileSync(new URL('../src/generated/pivot.json',import.meta.url))).comps[0];
@@ -28,6 +28,33 @@ test('send advice expires, rejects another match and disappears immediately when
  assert.equal(partnerNeeds({...social,session:null},session,now).length,0);
 });
 test('incoming plans cannot inject unknown units, excessive counts or arbitrary fields',()=>{
- const id=comp.carry,p=normalizeSharedPlan({comp:{name:'Plano',champions:[id,id,'bogus'],carry:'bogus',url:'bad'},wishes:[{id,goal:9,owned:500},{id:'bogus',goal:9,owned:0}]},catalog);
+ const id=comp.carry,p=normalizeSharedPlan({comp:{name:'Plano',champions:[id,id,'bogus','__proto__','constructor'],carry:'bogus',url:'bad'},wishes:[{id,goal:9,owned:500},{id:'bogus',goal:9,owned:0},{id:'__proto__',goal:9,owned:0}]},catalog);
  assert.deepEqual(p.comp.champions,[id]);assert.equal(p.comp.url,undefined);assert.equal(p.wishes.length,1);assert.equal(p.wishes[0].owned,9);
+});
+test('marked synergies request champions without adding them to the board, and reach the partner',()=>{
+ const target=Object.values(catalog).find(c=>!comp.champions.includes(c.id)),name=target.traits[0],session={matchId:'match',startedAt:Date.now(),context:{level:10,copies:{}}};
+ const edit=editWorkingPlan(comp,null,{type:'trait',name},catalog),working=effectiveComp(comp,edit,catalog);
+ assert.deepEqual(working.champions,comp.champions);assert.deepEqual(edit.traits,[name]);
+ const payload=sharingPayload(working,edit,session,catalog),wish=payload.shopping.find(w=>w.id===target.id);
+ assert.equal(wish.goal,1);assert.equal(wish.reason,'trait');assert.deepEqual(payload.traits,[name]);
+ const normalized=normalizeSharedPlan(payload,catalog),social={session:{id:'duo'},partnerPlan:{updated_at:new Date().toISOString(),payload:normalized}};
+ assert.ok(partnerNeeds(social,session).some(w=>w.id===target.id));
+ const complete={...session,context:{...session.context,copies:{[target.id]:1}}};
+ assert.ok(!shoppingWishes(working,edit,complete,catalog).some(w=>w.id===target.id&&w.goal>w.owned));
+});
+test('explicit champion goals and removals override synergy requests; restore clears both',()=>{
+ const name=catalog[comp.carry].traits[0];let edit=editWorkingPlan(comp,null,{type:'trait',name},catalog);
+ edit=editWorkingPlan(comp,edit,{type:'goal',id:comp.carry,goal:0},catalog);
+ assert.ok(!shoppingWishes(effectiveComp(comp,edit,catalog),edit,{context:{level:10}},catalog).some(w=>w.id===comp.carry));
+ edit=editWorkingPlan(comp,edit,{type:'toggle',id:comp.carry},catalog);
+ assert.ok(!shoppingWishes(effectiveComp(comp,edit,catalog),edit,{context:{level:10}},catalog).some(w=>w.id===comp.carry));
+ assert.equal(editWorkingPlan(comp,edit,{type:'restore'},catalog),null);
+});
+test('shared shopping includes transition highlights, validates synergies and stays within RPC size limits',()=>{
+ const session={context:{level:3,copies:{}}};const payload=sharingPayload(comp,null,session,catalog);
+ assert.ok(payload.shopping.some(w=>w.reason==='transition'&&!comp.champions.includes(w.id)));
+ const traits=[...new Set(Object.values(catalog).flatMap(c=>c.traits))];let edit=editWorkingPlan(comp,null,{type:'trait',name:traits[0]},catalog);edit.traits=traits;
+ const all=sharingPayload(comp,edit,session,catalog);assert.ok(Buffer.byteLength(JSON.stringify(all))<32768);assert.ok(all.wishes.length<=28);
+ const normalized=normalizeSharedPlan({...all,traits:[...traits,'not-a-trait'],shopping:[...all.shopping,{id:'bogus',goal:9,owned:0},{id:'__proto__',goal:9,owned:0}]},catalog);
+ assert.ok(!normalized.traits.includes('not-a-trait'));assert.ok(!normalized.shopping.some(w=>w.id==='bogus'));
 });

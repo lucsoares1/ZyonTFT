@@ -32,7 +32,7 @@ export function ShopFrostFrame({index=0,jewel=false}:{index?:number;jewel?:boole
 }
 
 export function ShopMedal({ label, kind = "core", preview = false }: {
-  label: string; kind?: "buy" | "reserve" | "core" | "send" | "shared"; preview?: boolean;
+  label: string; kind?: "buy" | "reserve" | "core" | "send" | "shared" | "trait"; preview?: boolean;
 }) {
   const id = useId().replaceAll(":", "");
   return (
@@ -58,7 +58,7 @@ export function ShopMedal({ label, kind = "core", preview = false }: {
         <image href="./assets/brand/zyontftlogo.png" x="9" y="9" width="46" height="47"/>
         <path d="m45 8 2 5 5 2-5 2-2 5-2-5-5-2 5-2Z" fill="#dee7f5"/>
       </svg>
-      <span className="shop-medal-caption">{kind==='send'?'Enviar':kind==='shared'?'Ambos':kind === "buy" ? "Comprar" : kind === "reserve" ? "Guardar" : "Comp"}</span>
+      <span className="shop-medal-caption">{kind==='send'?'Enviar':kind==='shared'?'Ambos':kind==='trait'?'Sinergia':kind === "buy" ? "Comprar" : kind === "reserve" ? "Guardar" : "Comp"}</span>
     </span>
   );
 }

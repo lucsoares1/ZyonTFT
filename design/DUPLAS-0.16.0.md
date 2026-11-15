@@ -60,3 +60,11 @@ As presenças são renovadas a cada 15 segundos. Após 120 segundos sem atualiza
 Conta, login, amizade e comp escolhida são preservados. Para jogar juntos novamente, basta enviar e aceitar um novo convite. Ambos devem atualizar o app para receber todas essas proteções; não foi adicionado serviço residente, dependência ou modelo extra.
 
 `tests/duo-lifecycle.test.mjs` cobre marcadores persistentes, mudança de boot, isolamento por usuário/dupla, falha de rede, corrida entre encerramentos e supressão de publicações. `node scripts/verify-duo.mjs --live-shop --background --no-captures --lifecycle` verifica dois clientes Electron autenticados no Supabase real, incluindo reabertura, evento nativo simulado, falha de rede, boot anterior e expiração real de 120 segundos. O teste não desliga/reinicia o PC nem modifica o perfil pessoal.
+
+## Sinergias e o mesmo pedido nos dois clientes (0.17.10)
+
+No Planejar do overlay, selecione uma peça do elenco para editar sua meta. O catálogo alterna entre Campeões e Sinergias; cada sinergia mostra os campeões correspondentes e quantos estão no plano. Marcar uma sinergia procura uma cópia de cada membro, sem colocar todos no tabuleiro. Metas individuais e remoções explícitas prevalecem. Restaurar comp limpa as alterações e as sinergias marcadas.
+
+O mesmo conjunto de compras pendentes alimenta os destaques próprios e a lista compartilhada, incluindo portadores temporários/transições e sinergias. Os avisos indicam Sinergia, Enviar ou Ambos conforme quem precisa da peça. O reconhecimento exato de um campeão na loja inclui suas sinergias oficiais do catálogo; não se acrescenta uma segunda chamada de OCR nem se tenta reconhecer um campeão só por uma característica parcialmente lida.
+
+O payload mantém wishes compatível com o RPC existente e acrescenta shopping e traits, validados no recebimento. Mantém os limites de tamanho, catálogo e cópias e as regras de frescor/partidas. Ambos devem atualizar para ver os novos pedidos por sinergia e transição. `verify-duo --live-shop --background --traits` cobre marcação/cancelamento pela interface, Realtime real, metadados da leitura nativa e medalha no parceiro, sem mudar sessão ou elenco. O teste usa dois clientes isolados em um PC; não comprova envio real pelo Canhão nem execução em dois computadores físicos.

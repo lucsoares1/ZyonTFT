@@ -10,6 +10,10 @@ O app consulta versões ao abrir (após 8 segundos), a cada 4 horas enquanto est
 
 ## Lançar uma versão
 
+Desde a 0.17.10, a publicação também confere todos os arquivos do app.asar e da pasta app.asar.unpacked, seus hashes, as dependências transitivas e os assets do build. O CI extrai o próprio Setup fora do checkout e abre o aplicativo extraído com perfil isolado, verificando o gate de login, os módulos distribuídos e uma leitura OCR real offline (nível8/ouro56), incluindo worker WASM e modelo local. Qualquer falha mantém o release em rascunho. Node e Python não precisam ser instalados no PC do jogador.
+
+O instalador marca a cópia em andamento antes de substituir arquivos e remove o marcador somente ao concluir. Se o atalho for aberto nesse intervalo, o bootstrap aguarda a abertura automática feita pelo instalador em vez de carregar dependências parcialmente copiadas. Marcadores de processos já encerrados não bloqueiam a abertura. Uma instalação realmente incompleta recebe orientação recuperável de reinstalação, preservando os dados. Não iniciar manualmente o executável enquanto o instalador ainda está trabalhando.
+
 1. Termine e teste as alterações e envie os commits para a branch principal.
 2. Na pasta do projeto, execute `npm run release -- 0.17.2 "Descrição das melhorias"`, sempre com uma versão maior.
 3. Acompanhe https://github.com/lucsoares1/ZyonTFT/actions. O workflow testa, compila no Windows, cria um rascunho, envia instalador/blockmap/latest.yml, confere os hashes e somente então publica o release.

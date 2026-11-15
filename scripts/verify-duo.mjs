@@ -5,6 +5,8 @@ import path from 'node:path';
 import assert from 'node:assert/strict';
 import {_electron as electron} from 'playwright';
 import {createClient} from '@supabase/supabase-js';
+import {shoppingWishes} from '../src/duo-plans.mjs';
+const championCatalog=Object.fromEntries(JSON.parse(await fs.readFile('src/generated/catalog.json','utf8')).champions.map(c=>[c.id,c]));
 const {version}=JSON.parse(await fs.readFile('package.json','utf8'));
 const config=JSON.parse(await fs.readFile('electron/cloud-config.json','utf8'));
 const users=JSON.parse(await fs.readFile('.runtime/duo-live-credentials.json','utf8'));
@@ -130,7 +132,9 @@ try{
  if(liveShop)await waitValue(()=>state(a.page),s=>s.slots?.some(slot=>slot.id===requestedId),'native shop identifies partner champion');
  else await a.page.evaluate(async()=>{const s=await window.zyon.getState();await window.zyon.publish({...s,slots:['DA_18_Teemo',null,null,null,null]});});
  const badges=await waitValue(async()=>a.app.windows().find(w=>w.url().includes('view=overlay')),Boolean,'shop badges');
- await badges.locator('.shop-medal[data-kind="send"]').waitFor();
+ const requestedSlot=liveShop?(await state(a.page)).slots.findIndex(s=>s?.id===requestedId):0;assert.ok(requestedSlot>=0);
+ const requestedBadge=badges.locator('.native-slot').nth(requestedSlot).locator('.shop-medal[data-kind="send"],.shop-medal[data-kind="shared"]');
+ await requestedBadge.waitFor();
  const beforeMinimize=await state(a.page),medals=await badges.locator('.shop-medal').count();
  const expandedControl=await controlPoint(a.app,ga);
  await ga.getByRole('button',{name:'Encolher painel e manter avisos da loja',exact:true}).click();
@@ -157,20 +161,41 @@ try{
  });
  assert.equal(repeatedShows,0,'HUD heartbeats must not repeatedly present already visible native windows');
  checks.push('shop-only mode keeps shop medals and reading, restores the guide, and native window movement persists without side switching');
- assert.ok((await badges.locator('.shop-medal[data-kind="send"]').getAttribute('aria-label')).includes(users[1].displayName));
+ assert.ok((await requestedBadge.getAttribute('aria-label')).includes(users[1].displayName));
  await capture(a.app,badges,path.join(out,`shop-send${suffix}.png`));
  await ga.getByRole('tab',{name:'Dupla',exact:true}).click();
  await ga.locator('.duo-wish').first().waitFor();await capture(a.app,ga,path.join(out,`overlay-duo${suffix}.png`));
  await capture(b.app,gb,path.join(out,`overlay-planner${suffix}.png`));
  await capture(a.app,a.page,path.join(out,`friends${suffix}.png`));
  await gb.getByRole('radio',{name:`Não pedir cópias de ${requestedName}`,exact:true}).check();
- await waitValue(async()=>badges.locator('.shop-medal[data-kind="send"]').count(),n=>n===0,'request cleared from shop');
+ await waitValue(async()=>requestedBadge.count(),n=>n===0,'request cleared from shop');
  await gb.getByRole('radio',{name:`3 estrelas, 9 cópias de ${requestedName}`,exact:true}).check();
- await badges.locator('.shop-medal[data-kind="send"]').waitFor();
+ await requestedBadge.waitFor();
  await gb.locator('.overlay-plan-roster').getByRole('button',{name:`Retirar ${requestedName} da comp`,exact:true}).click();
- await waitValue(async()=>badges.locator('.shop-medal[data-kind="send"]').count(),n=>n===0,'removed unit no longer requested');
+ await waitValue(async()=>requestedBadge.count(),n=>n===0,'removed unit no longer requested');
  await gb.getByRole('button',{name:'Restaurar comp',exact:true}).click();
  const restored=await state(b.page);assert.deepEqual(restored.guideComp.champions,restored.baseGuideComp.champions);assert.ok(restored.guideComp.pivot);
+ if(process.argv.includes('--traits')){
+  const beforeTraits=await state(b.page);
+  const cleanComp=beforeTraits.saved.comps.find(c=>!shoppingWishes(c,null,beforeTraits.gameSession,championCatalog).some(w=>w.id===requestedId));assert.ok(cleanComp,'a comp without this existing request');
+  if(cleanComp.id!==beforeTraits.pinned){await gb.getByRole('tab',{name:'Comps',exact:true}).click();await gb.getByRole('textbox',{name:'Buscar composição no overlay',exact:true}).fill(cleanComp.name);await gb.locator(`[data-comp="${cleanComp.id}"]`).click();}
+  await waitValue(()=>state(b.page),s=>s.pinned===cleanComp.id,'comp for synergy request');await gb.getByRole('tab',{name:'Planejar',exact:true}).click();
+  const before=await state(b.page),trait=championCatalog[requestedId].traits[0];
+  await gb.getByRole('tab',{name:/^Sinergias/}).click();await gb.getByRole('textbox',{name:'Buscar sinergia no overlay',exact:true}).fill(trait);
+  await gb.getByRole('button',{name:`Procurar sinergia ${trait}`,exact:true}).click();
+  await waitValue(()=>social(a.page),s=>s.partnerPlan?.payload?.traits.includes(trait)&&s.partnerPlan.payload.shopping.some(w=>w.id===requestedId&&w.reason==='trait'),'synergy request arrives through real Realtime');
+  const changed=await state(b.page);assert.deepEqual(changed.guideComp.champions,before.guideComp.champions);assert.deepEqual(changed.gameSession,before.gameSession);
+  await requestedBadge.waitFor();
+  if(liveShop)assert.ok((await state(a.page)).slots.find(s=>s?.id===requestedId)?.traits.includes(trait),'native shop reading exposes official synergy metadata');
+  await capture(b.app,gb,path.join(out,`planner-synergy-selected${suffix}.png`));
+  await gb.getByRole('textbox',{name:'Buscar sinergia no overlay',exact:true}).fill('');
+  await gb.locator('.plan-trait-catalog').scrollIntoViewIfNeeded();await capture(b.app,gb,path.join(out,`planner-synergies${suffix}.png`));
+  await gb.getByRole('button',{name:`Remover sinergia ${trait} dos destaques`,exact:true}).click();
+  await waitValue(async()=>requestedBadge.count(),n=>n===0,'unmarked synergy clears partner badge');
+  await gb.getByRole('tab',{name:/^Campeões/}).click();await gb.locator('.overlay-champion-pool').scrollIntoViewIfNeeded();await capture(b.app,gb,path.join(out,`planner-catalog${suffix}.png`));
+  if(cleanComp.id!==beforeTraits.pinned){await gb.getByRole('tab',{name:'Comps',exact:true}).click();await gb.getByRole('textbox',{name:'Buscar composição no overlay',exact:true}).fill(beforeTraits.guideComp.name);await gb.locator(`[data-comp="${beforeTraits.pinned}"]`).click();await gb.getByRole('tab',{name:'Planejar',exact:true}).click();}
+  checks.push('selected synergy reaches partner Realtime and native shop badge without changing roster/copies; recognized champion includes official traits; unmarking clears the request');
+ }
  for(const width of [840,640]){
   await b.app.evaluate(({BrowserWindow},width)=>BrowserWindow.getAllWindows().find(w=>w.webContents.getURL().includes('view=guide')).setBounds({width}),width);
   await gb.evaluate(()=>document.querySelector('.game-content')?.scrollTo(0,0));

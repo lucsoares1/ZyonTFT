@@ -51,6 +51,9 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CSC_IDENTITY_AUTO_DISCOVERY: 'false'
       - run: npm run release:verify
+      - name: Verificar app completo dentro do instalador
+        shell: pwsh
+        run: node scripts/verify-packaged-runtime.mjs --installer "release/Zyon-TFT-Setup-$env:RELEASE_VERSION.exe"
       - name: Conferir anexos e liberar atualização
         shell: pwsh
         env:

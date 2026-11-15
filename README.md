@@ -8,6 +8,10 @@ Use o instalador **Zyon-TFT-Setup** da versão mais recente em [Releases](https:
 
 Cada jogador cria sua conta, adiciona o amigo pelo código e aceita o convite no Zyon. A fila de Duplas Dinâmicas e o envio por Canhão de Cooperação continuam no próprio TFT. As compras observadas pelo OCR podem precisar de correção; o app não lê a posse completa do tabuleiro nem transfere campeões automaticamente.
 
+O Setup inclui o runtime do aplicativo, dependências e modelo local de OCR. Quem instala não precisa de Node, Python ou pacotes adicionais. Desde a 0.17.10, o CI abre o app extraído do próprio instalador e testa OCR offline antes de publicar; a abertura durante a troca dos arquivos também é protegida.
+
+No Planejar do overlay, selecione campeões ou marque sinergias para destacar as peças correspondentes na loja. A dupla recebe os mesmos pedidos, incluindo transições e sinergias. As metas individuais e remoções têm prioridade; o compartilhamento requer os dois apps atualizados.
+
 ## Desenvolver
 
 ```sh

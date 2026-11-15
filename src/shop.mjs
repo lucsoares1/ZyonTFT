@@ -33,6 +33,7 @@ export function matchShop(slots, selected) {
 
 export function recognizeNames(rawSlots, champions) {
   const aliases = new Map();
+  const traitsById=new Map(champions.map(c=>[c.id,c.traits||[]]));
   champions.forEach((c) =>
     [c.name, c.id, ...(c.aliases || [])].forEach((a) =>
       aliases.set(normalizeName(a), c.id),
@@ -45,9 +46,9 @@ export function recognizeNames(rawSlots, champions) {
       .filter(Boolean);
     for (const word of words) {
       const id = aliases.get(word);
-      if (id) return { id, confidence: 1 };
+      if (id) return { id, confidence: 1, traits:[...traitsById.get(id)] };
     }
-    return { id: null, confidence: 0 };
+    return { id: null, confidence: 0, traits:[] };
   });
 }
 

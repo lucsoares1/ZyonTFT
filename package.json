@@ -4,7 +4,7 @@
   "private": true,
   "description": "Overlay pessoal de comps e destaques de loja para TFT",
   "type": "module",
-  "main": "electron/main.cjs",
+  "main": "electron/bootstrap.cjs",
   "scripts": {
     "dev": "node scripts/dev.mjs",
     "dev:web": "vite --host 127.0.0.1 --port 5199 --strictPort",
@@ -44,6 +44,8 @@
       "electron/**/*",
       "src/shop.mjs",
       "src/duo-plans.mjs",
+      "src/level-planner.mjs",
+      "src/generated/level-rules.json",
       "src/generated/catalog.json",
       "src/generated/pivot.json",
       "src/generated/pivot-registry.json",
@@ -57,6 +59,7 @@
       "icon": "electron/icon.ico"
     },
     "nsis": {
+      "include": "electron/installer.nsh",
       "artifactName": "Zyon-TFT-Setup-${version}.${ext}",
       "oneClick": true,
       "perMachine": false,

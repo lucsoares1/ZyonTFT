@@ -1,0 +1,121 @@
+.game-guide .plan-workbench {
+  padding: 18px;
+  border: 1px solid #273b55;
+  border-radius: 16px;
+  background: #0a101bf7;
+  color: #eef4ff;
+}
+.game-guide .plan-workbench .overlay-planner-heading { margin-bottom: 23px; align-items: center; }
+.game-guide .plan-workbench .overlay-planner-heading h2 { margin: 0; font: 750 21px/1.25 Manrope,sans-serif; letter-spacing: -.65px; }
+.game-guide .plan-workbench .overlay-planner-heading p { margin: 6px 0 0; color: #9eb1cb; font-size: 12px; line-height: 1.5; }
+.game-guide .plan-workbench .overlay-planner-heading>button { padding: 8px 11px; background: #142237; border: 1px solid #2c4261; border-radius: 7px; font-size: 11px; }
+.plan-section-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 11px; }
+.plan-section-heading h3 { display: flex; align-items: center; gap: 8px; margin: 0; font: 700 13px/1.4 Manrope,sans-serif; }
+.plan-section-heading h3>span { padding: 2px 6px; border-radius: 5px; background: #1c2d45; color: #a9c4eb; font-size: 10px; font-variant-numeric: tabular-nums; }
+.plan-sync-state { display: flex; align-items: center; gap: 6px; min-width: 0; color: #8ea3c0; font-size: 10px; text-align: right; }
+.plan-sync-state.is-connected { color: #95bbff; }
+.game-guide .plan-workbench .overlay-plan-roster { grid-template-columns: repeat(4,minmax(0,1fr)); gap: 7px; margin: 0 0 12px; }
+.game-guide .plan-workbench .plan-unit { position: relative; padding: 0; border: 1px solid #27364d; border-radius: 8px; background: #111c2c; min-width: 0; overflow: hidden; }
+.game-guide .plan-workbench .plan-unit.is-focused { background: #11284b; border-color: #347aff; }
+.game-guide .plan-workbench .plan-unit { border-color: #27364d !important; }
+.game-guide .plan-workbench .plan-unit.is-focused { border-color: #347aff !important; }
+.game-guide .plan-workbench .plan-unit-select { display: flex; align-items: center; justify-content: flex-start; gap: 9px; width: 100%; min-height: 69px; padding: 9px 22px 9px 9px; border: 0; border-radius: 0; background: transparent; text-align: left; }
+.game-guide .plan-workbench .plan-unit-select>img { flex: 0 0 39px; width: 39px; height: 43px; object-fit: cover; border: 0; border-bottom: 2px solid var(--cost-color); border-radius: 5px; }
+.plan-unit-select>span { flex: 1; min-width: 0; }
+.game-guide .plan-workbench .plan-unit-select strong { display: block; margin: 0; color: #edf4ff; font: 700 12px/1.4 Manrope,sans-serif; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; }
+.game-guide .plan-workbench .plan-unit-select small { display: block; margin-top: 5px; color: #8fa9cd; font-size: 10px; }
+.game-guide .plan-workbench .plan-unit .equipment { --item-size: 15px; gap: 2px; margin: 5px 0 0; min-height: 0; }
+.game-guide .plan-workbench .plan-remove { position: absolute; right: 3px; top: 3px; width: 21px; height: 21px; min-height: 21px; padding: 0; color: #7187a6; background: transparent; border: 0; border-radius: 5px; display: grid; place-items: center; }
+.game-guide .plan-workbench .plan-remove:hover { color: #fac6cc; background: #362333; }
+.plan-focus { display: flex; align-items: center; justify-content: space-between; gap: 22px; padding: 15px; margin-bottom: 26px; background: #111f32; border-radius: 9px; animation: planner-focus-in .16s ease-out; }
+.plan-focus-unit { display: flex; align-items: center; gap: 12px; min-width: 0; }
+.plan-focus-unit>img { width: 56px; height: 61px; flex-shrink: 0; object-fit: cover; border-radius: 7px; border: 1px solid var(--cost-color); }
+.plan-focus-unit>div { min-width: 0; }
+.plan-focus-unit strong { display: block; color: #f2f6ff; font-size: 15px; line-height: 1.4; }
+.plan-focus-unit span { display: block; margin-top: 4px; color: #a1b7d6; font-size: 10px; line-height: 1.6; }
+.plan-focus-unit small { display: block; margin-top: 5px; color: #7f9ac0; font-size: 10px; }
+.game-guide .plan-workbench .plan-request { margin: 0; padding: 0; flex: 0 0 220px; }
+.game-guide .plan-workbench .plan-request legend { margin-bottom: 7px; color: #bdcee6; font-size: 11px; font-weight: 600; }
+.game-guide .plan-workbench .plan-goals { gap: 4px; padding: 3px; border: 1px solid #2b4263; border-radius: 8px; background: #0a1424; }
+.game-guide .plan-workbench .plan-goal>span { min-height: 37px; flex-direction: row; gap: 6px; padding: 6px 4px; background: transparent; border: 0; border-radius: 5px; color: #8ca5c8; }
+.game-guide .plan-workbench .plan-goal strong { color: inherit; font-size: 14px; }
+.game-guide .plan-workbench .plan-goal>input:checked+span { background: #2563eb; color: #fff; }
+.game-guide .plan-workbench .plan-goal>input:focus-visible+span { outline: 2px solid #9fc6ff; outline-offset: 2px; }
+.game-guide .plan-workbench .plan-goal:hover>span { background: #1b3355; color: #fff; }
+.game-guide .plan-workbench .plan-goal>input:checked+span { background: #2563eb; }
+.plan-star-pips { display: flex; flex-direction: column; gap: 3px; }
+.plan-star-pips>b { width: 4px; height: 4px; background: currentColor; transform: rotate(45deg); border-radius: .5px; }
+.game-guide .plan-workbench .plan-goal-caption { margin: 7px 0 0; color: #a4bad9; font-size: 10px; line-height: 1.4; text-align: center; }
+.plan-catalog-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; border-bottom: 1px solid #263851; }
+.plan-catalog-heading>[role=tablist] { display: flex; gap: 22px; }
+.game-guide .plan-workbench .plan-catalog-heading button { display: flex; align-items: center; gap: 6px; position: relative; min-height: 43px; margin: 0; padding: 0 0 11px; border: 0; border-radius: 0; background: transparent; color: #879fbe; font: 650 13px/1.4 Manrope,sans-serif; }
+.plan-catalog-heading button>span { font-size: 10px; color: #718bae; font-variant-numeric: tabular-nums; }
+.game-guide .plan-workbench .plan-catalog-heading button[aria-selected=true] { color: #f0f5ff; }
+.plan-catalog-heading button[aria-selected=true]::after { content: ''; position: absolute; height: 3px; bottom: -1px; left: 0; right: 0; border-radius: 2px; background: #347aff; }
+.plan-catalog-heading>span { display: flex; align-items: center; gap: 6px; padding-bottom: 11px; color: #758eaf; font-size: 10px; }
+.game-guide .plan-workbench .overlay-planner-tools { gap: 8px; margin-bottom: 14px; padding: 13px 0; border: 0; background: #0a101b; top: -18px; }
+.game-guide .plan-workbench .overlay-planner-tools>label { padding: 0 11px; min-height: 39px; background: #111f32; border: 1px solid #2b4263; border-radius: 7px; }
+.game-guide .plan-workbench .overlay-planner-tools input { height: 37px; min-height: 37px; font-size: 12px; background: transparent; border: 0; outline: 0; padding: 0; box-shadow: none; }
+.game-guide .plan-workbench .overlay-planner-tools>label:focus-within { border-color: #347aff; }
+.game-guide .plan-workbench .overlay-planner-tools>label>button { width: 22px; height: 25px; min-height: 25px; padding: 0; background: transparent; border: 0; }
+.game-guide .plan-workbench .overlay-planner-tools>select,.game-guide .plan-workbench .overlay-planner-tools>button { min-height: 39px; padding: 7px 10px; max-width: 140px; border: 1px solid #2b4263; border-radius: 7px; background: #111f32; font-size: 11px; color: #a8bfdc; }
+.game-guide .plan-workbench .overlay-planner-tools>button[aria-pressed=true] { border-color: #347aff; background: #133265; color: #eaf2ff; }
+.game-guide .plan-workbench .overlay-champion-pool { grid-template-columns: repeat(4,minmax(0,1fr)); gap: 8px; }
+.game-guide .plan-workbench .overlay-champion-pool>.plan-pool-unit { display: flex; flex-direction: row; justify-content: flex-start; align-items: center; gap: 10px; min-height: 88px; padding: 10px; border: 1px solid #233750; border-radius: 8px; background: #111c2c; text-align: left; }
+.game-guide .plan-workbench .overlay-champion-pool>.plan-pool-unit:hover { border-color: #4973a8; background: #16263d; }
+.game-guide .plan-workbench .overlay-champion-pool>.plan-pool-unit[aria-pressed=true] { border-color: #347aff; background: #122b50; }
+.game-guide .plan-workbench .overlay-champion-pool>.plan-pool-unit { border-color: #233750 !important; }
+.game-guide .plan-workbench .overlay-champion-pool>.plan-pool-unit:hover { border-color: #4973a8 !important; }
+.game-guide .plan-workbench .overlay-champion-pool>.plan-pool-unit[aria-pressed=true] { border-color: #347aff !important; }
+.game-guide .plan-workbench .overlay-pool-portrait { width: 47px; height: 56px; flex-shrink: 0; border: 0; border-bottom: 2px solid var(--cost-color); border-radius: 6px; }
+.game-guide .plan-workbench .overlay-pool-portrait>img { border-radius: 5px; object-fit: cover; }
+.overlay-pool-portrait>i { position: absolute; right: -4px; bottom: -4px; width: 19px; height: 19px; display: grid; place-items: center; background: #203650; color: #a5c2e9; border: 2px solid #111c2c; border-radius: 5px; }
+.plan-pool-unit[aria-pressed=true] .overlay-pool-portrait>i { background: #2563eb; color: #fff; }
+.plan-pool-copy { min-width: 0; flex: 1; }
+.game-guide .plan-workbench .overlay-champion-pool strong { text-align: left; color: #dfebfb; font: 700 12px/1.45 Manrope,sans-serif; overflow-wrap: normal; }
+.game-guide .plan-workbench .overlay-champion-pool small { display: flex; align-items: flex-start; gap: 7px; margin-top: 7px; color: #7f98ba; font-size: 9px; line-height: 1.4; }
+.plan-pool-copy small>span { overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+.plan-cost { display: flex; align-items: center; gap: 3px; color: #c5b38b; font-size: 10px; font-variant-numeric: tabular-nums; }
+.plan-pool-copy .plan-pool-trait { color: #8db9ff; }
+.plan-selected-traits { display: flex; gap: 6px; flex-wrap: wrap; margin: 12px 0 0; }
+.game-guide .plan-workbench .plan-selected-traits button { display: flex; align-items: center; gap: 6px; padding: 6px 8px; border: 1px solid #315b98; border-radius: 6px; color: #bad4ff; background: #12294c; font-size: 10px; }
+.plan-selected-traits img { width: 18px; height: 18px; object-fit: contain; }
+.plan-trait-catalog { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 9px; }
+.game-guide .plan-workbench .plan-trait-catalog>button { display: grid; grid-template-columns: 35px minmax(0,1fr) 22px; grid-template-rows: auto auto; gap: 10px; padding: 15px; min-width: 0; background: #111c2c; border: 1px solid #273b55; border-radius: 9px; text-align: left; }
+.game-guide .plan-workbench .plan-trait-catalog>button[aria-pressed=true] { background: #11294c; border-color: #347aff; }
+.plan-trait-emblem { display: grid; place-items: center; width: 35px; height: 35px; background: #1a2b43; border-radius: 8px; }
+.plan-trait-emblem>img { width: 26px; height: 26px; object-fit: contain; }
+.plan-trait-copy { min-width: 0; }
+.plan-trait-copy strong { display: block; font: 700 13px/1.4 Manrope,sans-serif; color: #e5eefc; }
+.plan-trait-copy small { display: flex; flex-wrap: wrap; gap: 4px 9px; margin-top: 4px; color: #8aa3c4; font-size: 10px; line-height: 1.4; }
+.plan-trait-copy small>span { color: #687f9f; }
+.plan-trait-check { display: grid; place-items: center; color: #7392b8; }
+.plan-trait-catalog button[aria-pressed=true] .plan-trait-check { color: #95bcff; }
+.plan-trait-members { grid-column: 1/-1; display: flex; align-items: center; gap: 4px; padding-top: 5px; }
+.plan-trait-members>img { width: 25px; height: 27px; object-fit: cover; border-radius: 4px; }
+.plan-trait-members>span { font-size: 9px; color: #829fc4; }
+.plan-trait-members>b { margin-left: auto; color: #7492b7; font-size: 10px; font-weight: 600; }
+.plan-trait-catalog button[aria-pressed=true] .plan-trait-members>b { color: #9ec4ff; }
+.plan-workbench-note { display: flex; align-items: flex-start; gap: 6px; margin: 17px 0 0; color: #839dbe; font-size: 10px; line-height: 1.7; }
+.plan-workbench-note svg { flex-shrink: 0; margin-top: 2px; }
+.duo-trait-targets { display: flex; flex-wrap: wrap; gap: 7px; padding: 0 0 17px; }
+.duo-trait-targets>span { display: flex; gap: 6px; align-items: center; padding: 6px 9px; background: #142c51; color: #abcaff; border-radius: 6px; font-size: 11px; }
+.duo-trait-targets img { width: 20px; height: 20px; object-fit: contain; }
+.shop-medal[data-kind=trait] { --shop-accent: #68aaff; }
+@keyframes planner-focus-in { from { opacity: .4; transform: translateY(3px); } to { opacity: 1; transform: none; } }
+@media(max-width:700px) {
+  .game-guide .plan-workbench { padding: 14px; }
+  .game-guide .plan-workbench .overlay-plan-roster { grid-template-columns: repeat(3,minmax(0,1fr)); }
+  .game-guide .plan-workbench .overlay-champion-pool { grid-template-columns: repeat(3,minmax(0,1fr)); }
+  .plan-focus { gap: 12px; padding: 12px; }
+  .game-guide .plan-workbench .plan-request { flex-basis: 190px; }
+  .plan-focus-unit>img { width: 45px; height: 50px; }
+  .plan-focus-unit strong { font-size: 13px; }
+  .plan-focus-unit span { max-width: 200px; font-size: 9px; }
+  .plan-sync-state { max-width: 240px; font-size: 9px; }
+  .plan-catalog-heading>span { display: none; }
+  .game-guide .plan-workbench .plan-trait-catalog>button { padding: 11px; gap: 8px; }
+  .plan-trait-members>img { width: 22px; height: 24px; }
+  .plan-trait-members>b { font-size: 9px; }
+}
+@media(prefers-reduced-motion:reduce) { .plan-focus { animation: none; } }

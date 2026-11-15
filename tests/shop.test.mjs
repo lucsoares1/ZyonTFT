@@ -77,3 +77,9 @@ test("calibration must fit within the screen", () => {
   );
   assert.equal(validateRect({ x: NaN, y: 0, width: 0.5, height: 0.1 }), false);
 });
+test('shop recognition attaches official synergies only to an exact recognized champion',()=>{
+ const catalog=[{id:'Camille',name:'Camille',traits:['Congregação das Bruxas','Devastador']}];
+ const result=recognizeNames(['Camille','Congregação das Bruxas','CAMÍLLE','Camill',''],catalog);
+ assert.deepEqual(result[0].traits,catalog[0].traits);assert.deepEqual(result[2].traits,catalog[0].traits);
+ for(const index of [1,3,4]){assert.equal(result[index].id,null);assert.deepEqual(result[index].traits,[]);}
+});
