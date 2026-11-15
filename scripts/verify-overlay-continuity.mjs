@@ -14,7 +14,7 @@ await promisify(execFile)('powershell.exe',['-NoProfile','-NonInteractive','-Com
 const focus={foreground:true,processName:'TFTClient-Win64-Shipping',matchId:'fixture-17'};
 async function setPresence(value){await fs.writeFile(`${presence}.next`,JSON.stringify(value));await fs.rename(`${presence}.next`,presence);}
 await setPresence(focus);
-const env={...process.env,ZYON_USER_DATA:profile,ZYON_PRESENCE_FIXTURE:presence,ZYON_OCR_FIXTURE:path.resolve('design/references/17-game-ocr.png')};
+const env={...process.env,ZYON_USER_DATA:profile,ZYON_TEST_BACKGROUND:'1',ZYON_PRESENCE_FIXTURE:presence,ZYON_OCR_FIXTURE:path.resolve('design/references/17-game-ocr.png')};
 for(const key of ['ELECTRON_RUN_AS_NODE','ZYON_DEV_URL','ZYON_OVERLAY_PREVIEW'])delete env[key];
 let app,page,userId;
 async function waitFor(predicate,label,timeout=60000){const until=Date.now()+timeout;while(Date.now()<until){const state=await page.evaluate(()=>window.zyon.getState());if(predicate(state))return state;await new Promise(r=>setTimeout(r,150));}throw Error(`Timeout: ${label}`);}
@@ -33,6 +33,33 @@ try{
  await fs.writeFile(`.runtime/continuity-user-${tag}.json`,JSON.stringify({id:userId,email:`zyon-continuity-${tag}@example.invalid`}));
  const original=await waitFor(s=>s.overlayVisible&&s.levelReading.status==='confirmed'&&s.goldReading.status==='confirmed','game started');
  const id=original.guideComp.champions[0];await page.evaluate(({id,compId})=>window.zyon.gameAction({type:'copies',id,delta:1,compId}),{id,compId:original.pinned});
+ if(process.argv.includes('--medal')){
+  const overlay=app.windows().find(w=>w.url().includes('view=overlay'));
+  await page.evaluate(async()=>{const s=await window.zyon.getState();await window.zyon.publish({...s,selected:['DA_Vi18','DA_18_MasterYi_AD','DA_18_Alistar','DA_Cinderling18']});});
+  await overlay.waitForFunction(()=>document.querySelectorAll('.shop-medal').length===4);
+  const image=(await fs.readFile('design/references/17-game-ocr.png')).toString('base64');
+  await overlay.evaluate(data=>{document.querySelector('.native-overlay').style.background=`url(data:image/png;base64,${data}) center / auto 100% no-repeat`;},image);
+  const measures=[];
+  for(const [width,height,zoom] of [[1913,1069,1],[1920,1080,1],[1280,720,1],[2560,1080,1],[1920,1080,.8]]){
+   // Fixture geometry uses the same height-based transform as FitShopRect.
+   const ref=Math.min(width,height*16/9),rect={x:((width-ref)/2+ref*.2295)/width,y:.858,width:ref*.53/width,height:.139};
+   await app.evaluate(({BrowserWindow},{width,height,zoom,rect})=>{const w=BrowserWindow.getAllWindows().find(w=>w.webContents.getURL().includes('view=overlay'));w.setBounds({x:0,y:0,width,height});w.webContents.setZoomFactor(zoom);w.webContents.send('shop:update',{slots:[{id:'DA_Vi18',confidence:1},{id:'DA_18_MasterYi_AD',confidence:1},{id:'DA_18_Alistar',confidence:1},{id:'DA_Cinderling18',confidence:1},{id:null,confidence:0}],shopRect:rect,shopRevision:10000});},{width,height,zoom,rect});
+   await overlay.waitForTimeout(80);
+   const bounds=await overlay.evaluate(()=>[...document.querySelectorAll('.native-slot[data-highlighted]')].map(el=>{const card=el.getBoundingClientRect(),seal=el.querySelector('.shop-medal').getBoundingClientRect(),caption=el.querySelector('.shop-medal-caption').getBoundingClientRect();return {card:{x:card.x,y:card.y,w:card.width,h:card.height},seal:{x:seal.x,y:seal.y,r:seal.right,b:seal.bottom},caption:{x:caption.x,r:caption.right,b:caption.bottom},animated:getComputedStyle(el.querySelector('.shop-medal')).animationName};}));
+   for(const b of bounds){assert.ok(b.seal.x>=b.card.x&&b.seal.r<=b.card.x+b.card.w);assert.ok(b.seal.y>=b.card.y&&b.seal.b<b.card.y+b.card.h*.4);assert.ok(b.caption.x>=b.seal.x&&b.caption.r<=b.seal.r);assert.equal(b.animated,'none');}
+   measures.push({width,height,zoom,bounds});
+   await overlay.screenshot({path:path.join(out,`medal-${width}-${zoom}.png`)});
+   if(width===1913){
+    const style=await overlay.addStyleTag({content:'.native-slot{visibility:hidden!important}'});
+    await overlay.screenshot({path:path.join(out,'medal-baseline.png')});await style.evaluate(el=>el.remove());
+   }
+  }
+  await fs.writeFile(path.join(out,'medal-geometry.json'),JSON.stringify({ok:true,measures,note:'Actual signed-in Electron renderer. Controlled geometry/slots for resolution and DPI layout checks only; native reading tested separately.'},null,2));
+  await app.evaluate(({BrowserWindow})=>{const w=BrowserWindow.getAllWindows().find(w=>w.webContents.getURL().includes('view=overlay'));w.webContents.setZoomFactor(1);w.webContents.reload();});
+  console.log(JSON.stringify({medalLayout:true,widths:[1920,1280,2560],dpiZoom:.8}));
+  if(process.argv.includes('--medal-only'))process.exitCode=0;
+ }
+ if(process.argv.includes('--medal-only')){await page.evaluate(()=>window.zyon.socialAction({type:'logout'}));await app.close();app=null;process.exit(0);}
  if(process.argv.includes('--shop')){
   const image=path.resolve('design/references/17-game-ocr.png'),sequence=path.join(profile,'sequence.json');
   await promisify(execFile)('powershell.exe',['-NoProfile','-NonInteractive','-ExecutionPolicy','Bypass','-File','scripts/create-shop-sequence.ps1','-SourcePath',image,'-OutputDirectory',profile],{windowsHide:true});

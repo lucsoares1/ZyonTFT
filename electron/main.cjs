@@ -54,6 +54,7 @@ const overlayGate = new OverlayGate();
 const overlayPreview = !!(
   process.env.ZYON_USER_DATA && process.env.ZYON_OVERLAY_PREVIEW === "1"
 );
+const backgroundTest=!!(process.env.ZYON_USER_DATA&&process.env.ZYON_TEST_BACKGROUND==='1');
 let presenceProcess, presenceTimer, presenceWatchdog;
 let lastPresence = 0,
   focusBoundaryAt = 0;
@@ -113,6 +114,7 @@ if (process.env.ZYON_USER_DATA) {
 const primaryInstance = app.requestSingleInstanceLock();
 if (!primaryInstance) app.quit();
 function showMainWindow(attempt = 0) {
+  if(backgroundTest)return;
   if (!mainWindow || mainWindow.isDestroyed()) return;
   if (mainWindow.isMinimized()) mainWindow.restore();
   mainWindow.show();
@@ -162,7 +164,7 @@ function mainSender(event) {
 }
 let publishedShopSlots='[]';
 function stampShop(){
-  const key=JSON.stringify(state.slots);
+  const key=JSON.stringify([state.slots,state.shopRect]);
   if(key!==publishedShopSlots){state.shopRevision=(state.shopRevision||0)+1;publishedShopSlots=key;}
 }
 function broadcast() {
@@ -173,7 +175,7 @@ function broadcast() {
 }
 function broadcastShop(){
   stampShop();
-  if(overlayWindow&&!overlayWindow.isDestroyed())overlayWindow.webContents.send('shop:update',{slots:state.slots,shopRevision:state.shopRevision,shopLatencyMs:state.shopLatencyMs,shopCapturedAt:state.shopCapturedAt});
+  if(overlayWindow&&!overlayWindow.isDestroyed())overlayWindow.webContents.send('shop:update',{slots:state.slots,shopRect:state.shopRect,shopRevision:state.shopRevision,shopLatencyMs:state.shopLatencyMs,shopCapturedAt:state.shopCapturedAt});
 }
 function save() {
   if (!state.saved) return;
@@ -695,6 +697,8 @@ function setReader(enabled, { automatic = false } = {}) {
     configPath,
     JSON.stringify({
       rect: state.rect,
+      automaticRect: ['x','y','width','height'].every((k,i)=>Math.abs(state.rect[k]-[.2295,.858,.53,.139][i])<.00001),
+      customLevelRect: validLevelRect(state.levelRect),
       goldRect: defaultGoldRect(state.rect),
       levelRect: validLevelRect(state.levelRect)
         ? state.levelRect
@@ -765,8 +769,10 @@ function setReader(enabled, { automatic = false } = {}) {
         if(Date.now()-data.capturedAt>750||!Array.isArray(data.slots)||data.slots.length!==5)return;
         lastShopCapture=Date.now();
         const next=state.gameSession.ended?[]:recognizeShopNames(data.slots,champions);
-        if(JSON.stringify(next)!==JSON.stringify(state.slots)){
+        const shopRect=validRect(data.shopRect)?data.shopRect:state.rect;
+        if(JSON.stringify(next)!==JSON.stringify(state.slots)||JSON.stringify(shopRect)!==JSON.stringify(state.shopRect)){
           state.slots=next;
+          state.shopRect=shopRect;
           state.shopLatencyMs=Date.now()-data.capturedAt;
           state.shopCapturedAt=data.capturedAt;
           broadcastShop();
@@ -880,7 +886,7 @@ if (primaryInstance)
       minHeight: 740,
       frame: false,
       backgroundColor: "#111619",
-      show: true,
+      show: !backgroundTest,
       title: "Zyon TFT",
       webPreferences: {
         preload: path.join(__dirname, "preload.cjs"),
@@ -997,6 +1003,7 @@ if (primaryInstance)
         shopRevision:state.shopRevision,
         shopCapturedAt:state.shopCapturedAt,
         shopLatencyMs:state.shopLatencyMs,
+        shopRect:state.shopRect,
         opacity: Math.max(30, Math.min(100, Number(next.opacity) || 92)),
         selected: next.selected
           .filter((id) => typeof id === "string" && /^[a-zA-Z0-9_]+$/.test(id))

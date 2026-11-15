@@ -9,7 +9,7 @@ export const normalizeName = (value) =>
 // renderer replies cannot restore a badge after a purchase or reroll.
 export function mergeOverlaySnapshot(previous,next){
   return (previous?.shopRevision||0)>(next?.shopRevision||0)
-    ? {...next,slots:previous.slots,shopRevision:previous.shopRevision,shopCapturedAt:previous.shopCapturedAt,shopLatencyMs:previous.shopLatencyMs}
+    ? {...next,slots:previous.slots,shopRect:previous.shopRect,shopRevision:previous.shopRevision,shopCapturedAt:previous.shopCapturedAt,shopLatencyMs:previous.shopLatencyMs}
     : next;
 }
 export function mergeShopUpdate(previous,next){

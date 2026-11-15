@@ -38,6 +38,62 @@
 .game-wide .game-mode { display: inline-flex; align-items: center; padding: 5px 8px; border: 1px solid #a2864155; border-radius: 4px; color: #e8ca8b; font-size: 10px; }
 .workspace-v4 .shop-open .shop-medal.shop-badge { padding: 0; gap: 0; }
 .workspace-v4 .shop-open .shop-medal.shop-badge > svg { display: block; width: 48px; height: 57px; }
-.native-overlay .shop-medal { position: relative; isolation: isolate; }
-.native-overlay .shop-medal > svg { position: relative; z-index: 1; width: 40px; height: 48px; }
-.native-overlay .shop-medal-caption { position: absolute; right: calc(100% - 5px); top: 23px; margin: 0; padding-inline: 6px 9px; z-index: 0; }
+/* One connected Zyon seal inside the card; never a label floating above it. */
+.native-overlay .native-slot {
+  transform: none;
+  pointer-events: none;
+  --shop-accent: #6a9eff;
+  --shop-edge: #347aff;
+}
+.native-overlay .native-slot[data-kind="send"] { --shop-accent: #c4a1ff; --shop-edge: #9f6df2; }
+.native-overlay .native-slot[data-kind="shared"] { --shop-accent: #b9beff; --shop-edge: #8a8aff; }
+.native-overlay .native-slot[data-kind="reserve"] { --shop-accent: #9fc9ef; --shop-edge: #6c9ec9; }
+.native-overlay .shop-frost-frame {
+  position: absolute;
+  left: 3%;
+  top: 1px;
+  width: 94%;
+  height: 79%;
+  overflow: visible;
+  pointer-events: none;
+}
+.native-overlay .shop-frost-frame path { vector-effect: non-scaling-stroke; }
+.native-overlay .shop-medal.shop-badge {
+  position: absolute;
+  right: 5%;
+  top: 3px;
+  display: flex;
+  flex-direction: row;
+  gap: 0;
+  isolation: isolate;
+  color: #f2f6ff;
+  filter: none;
+  z-index: 1;
+}
+.native-overlay .shop-medal.shop-badge::before {
+  content: "";
+  position: absolute;
+  inset: 16% 0 18% 8%;
+  background: #101b2ff5;
+  border: 1px solid var(--shop-accent);
+  border-radius: 4px 8px 8px 4px;
+  z-index: -1;
+}
+.native-overlay .shop-medal.shop-badge > svg {
+  position: relative;
+  width: var(--medal-size);
+  height: calc(var(--medal-size) * 1.1875);
+  filter: none;
+}
+.native-overlay .shop-medal .shop-medal-caption {
+  position: static;
+  margin: 0;
+  padding: 0 8px 1px 0;
+  background: none;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  text-shadow: none;
+  font: 800 var(--medal-font)/1.15 Manrope, sans-serif;
+  color: #f2f6ff;
+}

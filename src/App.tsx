@@ -55,7 +55,7 @@ import {
   type LevelContext,
 } from "./level-planner.mjs";
 import GameGuide from "./GameGuide";
-import { ShopMedal } from "./ShopMedal";
+import { ShopMedal, ShopFrostFrame } from "./ShopMedal";
 import { BrandMark } from "./Brand";
 import { CompSpotlight } from "./CompSpotlight";
 import {SidebarComp} from "./SidebarComp";
@@ -189,17 +189,25 @@ function Overlay() {
     state.slots || [],
     [...new Set([...own,...send])],
   );
+  const rect = state.shopRect || state.rect;
   return (
     <div className="native-overlay" style={{ opacity: state.opacity / 100 }}>
       {matches.map((slot: any) => (
         <div
           className="native-slot"
           key={slot.index}
+          data-highlighted={slot.highlighted || undefined}
+          data-kind={send.includes(slot.id)?own.includes(slot.id)?'shared':'send':priority.includes(slot.id)?'buy':reserve.includes(slot.id)?'reserve':'core'}
           style={{
-            left: `${(state.rect.x + (state.rect.width * (slot.index + 0.82)) / 5) * 100}%`,
-            top: `${Math.max(0, state.rect.y - state.rect.height * 0.1) * 100}%`,
-          }}
+            left: `${(rect.x + rect.width * slot.index / 5) * 100}%`,
+            top: `${rect.y * 100}%`,
+            width: `${rect.width / 5 * 100}%`,
+            height: `${rect.height * 100}%`,
+            '--medal-size': `clamp(22px, ${rect.width / 5 * 100 * .18}vw, 42px)`,
+            '--medal-font': `clamp(8px, ${rect.width / 5 * 100 * .052}vw, 11px)`,
+          } as React.CSSProperties}
         >
+          {slot.highlighted && <ShopFrostFrame />}
           <Badge
             matched={slot.highlighted}
             kind={send.includes(slot.id)?own.includes(slot.id)?'shared':'send':priority.includes(slot.id) ? "buy" : reserve.includes(slot.id) ? "reserve" : "core"}
@@ -1266,8 +1274,9 @@ function Workbench() {
                   </div>
                   <h3>Área dos cinco cards</h3>
                   <p>
-                    Ajuste em porcentagem da tela. O OCR lê a faixa inferior de
-                    cada card.
+                    A posição padrão acompanha a janela do jogo e a proporção
+                    da tela. Se você mudou a escala da interface do TFT, ajuste
+                    a área abaixo: leitura, moldura e medalha acompanham juntas.
                   </p>
                   <div className="calibration-fields">
                     {(["x", "y", "width", "height"] as const).map((key, i) => (

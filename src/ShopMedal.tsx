@@ -1,5 +1,26 @@
 import { useId } from "react";
 
+export function ShopFrostFrame() {
+  const id=useId().replaceAll(":","");
+  return <svg className="shop-frost-frame" viewBox="0 0 200 124" preserveAspectRatio="none" fill="none" aria-hidden="true">
+    <defs>
+      <linearGradient id={`${id}-ice`} x1="10" y1="0" x2="190" y2="124" gradientUnits="userSpaceOnUse">
+        <stop stopColor="#e6faff"/><stop offset=".24" stopColor="var(--shop-accent)"/><stop offset=".5" stopColor="#213c73"/><stop offset=".74" stopColor="var(--shop-accent)"/><stop offset="1" stopColor="#e6faff"/>
+      </linearGradient>
+      <linearGradient id={`${id}-glass`} x1="0" y1="0" x2="200" y2="124" gradientUnits="userSpaceOnUse">
+        <stop stopColor="#dff6ff" stopOpacity=".62"/><stop offset=".35" stopColor="var(--shop-edge)" stopOpacity=".22"/><stop offset="1" stopColor="#b7e9ff" stopOpacity=".55"/>
+      </linearGradient>
+    </defs>
+    <path d="M11 1 33 2 38 0 61 3 93 2 99 4 132 2 160 3 187 1 198 11 196 28 200 35 197 49 198 81 196 91 199 99 194 116 184 123 155 121 148 124 123 121 98 122 91 120 63 123 43 121 37 124 12 121 2 112 4 96 0 89 3 72 2 47 4 36 1 23 3 12Z M13 8 7 16 9 35 7 48 9 73 7 90 10 109 16 115 42 115 64 117 92 114 123 115 149 117 156 115 182 116 189 110 192 98 190 80 191 49 190 34 192 15 185 8 160 9 132 8 100 10 93 8 62 9 38 6 32 8Z" fill={`url(#${id}-glass)`} fillRule="evenodd"/>
+    <path d="m11 1 22 1 5-2 23 3 32-1 6 2 33-2 28 1 27-2 11 10-2 17 4 7-3 14 1 32-2 10 3 8-5 17-10 7-29-2-7 3-25-3-25 1-7-2-28 3-20-2-6 3-25-3-10-9 2-16-4-7 3-17-1-25 2-11-3-13 2-11Z" stroke="#071321" strokeWidth="3"/>
+    <path d="m11 1 22 1 5-2 23 3 32-1 6 2 33-2 28 1 27-2 11 10-2 17 4 7-3 14 1 32-2 10 3 8-5 17-10 7-29-2-7 3-25-3-25 1-7-2-28 3-20-2-6 3-25-3-10-9 2-16-4-7 3-17-1-25 2-11-3-13 2-11Z" stroke={`url(#${id}-ice)`} strokeWidth="1.6"/>
+    <path d="m13 8-6 8 2 19-2 13 2 25-2 17 3 19 6 6 26 0 22 2 28-3 31 1 26 2 7-2 26 1 7-6 3-12-2-18 1-31-1-15 2-19-7-7-25 1-28-1-32 2-7-2-31 1-24-3-6 2Z" stroke="var(--shop-accent)" strokeOpacity=".72" strokeWidth=".8"/>
+    <path d="m3 12 8-11 9 3-7 4-6 8 2 19-5 1Z M1 23l8 12-2 13-5-1Z M2 112l10 9 25 3 6-3-27-6-6-6Z M187 1l11 10-6 4-7-7-25 1Z M196 91l3 8-5 17-10 7-2-7 7-6 3-12Z M148 124l7-3 29 2-2-7-26-1-7 2-26-2Z" fill={`url(#${id}-ice)`} fillOpacity=".67"/>
+    <path d="m38 0 4 9 9 5m-9-5-7 2M4 36l8 8-2 12m2-12 7 3m-7 74 8-12-2-10m2 10 10-3m63 14 7-8 12-2m-12 2-4-7m101-56-9 8-3 12m3-12-8-3m-2 67-8-13 3-9m-3 9-13-3m24-106-11 10-12 1" stroke="#def6ff" strokeOpacity=".72" strokeWidth=".8"/>
+    <path d="m11 1 22 1m-30 10-2 11m11 98 25 3m150-123 11 10m-4 105-10 7" stroke="#f0fcff" strokeWidth="1.6"/>
+  </svg>;
+}
+
 export function ShopMedal({ label, kind = "core", preview = false }: {
   label: string; kind?: "buy" | "reserve" | "core" | "send" | "shared"; preview?: boolean;
 }) {
