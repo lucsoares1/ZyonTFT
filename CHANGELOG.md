@@ -1,5 +1,9 @@
 # Zyon TFT
 
+## 0.17.1
+
+Atualizações pelo aplicativo, preferências reorganizadas, planejador do overlay renovado com nomes alinhados e itens sem coluna vazia. Correção da publicação no Windows.
+
 ## 0.17.0
 
 - Instalador para Windows com atualizações pelo próprio aplicativo.

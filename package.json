@@ -1,6 +1,6 @@
 {
   "name": "zyon-tft",
-  "version": "0.17.0",
+  "version": "0.17.1",
   "private": true,
   "description": "Overlay pessoal de comps e destaques de loja para TFT",
   "type": "module",
@@ -23,7 +23,10 @@
     "data:comps": "node scripts/sync-comps.mjs",
     "data:pivot": "node scripts/sync-pivot.mjs"
   },
-  "repository": {"type":"git","url":"https://github.com/lucsoares1/ZyonTFT.git"},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lucsoares1/ZyonTFT.git"
+  },
   "build": {
     "asarUnpack": [
       "electron/*.ps1",
@@ -53,9 +56,29 @@
       "signAndEditExecutable": true,
       "icon": "electron/icon.ico"
     },
-    "nsis": {"artifactName":"Zyon-TFT-Setup-${version}.${ext}","oneClick":true,"perMachine":false,"allowElevation":false,"runAfterFinish":true,"deleteAppDataOnUninstall":false,"createDesktopShortcut":true,"shortcutName":"Zyon TFT"},
-    "portable": {"artifactName":"Zyon-TFT-Portable-${version}.${ext}","unpackDirName": true},
-    "publish": [{"provider":"github","owner":"lucsoares1","repo":"ZyonTFT","private":false,"releaseType":"draft"}]
+    "nsis": {
+      "artifactName": "Zyon-TFT-Setup-${version}.${ext}",
+      "oneClick": true,
+      "perMachine": false,
+      "allowElevation": false,
+      "runAfterFinish": true,
+      "deleteAppDataOnUninstall": false,
+      "createDesktopShortcut": true,
+      "shortcutName": "Zyon TFT"
+    },
+    "portable": {
+      "artifactName": "Zyon-TFT-Portable-${version}.${ext}",
+      "unpackDirName": true
+    },
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "lucsoares1",
+        "repo": "ZyonTFT",
+        "private": false,
+        "releaseType": "draft"
+      }
+    ]
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.119.0",
