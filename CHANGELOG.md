@@ -1,5 +1,9 @@
 # Zyon TFT
 
+## 0.17.9
+
+A dupla é desconectada ao desligar, reiniciar ou sair da sessão do Windows. Proteção contra falha de rede e queda de energia impede restaurar conexões antigas; ausência prolongada encerra a dupla após cerca de 2 minutos. Conta, amizade e comp são preservadas, assim como reaberturas rápidas do app. Inclui biblioteca de comps no overlay, aba Dupla apenas quando conectado e posição estável do botão ao recolher e expandir.
+
 ## 0.17.8
 
 Troque comp diretamente no overlay pela nova aba Comps ou pelo nome no cabeçalho, com busca por composição ou campeão e preservação de nível, ouro e compras. A aba Dupla aparece apenas com uma dupla formada. O botão de recolher e expandir mantém a mesma posição na tela, inclusive após arrastar o painel pequeno.
