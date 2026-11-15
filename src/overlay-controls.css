@@ -1,0 +1,19 @@
+.game-wide .game-heading{-webkit-app-region:drag;user-select:none;cursor:grab;}
+.game-wide .game-heading :is(button,.overlay-roster){-webkit-app-region:no-drag;cursor:default;}
+.game-wide .game-heading button{cursor:pointer;}
+.guide-drag-grip{display:flex;align-items:center;justify-content:center;flex:none;color:#7795bc;-webkit-app-region:drag;}
+.game-shop-only{height:44px;display:flex;align-items:center;background:#0c1422f5;border:1px solid #355178;border-radius:9px;color:#d5e5ff;-webkit-app-region:drag;user-select:none;}
+.game-shop-only>.guide-drag-grip{width:22px;height:100%;cursor:grab;}
+.game-shop-only>button{display:flex;align-items:center;justify-content:center;gap:6px;flex:1;height:100%;padding:0 8px 0 2px;border-radius:0 8px 8px 0;background:transparent;color:#d5e5ff;font-size:10px;font-weight:800;-webkit-app-region:no-drag;}
+.game-shop-only>button:hover{background:#172d4f;}
+.game-shop-only .zyon-mark{width:20px;height:20px;}
+.social-unread-count{display:grid;place-items:center;min-width:19px;height:19px;padding:0 5px;margin-left:auto;border-radius:6px;background:#2563eb;color:white;font-size:10px;line-height:1;}
+.social-notification{position:fixed;right:24px;bottom:42px;z-index:1000;width:350px;max-width:calc(100vw - 48px);display:flex;gap:12px;padding:18px;background:#101c2e;border:1px solid #416699;border-left:3px solid #347aff;border-radius:12px;color:#edf4ff;animation:social-notice-in .2s ease-out;}
+.social-notification-icon{display:grid;place-items:center;flex:none;width:38px;height:38px;border-radius:10px;background:#1a3560;color:#92b9ff;}
+.social-notification>div{min-width:0;flex:1;}
+.social-notification strong{display:block;font-size:12px;}
+.social-notification p{margin:5px 0 12px;color:#a2b9d8;font-size:11px;line-height:1.6;overflow-wrap:anywhere;}
+.social-notification>div>button{display:flex;align-items:center;gap:8px;color:#afceff;padding:0;font-size:11px;font-weight:800;}
+.social-notification-dismiss{align-self:flex-start;padding:2px;color:#98afce;}
+@keyframes social-notice-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.social-notification{animation:none}}

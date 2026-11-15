@@ -22,13 +22,14 @@ async function capture(app,page,file){
  if(process.argv.includes('--no-captures'))return;
  await page.emulateMedia({reducedMotion:'reduce'});
  if(!process.argv.includes('--background'))return page.screenshot({path:file,animations:'disabled'});
- const png=await app.evaluate(async({BrowserWindow},url)=>{const w=BrowserWindow.getAllWindows().find(w=>w.webContents.getURL()===url);w.removeAllListeners('show');w.setAlwaysOnTop(false);w.showInactive();try{return (await w.webContents.capturePage(undefined,{stayHidden:true,stayAwake:true})).toPNG().toString('base64');}finally{w.hide();w.on('show',()=>w.hide());}},page.url());
+ const png=await app.evaluate(async({BrowserWindow},url)=>{const w=BrowserWindow.getAllWindows().find(w=>w.webContents.getURL()===url);const wasVisible=w.isVisible();w.removeAllListeners('show');w.setAlwaysOnTop(false);w.showInactive();try{await w.webContents.executeJavaScript('new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)))');await new Promise(r=>setTimeout(r,150));return (await w.webContents.capturePage(undefined,{stayHidden:true,stayAwake:true})).toPNG().toString('base64');}finally{if(!wasVisible)w.hide();}},page.url());
  assert.ok(png.length>100);await fs.writeFile(file,Buffer.from(png,'base64'));
 }
 async function launch(i){
  const profile=path.resolve('.runtime',`duo-${i}-${Date.now()}`),env={...process.env,ZYON_USER_DATA:profile,ZYON_OVERLAY_PREVIEW:'1',ZYON_OCR_FIXTURE:fixture};delete env.ELECTRON_RUN_AS_NODE;delete env.ZYON_DEV_URL;
+ if(process.argv.includes('--background'))env.ZYON_TEST_BACKGROUND='1';
  const app=await electron.launch({...packaged?{executablePath:path.resolve(process.env.ZYON_TEST_EXE||'release/win-unpacked/Zyon TFT.exe'),args:[]}:{args:['.']},env});apps.push(app);
- if(process.argv.includes('--background'))await app.evaluate(({app,BrowserWindow},transparent)=>{const quiet=w=>{w.webContents.setBackgroundThrottling(false);w.setAlwaysOnTop(false);if(transparent){w.setOpacity(0);w.setIgnoreMouseEvents(true);}else{w.on('show',()=>w.hide());w.hide();}};BrowserWindow.getAllWindows().forEach(quiet);app.on('browser-window-created',(_e,w)=>quiet(w));},process.argv.includes('--no-captures'));
+ if(process.argv.includes('--background'))await app.evaluate(({app,BrowserWindow})=>{const quiet=w=>{w.webContents.setBackgroundThrottling(false);w.setAlwaysOnTop(false);w.setOpacity(0);w.setIgnoreMouseEvents(true);};BrowserWindow.getAllWindows().forEach(quiet);app.on('browser-window-created',(_e,w)=>quiet(w));});
  const page=await app.firstWindow();page.on('pageerror',e=>errors.push(e.message));
  await page.getByRole('heading',{name:'Bom ter você por aqui.',exact:true}).waitFor();
  await app.evaluate(({BrowserWindow})=>BrowserWindow.getAllWindows()[0].setBounds({x:35,y:25,width:1536,height:1000}));
@@ -50,13 +51,20 @@ try{
  await act(b.page,{type:'refresh'});
  checks.push('two isolated desktop clients log into real Supabase accounts; no service-role key is used');
  const profileB=(await social(b.page)).profile;
+ await b.page.getByRole('navigation',{name:'Navegação principal'}).getByRole('button',{name:'Composições',exact:true}).click();
  await a.page.getByRole('textbox',{name:'Código de amigo',exact:true}).fill(profileB.friend_code);
  await a.page.getByRole('button',{name:'Adicionar',exact:true}).click();
  const requestState=await waitValue(()=>social(b.page),s=>s.friendRequests?.some(f=>f.incoming),'friend request');
  const request=requestState.friendRequests.find(f=>f.incoming);
+ await b.page.getByRole('status',{name:'Nova notificação social'}).waitFor();
+ assert.equal(await b.page.locator('.social-unread-count').textContent(),'1');
+ await capture(b.app,b.page,path.join(out,`new-friend-notification${suffix}.png`));
+ await b.page.getByRole('button',{name:'Ver pedido',exact:true}).click();
  const rejected=await act(a.page,{type:'friendAccept',id:request.id});assert.ok(rejected.error,'sender cannot accept their own friend request');
  await b.page.getByRole('button',{name:`Aceitar amizade de ${users[0].displayName}`,exact:true}).click();
  await waitValue(()=>social(a.page),s=>s.friends?.length===1,'accepted friendship');
+ await waitValue(async()=>b.page.locator('.social-unread-count').count(),n=>n===0,'notification counter clears after acceptance');
+ checks.push('incoming friendship displays a global notification outside Duplas, opens the request and clears its pending count on acceptance');
  await a.page.getByRole('button',{name:'Convidar',exact:true}).click();
  const inviteState=await waitValue(()=>social(b.page),s=>s.invites?.some(i=>i.incoming),'duo invitation');
  const invite=inviteState.invites.find(i=>i.incoming);
@@ -93,6 +101,29 @@ try{
  else await a.page.evaluate(async()=>{const s=await window.zyon.getState();await window.zyon.publish({...s,slots:['DA_18_Teemo',null,null,null,null]});});
  const badges=await waitValue(async()=>a.app.windows().find(w=>w.url().includes('view=overlay')),Boolean,'shop badges');
  await badges.locator('.shop-medal[data-kind="send"]').waitFor();
+ const beforeMinimize=await state(a.page),medals=await badges.locator('.shop-medal').count();
+ await ga.getByRole('button',{name:'Encolher painel e manter avisos da loja',exact:true}).click();
+ await ga.getByRole('button',{name:'Expandir painel do overlay',exact:true}).waitFor();
+ const minimal=await a.app.evaluate(({BrowserWindow})=>{const w=BrowserWindow.getAllWindows().find(w=>w.webContents.getURL().includes('view=guide'));return {bounds:w.getBounds(),movable:w.isMovable()};});
+ assert.equal(minimal.bounds.width,116);assert.equal(minimal.bounds.height,44);assert.equal(minimal.movable,true);
+ await capture(a.app,ga,path.join(out,`overlay-shop-only${suffix}.png`));
+ assert.equal((await state(a.page)).readerActive,beforeMinimize.readerActive);
+ assert.equal(await badges.locator('.shop-medal').count(),medals,'shop-only mode keeps native shop medals');
+ await a.app.evaluate(({BrowserWindow,screen})=>{const w=BrowserWindow.getAllWindows().find(w=>w.webContents.getURL().includes('view=guide')),d=screen.getPrimaryDisplay().bounds;w.setPosition(d.x+240,d.y+140);});
+ await waitValue(()=>state(a.page),s=>s.gameSession.guidePosition?.x===240&&s.gameSession.guidePosition?.y===140,'native window movement persists');
+ await ga.getByRole('button',{name:'Expandir painel do overlay',exact:true}).click();
+ await ga.getByRole('tab',{name:'Agora',exact:true}).waitFor();
+ assert.equal(await ga.locator('.game-heading').evaluate(el=>getComputedStyle(el).getPropertyValue('-webkit-app-region')),'drag');
+ assert.equal(await ga.getByRole('button',{name:'Encolher painel e manter avisos da loja',exact:true}).evaluate(el=>getComputedStyle(el).getPropertyValue('-webkit-app-region')),'no-drag');
+ const restoredPosition=await a.app.evaluate(({BrowserWindow})=>BrowserWindow.getAllWindows().find(w=>w.webContents.getURL().includes('view=guide')).getBounds());
+ assert.equal(restoredPosition.x,240);assert.equal(restoredPosition.y,140);
+ const repeatedShows=await a.app.evaluate(async({BrowserWindow})=>{
+   const windows=BrowserWindow.getAllWindows().filter(w=>w.webContents.getURL().includes('view='));let calls=0;
+   const originals=windows.map(w=>{const fn=w.showInactive;w.showInactive=function(...args){calls++;return fn.apply(this,args)};return fn;});
+   try{await new Promise(r=>setTimeout(r,1500));return calls;}finally{windows.forEach((w,i)=>{w.showInactive=originals[i]});}
+ });
+ assert.equal(repeatedShows,0,'HUD heartbeats must not repeatedly present already visible native windows');
+ checks.push('shop-only mode keeps shop medals and reading, restores the guide, and native window movement persists without side switching');
  assert.ok((await badges.locator('.shop-medal[data-kind="send"]').getAttribute('aria-label')).includes(users[1].displayName));
  await capture(a.app,badges,path.join(out,`shop-send${suffix}.png`));
  await ga.getByRole('tab',{name:'Dupla',exact:true}).click();

@@ -94,6 +94,9 @@ public class ZyonWindows {
   static readonly bool[][] nameSamples=new bool[5][];
   public static void ResetVisuals() { Array.Clear(artSamples,0,5);Array.Clear(nameSamples,0,5); }
   public static bool SlotChanged(int slot, System.Drawing.Bitmap image, int left, int top, int width, int height, int textTop, int textHeight) {
+    return SlotChange(slot,image,left,top,width,height,textTop,textHeight)==2;
+  }
+  public static int SlotChange(int slot, System.Drawing.Bitmap image, int left, int top, int width, int height, int textTop, int textHeight) {
     // Compare with a stable reference, not an exact hash. Hover brightness,
     // glints and a few antialiased name pixels must not invalidate a card.
     // This is change detection only; identity still requires exact native OCR.
@@ -110,17 +113,20 @@ public class ZyonWindows {
         name.Add(p.R>140 && p.G>140 && p.B>140);
       }
     var previous=artSamples[slot];var previousName=nameSamples[slot];
-    bool changed=previous==null||previousName==null||previousName.Length!=name.Count;
-    if(!changed) {
+    int change=previous==null||previousName==null||previousName.Length!=name.Count?2:0;
+    if(change==0) {
       int different=0,ink=0;for(int i=0;i<name.Count;i++){if(name[i]||previousName[i])ink++;if(name[i]!=previousName[i])different++;}
       // Remove uniform lighting shifts before comparing the actual artwork.
       double[] light=new double[3];for(int i=0;i<art.Length;i++)light[i%3]+=art[i]-previous[i];
       for(int c=0;c<3;c++)light[c]/=128;
       double detail=0;for(int i=0;i<art.Length;i++)detail+=Math.Abs(art[i]-previous[i]-light[i%3]);
-      changed=different>Math.Max(6,ink*.18)||detail/art.Length>24;
+      bool nameChanged=different>Math.Max(6,ink*.18);
+      // Animated art or antialias changes request OCR without removing a
+      // confirmed seal. A replacement requires both independent regions.
+      change=nameChanged&&detail/art.Length>8?2:nameChanged||detail/art.Length>24?1:0;
     }
-    if(changed){artSamples[slot]=art;nameSamples[slot]=name.ToArray();}
-    return changed;
+    if(change!=0){artSamples[slot]=art;nameSamples[slot]=name.ToArray();}
+    return change;
   }
   public static bool EmptyCard(System.Drawing.Bitmap image, int left, int top, int width, int height) {
     double sum=0, square=0; int count=0, bright=0;
@@ -361,6 +367,8 @@ public class ZyonWindows {
     if($Fast){
       $pendingClicks+=@($frameClicks)
       $changed=@()
+      $replacements=@()
+      $hardChanges=@()
       for($i=0;$i -lt 5;$i++){
         $slotLeft=$left-$bounds.X+$i*$slotWidth
         $emptySlots += [ZyonWindows]::EmptyCard($frame,$slotLeft,($cardTop-$bounds.Y),$slotWidth,$cardHeight)
@@ -370,12 +378,17 @@ public class ZyonWindows {
           $found=[ZyonWindows]::FindCardRect($frame,$slotLeft,($cardTop-$bounds.Y),$slotWidth,$cardHeight)
           if($found){$cardRects[$i]=@{x=$found[0];y=$found[1];width=$found[2];height=$found[3]}}
         }
-        $visualChanged=[ZyonWindows]::SlotChanged($i,$frame,$slotLeft,($cardTop-$bounds.Y),$slotWidth,$cardHeight,($textTop-$bounds.Y),$textHeight)
-        if($visualChanged -or $emptySlots[$i] -or $capturedAt-$lastRead[$i] -ge 2000){
-          if($visualChanged){$cachedNames[$i]='';$nameMisses[$i]=0;$unreadableSince[$i]=0}
+        $visualChange=[ZyonWindows]::SlotChange($i,$frame,$slotLeft,($cardTop-$bounds.Y),$slotWidth,$cardHeight,($textTop-$bounds.Y),$textHeight)
+        $visualChanged=$visualChange -eq 2
+        $replacements+=,$visualChanged
+        if($visualChanged -or ($visualChange -eq 1 -and $capturedAt-$lastRead[$i] -ge 120) -or $emptySlots[$i] -or $capturedAt-$lastRead[$i] -ge 2000){
+          if($visualChanged){$hardChanges+=,$i;$nameMisses[$i]=0;$unreadableSince[$i]=0}
           if($emptySlots[$i]){$cachedNames[$i]='';$lastRead[$i]=$capturedAt}else{$changed+=,$i}
         }
       }
+      # Multiple replaced cards identify a reroll. One noisy/animated card
+      # changes atomically after OCR, never empty -> same champion -> empty.
+      if($hardChanges.Count -ge 2){foreach($i in $hardChanges){$cachedNames[$i]=''}}
       # Publish disappearance before spending time on recognition or HUD OCR.
       @{kind='shop';phase='observed';shopRect=$rect;shopCards=$cardRects;slots=$cachedNames;capturedAt=$capturedAt;matchId=$matchId;idle=$false;fixtureIndex=$sequenceIndex;fixtureChangedAt=$sequenceChangedAt}|ConvertTo-Json -Compress -Depth 3
       if($changed.Count -gt 0){
@@ -407,11 +420,11 @@ public class ZyonWindows {
               foreach($line in ($readNames[$i] -split "`n")){if($knownNames[($line.Normalize([Text.NormalizationForm]::FormD) -replace '[\u0300-\u036f]','' -replace '[^a-zA-Z]','').ToLowerInvariant()]){$known=$true;break}}
               # A fading/unknown name is retried after120ms, not held for2s.
               if(-not $known){
+                if($replacements[$i]){$cachedNames[$i]=''}
                 $nameMisses[$i]++;$lastRead[$i]=$capturedAt-$(if($nameMisses[$i] -le 4){1880}else{1000})
                 if(-not $unreadableSince[$i]){$unreadableSince[$i]=$capturedAt}
-                # One failed refresh of an unchanged card must not blink it.
-                # A real visual change already cleared the previous identity.
-                if($capturedAt-$unreadableSince[$i] -ge 250){$cachedNames[$i]=''}
+                # An OCR miss alone is not evidence that the champion left.
+                # A confirmed replacement or empty slot already cleared it.
               }else{$nameMisses[$i]=0;$unreadableSince[$i]=0;$cachedNames[$i]=$readNames[$i]}
             }else{$cachedNames[$i]=$readNames[$i]}
             if(-not $cardRects[$i] -and $cachedNames[$i] -and $capturedAt-$rectAttempt[$i] -ge 500){

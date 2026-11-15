@@ -7,6 +7,7 @@ const {
   shell,
   dialog,
   safeStorage,
+  Notification,
 } = require("electron");
 const path = require("node:path");
 const fs = require("node:fs");
@@ -39,6 +40,9 @@ const {
 } = require("./gold-ocr.cjs");
 const { PurchaseTracker } = require("./purchase-tracker.cjs");
 const {SocialService}=require('./social-service.cjs');
+const {SocialNoticeTracker}=require('./social-notices.cjs');
+const {guideBoundsFor}=require('./guide-layout.cjs');
+const socialNotices=new SocialNoticeTracker();
 const {UpdateService}=require('./update-service.cjs');
 let planTools,socialService,updateService;
 const { champions } = require("../src/generated/catalog.json");
@@ -228,24 +232,19 @@ function guideBounds() {
   const comp = state.guideComp;
   const count = (comp?.champions?.length || 0) +
     (comp?.pivot?.upgrades?.filter(id => !comp.champions.includes(id)).length || 0);
-  const compactWidth = Math.min(640, Math.max(480, count * 45 + 48));
-  const width = Math.min(state.gameSession.collapsed ? compactWidth : 840, b.width - 24);
-  const y = 64;
   const levelRect = validLevelRect(state.levelRect)
     ? state.levelRect
     : defaultLevelRect(state.rect);
   const safeTop = Math.min(state.rect?.y || 0.858, levelRect.y);
-  const available = Math.max(180, Math.floor(b.height * safeTop) - y - 16);
-  return {
-    x: b.x + (state.gameSession.side === "right" ? b.width - width - 12 : 12),
-    y: b.y + y,
-    width,
-    height: state.gameSession.collapsed ? 160 : Math.min(800, available),
-  };
+  return guideBoundsFor(b,state.gameSession,{count,safeTop});
 }
+let expectedGuideBounds,guideMoveTimer;
 function positionGuide() {
-  if (guideWindow && !guideWindow.isDestroyed())
-    guideWindow.setBounds(guideBounds());
+  if (guideWindow && !guideWindow.isDestroyed()) {
+    expectedGuideBounds=guideBounds();
+    const current=guideWindow.getBounds();
+    if(['x','y','width','height'].some(key=>current[key]!==expectedGuideBounds[key]))guideWindow.setBounds(expectedGuideBounds);
+  }
 }
 function updateGame(action) {
   if (["reset", "match", "copies", "end", "resume"].includes(action.type)) {
@@ -287,7 +286,7 @@ function showGuide() {
     show: false,
     hasShadow: false,
     resizable: false,
-    movable: false,
+    movable: true,
     webPreferences: {
       preload: path.join(__dirname, "preload.cjs"),
       contextIsolation: true,
@@ -298,6 +297,19 @@ function showGuide() {
   });
   guideWindow.setAlwaysOnTop(true, "screen-saver");
   guideWindow.setIgnoreMouseEvents(false);
+  expectedGuideBounds=guideWindow.getBounds();
+  guideWindow.on('move',()=>{
+    const bounds=guideWindow.getBounds();
+    if(bounds.x===expectedGuideBounds?.x&&bounds.y===expectedGuideBounds?.y)return;
+    const display=chosenDisplay().bounds;
+    // Keep the new position immediately, before another HUD update can
+    // reapply old bounds. Disk writes wait until the movement settles.
+    state.gameSession=changeSession(state.gameSession,{type:'guide-position',position:{x:bounds.x-display.x,y:bounds.y-display.y}});
+    if(state.saved)state.saved.gameSession=state.gameSession;
+    expectedGuideBounds=bounds;
+    clearTimeout(guideMoveTimer);
+    guideMoveTimer=setTimeout(()=>{positionGuide();save();broadcast();},120);
+  });
   guideWindow.once("ready-to-show", () => {
     if (!quitting && overlayEnabled) {
       syncOverlayVisibility();
@@ -326,8 +338,8 @@ function syncOverlayVisibility() {
   }
   for (const window of [overlayWindow, guideWindow]) {
     if (!window || window.isDestroyed()) continue;
-    if (visible) window.showInactive();
-    else window.hide();
+    if (visible && !window.isVisible()) window.showInactive();
+    else if (!visible && window.isVisible()) window.hide();
   }
 }
 function ensureAutomaticReader() {
@@ -817,7 +829,7 @@ function setReader(enabled, { automatic = false } = {}) {
   );
   lastCapture = Date.now();
   staleTimer = setInterval(() => {
-    if(lastShopCapture && Date.now()-lastShopCapture>750 && state.slots.length && !overlayGate.interacting){
+    if(lastShopCapture && Date.now()-lastShopCapture>2000 && state.slots.length && !overlayGate.interacting){
       state.slots=[];lastShopCapture=0;broadcastShop();
       mainWindow?.webContents.send('reader:data',{slots:[],idle:false});
     }
@@ -876,6 +888,13 @@ if (primaryInstance)
       getLocal:()=>planTools.sharingPayload(state.guideComp,state.overlayPlans?.[state.pinned],state.gameSession,championById),
       normalizePlan:value=>planTools.normalizeSharedPlan(value,championById),
       onChange:snapshot=>{state.social=snapshot;mainWindow?.webContents.send('social:update',snapshot);
+        for(const notice of socialNotices.update(snapshot)){
+          if(!backgroundTest&&Notification.isSupported()&&(!mainWindow?.isVisible()||mainWindow.isMinimized()||!mainWindow.isFocused())){
+            const notification=new Notification({title:notice.kind==='friend'?'Novo pedido de amizade':'Convite para jogar em dupla',body:notice.kind==='friend'?`${notice.name} quer adicionar você no Zyon.`:`${notice.name} convidou você para jogar.`,icon:path.join(__dirname,'icon.png'),silent:true});
+            notification.on('click',()=>{showMainWindow();mainWindow?.webContents.send('social:open');});
+            notification.show();
+          }
+        }
         if(!accountReady()){setOverlay(false,{automatic:true});setReader(false,{automatic:true});}
         syncOverlayVisibility();broadcast();}
     });
@@ -1068,6 +1087,7 @@ if (primaryInstance)
           "tab",
           "side",
           "collapse",
+          "shop-only",
           "reset",
           "level-mode",
         ].includes(action?.type)
@@ -1096,7 +1116,7 @@ if (primaryInstance)
     );
     globalShortcut.register("CommandOrControl+Shift+Q", () => app.quit());
     globalShortcut.register("CommandOrControl+Shift+G", () => {
-      if (overlayEnabled) updateGame({ type: "collapse" });
+      if (overlayEnabled) updateGame({ type: state.gameSession.shopOnly ? "shop-only" : "collapse" });
     });
     startPresenceWatch();
     screen.on("display-removed", () => {
@@ -1110,6 +1130,7 @@ if (primaryInstance)
   });
 app.on("before-quit", () => {
   quitting = true;
+  clearTimeout(guideMoveTimer);
   socialService?.close();
   updateService?.close();
   stopPresenceWatch();

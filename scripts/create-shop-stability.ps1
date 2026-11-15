@@ -11,11 +11,21 @@ try {
  $brush=New-Object System.Drawing.SolidBrush([System.Drawing.Color]::FromArgb(20,255,255,255))
  $g.FillRectangle($brush,$left,$top,$width,([int]($height*.7)));$brush.Dispose()
  $g.FillRectangle([System.Drawing.Brushes]::White,($left+80),($top+28),2,2)
+ # A moving highlight changes art detail, but leaves the champion name intact.
+ for($yy=0;$yy -lt 6;$yy++){for($xx=0;$xx -lt 12;$xx++){
+   $color=if(($xx+$yy)%2){[System.Drawing.Brushes]::SteelBlue}else{[System.Drawing.Brushes]::SlateGray}
+   $g.FillRectangle($color,($left+$slot*.15+$xx*$slot*.055),($top+$height*.4+$yy*$height*.045),[int]($slot*.055+1),[int]($height*.045+1))
+ }}
 }finally{$g.Dispose()}
 $hover.Save((Join-Path $OutputDirectory 'hover.png'),[System.Drawing.Imaging.ImageFormat]::Png)
 $first=[ZyonWindows]::SlotChanged(0,$base,$left,$top,$slot,$height,($top+[int]($height*.8)),[int]($height*.2))
 $hoverChanged=[ZyonWindows]::SlotChanged(0,$hover,$left,$top,$slot,$height,($top+[int]($height*.8)),[int]($height*.2))
 if(-not $first -or $hoverChanged){throw 'Hover/glint invalidated a stable champion'}
+$noise=$hover.Clone();$ng=[System.Drawing.Graphics]::FromImage($noise)
+try {
+ $ng.DrawImage($base,[System.Drawing.Rectangle]::new(($left+4),($top+[int]($height*.8)),($slot-12),[int]($height*.2)),[System.Drawing.Rectangle]::new(($left+3),($top+[int]($height*.8)),($slot-12),[int]($height*.2)),[System.Drawing.GraphicsUnit]::Pixel)
+ $noise.Save((Join-Path $OutputDirectory 'single-noise.png'),[System.Drawing.Imaging.ImageFormat]::Png)
+}finally{$ng.Dispose();$noise.Dispose()}
 $snapped=@()
 for($i=0;$i -lt 4;$i++){
  $r=[ZyonWindows]::FindCardRect($base,($left+$i*$slot),$top,$slot,$height)

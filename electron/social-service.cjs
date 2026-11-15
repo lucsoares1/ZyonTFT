@@ -3,6 +3,7 @@ const path=require('node:path');
 const {createHash}=require('node:crypto');
 const {createClient}=require('@supabase/supabase-js');
 const config=require('./cloud-config.json');
+const {pendingSocialNotices}=require('./social-notices.cjs');
 const empty=()=>({profile:null,friends:[],friendRequests:[],invites:[],session:null,partner:null,partnerPlan:null,myPlan:null});
 function message(error){
  const m=String(error?.message||'Não foi possível conectar.');
@@ -37,7 +38,7 @@ class SocialService {
   this.client.auth.getSession().then(({data,error})=>{if(this.closed)return;if(error){this.state.status='error';this.state.error=message(error);this.emit();}else if(!data.session){this.state.status='signed-out';this.emit();}});
   this.timer=setInterval(()=>{if(this.state.user){this.refresh();this.publish(true);}},15000);this.timer.unref();
  }
- snapshot(){return {...this.state};}
+ snapshot(){return {...this.state,notices:pendingSocialNotices(this.state)};}
  emit(){if(!this.closed)this.onChange(this.snapshot());}
  async refresh(){
   if(!this.state.user||this.closed)return;

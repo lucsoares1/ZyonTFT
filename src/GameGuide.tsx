@@ -8,7 +8,9 @@ import {
   Users,
   LayoutGrid,
   Send,
-  ArrowLeftRight,
+  Minimize2,
+  Maximize2,
+  GripVertical,
   ArrowRight,
   ChevronDown,
   ChevronUp,
@@ -52,6 +54,7 @@ type Session = {
   purchases: { id: string; at: number }[];
   tab: Tab;
   collapsed: boolean;
+  shopOnly: boolean;
   side: string;
 };
 type Action = {
@@ -239,6 +242,10 @@ function LiveGuide({ state }: { state: any }) {
         ]),
       ]
     : [];
+  if(session.shopOnly)return <section className="game-shop-only" aria-label="Overlay em modo só loja">
+    <span className="guide-drag-grip" title="Arraste para mover o painel"><GripVertical size={16}/></span>
+    <button aria-label="Expandir painel do overlay" title="Expandir painel · Ctrl+Shift+G" onClick={()=>send({type:'shop-only'})}><BrandMark/><span>Painel</span><Maximize2 size={13}/></button>
+  </section>;
   return (
     <section
       className={`game-guide game-wide ${collapsed ? "game-collapsed" : ""}`}
@@ -256,6 +263,7 @@ function LiveGuide({ state }: { state: any }) {
         }
       >
         <div className="game-heading-identity">
+          <span className="guide-drag-grip" title="Arraste pelo cabeçalho para mover o painel"><GripVertical size={15}/></span>
           <span className="game-wordmark">
             <BrandMark/>{" "}
             <small>
@@ -275,11 +283,11 @@ function LiveGuide({ state }: { state: any }) {
         {comp && <OverlayRoster comp={comp} />}
         <div className="game-heading-controls">
           <button
-            title="Trocar lado do painel"
-            aria-label="Trocar lado do painel"
-            onClick={() => send({ type: "side" })}
+            title="Só avisos da loja"
+            aria-label="Encolher painel e manter avisos da loja"
+            onClick={() => send({ type: "shop-only" })}
           >
-            <ArrowLeftRight size={16} />
+            <Minimize2 size={16} />
           </button>
           <button
             title="Ctrl+Shift+G"

@@ -6,11 +6,11 @@ A versão 0.17.3 mantém o Windows.Media.Ocr já usado pelo app. Não adiciona P
 
 - O leitor observa os cinco slots com intervalo alvo de 60 ms; reconhecimento, captura e HUD podem alongar esse intervalo. Não é uma garantia de 60 ms em todo PC.
 - Uma comparação visual da arte e dos nomes detecta mudanças. Ela serve apenas para invalidar um slot: nunca atribui a identidade de um campeão por semelhança ou hash.
-- Ao mudar ou esvaziar uma carta, o leitor publica a remoção antes do OCR. Os nomes alterados são reunidos em uma imagem e reconhecidos numa única chamada; palavras voltam aos slots pelas coordenadas. Duplicatas permanecem separadas.
+- Ao esvaziar uma carta ou reconhecer várias substituições simultâneas, o leitor publica a remoção antes do OCR. Uma alteração isolada é confirmada atomicamente pelo OCR, sem apagar e redesenhar o mesmo campeão. Os nomes alterados são reunidos em uma imagem e reconhecidos numa única chamada; palavras voltam aos slots pelas coordenadas. Duplicatas permanecem separadas.
 - Cartas inalteradas usam cache, revalidado em dois segundos. Nomes desconhecidos/fades têm tentativas rápidas e depois reduzem a frequência para evitar trabalho contínuo em ofertas especiais.
 - O processo principal manda um evento pequeno diretamente à janela das medalhas. A loja não espera o fallback do HUD, uma atualização do React da janela principal, gravação das preferências ou a rede da dupla.
 - Uma revisão crescente impede snapshots atrasados de restaurarem medalhas retiradas. O leitor é a fonte dos slots no modo normal; publicações da janela principal não sobrescrevem o resultado.
-- Dados da loja sem heartbeat por 750 ms limpam as medalhas, sem ocultar o guia. Alt+Tab continua ocultando o overlay; pausas ao clicar no guia são preservadas.
+- Dados da loja sem heartbeat por dois segundos limpam as medalhas, sem ocultar o guia. Alt+Tab continua ocultando o overlay; pausas ao clicar no guia são preservadas.
 - HUD é amostrado separadamente a cada 400 ms no mesmo leitor. A busca mais cara por texto de fim de partida é limitada a uma por segundo, só quando não há HUD válido. Dois scans reais continuam necessários; frames sem scan não confirmam resultados.
 
 ## Dupla
@@ -29,7 +29,7 @@ Template matching pode ser útil em uma etapa futura, mas uma imagem de retrato 
 
 ## Estabilidade e posicionamento (0.17.5)
 
-O comparador usa tolerâncias para brilho uniforme, pequenos reflexos e antialiasing. A região do selo e a moldura ficam fora das amostras visuais (inclusive da verificação de slot vazio), evitando que o próprio destaque seja confundido com outra carta. O overlay continua aparecendo normalmente em screenshots e gravações. Uma falha isolada na revalidação de uma carta estável tem tolerância de250ms; mudanças reais de imagem e cartas vazias continuam invalidando o aviso antes do OCR.
+O comparador usa tolerâncias para brilho uniforme, pequenos reflexos e antialiasing. A região do selo e a moldura ficam fora das amostras visuais (inclusive da verificação de slot vazio), evitando que o próprio destaque seja confundido com outra carta. O overlay continua aparecendo normalmente em screenshots e gravações. Na0.17.6, falhas de OCR em uma carta visualmente estável preservam a identidade confirmada. Arte animada ou variações isoladas do nome pedem revalidação sem limpar o selo. Uma mudança simultânea de nome e arte em vários slots identifica a troca da loja; slots vazios limpam imediatamente. Janelas já visíveis não recebem showInactive repetido a cada heartbeat; bounds iguais também não são reaplicados. Um diagnóstico real da0.17.5 registrou ciclos do mesmo campeão com apagamento seguido de reconhecimento8–23ms depois; o teste controlado agora inclui arte alterada e deslocamento1px do nome.
 
 A janela de medalhas recebe a área lida (`shopRect`) e as bordas individuais detectadas (`shopCards`) junto dos slots e da revisão. Uma busca local por linhas retas da moldura original alinha o destaque, com cache até mudar a janela. O aro de cristal fica fora do card, sem efeitos sobre o retrato. Cartas de custo1 têm contorno fechado; outras preservam a joia original com transição gradual para o encaixe metálico, sem corte reto. Aviso acima da borda e medalha logo abaixo formam uma peça no mesmo eixo, no canto direito. “Comprar” indica prioridade atual; “Comp” indica outra unidade da composição fixada; “Guardar” indica transição. Compra/comp/transição usam azul; pedidos da dupla usam lilás. Não há animação de entrada que reinicie a cada leitura.
 

@@ -31,6 +31,12 @@ O fim confirmado da partida limpa as compras e os pedidos ativos. Alt+Tab contin
 - `verify-signup.mjs`: cadastro real pela UI do pacote com entrada imediata, criação de perfil, sessão cifrada restaurada após reiniciar e logout.
 - `verify-team-levels.mjs`, `verify-match-end.mjs`, `verify-reimagined.mjs`: navegação por níveis, fim de partida no mesmo PID, temas e atalhos continuam funcionando em perfis isolados.
 - Capturas em `design/review/0.16.0/duo`. As lojas e o HUD dos testes usam fixtures; não houve teste desta versão em dois computadores físicos nem envio real no TFT.
-- Contas descartáveis dos testes são removidas ao fim da validação.
+- Sessões de teste são encerradas ao fim. Quando a administração do Supabase não está disponível, os IDs das contas descartáveis ficam registrados localmente para limpeza posterior.
 
 Sem certificado de assinatura de código configurado. A compilação funciona, mas o Windows pode pedir confirmação ao abrir um executável baixado.
+
+## Notificações e controles do overlay (0.17.6)
+
+Pedidos recebidos e convites aparecem em um aviso global mesmo fora de Duplas Dinâmicas, com ação para abrir a lista. O contador lateral permanece até aceitar ou recusar. Com o Zyon sem foco, uma notificação do Windows abre Duplas ao clicar; sua exibição depende das permissões de notificações do sistema. Reatualizações não repetem o aviso nativo.
+
+O botão Só avisos da loja reduz o painel a um pequeno controle Painel; leitura, medalhas de compra/envio e sincronização continuam. Clique em Painel ou use Ctrl+Shift+G para voltar. Arraste o cabeçalho (ou a alça do controle pequeno) para posicionar. A posição é salva e limitada ao monitor escolhido, preservando o acesso quando a resolução muda.

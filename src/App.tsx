@@ -60,6 +60,7 @@ import { BrandMark } from "./Brand";
 import { CompSpotlight } from "./CompSpotlight";
 import {SidebarComp} from "./SidebarComp";
 import {SocialPanel,useSocial} from './SocialPanel';
+import {SocialNotifications} from './SocialNotifications';
 import {AccountGate,AccountProfile} from './AccountGate';
 import {effectiveComp,partnerNeeds} from './duo-plans.mjs';
 import {UpdateProvider,UpdatesSettings,UpdateIndicator} from './Updates';
@@ -608,9 +609,12 @@ function Workbench() {
                   className={tab === id ? "nav-active" : ""}
                   onClick={() => setTab(id as string)}
                   title={name as string}
+                  aria-label={name as string}
+                  aria-description={id==='duo'&&social?.notices?.length?`${social.notices.length} pedidos pendentes`:undefined}
                 >
                   <NavIcon size={19} />
                   <span>{name as string}</span>
+                  {id==='duo'&&!!social?.notices?.length&&<b className="social-unread-count" aria-label={`${social.notices.length} pedidos pendentes`}>{social.notices.length}</b>}
                   {tab === id && (
                     <ChevronDown className="nav-current" size={12} />
                   )}
@@ -1472,6 +1476,7 @@ function Workbench() {
             </span>
           </footer>
         </div>
+        {tab!=='duo'&&<SocialNotifications social={social} onOpen={()=>setTab('duo')}/>}
         {toast && (
           <div className="toast" role="status">
             <Check size={16} />

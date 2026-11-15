@@ -23,6 +23,8 @@ function freshSession() {
     tab: "now",
     side: "left",
     collapsed: false,
+    shopOnly: false,
+    guidePosition: null,
   };
 }
 function normalizeSession(value) {
@@ -33,6 +35,9 @@ function normalizeSession(value) {
     tab: tabs.includes(value?.tab) ? value.tab : "now",
     side: value?.side === "right" ? "right" : "left",
     collapsed: value?.collapsed === true,
+    shopOnly: value?.shopOnly === true,
+    guidePosition: Number.isFinite(value?.guidePosition?.x) && Number.isFinite(value?.guidePosition?.y)
+      ? {x:clamp(value.guidePosition.x,0,32768,0),y:clamp(value.guidePosition.y,0,32768,0)} : null,
     levelMode: "ocr",
     goldMode: "ocr",
     ended: value?.ended === true,
@@ -89,6 +94,8 @@ function changeSession(value, action) {
       startedAt: Date.now(),
       side: next.side,
       collapsed: next.collapsed,
+      shopOnly: next.shopOnly,
+      guidePosition: next.guidePosition,
     };
   if (
     action.type === "purchase" &&
@@ -119,11 +126,13 @@ function changeSession(value, action) {
   if (action.type === "side")
     next.side = next.side === "left" ? "right" : "left";
   if (action.type === "collapse") next.collapsed = !next.collapsed;
+  if (action.type === "shop-only") next.shopOnly = !next.shopOnly;
+  if (action.type === "guide-position") next.guidePosition = action.position;
   if (action.type === "end")
-    return {...freshSession(),matchId:next.matchId,ended:true,side:next.side,collapsed:next.collapsed};
+    return {...freshSession(),matchId:next.matchId,ended:true,side:next.side,collapsed:next.collapsed,shopOnly:next.shopOnly,guidePosition:next.guidePosition};
   if (action.type === "resume") { next.ended=false;next.startedAt=Date.now(); }
   if (action.type === "reset")
-    return { ...freshSession(), side: next.side, matchId: next.matchId };
+    return { ...freshSession(), side: next.side, shopOnly:next.shopOnly,guidePosition:next.guidePosition,matchId: next.matchId };
   return normalizeSession(next);
 }
 module.exports = { freshSession, normalizeSession, changeSession };
