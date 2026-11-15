@@ -22,7 +22,7 @@ class UpdateService extends EventEmitter {
  fail(error){
   if(this.closed)return;
   if(['ERR_UPDATER_NO_PUBLISHED_VERSIONS','ERR_UPDATER_LATEST_VERSION_NOT_FOUND'].includes(error?.code))this.set({status:'current',version:null,message:'Ainda não há uma versão nova publicada.',checkedAt:this.now()});
-  else this.set({status:'error',message:error?.code==='ERR_UPDATER_CHECKSUM_MISMATCH'?'O arquivo não passou na verificação. Tente baixar novamente.':'Não foi possível atualizar agora. Confira a conexão e tente novamente.'});
+  else this.set({status:'error',message:['ERR_UPDATER_CHECKSUM_MISMATCH','ERR_CHECKSUM_MISMATCH'].includes(error?.code)?'O arquivo não passou na verificação. Tente baixar novamente.':'Não foi possível atualizar agora. Confira a conexão e tente novamente.'});
  }
  start(){if(!this.enabled)return;this.initial=setTimeout(()=>void this.check(),8000);this.initial.unref?.();this.interval=setInterval(()=>void this.check(),4*60*60*1000);this.interval.unref?.();}
  async check(){

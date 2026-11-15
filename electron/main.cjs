@@ -90,6 +90,17 @@ let quitting = false;
 const devUrl = process.env.ZYON_DEV_URL;
 const settingsFile = () =>
   path.join(app.getPath("userData"), "preferences-v1.json");
+// NSIS relaunches through Explorer, which drops test environment variables.
+// An explicit adjacent fixture keeps integration restarts out of personal data.
+if(app.isPackaged){
+  const installation=path.dirname(app.getPath('exe')),runtime=path.dirname(installation);
+  if(path.basename(runtime)==='.runtime')try{
+    const fixture=JSON.parse(fs.readFileSync(path.join(runtime,`${path.basename(installation)}.test.json`),'utf8'));
+    if(fixture.enabled===true&&path.dirname(path.resolve(fixture.userData))===runtime){
+      process.env.ZYON_USER_DATA=path.resolve(fixture.userData);process.env.ZYON_UPDATE_TEST='1';process.env.ZYON_TEST_UPDATE_URL=fixture.feed;
+    }
+  }catch{/* Only explicitly configured, local test installations use fixtures. */}
+}
 if (process.env.ZYON_USER_DATA) {
   fs.mkdirSync(process.env.ZYON_USER_DATA, { recursive: true });
   app.setPath("userData", process.env.ZYON_USER_DATA);
@@ -860,12 +871,15 @@ if (primaryInstance)
       startupLog(`Renderer stopped: ${details.reason}`),
     );
     loadWindow(mainWindow);
-    const {autoUpdater}=require('electron-updater');
+    let {autoUpdater}=require('electron-updater');
     // Overrides exist only for isolated integration tests on this machine.
     if(process.env.ZYON_USER_DATA&&process.env.ZYON_UPDATE_TEST==='1'&&process.env.ZYON_TEST_UPDATE_URL){
       const feed=new URL(process.env.ZYON_TEST_UPDATE_URL);
       if(feed.protocol!=='http:'||feed.hostname!=='127.0.0.1'||!path.resolve(app.getPath('exe')).includes(`${path.sep}.runtime${path.sep}`))throw new Error('Invalid isolated update test');
-      autoUpdater.setFeedURL({provider:'generic',url:feed.href});
+      const {ElectronAppAdapter}=require('electron-updater/out/ElectronAppAdapter');
+      const adapter=new ElectronAppAdapter(app);
+      Object.defineProperty(adapter,'baseCachePath',{value:path.join(app.getPath('userData'),'update-cache')});
+      autoUpdater=new (require('electron-updater').NsisUpdater)({provider:'generic',url:feed.href},adapter);
       autoUpdater.disableDifferentialDownload=true;
     }
     autoUpdater.logger={info:()=>{},warn:()=>{},error:()=>{startupLog('Update: request failed');},debug:()=>{}};
