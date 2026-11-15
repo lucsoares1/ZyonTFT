@@ -279,8 +279,12 @@ function updateGame(action) {
   broadcast();
   return state.gameSession;
 }
+let shopOnlyTransition=false;
 async function toggleShopOnly(){
+  if(shopOnlyTransition)return false;
   if(!guideWindow||guideWindow.isDestroyed()||!accountReady())return false;
+  shopOnlyTransition=true;
+  try{
   const window=guideWindow;
   let offset;
   try{offset=await window.webContents.executeJavaScript("(()=>{const r=document.querySelector('[data-guide-shop-toggle]')?.getBoundingClientRect();return r?{x:r.x+r.width/2,y:r.y+r.height/2}:null})()");}catch{}
@@ -288,6 +292,7 @@ async function toggleShopOnly(){
   if(offset){const zoom=window.webContents.getZoomFactor();offset={x:offset.x*zoom,y:offset.y*zoom};}
   const placement=shopOnlyPlacement(chosenDisplay().bounds,state.gameSession,window.getBounds(),offset);
   return updateGame({type:'shop-only',placement});
+  }finally{shopOnlyTransition=false;}
 }
 function selectGuideComposition(id,showNow=false){
   const next=chooseGuideComposition(state,id,planTools.effectiveComp,championById);
@@ -325,6 +330,7 @@ function showGuide() {
     },
   });
   guideWindow.setAlwaysOnTop(true, "screen-saver");
+  guideWindow.setContentProtection(true);
   guideWindow.setIgnoreMouseEvents(false);
   expectedGuideBounds=guideWindow.getBounds();
   guideWindow.on('move',()=>{
@@ -522,6 +528,9 @@ function setOverlay(enabled, { automatic = false } = {}) {
       },
     });
     overlayWindow.setIgnoreMouseEvents(true, { forward: true });
+    // Windows excludes this window from screen captures, so neither OCR nor
+    // original-card detection can latch onto our own medal/crystal outline.
+    overlayWindow.setContentProtection(true);
     overlayWindow.setAlwaysOnTop(true, "screen-saver");
     overlayWindow.once("ready-to-show", () => {
       if (!quitting && overlayEnabled) {

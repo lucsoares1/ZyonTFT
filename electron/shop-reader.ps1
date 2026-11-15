@@ -295,6 +295,10 @@ public class ZyonWindows {
   [ZyonWindows]::SetShopBounds($left,$cardTop,$totalWidth,$cardHeight)
   }
   Set-ZyonGeometry $config.rect
+  # Text calibration is not card geometry. An older/manual OCR region can
+  # include space above the cards; never draw a frame using that rectangle.
+  $frameLeft=$left;$frameTop=$cardTop;$frameSlotWidth=$slotWidth;$frameHeight=$cardHeight
+  $frameGeometryKey=''
   $geometryKey=''
   $matchProcess=$null
   $matchId=$null
@@ -340,13 +344,18 @@ public class ZyonWindows {
       $sequenceChangedAt=if($sequenceIndex -eq 0){[ZyonWindows]::Now()}else{$sequenceUntil}
       $sequenceUntil=$sequenceChangedAt+[long]$sequence[$sequenceIndex].holdMs
     }
-    if(-not $ShopFixture -and $config.automaticRect){
+    if(-not $ShopFixture){
       $client=[ZyonWindows]::ClientBounds($foregroundWindow)
       if($client -and $client[2] -gt 400 -and $client[3] -gt 300){
         $key=$client -join ','
-        if($key -ne $geometryKey){
+        $fit=[ZyonWindows]::FitShopRect($client,@($bounds.X,$bounds.Y,$bounds.Width,$bounds.Height))
+        if($key -ne $frameGeometryKey){
+          $frameLeft=[int]($bounds.Width*$fit[0]);$frameTop=[int]($bounds.Height*$fit[1])
+          $frameSlotWidth=[int]($bounds.Width*$fit[2]/5);$frameHeight=[int]($bounds.Height*$fit[3])
+          $cardRects=@($null,$null,$null,$null,$null);$rectAttempt=@(0L,0L,0L,0L,0L);$frameGeometryKey=$key
+        }
+        if($config.automaticRect -and $key -ne $geometryKey){
           # TFT's centered shop scales with viewport height, not monitor width.
-          $fit=[ZyonWindows]::FitShopRect($client,@($bounds.X,$bounds.Y,$bounds.Width,$bounds.Height))
           $fitted=@{x=$fit[0];y=$fit[1];width=$fit[2];height=$fit[3]}
           if($fitted.x -ge 0 -and $fitted.y -ge 0 -and $fitted.x+$fitted.width -le 1.001 -and $fitted.y+$fitted.height -le 1.001){
             Set-ZyonGeometry $fitted
@@ -376,7 +385,7 @@ public class ZyonWindows {
         if(-not $cardRects[$i] -and $cachedNames[$i] -and -not $emptySlots[$i] -and $capturedAt-$rectAttempt[$i] -ge 500){
           $rectAttempt[$i]=$capturedAt
           # Snap only once to the original frame. Never chase our own outline.
-          $found=[ZyonWindows]::FindCardRect($frame,$slotLeft,($cardTop-$bounds.Y),$slotWidth,$cardHeight)
+          $found=[ZyonWindows]::FindCardRect($frame,($frameLeft+$i*$frameSlotWidth),$frameTop,$frameSlotWidth,$frameHeight)
           if($found){$cardRects[$i]=@{x=$found[0];y=$found[1];width=$found[2];height=$found[3]}}
         }
         $visualChange=[ZyonWindows]::SlotChange($i,$frame,$slotLeft,($cardTop-$bounds.Y),$slotWidth,$cardHeight,($textTop-$bounds.Y),$textHeight)
@@ -430,7 +439,7 @@ public class ZyonWindows {
             }else{$cachedNames[$i]=$readNames[$i]}
             if(-not $cardRects[$i] -and $cachedNames[$i] -and $capturedAt-$rectAttempt[$i] -ge 500){
               $rectAttempt[$i]=$capturedAt
-              $found=[ZyonWindows]::FindCardRect($frame,($left-$bounds.X+$i*$slotWidth),($cardTop-$bounds.Y),$slotWidth,$cardHeight)
+              $found=[ZyonWindows]::FindCardRect($frame,($frameLeft+$i*$frameSlotWidth),$frameTop,$frameSlotWidth,$frameHeight)
               if($found){$cardRects[$i]=@{x=$found[0];y=$found[1];width=$found[2];height=$found[3]}}
             }
           }

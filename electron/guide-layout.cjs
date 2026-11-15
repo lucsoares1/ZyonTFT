@@ -20,6 +20,17 @@ function shopOnlyPlacement(display,session,bounds,controlOffset) {
   const from=valid(controlOffset)?controlOffset:session.shopOnly?smallControl:session.guideControlOffset||fallback;
   const savedOffset=session.shopOnly?session.guideControlOffset||fallback:from;
   const to=session.shopOnly?savedOffset:smallControl;
-  return {guidePosition:{x:bounds.x-display.x+from.x-to.x,y:bounds.y-display.y+from.y-to.y},guideControlOffset:savedOffset};
+  let guidePosition={x:bounds.x-display.x+from.x-to.x,y:bounds.y-display.y+from.y-to.y};
+  let guideRestore=null;
+  if(!session.shopOnly){
+    // Record the actual full window, and the reachable miniature origin.
+    // Clamping a miniature at a screen edge must not lose the full position.
+    const mini=guideBoundsFor(display,{...session,shopOnly:true,guidePosition});
+    guideRestore={x:bounds.x-display.x,y:bounds.y-display.y,miniX:mini.x-display.x,miniY:mini.y-display.y};
+  }else if(session.guideRestore){
+    const saved=session.guideRestore;
+    guidePosition={x:saved.x+bounds.x-display.x-saved.miniX,y:saved.y+bounds.y-display.y-saved.miniY};
+  }
+  return {guidePosition,guideControlOffset:savedOffset,guideRestore};
 }
 module.exports = { guideBoundsFor,shopOnlyPlacement };

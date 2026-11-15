@@ -34,3 +34,16 @@ test('free placement stays reachable on another resolution and negative-origin m
   const small=guideBoundsFor({x:0,y:0,width:1280,height:720},{...s,guidePosition:{x:1800,y:900}});
   assert.ok(small.x>=0&&small.y>=0&&small.x+small.width<=1280&&small.y+small.height<=720);
 });
+
+test('edge-clamped miniature restores the actual full origin repeatedly and after restart',()=>{
+ const display={x:0,y:0,width:1280,height:720};
+ for(const position of [{x:0,y:0},{x:440,y:64},{x:440,y:100},{x:0,y:100}]){
+  let s={...freshSession(),guidePosition:position};const original=guideBoundsFor(display,s);
+  for(let i=0;i<4;i++){
+   s=changeSession(s,{type:'shop-only',placement:shopOnlyPlacement(display,s,guideBoundsFor(display,s),{x:830,y:150})});
+   s=normalizeSession(JSON.parse(JSON.stringify(s)));
+   s=changeSession(s,{type:'shop-only',placement:shopOnlyPlacement(display,s,guideBoundsFor(display,s),{x:96,y:22})});
+   assert.deepEqual(guideBoundsFor(display,s),original);
+  }
+ }
+});

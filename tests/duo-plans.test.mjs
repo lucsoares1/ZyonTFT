@@ -5,6 +5,21 @@ import {effectiveComp,editWorkingPlan,sharingPayload,normalizeSharedPlan,partner
 import {planForLevel} from '../src/level-planner.mjs';
 const catalog=Object.fromEntries(JSON.parse(fs.readFileSync(new URL('../src/generated/catalog.json',import.meta.url))).champions.map(c=>[c.id,c]));
 const comp=JSON.parse(fs.readFileSync(new URL('../src/generated/pivot.json',import.meta.url))).comps[0];
+
+test('personal compositions never publish adaptive filler champions as implicit buys',()=>{
+ const custom={...comp,id:'comp-personal',style:'Personalizada',pivot:undefined,champions:[comp.carry]};
+ for(let level=1;level<=10;level++){
+  const session={matchId:'test',context:{level,copies:{}}};
+  assert.deepEqual(shoppingWishes(custom,null,session,catalog).map(w=>w.id),[comp.carry]);
+  assert.deepEqual(normalizeSharedPlan(sharingPayload(custom,null,session,catalog),catalog).shopping.map(w=>w.id),[comp.carry]);
+ }
+ const other=Object.values(catalog).find(c=>c.id!==comp.carry);
+ const edit={traits:[other.traits[0]],requests:[{id:other.id,goal:9,priority:2}]};
+ const wishes=shoppingWishes(custom,edit,{context:{level:2}},catalog);
+ assert.equal(wishes.find(w=>w.id===other.id).reason,'request');
+ assert.ok(wishes.every(w=>w.id===comp.carry||w.reason==='trait'||w.reason==='request'));
+ assert.deepEqual(shoppingWishes({...custom,champions:[]},null,{context:{level:2}},catalog),[]);
+});
 test('overlay roster edits are reversible, preserve the source and never reintroduce removed units',()=>{
  const original=structuredClone(comp),removed=comp.champions[0],added=Object.keys(catalog).find(id=>!comp.champions.includes(id));
  let edit=editWorkingPlan(comp,null,{type:'toggle',id:removed},catalog);edit=editWorkingPlan(comp,edit,{type:'toggle',id:added},catalog);

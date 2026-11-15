@@ -52,8 +52,12 @@ export function shoppingWishes(comp,edit,session,catalog){
  if(!comp)return [];
  const copies=session?.context?.copies||{},ids=unique(comp.champions,catalog),traits=new Set(selectedTraits(edit?.traits,catalog));
  const wanted=new Map(ids.map(id=>[id,{id,goal:goal(edit?.goals?.[id]??(comp.stars?.[id]===3?9:3)),reason:'team'}]));
- const plan=planForLevel(comp,catalog,session?.context);
- for(const id of [...plan.search,...plan.reserve])if(catalog[id]&&!wanted.has(id)&&!edit?.excluded?.includes(id))wanted.set(id,{id,goal:3,reason:'transition'});
+ // Adaptive boards remain advice, not implicit shopping selections for a
+ // player-authored roster. Only published compositions supply transition buys.
+ if(comp.style!=='Personalizada'){
+  const plan=planForLevel(comp,catalog,session?.context);
+  for(const id of [...plan.search,...plan.reserve])if(catalog[id]&&!wanted.has(id)&&!edit?.excluded?.includes(id))wanted.set(id,{id,goal:3,reason:'transition'});
+ }
  for(const champion of Object.values(catalog))if(champion.traits?.some(t=>traits.has(t))&&!wanted.has(champion.id)&&!edit?.excluded?.includes(champion.id))wanted.set(champion.id,{id:champion.id,goal:1,reason:'trait'});
  // Explicit duo requests are independent of the board and can temporarily
  // promote even a champion excluded from the composition.
