@@ -42,3 +42,9 @@ Pedidos recebidos e convites aparecem em um aviso global mesmo fora de Duplas Di
 O botão Só avisos da loja reduz o painel a um pequeno controle Painel; leitura, medalhas de compra/envio e sincronização continuam. Clique em Painel ou use Ctrl+Shift+G para voltar. Arraste o cabeçalho (ou a alça do controle pequeno) para posicionar. A posição é salva e limitada ao monitor escolhido, preservando o acesso quando a resolução muda.
 
 A identificação do processo Windows usa AppUserModelID `local.zyon.tft`, igual ao instalador NSIS, antes de criar notificações. Referência: [Electron — notificações no Windows](https://www.electronjs.org/docs/latest/tutorial/notifications#windows). Falhas de exibição são registradas sem conteúdo de solicitações no startup.log.
+
+## Troca de comp e referência do controle (0.17.8)
+
+A aba Comps no overlay lista o catálogo salvo, incluindo planos pessoais, com busca pelo nome da composição ou de seus campeões. O nome da comp no cabeçalho também abre essa lista. Escolher uma comp atualiza o app e os pedidos da dupla sem tirar o foco do jogo; ouro, nível e histórico de compras são preservados. A aba Dupla só é exibida quando existe uma dupla formada. Ao encerrá-la, quem estiver nessa aba volta a Agora.
+
+Ao recolher ou expandir, o controle mantém a mesma posição na tela, usando o centro do botão como referência. Isso também vale depois de arrastar o painel pequeno; limites do monitor são respeitados se não houver espaço para abrir a janela inteira.

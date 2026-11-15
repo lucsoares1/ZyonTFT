@@ -12,4 +12,14 @@ function guideBoundsFor(display, session, { count = 0, safeTop = .858 } = {}) {
     width, height,
   };
 }
-module.exports = { guideBoundsFor };
+const smallControl={x:96,y:22};
+function shopOnlyPlacement(display,session,bounds,controlOffset) {
+  const full=guideBoundsFor(display,{...session,shopOnly:false});
+  const fallback={x:full.width-64,y:22};
+  const valid=p=>p&&Number.isFinite(p.x)&&Number.isFinite(p.y)&&p.x>=0&&p.y>=0&&p.x<=bounds.width&&p.y<=bounds.height;
+  const from=valid(controlOffset)?controlOffset:session.shopOnly?smallControl:session.guideControlOffset||fallback;
+  const savedOffset=session.shopOnly?session.guideControlOffset||fallback:from;
+  const to=session.shopOnly?savedOffset:smallControl;
+  return {guidePosition:{x:bounds.x-display.x+from.x-to.x,y:bounds.y-display.y+from.y-to.y},guideControlOffset:savedOffset};
+}
+module.exports = { guideBoundsFor,shopOnlyPlacement };

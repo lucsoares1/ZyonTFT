@@ -42,7 +42,8 @@ const {
 const { PurchaseTracker } = require("./purchase-tracker.cjs");
 const {SocialService}=require('./social-service.cjs');
 const {SocialNoticeTracker}=require('./social-notices.cjs');
-const {guideBoundsFor}=require('./guide-layout.cjs');
+const {guideBoundsFor,shopOnlyPlacement}=require('./guide-layout.cjs');
+const {chooseGuideComposition,guardCompositionPublication}=require('./guide-selection.cjs');
 const socialNotices=new SocialNoticeTracker();
 const {UpdateService}=require('./update-service.cjs');
 let planTools,socialService,updateService;
@@ -269,6 +270,25 @@ function updateGame(action) {
   save();
   broadcast();
   return state.gameSession;
+}
+async function toggleShopOnly(){
+  if(!guideWindow||guideWindow.isDestroyed()||!accountReady())return false;
+  const window=guideWindow;
+  let offset;
+  try{offset=await window.webContents.executeJavaScript("(()=>{const r=document.querySelector('[data-guide-shop-toggle]')?.getBoundingClientRect();return r?{x:r.x+r.width/2,y:r.y+r.height/2}:null})()");}catch{}
+  if(window.isDestroyed())return false;
+  if(offset){const zoom=window.webContents.getZoomFactor();offset={x:offset.x*zoom,y:offset.y*zoom};}
+  const placement=shopOnlyPlacement(chosenDisplay().bounds,state.gameSession,window.getBounds(),offset);
+  return updateGame({type:'shop-only',placement});
+}
+function selectGuideComposition(id,showNow=false){
+  const next=chooseGuideComposition(state,id,planTools.effectiveComp,championById);
+  if(!next)return false;
+  state=next;
+  if(showNow){state.gameSession=changeSession(state.gameSession,{type:'tab',value:'now'});state.saved.gameSession=state.gameSession;}
+  positionGuide();save();broadcast();socialService?.schedulePublish();
+  mainWindow?.webContents.send('guide:build',{id,revision:state.compSelectionRevision});
+  return true;
 }
 function showGuide() {
   if (guideWindow && !guideWindow.isDestroyed()) {
@@ -871,9 +891,9 @@ if (primaryInstance)
           c.pivot,
       );
       if (!build) return false;
-      mainWindow?.webContents.send("guide:build", id);
-      return true;
+      return selectGuideComposition(id);
     });
+    ipcMain.handle('guide:comp',(event,id)=>accountReady()&&event.sender===guideWindow?.webContents?selectGuideComposition(id,true):false);
     startupLog(`Starting ${app.getVersion()}`);
     try {
       const saved = JSON.parse(fs.readFileSync(settingsFile(), "utf8"));
@@ -1013,6 +1033,7 @@ if (primaryInstance)
     ipcMain.handle("state:publish", (event, next) => {
       if (!accountReady() || !mainSender(event) || !next || !Array.isArray(next.selected))
         return false;
+      next=guardCompositionPublication(state,next);
       const previousRect = JSON.stringify(state.rect);
       const previousDisplay = state.displayId;
       const previousLevelRect = JSON.stringify(state.levelRect);
@@ -1020,6 +1041,7 @@ if (primaryInstance)
       state = {
         ...state,
         ...next,
+        compSelectionRevision:state.compSelectionRevision||0,
         // Live shop detections belong to the native reader. A delayed main
         // renderer publication must never restore a removed/sold champion.
         slots: !overlayPreview ? state.slots : next.slots,
@@ -1095,7 +1117,7 @@ if (primaryInstance)
         ].includes(action?.type)
       )
         return false;
-      return updateGame(action);
+      return action.type==='shop-only'?toggleShopOnly():updateGame(action);
     });
     ipcMain.handle("reader:set", (event, enabled) =>
       mainSender(event) || event.sender === guideWindow?.webContents
@@ -1118,7 +1140,7 @@ if (primaryInstance)
     );
     globalShortcut.register("CommandOrControl+Shift+Q", () => app.quit());
     globalShortcut.register("CommandOrControl+Shift+G", () => {
-      if (overlayEnabled) updateGame({ type: state.gameSession.shopOnly ? "shop-only" : "collapse" });
+      if (overlayEnabled) {if(state.gameSession.shopOnly)void toggleShopOnly();else updateGame({type:'collapse'});}
     });
     startPresenceWatch();
     screen.on("display-removed", () => {

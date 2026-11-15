@@ -255,6 +255,7 @@ function Workbench() {
   const [guideTab, setGuideTab] = useState<GuideTab>("overview");
   const [expanded, setExpanded] = useState(false);
   const followBuild = useRef(false);
+  const [compSelectionRevision,setCompSelectionRevision]=useState(0);
   useEffect(() => {
     if (!followBuild.current || !expanded) return;
     const row = document.querySelector(".row-expanded");
@@ -307,7 +308,8 @@ function Workbench() {
   }, [hydrated]);
   useEffect(
     () =>
-      window.zyon?.onBuild((id) => {
+      window.zyon?.onBuild(({id,revision}) => {
+        setCompSelectionRevision(revision);
         followBuild.current = true;
         setLibraryScope("all");
         setTierFilter("Todas");
@@ -315,9 +317,9 @@ function Workbench() {
         setStyleFilter("Todas");
         setExpanded(true);
         setSaved((prev) => {
-          const build = prev.comps.find((c) => c.id === id && c.pivot);
+          const build = prev.comps.find((c) => c.id === id);
           if (!build) return prev;
-          return { ...prev, pinned: id, active: id, selected: build.champions };
+          return { ...prev, pinned: id, active: id, selected: effectiveComp(build,prev.overlayPlans?.[id],byId).champions };
         });
       }),
     [],
@@ -350,6 +352,7 @@ function Workbench() {
   useEffect(() => {
     if (!window.zyon) return;
     window.zyon.getState().then((data) => {
+      setCompSelectionRevision(data.compSelectionRevision||0);
       if (data?.saved)
         setSaved({
           ...migrateSaved(data.saved, defaults, champions, dataset.revision),
@@ -370,6 +373,7 @@ function Workbench() {
       notify("Não foi possível salvar as preferências neste navegador.");
     }
     window.zyon?.publish({
+      compSelectionRevision,
       saved,
       slots,
       selected: saved.selected,
@@ -386,7 +390,7 @@ function Workbench() {
       source: saved.source,
       compact: saved.compact,
     });
-  }, [saved, hydrated, catalogStatus]);
+  }, [saved, hydrated, catalogStatus,compSelectionRevision]);
   useEffect(
     () =>
       window.zyon?.onDetection((data) => {

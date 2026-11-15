@@ -1,5 +1,5 @@
 // The live match belongs to the main process, never to the app's browsing level.
-const tabs = ["now", "team", "items", "match", "route", "augments", "planner", "duo"];
+const tabs = ["now", "team", "items", "match", "route", "augments", "planner", "duo", "comps"];
 const clamp = (value, min, max, fallback) =>
   Number.isFinite(value)
     ? Math.max(min, Math.min(max, Math.round(value)))
@@ -25,6 +25,7 @@ function freshSession() {
     collapsed: false,
     shopOnly: false,
     guidePosition: null,
+    guideControlOffset: null,
   };
 }
 function normalizeSession(value) {
@@ -38,6 +39,8 @@ function normalizeSession(value) {
     shopOnly: value?.shopOnly === true,
     guidePosition: Number.isFinite(value?.guidePosition?.x) && Number.isFinite(value?.guidePosition?.y)
       ? {x:clamp(value.guidePosition.x,0,32768,0),y:clamp(value.guidePosition.y,0,32768,0)} : null,
+    guideControlOffset: Number.isFinite(value?.guideControlOffset?.x) && Number.isFinite(value?.guideControlOffset?.y)
+      ? {x:clamp(value.guideControlOffset.x,0,2000,0),y:clamp(value.guideControlOffset.y,0,1000,0)} : null,
     levelMode: "ocr",
     goldMode: "ocr",
     ended: value?.ended === true,
@@ -96,6 +99,7 @@ function changeSession(value, action) {
       collapsed: next.collapsed,
       shopOnly: next.shopOnly,
       guidePosition: next.guidePosition,
+      guideControlOffset: next.guideControlOffset,
     };
   if (
     action.type === "purchase" &&
@@ -126,13 +130,16 @@ function changeSession(value, action) {
   if (action.type === "side")
     next.side = next.side === "left" ? "right" : "left";
   if (action.type === "collapse") next.collapsed = !next.collapsed;
-  if (action.type === "shop-only") next.shopOnly = !next.shopOnly;
+  if (action.type === "shop-only") {
+    next.shopOnly = !next.shopOnly;
+    if(action.placement){next.guidePosition=action.placement.guidePosition;next.guideControlOffset=action.placement.guideControlOffset;}
+  }
   if (action.type === "guide-position") next.guidePosition = action.position;
   if (action.type === "end")
-    return {...freshSession(),matchId:next.matchId,ended:true,side:next.side,collapsed:next.collapsed,shopOnly:next.shopOnly,guidePosition:next.guidePosition};
+    return {...freshSession(),matchId:next.matchId,ended:true,side:next.side,collapsed:next.collapsed,shopOnly:next.shopOnly,guidePosition:next.guidePosition,guideControlOffset:next.guideControlOffset};
   if (action.type === "resume") { next.ended=false;next.startedAt=Date.now(); }
   if (action.type === "reset")
-    return { ...freshSession(), side: next.side, shopOnly:next.shopOnly,guidePosition:next.guidePosition,matchId: next.matchId };
+    return { ...freshSession(), side: next.side, shopOnly:next.shopOnly,guidePosition:next.guidePosition,guideControlOffset:next.guideControlOffset,matchId: next.matchId };
   return normalizeSession(next);
 }
 module.exports = { freshSession, normalizeSession, changeSession };

@@ -12,6 +12,7 @@ contextBridge.exposeInMainWorld("zyon", {
   refreshCatalog: (force = false) =>
     ipcRenderer.invoke("catalog:refresh", force),
   chooseBuild: (id) => ipcRenderer.invoke("guide:build", id),
+  chooseComp: (id) => ipcRenderer.invoke('guide:comp', id),
   onBuild: (callback) => listen("guide:build", callback),
   getState: () => ipcRenderer.invoke("state:get"),
   editPlan: (action) => ipcRenderer.invoke("plan:edit", action),

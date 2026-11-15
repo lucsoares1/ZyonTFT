@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {guideBoundsFor} from '../electron/guide-layout.cjs';
+import {guideBoundsFor,shopOnlyPlacement} from '../electron/guide-layout.cjs';
 import {freshSession,changeSession,normalizeSession} from '../electron/game-session.cjs';
 test('shop-only mode and dragged position survive match boundaries without changing copies',()=>{
   let s=changeSession(freshSession(),{type:'guide-position',position:{x:360,y:190}});
@@ -11,6 +11,20 @@ test('shop-only mode and dragged position survive match boundaries without chang
   assert.deepEqual(s.context.copies,{});
   assert.equal(normalizeSession({guidePosition:{x:Infinity,y:2}}).guidePosition,null);
   assert.equal(changeSession(s,{type:'shop-only'}).shopOnly,false);
+});
+test('minimize and restore anchor the control on screen, including a dragged miniature',()=>{
+  const display={x:-1920,y:0,width:1920,height:1080};
+  const original={...freshSession(),guidePosition:{x:500,y:100}};
+  const bounds=guideBoundsFor(display,original),offset={x:776,y:23};
+  const placement=shopOnlyPlacement(display,original,bounds,offset);
+  const small=changeSession(original,{type:'shop-only',placement}),smallBounds=guideBoundsFor(display,small);
+  assert.equal(bounds.x+offset.x,smallBounds.x+96);assert.equal(bounds.y+offset.y,smallBounds.y+22);
+  const restored=changeSession(small,{type:'shop-only',placement:shopOnlyPlacement(display,small,smallBounds,{x:96,y:22})});
+  assert.deepEqual(guideBoundsFor(display,restored),bounds);
+  const moved=changeSession(small,{type:'guide-position',position:{x:1200,y:180}}),movedBounds=guideBoundsFor(display,moved);
+  const expanded=changeSession(moved,{type:'shop-only',placement:shopOnlyPlacement(display,moved,movedBounds,{x:96,y:22})});
+  const expandedBounds=guideBoundsFor(display,expanded);
+  assert.equal(movedBounds.x+96,expandedBounds.x+offset.x);assert.equal(movedBounds.y+22,expandedBounds.y+offset.y);
 });
 test('free placement stays reachable on another resolution and negative-origin monitor',()=>{
   const display={x:-1920,y:0,width:1920,height:1080};

@@ -6,6 +6,7 @@ import {
   Sparkles,
   Swords,
   Users,
+  Layers3,
   LayoutGrid,
   Send,
   Minimize2,
@@ -28,6 +29,7 @@ import {BrandMark} from "./Brand";
 import {LevelRail} from "./LevelRail";
 import {OverlayPlanner} from './OverlayPlanner';
 import {SocialPanel} from './SocialPanel';
+import {OverlayComps} from './OverlayComps';
 import { CompTierBadge } from "./CompTier";
 import { ItemRecipe } from "./CompGuide";
 import {
@@ -46,7 +48,7 @@ import {
   type LevelContext,
 } from "./level-planner.mjs";
 
-type Tab = "now" | "team" | "items" | "match" | "route" | "augments" | "planner" | "duo";
+type Tab = "now" | "team" | "items" | "match" | "route" | "augments" | "planner" | "duo" | "comps";
 type Session = {
   context: LevelContext;
   levelMode: "ocr";
@@ -64,6 +66,7 @@ type Action = {
   value?: string | boolean;
 };
 const tabs: [Tab, string][] = [
+  ["comps", "Comps"],
   ["now", "Agora"],
   ["team", "Equipe"],
   ["planner", "Planejar"],
@@ -75,6 +78,7 @@ const tabs: [Tab, string][] = [
 ];
 function GuideTabIcon({ tab }: { tab: Tab }) {
   const Icon = {
+    comps: Layers3,
     now: CircleDot,
     team: Users,
     planner: LayoutGrid,
@@ -161,7 +165,10 @@ export default function GameGuide() {
 function LiveGuide({ state }: { state: any }) {
   const session = state.gameSession as Session;
   const comp = state.guideComp as Comp | null;
-  const { context, tab, collapsed } = session;
+  const { context, collapsed } = session;
+  const duoConnected=Boolean(state.social?.session&&state.social?.partner);
+  const tab=session.tab==='duo'&&!duoConnected?'now':session.tab;
+  const visibleTabs=duoConnected?tabs:tabs.filter(([id])=>id!=='duo');
   const lastPurchase = session.purchases?.at(-1);
   const [clock, setClock] = useState(Date.now);
   useEffect(() => {
@@ -244,7 +251,8 @@ function LiveGuide({ state }: { state: any }) {
     : [];
   if(session.shopOnly)return <section className="game-shop-only" aria-label="Overlay em modo só loja">
     <span className="guide-drag-grip" title="Arraste para mover o painel"><GripVertical size={16}/></span>
-    <button aria-label="Expandir painel do overlay" title="Expandir painel · Ctrl+Shift+G" onClick={()=>send({type:'shop-only'})}><BrandMark/><span>Painel</span><Maximize2 size={13}/></button>
+    <span className="game-shop-only-label"><BrandMark/>Painel</span>
+    <button data-guide-shop-toggle aria-label="Expandir painel do overlay" title="Expandir painel · Ctrl+Shift+G" onClick={()=>send({type:'shop-only'})}><Maximize2 size={16}/></button>
   </section>;
   return (
     <section
@@ -272,7 +280,7 @@ function LiveGuide({ state }: { state: any }) {
           </span>
           <div className="game-heading-title">
             {comp && <CompTierBadge comp={comp} />}
-            <h1 title={comp?.name}>{comp?.name || "Nenhuma comp fixada"}</h1>
+            <button className="game-comp-trigger" aria-label="Trocar composição no overlay" title="Trocar composição" onClick={()=>{void send({type:'tab',value:'comps'});if(collapsed)void send({type:'collapse'});}}><h1 title={comp?.name}>{comp?.name || "Escolher comp"}</h1><ChevronDown size={13}/></button>
           </div>
           <span className="game-heading-style">
             {plan?.strategy.reroll
@@ -283,6 +291,7 @@ function LiveGuide({ state }: { state: any }) {
         {comp && <OverlayRoster comp={comp} />}
         <div className="game-heading-controls">
           <button
+            data-guide-shop-toggle
             title="Só avisos da loja"
             aria-label="Encolher painel e manter avisos da loja"
             onClick={() => send({ type: "shop-only" })}
@@ -367,8 +376,8 @@ function LiveGuide({ state }: { state: any }) {
               )}
             </div>
           </div>
-          <nav className="game-tabs" aria-label="Guia no jogo" role="tablist">
-            {tabs.map(([id, label]) => (
+          <nav className="game-tabs" aria-label="Guia no jogo" role="tablist" style={{'--guide-tab-count':visibleTabs.length} as React.CSSProperties}>
+            {visibleTabs.map(([id, label]) => (
               <button
                 role="tab"
                 id={`game-tab-${id}`}
@@ -389,7 +398,7 @@ function LiveGuide({ state }: { state: any }) {
             aria-labelledby={`game-tab-${tab}`}
             ref={scroller}
           >
-            {tab==='duo' ? <SocialPanel native gameState={state}/> : !comp || !plan ? (
+            {tab==='comps'?<OverlayComps state={state}/>:tab==='duo'&&duoConnected ? <SocialPanel native gameState={state}/> : !comp || !plan ? (
               <div className="game-empty">
                 <h2>Escolha seu plano</h2>
                 <p>

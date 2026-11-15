@@ -18,6 +18,12 @@ async function waitValue(fn,predicate,label){const until=Date.now()+25000;let va
 const social=p=>p.evaluate(()=>window.zyon.getSocial());
 const state=p=>p.evaluate(()=>window.zyon.getState());
 const act=(p,a)=>p.evaluate(a=>window.zyon.socialAction(a),a);
+async function controlPoint(app,page){
+ const box=await page.locator('[data-guide-shop-toggle]').boundingBox();
+ const native=await app.evaluate(({BrowserWindow})=>{const w=BrowserWindow.getAllWindows().find(w=>w.webContents.getURL().includes('view=guide'));return {bounds:w.getBounds(),zoom:w.webContents.getZoomFactor()};});
+ return {x:native.bounds.x+(box.x+box.width/2)*native.zoom,y:native.bounds.y+(box.y+box.height/2)*native.zoom};
+}
+function sameControl(a,b){assert.ok(Math.abs(a.x-b.x)<=1&&Math.abs(a.y-b.y)<=1,`toggle moved from ${JSON.stringify(a)} to ${JSON.stringify(b)}`);}
 async function capture(app,page,file){
  if(process.argv.includes('--no-captures'))return;
  await page.emulateMedia({reducedMotion:'reduce'});
@@ -51,6 +57,27 @@ try{
  await act(b.page,{type:'refresh'});
  checks.push('two isolated desktop clients log into real Supabase accounts; no service-role key is used');
  const profileB=(await social(b.page)).profile;
+ await a.page.evaluate(()=>window.zyon.setOverlay(true));
+ await waitValue(()=>state(a.page),s=>s.gameSession.matchId&&s.levelReading.status==='confirmed','solo fixture HUD');
+ const soloGuide=await waitValue(async()=>a.app.windows().find(w=>w.url().includes('view=guide')),Boolean,'solo guide');
+ await soloGuide.getByRole('tab',{name:'Agora',exact:true}).waitFor();
+ assert.equal(await soloGuide.getByRole('tab',{name:'Dupla',exact:true}).count(),0,'solo overlay hides Dupla');
+ const originalSelection=await state(a.page),other=originalSelection.saved.comps.find(c=>c.id!==originalSelection.pinned&&c.pivot?.family!==originalSelection.guideComp.pivot?.family);
+ assert.ok(other);assert.equal(await a.page.evaluate(id=>window.zyon.chooseComp(id),other.id),false,'main window cannot call the guide-only selector');
+ await soloGuide.getByRole('button',{name:'Trocar composição no overlay',exact:true}).click();
+ await capture(a.app,soloGuide,path.join(out,`overlay-comps-all${suffix}.png`));
+ await soloGuide.getByRole('textbox',{name:'Buscar composição no overlay',exact:true}).fill(other.name);
+ await capture(a.app,soloGuide,path.join(out,`overlay-comps${suffix}.png`));
+ await soloGuide.locator(`[data-comp="${other.id}"]`).click();
+ const changedSelection=await waitValue(()=>state(a.page),s=>s.pinned===other.id&&s.saved.pinned===other.id,'another comp selected in game');
+ assert.deepEqual(changedSelection.gameSession.context,originalSelection.gameSession.context);assert.deepEqual(changedSelection.gameSession.purchases,originalSelection.gameSession.purchases);
+ await a.page.evaluate(snapshot=>window.zyon.publish(snapshot),originalSelection);
+ assert.equal((await state(a.page)).pinned,other.id,'late app publication cannot undo an overlay choice');
+ await soloGuide.getByRole('button',{name:'Trocar composição no overlay',exact:true}).click();
+ await soloGuide.getByRole('textbox',{name:'Buscar composição no overlay',exact:true}).fill(originalSelection.guideComp.name);
+ await soloGuide.locator(`[data-comp="${originalSelection.pinned}"]`).click();
+ await waitValue(()=>state(a.page),s=>s.pinned===originalSelection.pinned,'original comp restored');
+ checks.push('solo overlay hides Dupla; full comp library can switch across families in game without resetting resources or purchases, and rejects stale app selections');
  await b.page.getByRole('navigation',{name:'Navegação principal'}).getByRole('button',{name:'Composições',exact:true}).click();
  await a.page.getByRole('textbox',{name:'Código de amigo',exact:true}).fill(profileB.friend_code);
  await a.page.getByRole('button',{name:'Adicionar',exact:true}).click();
@@ -85,6 +112,7 @@ try{
  const ga=await waitValue(async()=>a.app.windows().find(w=>w.url().includes('view=guide')),Boolean,'guide A');
  const gb=await waitValue(async()=>b.app.windows().find(w=>w.url().includes('view=guide')),Boolean,'guide B');
  ga.on('pageerror',e=>errors.push(e.message));gb.on('pageerror',e=>errors.push(e.message));
+ await ga.getByRole('tab',{name:'Dupla',exact:true}).waitFor();
  await gb.getByRole('tab',{name:'Planejar',exact:true}).click();
  await gb.getByRole('textbox',{name:'Buscar campeão no overlay',exact:true}).fill(requestedName);
  const before=(await state(b.page)).gameSession;
@@ -102,21 +130,24 @@ try{
  const badges=await waitValue(async()=>a.app.windows().find(w=>w.url().includes('view=overlay')),Boolean,'shop badges');
  await badges.locator('.shop-medal[data-kind="send"]').waitFor();
  const beforeMinimize=await state(a.page),medals=await badges.locator('.shop-medal').count();
+ const expandedControl=await controlPoint(a.app,ga);
  await ga.getByRole('button',{name:'Encolher painel e manter avisos da loja',exact:true}).click();
  await ga.getByRole('button',{name:'Expandir painel do overlay',exact:true}).waitFor();
  const minimal=await a.app.evaluate(({BrowserWindow})=>{const w=BrowserWindow.getAllWindows().find(w=>w.webContents.getURL().includes('view=guide'));return {bounds:w.getBounds(),movable:w.isMovable()};});
  assert.equal(minimal.bounds.width,116);assert.equal(minimal.bounds.height,44);assert.equal(minimal.movable,true);
+ sameControl(expandedControl,await controlPoint(a.app,ga));
  await capture(a.app,ga,path.join(out,`overlay-shop-only${suffix}.png`));
  assert.equal((await state(a.page)).readerActive,beforeMinimize.readerActive);
  assert.equal(await badges.locator('.shop-medal').count(),medals,'shop-only mode keeps native shop medals');
- await a.app.evaluate(({BrowserWindow,screen})=>{const w=BrowserWindow.getAllWindows().find(w=>w.webContents.getURL().includes('view=guide')),d=screen.getPrimaryDisplay().bounds;w.setPosition(d.x+240,d.y+140);});
- await waitValue(()=>state(a.page),s=>s.gameSession.guidePosition?.x===240&&s.gameSession.guidePosition?.y===140,'native window movement persists');
+ await a.app.evaluate(({BrowserWindow,screen})=>{const w=BrowserWindow.getAllWindows().find(w=>w.webContents.getURL().includes('view=guide')),d=screen.getPrimaryDisplay().bounds;w.setPosition(d.x+1000,d.y+140);});
+ await waitValue(()=>state(a.page),s=>s.gameSession.guidePosition?.x===1000&&s.gameSession.guidePosition?.y===140,'native window movement persists');
+ const movedControl=await controlPoint(a.app,ga);
  await ga.getByRole('button',{name:'Expandir painel do overlay',exact:true}).click();
  await ga.getByRole('tab',{name:'Agora',exact:true}).waitFor();
  assert.equal(await ga.locator('.game-heading').evaluate(el=>getComputedStyle(el).getPropertyValue('-webkit-app-region')),'drag');
  assert.equal(await ga.getByRole('button',{name:'Encolher painel e manter avisos da loja',exact:true}).evaluate(el=>getComputedStyle(el).getPropertyValue('-webkit-app-region')),'no-drag');
  const restoredPosition=await a.app.evaluate(({BrowserWindow})=>BrowserWindow.getAllWindows().find(w=>w.webContents.getURL().includes('view=guide')).getBounds());
- assert.equal(restoredPosition.x,240);assert.equal(restoredPosition.y,140);
+ sameControl(movedControl,await controlPoint(a.app,ga));
  const repeatedShows=await a.app.evaluate(async({BrowserWindow})=>{
    const windows=BrowserWindow.getAllWindows().filter(w=>w.webContents.getURL().includes('view='));let calls=0;
    const originals=windows.map(w=>{const fn=w.showInactive;w.showInactive=function(...args){calls++;return fn.apply(this,args)};return fn;});
@@ -142,6 +173,8 @@ try{
   await b.app.evaluate(({BrowserWindow},width)=>BrowserWindow.getAllWindows().find(w=>w.webContents.getURL().includes('view=guide')).setBounds({width}),width);
   await gb.evaluate(()=>document.querySelector('.game-content')?.scrollTo(0,0));
   await capture(b.app,gb,path.join(out,`planner-${width}${suffix}.png`));
+  const tabLayout=await gb.locator('.game-tabs').evaluate(el=>({scroll:el.scrollWidth,width:el.clientWidth,count:el.querySelectorAll('[role=tab]').length}));
+  assert.equal(tabLayout.count,9);assert.ok(tabLayout.scroll<=tabLayout.width+1,'all connected-duo tabs fit without a scrollbar');
   await gb.getByRole('tab',{name:'Itens',exact:true}).click();
   const layout=await gb.locator('.game-content').evaluate(el=>({left:el.getBoundingClientRect().left,right:el.getBoundingClientRect().right,scroll:el.scrollWidth,width:el.clientWidth,route:el.querySelector('.game-item-route')?.getBoundingClientRect().toJSON()}));
   assert.ok(layout.scroll<=layout.width+1);if(layout.route)assert.ok(layout.route.left-layout.left<30,'item routes use full content width');
@@ -152,6 +185,8 @@ try{
  for(const x of [a,b]){const ciphertext=await fs.readFile(path.join(x.profile,'online-session.enc'),'utf8');assert.ok(!ciphertext.includes(users[0].password)&&!ciphertext.includes(users[1].password)&&!ciphertext.includes('refresh_token')&&!ciphertext.includes('access_token'));}
  await a.page.getByRole('button',{name:'Encerrar dupla',exact:true}).click();
  await waitValue(()=>social(b.page),s=>!s.session&&!s.partnerPlan,'duo leaves on other PC');
+ await waitValue(async()=>ga.getByRole('tab',{name:'Dupla',exact:true}).count(),n=>n===0,'Dupla hides when partnership ends');
+ await ga.getByRole('tab',{name:'Agora',exact:true,selected:true}).waitFor();
  checks.push('encrypted desktop sessions contain no plaintext tokens/passwords; leaving a duo clears partner plans on the other PC');
  await act(a.page,{type:'friendRemove',id:(await social(a.page)).friends[0].id});
  await act(a.page,{type:'logout'});await act(b.page,{type:'logout'});
