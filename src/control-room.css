@@ -249,8 +249,11 @@
   *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important;}
   .workspace-v4.zyon-reimagined .comp-spotlight:hover .spotlight-art{transform:none;}
 }
-/* Style belongs to the card's right edge, aligned with its own action column. */
-.workspace-v4.zyon-reimagined .tier-section-cards .comp-row-summary{grid-template-columns:minmax(0,1fr) max-content;}
-.workspace-v4.zyon-reimagined .tier-section-cards .comp-row-title{grid-template-columns:30px minmax(0,1fr);}
-.workspace-v4.zyon-reimagined .comp-row-utilities{display:grid;grid-template-rows:max-content 1fr;justify-items:end;align-items:center;align-self:stretch;gap:15px;min-width:0;}
-.workspace-v4.zyon-reimagined .comp-row-utilities>.row-style{position:static;display:block;margin:0;align-self:start;justify-self:end;max-width:100%;color:#acbad1;background:#18202d;border:1px solid #36435a;padding:4px 8px;font:600 10px/1.4 Manrope,sans-serif;border-radius:5px;white-space:nowrap;}
+/* One anchored header toolbar; the unit rack keeps the full width beneath it. */
+.workspace-v4.zyon-reimagined .tier-section-cards .comp-row-summary{display:block;position:relative;}
+.workspace-v4.zyon-reimagined .tier-section-cards .comp-row-title{grid-template-columns:30px minmax(0,1fr);padding-right:230px;min-height:54px;}
+.workspace-v4.zyon-reimagined .comp-row-utilities{position:absolute;top:16px;right:16px;z-index:2;display:flex;align-items:center;gap:7px;min-width:0;padding:5px;background:#0d1725ed;border:1px solid #2c405c;border-radius:10px;}
+.workspace-v4.zyon-reimagined .comp-row-utilities>.row-style{position:static;display:block;margin:0;max-width:140px;color:#bad0ed;background:transparent;border:0;padding:0 5px;font:600 10px/1.4 Manrope,sans-serif;border-radius:0;white-space:nowrap;}
+.workspace-v4.zyon-reimagined .tier-section-cards .comp-row-utilities .row-controls{display:flex;flex-direction:row;align-items:center;gap:5px;padding:0 0 0 8px;border-left:1px solid #2c405c;}
+.workspace-v4.zyon-reimagined .tier-section-cards .comp-row-utilities .row-controls .row-pin{width:34px;height:34px;min-height:34px;border-radius:7px;}
+.workspace-v4.zyon-reimagined .tier-section-cards .comp-row-utilities .row-controls .row-expand{width:28px;height:34px;min-height:34px;border-radius:7px;border:0;background:transparent;}
