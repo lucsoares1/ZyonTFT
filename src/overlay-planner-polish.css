@@ -1,8 +1,8 @@
 .game-guide .overlay-plan-roster{grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin:20px 0;}
 .game-guide .plan-unit{min-width:0;padding:12px;background:#0d1829ed;border:1px solid #2a405f;border-left:2px solid var(--cost-color,#426389);border-radius:12px;}
-.plan-unit>header{display:flex;align-items:center;gap:10px;min-height:47px;}
+.plan-unit>header{display:flex;align-items:flex-start;gap:10px;min-height:47px;}
 .plan-unit>header>img{width:41px;height:41px;flex-shrink:0;object-fit:contain;border-width:1px;border-radius:9px;}
-.plan-unit>header>div{flex:1;min-width:0;}.plan-unit>header strong{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font:750 12px/1.4 Manrope,sans-serif;letter-spacing:-.1px;color:#e6effd;}
+.plan-unit>header>div{flex:1;min-width:0;}.plan-unit>header strong{display:block;height:18px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;font:750 12px/18px Manrope,sans-serif;letter-spacing:-.1px;color:#e6effd;}
 .plan-unit>header small{display:block;margin-top:4px;font-size:8px;line-height:1.5;color:#8da2c0;}
 .game-guide .plan-unit .equipment{--item-size:17px;min-height:0;gap:3px;margin:5px 0 0;}
 .game-guide .overlay-planner .plan-remove{align-self:flex-start;flex-shrink:0;display:grid;place-items:center;width:23px;height:23px;min-height:23px;padding:0;border:0;border-radius:6px;background:transparent;color:#768ead;}
