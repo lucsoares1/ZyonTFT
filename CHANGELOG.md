@@ -1,5 +1,9 @@
 # Zyon TFT
 
+## 0.17.20
+
+Corrige molduras e badges deslocadas da loja, remove compras extras em comps pessoais e mantém a posição do overlay ao recolher e expandir.
+
 ## 0.17.19
 
 Corrige molduras deslocadas da loja, limita compras de comps pessoais às escolhas do jogador e restaura o overlay na posição anterior ao recolher.
