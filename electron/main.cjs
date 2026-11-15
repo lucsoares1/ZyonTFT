@@ -85,7 +85,7 @@ let state = {
   rect: { x: 0.2295, y: 0.858, width: 0.53, height: 0.139 },
 };
 let lastCapture = 0;
-let missingHudSince = 0;
+let lastOverlayVisibilityReason = null;
 let quitting = false;
 const devUrl = process.env.ZYON_DEV_URL;
 const settingsFile = () =>
@@ -243,7 +243,6 @@ function updateGame(action) {
     state.levelReading = freshReading();
     state.goldReading = freshGoldReading();
     matchEnd.reset();
-    missingHudSince=0;state.hudOccluded=false;
   }
   if (action.type === "reset" || action.type === "level-mode")
     state.levelReading = freshReading();
@@ -295,13 +294,21 @@ function showGuide() {
 function accountReady(){return Boolean(state.social?.user&&state.social?.profile);}
 function syncOverlayVisibility() {
   state.gameForeground = overlayGate.foreground;
-  const visible =
-    !quitting && accountReady() &&
-    overlayEnabled &&
-    !state.gameSession.ended &&
-    !state.hudOccluded &&
-    !!state.pinned &&
-    (overlayPreview || overlayGate.canShow(overlayEnabled, state.pinned));
+  // Missing OCR is not evidence that the game ended. Keep an attached guide
+  // visible through carousel/augment screens and unreadable HUD frames.
+  const reason = quitting ? "shutdown"
+    : !accountReady() ? "account-required"
+    : !overlayEnabled ? "disabled"
+    : state.gameSession.ended ? "match-ended"
+    : !state.pinned ? "no-composition"
+    : !overlayPreview && !overlayGate.foreground ? "game-unfocused"
+    : !overlayPreview && !overlayGate.canShow(overlayEnabled,state.pinned) ? "waiting-for-game-confirmation"
+    : "visible";
+  const visible = reason === "visible";
+  if(reason!==lastOverlayVisibilityReason){
+    startupLog(`Overlay visibility: ${reason}`);
+    lastOverlayVisibilityReason=reason;
+  }
   for (const window of [overlayWindow, guideWindow]) {
     if (!window || window.isDestroyed()) continue;
     if (visible) window.showInactive();
@@ -567,10 +574,6 @@ async function processLevel(data, process) {
       startupLog(`Results screen: ended ${data.matchId}; cleared HUD and purchases`);
       return;
     }
-    if(parseLevel(text)===null&&parseGold(goldText)===null){
-      if(!missingHudSince)missingHudSince=data.capturedAt;
-      state.hudOccluded=data.capturedAt-missingHudSince>=5000;
-    }else{missingHudSince=0;state.hudOccluded=false;}
     syncOverlayVisibility();
     if(state.gameSession.ended){
       const startLevel=parseLevel(text);
