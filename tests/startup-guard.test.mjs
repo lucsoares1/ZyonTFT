@@ -9,7 +9,9 @@ test('opening a shortcut during a live installation does not load the partly-cop
 test('dead or stale installer markers do not lock the program after a failed update',t=>{
  const {executable,marker}=fixture(t);fs.writeFileSync(marker,'42');
  assert.equal(guard.installInProgress(executable,{alive:()=>false}),false);
- assert.equal(guard.installInProgress(executable,{alive:()=>true,now:Date.now()+600001}),false);
+ const stamp=fs.statSync(marker).mtimeMs;
+ assert.equal(guard.installInProgress(executable,{alive:()=>true,now:stamp+599999}),true);
+ assert.equal(guard.installInProgress(executable,{alive:()=>true,now:stamp+600000}),false);
  fs.writeFileSync(marker,'not a process');assert.equal(guard.installInProgress(executable,{alive:()=>true}),false);
 });
 test('a missing runtime has a recoverable message and log, without deleting preferences',t=>{

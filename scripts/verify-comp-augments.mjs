@@ -18,7 +18,7 @@ try{
  app=await _electron.launch(process.argv.includes('--packaged')?{executablePath:path.resolve(process.env.ZYON_TEST_EXE||'release/win-unpacked/Zyon TFT.exe'),args:[],env}:{args:['.'],env});
  await app.evaluate(({app,BrowserWindow})=>{const quiet=w=>{w.webContents.setBackgroundThrottling(false);w.setAlwaysOnTop(false);w.setOpacity(0);w.setIgnoreMouseEvents(true);};BrowserWindow.getAllWindows().forEach(quiet);app.on('browser-window-created',(_e,w)=>quiet(w));});
  const page=await app.firstWindow();page.on('pageerror',e=>errors.push(e.message));await app.evaluate(({BrowserWindow})=>BrowserWindow.getAllWindows()[0].setBounds({width:1536,height:1000}));
- if(!reuse){await page.getByRole('textbox',{name:'E-mail da conta Zyon',exact:true}).fill(email);await page.getByLabel('Senha da conta Zyon',{exact:true}).fill(password);await page.getByRole('button',{name:'Entrar no Zyon',exact:true}).click();}
+ if(!reuse){await page.getByRole('textbox',{name:'E-mail da conta Zyon',exact:true}).waitFor();await page.evaluate(()=>document.fonts.ready);assert.ok(await page.evaluate(()=>[...document.fonts].some(f=>f.family==='Inter Variable'&&f.status==='loaded')),'bundled Inter loads on the account gate');await capture(page,'login-inter');await page.getByRole('textbox',{name:'E-mail da conta Zyon',exact:true}).fill(email);await page.getByLabel('Senha da conta Zyon',{exact:true}).fill(password);await page.getByRole('button',{name:'Entrar no Zyon',exact:true}).click();}
  await page.getByRole('heading',{name:'Composições',exact:true}).waitFor();
  const state=()=>page.evaluate(()=>window.zyon.getState());await wait(state,s=>s.pinned===base.id&&s.catalogAugments?.comps?.length===snapshot.comps.length,'catalogue recommendation context reaches native state');
  if((await state()).overlayPlans?.[base.id]){await page.evaluate(id=>window.zyon.editPlan({type:'restore',compId:id}),base.id);await wait(state,s=>Boolean(s.guideComp.pivot),'reset isolated fixture roster');}
@@ -43,5 +43,6 @@ try{
   const png=await fs.readFile(path.join(out,'library-styles-'+width+'.png'));assert.equal(png.readUInt32BE(16),width,'capture matches actual main window width');
  }
  checks.push('Fast/Slow roll and both controls form one header toolbar, without title/roster overlap in 1536/1050 layouts');
+ for(const surface of [page,guide]){await surface.evaluate(()=>document.fonts.ready);assert.ok(await surface.evaluate(()=>[...document.fonts].some(f=>f.family==='Inter Variable'&&f.status==='loaded')),'bundled Inter loads in app and overlay');}checks.push('bundled variable Inter is loaded in login, app and overlay');
  await page.evaluate(()=>window.zyon.socialAction({type:'logout'}));assert.deepEqual(errors,[]);await fs.writeFile(path.join(out,'checks.json'),JSON.stringify({ok:true,checks,errors,realAccount:true,isolatedProfile:true,source:'https://www.pivottft.com/comps/blossom-ahri-fast-9/'},null,2));console.log(JSON.stringify({ok:true,checks}));
 }finally{await client.auth.signOut();await app?.close();}

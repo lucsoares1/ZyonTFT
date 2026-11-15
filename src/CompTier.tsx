@@ -46,7 +46,7 @@ export function TierBadge({
           fill="#101720"
           fontSize="23"
           fontWeight="800"
-          fontFamily="Segoe UI, sans-serif"
+          fontFamily="Inter Variable, sans-serif"
         >
           {label}
         </text>

@@ -9,7 +9,7 @@
   border: 1px solid #4a515b;
   border-radius: 9px;
   font:
-    400 12px/1.5 "Segoe UI",
+    400 12px/1.5 "Inter Variable",
     sans-serif;
   text-align: left;
 }
@@ -49,7 +49,7 @@
 }
 .game-guide h1 {
   font:
-    700 15px/1.4 Manrope,
+    700 15px/1.4 "Inter Variable",
     sans-serif;
   overflow: hidden;
   text-overflow: ellipsis;

@@ -44,7 +44,7 @@
 }
 .workspace-v4 .tier-section-heading h2 {
   font:
-    650 16px/1.4 "Segoe UI",
+    650 16px/1.4 "Inter Variable",
     sans-serif;
   color: #e8edf4;
   margin: 0;
@@ -121,7 +121,7 @@
   padding: 0;
   color: #f3bc48;
   font:
-    650 15px/1.4 "Segoe UI",
+    650 15px/1.4 "Inter Variable",
     sans-serif;
   letter-spacing: 0;
   white-space: normal;

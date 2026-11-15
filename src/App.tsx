@@ -998,6 +998,7 @@ function Workbench() {
                                 <div className="row-controls">
                                   <button
                                     className={`row-pin ${saved.pinned === c.id ? "row-pinned" : ""}`}
+                                    aria-pressed={saved.pinned === c.id}
                                     aria-label={
                                       saved.pinned === c.id
                                         ? `Desafixar ${c.name}`

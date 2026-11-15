@@ -34,7 +34,7 @@
 .sidebar-comp-copy {display:grid;gap:4px;padding:9px 12px 12px;}
 .sidebar-comp-cover .sidebar-comp-label {display:flex;gap:4px;align-items:center;color:#c6d9f8;font-size:9px;}
 .sidebar-comp-label .zyon-mark {width:18px;height:18px;}
-.sidebar-comp-cover strong {font:800 14px/1.35 Manrope,sans-serif;letter-spacing:-.3px;color:#edf3fc;text-wrap:balance;}
+.sidebar-comp-cover strong {font:800 14px/1.35 "Inter Variable",sans-serif;letter-spacing:-.3px;color:#edf3fc;text-wrap:balance;}
 .sidebar-comp-cover small {font-size:10px;color:#a6bbda;margin-top:1px;}
 .sidebar-comp-cover:hover {filter:brightness(1.13);}
 .sidebar-comp-roster {display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px;padding:5px 12px 14px;}
@@ -100,22 +100,22 @@
 :is(.zyon-reimagined,.game-guide) .pivot-builds button {border-radius:10px;background:#162237;border-color:#344c6c;color:#9fb6da;padding:9px 13px;}
 :is(.zyon-reimagined,.game-guide) .pivot-builds button[aria-pressed="true"] {background:#2b466f;color:#e5f0ff;border-color:#8eafde;box-shadow:inset 0 1px #cee3ff24;}
 :is(.zyon-reimagined,.game-guide) .pivot-levels {background:#0d1624;border-color:#2e425f;padding:6px;border-radius:14px;gap:5px;}
-:is(.zyon-reimagined,.game-guide) .pivot-levels button {border-radius:9px;padding:10px 7px;font:700 13px Manrope,sans-serif;}
+:is(.zyon-reimagined,.game-guide) .pivot-levels button {border-radius:9px;padding:10px 7px;font:700 13px "Inter Variable",sans-serif;}
 :is(.zyon-reimagined,.game-guide) .pivot-levels button[aria-pressed="true"] {background:linear-gradient(#a8c8ff,#739ee1);color:#11223c;box-shadow:inset 0 1px #ffffff70,0 2px 0 #345481;}
 
 /* Connected level rail. Only this cursor moves, and only after a choice. */
 .level-navigator {border:1px solid #344966;border-radius:16px;background:#101c2d;padding:14px 12px 10px;margin:14px 0 16px;}
 .level-rail-heading {display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px;}
 .level-rail-heading>div:first-child>span {display:block;color:#91a5c3;font-size:10px;margin-bottom:3px;}
-.level-rail-heading strong {display:flex;align-items:center;gap:10px;font:800 30px/1.1 Manrope,sans-serif;color:#e7f1ff;animation:rail-value .2s ease-out;}
-.level-rail-heading strong small {font:600 10px/1.4 Manrope,sans-serif;color:#aac6ef;max-width:145px;}
+.level-rail-heading strong {display:flex;align-items:center;gap:10px;font:800 30px/1.1 "Inter Variable",sans-serif;color:#e7f1ff;animation:rail-value .2s ease-out;}
+.level-rail-heading strong small {font:600 10px/1.4 "Inter Variable",sans-serif;color:#aac6ef;max-width:145px;}
 .level-rail-arrows {display:flex;gap:5px;}
 :is(.zyon-reimagined,.game-guide.game-wide) .level-rail-arrows button {display:grid;place-items:center;width:29px;height:29px;min-height:0;padding:0;border:1px solid #3b5374;border-radius:50%;background:#203450;color:#c8ddfc;}
 :is(.zyon-reimagined,.game-guide.game-wide) .level-rail-arrows button:hover:not(:disabled) {background:#38567e;}
 :is(.zyon-reimagined,.game-guide.game-wide) .level-navigator .level-rail-track {position:relative;isolation:isolate;display:grid;grid-template-columns:repeat(var(--rail-count),minmax(0,1fr));gap:0;padding:3px 0;margin:0;border:0;border-radius:13px;background:#09111e;overflow:visible;min-height:49px;}
 .level-rail-track::before {content:"";position:absolute;left:5%;right:5%;top:50%;height:1px;background:#2d425f;z-index:-1;}
 .level-rail-track::after {content:"";position:absolute;top:4px;bottom:4px;left:calc(var(--rail-index)*100%/var(--rail-count) + 3px);width:calc(100%/var(--rail-count) - 6px);background:linear-gradient(145deg,#b6d4ff,#779fe5);border:1px solid #c1daff;border-radius:11px;opacity:var(--rail-visible);z-index:-1;box-shadow:inset 0 1px #fff8,0 2px 0 #2c466d,0 3px 10px #0004;transition:left .26s cubic-bezier(.2,.8,.2,1),opacity .18s;}
-:is(.zyon-reimagined,.game-guide.game-wide) .level-navigator .level-rail-track button {position:relative;display:grid;place-items:center;min-width:0;min-height:43px;width:100%;height:43px;padding:0;border:0;border-radius:11px;background:transparent;color:#8fa7ca;box-shadow:none;gap:0;font:700 14px Manrope,sans-serif;}
+:is(.zyon-reimagined,.game-guide.game-wide) .level-navigator .level-rail-track button {position:relative;display:grid;place-items:center;min-width:0;min-height:43px;width:100%;height:43px;padding:0;border:0;border-radius:11px;background:transparent;color:#8fa7ca;box-shadow:none;gap:0;font:700 14px "Inter Variable",sans-serif;}
 :is(.zyon-reimagined,.game-guide.game-wide) .level-navigator .level-rail-track button b {display:grid;place-items:center;font:inherit;min-width:23px;height:25px;border-radius:50%;background:#09111e;transition:font-size .18s,color .18s,background .18s;}
 :is(.zyon-reimagined,.game-guide.game-wide) .level-navigator .level-rail-track button[aria-pressed="true"] {color:#10274a;background:transparent;border:0;}
 :is(.zyon-reimagined,.game-guide.game-wide) .level-navigator .level-rail-track button[aria-pressed="true"] b {font-size:20px;font-weight:800;background:transparent;}
@@ -213,7 +213,7 @@
 .workspace-v4.zyon-reimagined .shopping-components {padding:0 3px 20px;}
 :is(.zyon-reimagined,.game-guide) .item-recipe {border-radius:12px;background:#111e30;border-color:#324b6c;padding:13px;}
 :is(.zyon-reimagined,.game-guide) .pivot-item-order ol li {border-radius:12px;background:#132137;border-color:#334c70;padding:12px;}
-:is(.zyon-reimagined,.game-guide) .pivot-item-order ol li>b {display:grid;place-items:center;flex:0 0 29px;width:29px;min-width:29px;height:34px;border:1px solid #5477a5;border-radius:8px;background:linear-gradient(150deg,#35547d,#1a2d49);box-shadow:inset 0 1px #c7dfff30,inset 0 -2px #07132660;color:#d8e8ff;font:800 19px/1 Manrope,sans-serif;font-variant-numeric:tabular-nums;letter-spacing:-.5px;}
+:is(.zyon-reimagined,.game-guide) .pivot-item-order ol li>b {display:grid;place-items:center;flex:0 0 29px;width:29px;min-width:29px;height:34px;border:1px solid #5477a5;border-radius:8px;background:linear-gradient(150deg,#35547d,#1a2d49);box-shadow:inset 0 1px #c7dfff30,inset 0 -2px #07132660;color:#d8e8ff;font:800 19px/1 "Inter Variable",sans-serif;font-variant-numeric:tabular-nums;letter-spacing:-.5px;}
 :is(.zyon-reimagined,.game-guide) .pivot-item-order ol li:first-child>b {border-color:#c1d8fc;background:linear-gradient(150deg,#c1dcff,#82a9e9);box-shadow:inset 0 1px #fff9,inset 0 -2px #46699c55;color:#122c4d;}
 :is(.zyon-reimagined,.game-guide) .augment-toolbar .search-field {border-radius:12px;background:#111e30;border-color:#3c567c;}
 .game-guide.game-wide .game-content {animation:game-page-reveal .24s cubic-bezier(.16,.8,.3,1);}
@@ -252,8 +252,10 @@
 /* One anchored header toolbar; the unit rack keeps the full width beneath it. */
 .workspace-v4.zyon-reimagined .tier-section-cards .comp-row-summary{display:block;position:relative;}
 .workspace-v4.zyon-reimagined .tier-section-cards .comp-row-title{grid-template-columns:30px minmax(0,1fr);padding-right:230px;min-height:54px;}
-.workspace-v4.zyon-reimagined .comp-row-utilities{position:absolute;top:16px;right:16px;z-index:2;display:flex;align-items:center;gap:7px;min-width:0;padding:5px;background:#0d1725ed;border:1px solid #2c405c;border-radius:10px;}
-.workspace-v4.zyon-reimagined .comp-row-utilities>.row-style{position:static;display:block;margin:0;max-width:140px;color:#bad0ed;background:transparent;border:0;padding:0 5px;font:600 10px/1.4 Manrope,sans-serif;border-radius:0;white-space:nowrap;}
-.workspace-v4.zyon-reimagined .tier-section-cards .comp-row-utilities .row-controls{display:flex;flex-direction:row;align-items:center;gap:5px;padding:0 0 0 8px;border-left:1px solid #2c405c;}
+.workspace-v4.zyon-reimagined .comp-row-utilities{position:absolute;top:16px;right:16px;z-index:2;display:flex;align-items:center;gap:7px;min-width:0;padding:5px;background:#111318b8;border:1px solid #ffffff14;border-radius:10px;}
+.workspace-v4.zyon-reimagined .comp-row-utilities>.row-style{position:static;display:block;margin:0;max-width:140px;color:#c8cbd1;background:transparent;border:0;padding:0 5px;font:600 10px/1.4 "Inter Variable",sans-serif;border-radius:0;white-space:nowrap;}
+.workspace-v4.zyon-reimagined .tier-section-cards .comp-row-utilities .row-controls{display:flex;flex-direction:row;align-items:center;gap:5px;padding:0 0 0 8px;border-left:1px solid #ffffff14;}
 .workspace-v4.zyon-reimagined .tier-section-cards .comp-row-utilities .row-controls .row-pin{width:34px;height:34px;min-height:34px;border-radius:7px;}
-.workspace-v4.zyon-reimagined .tier-section-cards .comp-row-utilities .row-controls .row-expand{width:28px;height:34px;min-height:34px;border-radius:7px;border:0;background:transparent;}
+.workspace-v4.zyon-reimagined .tier-section-cards .comp-row-utilities .row-controls .row-expand{width:34px;height:34px;min-height:34px;border-radius:7px;border:0;background:#ffffff14;color:#c8cbd1;}
+.workspace-v4.zyon-reimagined .tier-section-cards .comp-row-utilities .row-controls .row-expand:hover{background:#ffffff21;color:#fff;}
+.workspace-v4.zyon-reimagined .tier-section-cards .comp-row-utilities .row-controls .row-expand.is-expanded{background:#ffffff2b;color:#fff;}

@@ -1,6 +1,6 @@
 /* Published routes read like a match notebook: board left, preparation right.
    Graphite #171c22, rail #11171d, line #303943, text #e7edf3,
-   muted #9ba8b8, gold #d3b46e. Segoe UI throughout; unit art carries identity. */
+   muted #9ba8b8, gold #d3b46e. Inter throughout; unit art carries identity. */
 .pivot-builds {
   display: flex;
   gap: 8px;
@@ -17,7 +17,7 @@
   background: #202630;
   color: #b8c2cf;
   padding: 7px 12px;
-  font: 600 12px "Segoe UI";
+  font: 600 12px "Inter Variable";
   cursor: pointer;
 }
 .pivot-builds button b {
@@ -72,7 +72,7 @@
   color: #a6b2c1;
   border-radius: 4px;
   padding: 7px;
-  font: 600 12px "Segoe UI";
+  font: 600 12px "Inter Variable";
   cursor: pointer;
 }
 .pivot-levels button[aria-pressed="true"] {
