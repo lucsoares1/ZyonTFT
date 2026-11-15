@@ -1,5 +1,9 @@
 # Zyon TFT
 
+## 0.17.23
+
+Banco de dados com filtros e colunas alinhados, caracteristicas compactas e retratos sem cortes em janelas menores. Acoes de planejar sempre visiveis no layout compacto.
+
 ## 0.17.22
 
 Novo planejador: escolha campeões e estrelas clicando na casa, equipe itens no modal do campeão, mova peças com prévia no hexágono e desfaça alterações. Nova comp abre diretamente o novo fluxo.

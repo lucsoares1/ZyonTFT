@@ -1,6 +1,6 @@
 {
   "name": "zyon-tft",
-  "version": "0.17.22",
+  "version": "0.17.23",
   "private": true,
   "description": "Overlay pessoal de comps e destaques de loja para TFT",
   "type": "module",
