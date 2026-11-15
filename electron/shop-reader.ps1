@@ -298,6 +298,13 @@ public class ZyonWindows {
   # Text calibration is not card geometry. An older/manual OCR region can
   # include space above the cards; never draw a frame using that rectangle.
   $frameLeft=$left;$frameTop=$cardTop;$frameSlotWidth=$slotWidth;$frameHeight=$cardHeight
+  $frameRect=$rect
+  if($ShopFixture){
+    $frameFit=[ZyonWindows]::FitShopRect(@(0,0,$bounds.Width,$bounds.Height),@(0,0,$bounds.Width,$bounds.Height))
+    $frameRect=@{x=$frameFit[0];y=$frameFit[1];width=$frameFit[2];height=$frameFit[3]}
+    $frameLeft=[int]($bounds.Width*$frameFit[0]);$frameTop=[int]($bounds.Height*$frameFit[1])
+    $frameSlotWidth=[int]($bounds.Width*$frameFit[2]/5);$frameHeight=[int]($bounds.Height*$frameFit[3])
+  }
   $frameGeometryKey=''
   $geometryKey=''
   $matchProcess=$null
@@ -349,6 +356,7 @@ public class ZyonWindows {
       if($client -and $client[2] -gt 400 -and $client[3] -gt 300){
         $key=$client -join ','
         $fit=[ZyonWindows]::FitShopRect($client,@($bounds.X,$bounds.Y,$bounds.Width,$bounds.Height))
+        $frameRect=@{x=$fit[0];y=$fit[1];width=$fit[2];height=$fit[3]}
         if($key -ne $frameGeometryKey){
           $frameLeft=[int]($bounds.Width*$fit[0]);$frameTop=[int]($bounds.Height*$fit[1])
           $frameSlotWidth=[int]($bounds.Width*$fit[2]/5);$frameHeight=[int]($bounds.Height*$fit[3])
@@ -400,7 +408,7 @@ public class ZyonWindows {
       # changes atomically after OCR, never empty -> same champion -> empty.
       if($hardChanges.Count -ge 2){foreach($i in $hardChanges){$cachedNames[$i]=''}}
       # Publish disappearance before spending time on recognition or HUD OCR.
-      @{kind='shop';phase='observed';shopRect=$rect;shopCards=$cardRects;slots=$cachedNames;capturedAt=$capturedAt;matchId=$matchId;idle=$false;fixtureIndex=$sequenceIndex;fixtureChangedAt=$sequenceChangedAt}|ConvertTo-Json -Compress -Depth 3
+      @{kind='shop';phase='observed';shopRect=$frameRect;shopCards=$cardRects;slots=$cachedNames;capturedAt=$capturedAt;matchId=$matchId;idle=$false;fixtureIndex=$sequenceIndex;fixtureChangedAt=$sequenceChangedAt}|ConvertTo-Json -Compress -Depth 3
       if($changed.Count -gt 0){
         $readNames=@('','','','','')
         $rowHeight=$textHeight*2+24
@@ -444,7 +452,7 @@ public class ZyonWindows {
             }
           }
         }finally{$atlasGraphics.Dispose();$atlas.Dispose()}
-        @{kind='shop';phase='recognized';shopRect=$rect;shopCards=$cardRects;slots=$cachedNames;capturedAt=$capturedAt;matchId=$matchId;idle=$false;processingMs=([ZyonWindows]::Now()-$capturedAt);fixtureIndex=$sequenceIndex;fixtureChangedAt=$sequenceChangedAt}|ConvertTo-Json -Compress -Depth 3
+        @{kind='shop';phase='recognized';shopRect=$frameRect;shopCards=$cardRects;slots=$cachedNames;capturedAt=$capturedAt;matchId=$matchId;idle=$false;processingMs=([ZyonWindows]::Now()-$capturedAt);fixtureIndex=$sequenceIndex;fixtureChangedAt=$sequenceChangedAt}|ConvertTo-Json -Compress -Depth 3
       }
       $names=@($cachedNames)
       if($capturedAt-$lastHudAt -lt 400){
