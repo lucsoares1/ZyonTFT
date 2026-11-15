@@ -1,5 +1,9 @@
 # Zyon TFT
 
+## 0.17.15
+
+Corrige os aprimoramentos por composição, inclusive após editar o elenco, com recomendações atuais do PivotTFT no app e overlay. Reúne estilo (Fast 9, Slow roll), fixação no overlay e expansão em uma barra no cabeçalho do card, com espaço reservado para o nome e elenco abaixo.
+
 ## 0.17.14
 
 Aprimoramentos do PivotTFT por build no app e overlay, preservando o guia-base depois de editar a composição. Catálogo atualizado periodicamente, sem restaurar o tabuleiro antigo. Filtro de aprimoramentos da comp corrigido no Banco de dados. Etiquetas Fast 9, Fast 8 e Slow roll alinhadas à direita dos cards.
