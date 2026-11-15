@@ -21,5 +21,14 @@ try {
    }
   }finally{$canvas.Dispose()}
  }
- @{ok=$true;manualTextCalibrationIgnored=$true;negativeMonitorOrigin=$true;frames=$rows}|ConvertTo-Json -Depth 5
+ $null=New-Item -ItemType Directory -Path .runtime -Force
+ $configPath=Join-Path (Resolve-Path .runtime) ('frame-config-'+[guid]::NewGuid().ToString()+'.json')
+ try {
+  '{"rect":{"x":0.2295,"y":0.80,"width":0.53,"height":0.139}}'|Set-Content -LiteralPath $configPath -Encoding UTF8
+  $captured=@(& powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File electron/shop-reader.ps1 -ImagePath $ImagePath -ShopFixture -Fast -Once -ConfigPath $configPath | ForEach-Object {$_|ConvertFrom-Json})
+  if($LASTEXITCODE -ne 0 -or $captured.error){throw 'Native reader failed'}
+  $shops=@($captured|Where-Object kind -eq 'shop')
+  if(-not $shops.Count -or @($shops|Where-Object {$_.shopRect.y -ne .858}).Count -or @($shops[0].shopCards|Where-Object {$null -ne $_}).Count){throw 'Badge fallback still follows stale text calibration'}
+ }finally{Remove-Item -LiteralPath $configPath -ErrorAction SilentlyContinue}
+ @{ok=$true;manualTextCalibrationIgnored=$true;nativeFallbackY=$shops[0].shopRect.y;negativeMonitorOrigin=$true;frames=$rows}|ConvertTo-Json -Depth 5
 }finally{$b.Dispose()}
