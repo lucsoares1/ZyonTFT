@@ -16,6 +16,15 @@ $hover.Save((Join-Path $OutputDirectory 'hover.png'),[System.Drawing.Imaging.Ima
 $first=[ZyonWindows]::SlotChanged(0,$base,$left,$top,$slot,$height,($top+[int]($height*.8)),[int]($height*.2))
 $hoverChanged=[ZyonWindows]::SlotChanged(0,$hover,$left,$top,$slot,$height,($top+[int]($height*.8)),[int]($height*.2))
 if(-not $first -or $hoverChanged){throw 'Hover/glint invalidated a stable champion'}
+$snapped=@()
+for($i=0;$i -lt 4;$i++){
+ $r=[ZyonWindows]::FindCardRect($base,($left+$i*$slot),$top,$slot,$height)
+ if(-not $r){throw "Original shop border missing in slot $i"}
+ $pixels=@(($r[0]*$base.Width),($r[1]*$base.Height),($r[2]*$base.Width),($r[3]*$base.Height))
+ $expected=@((443+$i*202),918,190,145)
+ for($j=0;$j -lt 4;$j++){if([Math]::Abs($pixels[$j]-$expected[$j]) -gt 1){throw 'Detected frame differs from the reviewed original shop border'}}
+ $snapped+=,@{slot=$i;pixels=$pixels}
+}
 if($OverlayPath){
  $overlay=[System.Drawing.Bitmap]::FromFile($OverlayPath)
  try {
@@ -24,6 +33,16 @@ if($OverlayPath){
    $x=$left+$i*$slot
    $null=[ZyonWindows]::SlotChanged($i,$base,$x,$top,$slot,$height,($top+[int]($height*.8)),[int]($height*.2))
    if([ZyonWindows]::SlotChanged($i,$overlay,$x,$top,$slot,$height,($top+[int]($height*.8)),[int]($height*.2))){throw "Our own rendered medal/frame invalidated slot $i"}
+   if($i -lt 3){
+    $card=[ZyonWindows]::FindCardRect($base,$x,$top,$slot,$height)
+    if(-not $card){throw 'Original card border not detected'}
+    $cx=$card[0]*$base.Width;$cy=$card[1]*$base.Height;$cw=$card[2]*$base.Width;$ch=$card[3]*$base.Height
+    for($yy=[int]($cy-$ch*.05);$yy -lt $cy+$ch*.12;$yy++){
+     for($xx=[int]($cx+$cw*.35);$xx -lt $cx+$cw*.65;$xx++){
+      if($base.GetPixel($xx,$yy).ToArgb() -ne $overlay.GetPixel($xx,$yy).ToArgb()){throw "Original jewel was painted over in slot $i"}
+     }
+    }
+   }
    $empty=$overlay.Clone();$eg=[System.Drawing.Graphics]::FromImage($empty)
    try {
     # Keep the actual rendered seal, remove the purchased card beneath it.
@@ -44,5 +63,5 @@ foreach($case in @(@{name='1080p';client=@(0,0,1920,1080);monitor=@(0,0,1920,108
  if([Math]::Abs($actualTop-($case.client[1]+$case.client[3]*.858)) -gt .001){throw 'Shop top ignores game viewport'}
  $geometry+=@{name=$case.name;rect=$rect}
 }
-@{hoverDoesNotInvalidate=$true;geometry=$geometry}|ConvertTo-Json -Depth 5 -Compress
+@{hoverDoesNotInvalidate=$true;originalBorderSnapping=$snapped;geometry=$geometry}|ConvertTo-Json -Depth 5 -Compress
 $hover.Dispose();$base.Dispose()

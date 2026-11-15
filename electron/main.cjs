@@ -164,7 +164,7 @@ function mainSender(event) {
 }
 let publishedShopSlots='[]';
 function stampShop(){
-  const key=JSON.stringify([state.slots,state.shopRect]);
+  const key=JSON.stringify([state.slots,state.shopRect,state.shopCards]);
   if(key!==publishedShopSlots){state.shopRevision=(state.shopRevision||0)+1;publishedShopSlots=key;}
 }
 function broadcast() {
@@ -175,7 +175,7 @@ function broadcast() {
 }
 function broadcastShop(){
   stampShop();
-  if(overlayWindow&&!overlayWindow.isDestroyed())overlayWindow.webContents.send('shop:update',{slots:state.slots,shopRect:state.shopRect,shopRevision:state.shopRevision,shopLatencyMs:state.shopLatencyMs,shopCapturedAt:state.shopCapturedAt});
+  if(overlayWindow&&!overlayWindow.isDestroyed())overlayWindow.webContents.send('shop:update',{slots:state.slots,shopRect:state.shopRect,shopCards:state.shopCards,shopRevision:state.shopRevision,shopLatencyMs:state.shopLatencyMs,shopCapturedAt:state.shopCapturedAt});
 }
 function save() {
   if (!state.saved) return;
@@ -770,9 +770,11 @@ function setReader(enabled, { automatic = false } = {}) {
         lastShopCapture=Date.now();
         const next=state.gameSession.ended?[]:recognizeShopNames(data.slots,champions);
         const shopRect=validRect(data.shopRect)?data.shopRect:state.rect;
-        if(JSON.stringify(next)!==JSON.stringify(state.slots)||JSON.stringify(shopRect)!==JSON.stringify(state.shopRect)){
+        const shopCards=Array.isArray(data.shopCards)&&data.shopCards.length===5?data.shopCards.map(r=>r&&['x','y','width','height'].every(k=>Number.isFinite(r[k]))&&r.x>=0&&r.y>=0&&r.width>.02&&r.height>.02&&r.x+r.width<=1.001&&r.y+r.height<=1.001?r:null):null;
+        if(JSON.stringify(next)!==JSON.stringify(state.slots)||JSON.stringify(shopRect)!==JSON.stringify(state.shopRect)||JSON.stringify(shopCards)!==JSON.stringify(state.shopCards)){
           state.slots=next;
           state.shopRect=shopRect;
+          state.shopCards=shopCards;
           state.shopLatencyMs=Date.now()-data.capturedAt;
           state.shopCapturedAt=data.capturedAt;
           broadcastShop();
@@ -1004,6 +1006,7 @@ if (primaryInstance)
         shopCapturedAt:state.shopCapturedAt,
         shopLatencyMs:state.shopLatencyMs,
         shopRect:state.shopRect,
+        shopCards:state.shopCards,
         opacity: Math.max(30, Math.min(100, Number(next.opacity) || 92)),
         selected: next.selected
           .filter((id) => typeof id === "string" && /^[a-zA-Z0-9_]+$/.test(id))

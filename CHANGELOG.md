@@ -1,8 +1,8 @@
 # Zyon TFT
 
-## 0.17.4
+## 0.17.4 (não publicada)
 
-Destaques da loja com moldura de gelo facetado e texto integrado à medalha. Correção de piscadas causadas por brilho e pelo próprio overlay; posicionamento acompanha a janela e a proporção da tela. Preserva leitura rápida, compras e pedidos da dupla.
+Publicação cancelada durante a revisão visual. Substituída pela versão 0.17.5.
 
 ## 0.17.3
 

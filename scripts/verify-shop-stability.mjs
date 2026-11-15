@@ -7,6 +7,8 @@ if(process.argv.includes('--rendered')){
  const render=path.resolve(`design/review/${version}/continuity`);
  await ps('powershell.exe',['-NoProfile','-NonInteractive','-ExecutionPolicy','Bypass','-File','scripts/create-shop-stability.ps1','-OutputDirectory',dir,'-BaselinePath',path.join(render,'medal-baseline.png'),'-OverlayPath',path.join(render,'medal-1913-1.png')],opts);
  geometry.renderedMedalsAndFramesDoNotInvalidate=true;
+ geometry.originalJewelsPreserved=true;
+ geometry.emptyDetectionIgnoresOwnMedals=true;
 }
 await ps('powershell.exe',['-NoProfile','-NonInteractive','-ExecutionPolicy','Bypass','-File','scripts/create-shop-sequence.ps1','-SourcePath',path.resolve('design/references/17-game-ocr.png'),'-OutputDirectory',dir],opts);
 const base=path.resolve('design/references/17-game-ocr.png'),frames=[{path:base,holdMs:2500},{path:path.join(dir,'hover.png'),holdMs:2500},{path:base,holdMs:800},{path:path.join(dir,'swapped.png'),holdMs:1200},{path:path.join(dir,'sold.png'),holdMs:1200}];

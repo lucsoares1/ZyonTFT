@@ -7,7 +7,9 @@ import {promisify} from 'node:util';
 import {_electron as electron} from 'playwright';
 const baseline=process.argv.includes('--baseline'),packaged=process.argv.includes('--packaged');
 const {version}=JSON.parse(await fs.readFile('package.json','utf8'));
-const tag=crypto.randomBytes(5).toString('hex'),profile=path.resolve('.runtime',`continuity-${tag}`),out=path.resolve(`design/review/${version}/continuity`);
+const tag=crypto.randomBytes(5).toString('hex'),out=path.resolve(`design/review/${version}/continuity`);
+let profile=path.resolve('.runtime',`continuity-${tag}`);
+if(process.argv.includes('--reuse'))try{const p=JSON.parse(await fs.readFile('.runtime/medal-profile.json','utf8')).profile;if(path.dirname(p)===path.resolve('.runtime')&&path.basename(p).startsWith('continuity-'))profile=p;}catch{}
 await fs.mkdir(profile,{recursive:true});await fs.mkdir(out,{recursive:true});
 const blank=path.join(profile,'no-hud.png'),presence=path.join(profile,'presence.json');
 await promisify(execFile)('powershell.exe',['-NoProfile','-NonInteractive','-Command',`Add-Type -AssemblyName System.Drawing; $bitmap=New-Object System.Drawing.Bitmap(1920,1080); $graphics=[System.Drawing.Graphics]::FromImage($bitmap); $graphics.Clear([System.Drawing.Color]::FromArgb(22,25,31)); $bitmap.Save('${blank.replaceAll("'","''")}',[System.Drawing.Imaging.ImageFormat]::Png); $graphics.Dispose(); $bitmap.Dispose()`],{windowsHide:true});
@@ -23,19 +25,24 @@ try{
  app=await electron.launch({...packaged?{executablePath:path.resolve(process.env.ZYON_TEST_EXE||path.join(process.env.LOCALAPPDATA,'Programs/Zyon TFT/Zyon TFT.exe'))}:{args:['.']},env});
  await app.evaluate(({app,BrowserWindow})=>{const quiet=w=>{w.setOpacity(0);w.setIgnoreMouseEvents(true);w.webContents.setBackgroundThrottling(false);};BrowserWindow.getAllWindows().forEach(quiet);app.on('browser-window-created',(_,w)=>quiet(w));});
  page=await app.firstWindow();page.setDefaultTimeout(30000);
+ const auth=await waitFor(s=>s.social?.profile||s.social?.status==='signed-out','auth initialized');
+ if(!auth.social?.profile){
  await page.getByRole('button',{name:'Criar conta',exact:true}).click();
  await page.getByRole('textbox',{name:'Seu nome no Zyon',exact:true}).fill('Teste de continuidade');
  await page.getByRole('textbox',{name:'Nome de usuário Zyon',exact:true}).fill(`cont_${tag}`);
  await page.getByRole('textbox',{name:'E-mail da conta Zyon',exact:true}).fill(`zyon-continuity-${tag}@example.invalid`);
  await page.getByLabel('Senha da conta Zyon',{exact:true}).fill(crypto.randomBytes(24).toString('base64url'));
  await page.getByRole('button',{name:'Criar minha conta',exact:true}).click();
+ }
  const signedIn=await waitFor(s=>s.social?.user&&s.social?.profile,'real account');userId=signedIn.social.user.id;
- await fs.writeFile(`.runtime/continuity-user-${tag}.json`,JSON.stringify({id:userId,email:`zyon-continuity-${tag}@example.invalid`}));
+ await fs.writeFile(`.runtime/continuity-user-${tag}.json`,JSON.stringify({id:userId,email:signedIn.social.user.email}));
+ if(process.argv.includes('--reuse'))await fs.writeFile('.runtime/medal-profile.json',JSON.stringify({profile}));
  const original=await waitFor(s=>s.overlayVisible&&s.levelReading.status==='confirmed'&&s.goldReading.status==='confirmed','game started');
- const id=original.guideComp.champions[0];await page.evaluate(({id,compId})=>window.zyon.gameAction({type:'copies',id,delta:1,compId}),{id,compId:original.pinned});
+ const id=original.guideComp.champions[0];await page.evaluate(async({id,compId,delta})=>{for(let n=0;n<Math.abs(delta);n++)await window.zyon.gameAction({type:'copies',id,delta:Math.sign(delta),compId});},{id,compId:original.pinned,delta:1-(original.gameSession.context.copies[id]||0)});
+ assert.equal((await page.evaluate(()=>window.zyon.getState())).gameSession.context.copies[id],1);
  if(process.argv.includes('--medal')){
   const overlay=app.windows().find(w=>w.url().includes('view=overlay'));
-  await page.evaluate(async()=>{const s=await window.zyon.getState();await window.zyon.publish({...s,selected:['DA_Vi18','DA_18_MasterYi_AD','DA_18_Alistar','DA_Cinderling18']});});
+  await page.evaluate(async()=>{for(const id of ['DA_Vi18','DA_18_MasterYi_AD','DA_18_Alistar','DA_Cinderling18']){const s=await window.zyon.getState();if(!s.guideComp.champions.includes(id))await window.zyon.editPlan({compId:s.pinned,type:'toggle',id});}});
   await overlay.waitForFunction(()=>document.querySelectorAll('.shop-medal').length===4);
   const image=(await fs.readFile('design/references/17-game-ocr.png')).toString('base64');
   await overlay.evaluate(data=>{document.querySelector('.native-overlay').style.background=`url(data:image/png;base64,${data}) center / auto 100% no-repeat`;},image);
@@ -43,10 +50,13 @@ try{
   for(const [width,height,zoom] of [[1913,1069,1],[1920,1080,1],[1280,720,1],[2560,1080,1],[1920,1080,.8]]){
    // Fixture geometry uses the same height-based transform as FitShopRect.
    const ref=Math.min(width,height*16/9),rect={x:((width-ref)/2+ref*.2295)/width,y:.858,width:ref*.53/width,height:.139};
-   await app.evaluate(({BrowserWindow},{width,height,zoom,rect})=>{const w=BrowserWindow.getAllWindows().find(w=>w.webContents.getURL().includes('view=overlay'));w.setBounds({x:0,y:0,width,height});w.webContents.setZoomFactor(zoom);w.webContents.send('shop:update',{slots:[{id:'DA_Vi18',confidence:1},{id:'DA_18_MasterYi_AD',confidence:1},{id:'DA_18_Alistar',confidence:1},{id:'DA_Cinderling18',confidence:1},{id:null,confidence:0}],shopRect:rect,shopRevision:10000});},{width,height,zoom,rect});
+   const factor=height/1069,offset=(width-1913*factor)/2;
+   const cards=original.shopCards.map(r=>r?{x:(r.x*1913*factor+offset)/width,y:r.y,width:r.width*1913*factor/width,height:r.height}:null);
+   await app.evaluate(({BrowserWindow},{width,height,zoom,rect,cards})=>{const w=BrowserWindow.getAllWindows().find(w=>w.webContents.getURL().includes('view=overlay'));w.setBounds({x:0,y:0,width,height});w.webContents.setZoomFactor(zoom);w.webContents.send('shop:update',{slots:[{id:'DA_Vi18',confidence:1},{id:'DA_18_MasterYi_AD',confidence:1},{id:'DA_18_Alistar',confidence:1},{id:'DA_Cinderling18',confidence:1},{id:null,confidence:0}],shopRect:rect,shopCards:cards,shopRevision:10000});},{width,height,zoom,rect,cards});
    await overlay.waitForTimeout(80);
-   const bounds=await overlay.evaluate(()=>[...document.querySelectorAll('.native-slot[data-highlighted]')].map(el=>{const card=el.getBoundingClientRect(),seal=el.querySelector('.shop-medal').getBoundingClientRect(),caption=el.querySelector('.shop-medal-caption').getBoundingClientRect();return {card:{x:card.x,y:card.y,w:card.width,h:card.height},seal:{x:seal.x,y:seal.y,r:seal.right,b:seal.bottom},caption:{x:caption.x,r:caption.right,b:caption.bottom},animated:getComputedStyle(el.querySelector('.shop-medal')).animationName};}));
-   for(const b of bounds){assert.ok(b.seal.x>=b.card.x&&b.seal.r<=b.card.x+b.card.w);assert.ok(b.seal.y>=b.card.y&&b.seal.b<b.card.y+b.card.h*.4);assert.ok(b.caption.x>=b.seal.x&&b.caption.r<=b.seal.r);assert.equal(b.animated,'none');}
+   const bounds=await overlay.evaluate(()=>[...document.querySelectorAll('.native-slot[data-highlighted]')].map(el=>{const card=el.getBoundingClientRect(),seal=el.querySelector('.shop-medal').getBoundingClientRect(),caption=el.querySelector('.shop-medal-caption').getBoundingClientRect();return {card:{x:card.x,y:card.y,w:card.width,h:card.height},seal:{x:seal.x,y:seal.y,r:seal.right,b:seal.bottom},caption:{x:caption.x,r:caption.right,b:caption.bottom,center:caption.x+caption.width/2},logoCenter:el.querySelector('.shop-medal > svg').getBoundingClientRect().x+el.querySelector('.shop-medal > svg').getBoundingClientRect().width/2,frameJewel:el.querySelector('.shop-frost-frame').getAttribute('data-jewel'),closedTop:!el.querySelector('.shop-frost-frame > g').getAttribute('mask'),animated:getComputedStyle(el.querySelector('.shop-medal')).animationName};}));
+   for(const b of bounds){assert.ok(b.seal.x>=b.card.x&&b.seal.r<=b.card.x+b.card.w);assert.ok(b.caption.b<=b.card.y+1,'purchase notice must sit above the frame');assert.ok(Math.abs(b.logoCenter-b.caption.center)<.5,'label and medal share a single center axis');assert.ok(b.seal.b<b.card.y+b.card.h*.3);assert.ok(b.caption.x>=b.card.x&&b.caption.r<=b.card.x+b.card.w);assert.equal(b.animated,'none');}
+   assert.deepEqual(bounds.map(b=>b.frameJewel),['true','true','true','false']);assert.equal(bounds[3].closedTop,true,'cost 1 has a complete top border');
    measures.push({width,height,zoom,bounds});
    await overlay.screenshot({path:path.join(out,`medal-${width}-${zoom}.png`)});
    if(width===1913){
@@ -59,7 +69,7 @@ try{
   console.log(JSON.stringify({medalLayout:true,widths:[1920,1280,2560],dpiZoom:.8}));
   if(process.argv.includes('--medal-only'))process.exitCode=0;
  }
- if(process.argv.includes('--medal-only')){await page.evaluate(()=>window.zyon.socialAction({type:'logout'}));await app.close();app=null;process.exit(0);}
+ if(process.argv.includes('--medal-only')){if(!process.argv.includes('--reuse'))await page.evaluate(()=>window.zyon.socialAction({type:'logout'}));await app.close();app=null;process.exit(0);}
  if(process.argv.includes('--shop')){
   const image=path.resolve('design/references/17-game-ocr.png'),sequence=path.join(profile,'sequence.json');
   await promisify(execFile)('powershell.exe',['-NoProfile','-NonInteractive','-ExecutionPolicy','Bypass','-File','scripts/create-shop-sequence.ps1','-SourcePath',image,'-OutputDirectory',profile],{windowsHide:true});

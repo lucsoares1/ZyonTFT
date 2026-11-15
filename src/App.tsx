@@ -192,22 +192,24 @@ function Overlay() {
   const rect = state.shopRect || state.rect;
   return (
     <div className="native-overlay" style={{ opacity: state.opacity / 100 }}>
-      {matches.map((slot: any) => (
+      {matches.map((slot: any) => {
+        const card=state.shopCards?.[slot.index] || {x:rect.x+rect.width*slot.index/5+rect.width/5*.025,y:rect.y,width:rect.width/5*.94,height:rect.height};
+        return (
         <div
           className="native-slot"
           key={slot.index}
           data-highlighted={slot.highlighted || undefined}
           data-kind={send.includes(slot.id)?own.includes(slot.id)?'shared':'send':priority.includes(slot.id)?'buy':reserve.includes(slot.id)?'reserve':'core'}
           style={{
-            left: `${(rect.x + rect.width * slot.index / 5) * 100}%`,
-            top: `${rect.y * 100}%`,
-            width: `${rect.width / 5 * 100}%`,
-            height: `${rect.height * 100}%`,
-            '--medal-size': `clamp(22px, ${rect.width / 5 * 100 * .18}vw, 42px)`,
-            '--medal-font': `clamp(8px, ${rect.width / 5 * 100 * .052}vw, 11px)`,
+            left: `${card.x * 100}%`,
+            top: `${card.y * 100}%`,
+            width: `${card.width * 100}%`,
+            height: `${card.height * 100}%`,
+            '--medal-size': `clamp(16px, ${card.width * 100 * .14}vw, 34px)`,
+            '--medal-font': `clamp(7px, ${card.width * 100 * .045}vw, 10px)`,
           } as React.CSSProperties}
         >
-          {slot.highlighted && <ShopFrostFrame />}
+          {slot.highlighted && state.shopCards?.[slot.index] && <ShopFrostFrame index={slot.index} jewel={(byId[slot.id]?.cost || 0) > 1} />}
           <Badge
             matched={slot.highlighted}
             kind={send.includes(slot.id)?own.includes(slot.id)?'shared':'send':priority.includes(slot.id) ? "buy" : reserve.includes(slot.id) ? "reserve" : "core"}
@@ -220,7 +222,7 @@ function Overlay() {
             }
           />
         </div>
-      ))}
+      );})}
     </div>
   );
 }

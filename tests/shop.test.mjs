@@ -2,10 +2,11 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { matchShop, recognizeNames, validateRect, mergeOverlaySnapshot, mergeShopUpdate } from "../src/shop.mjs";
 test('a late HUD snapshot cannot restore a shop badge cleared by a newer visual frame',()=>{
- const old={slots:['Ashe'],shopRect:{x:.2,y:.8,width:.5,height:.1},shopRevision:3,gameSession:{level:7}},cleared={...old,slots:[],shopRect:{x:.3,y:.85,width:.4,height:.1},shopRevision:4,shopCapturedAt:100,shopLatencyMs:4};
+ const old={slots:['Ashe'],shopRect:{x:.2,y:.8,width:.5,height:.1},shopCards:[{x:.21}],shopRevision:3,gameSession:{level:7}},cleared={...old,slots:[],shopRect:{x:.3,y:.85,width:.4,height:.1},shopCards:[{x:.31}],shopRevision:4,shopCapturedAt:100,shopLatencyMs:4};
  const next=mergeOverlaySnapshot(cleared,{...old,gameSession:{level:8}});
  assert.deepEqual(next.slots,[]);assert.equal(next.shopRevision,4);assert.equal(next.gameSession.level,8);assert.equal(next.shopLatencyMs,4);
  assert.deepEqual(next.shopRect,cleared.shopRect,'late snapshots cannot move badges back to a previous window position');
+ assert.deepEqual(next.shopCards,cleared.shopCards,'individual card frames stay with the latest detection');
  assert.equal(mergeShopUpdate(cleared,old),cleared);
  assert.deepEqual(mergeShopUpdate(cleared,{slots:['Ahri'],shopRevision:5}).slots,['Ahri']);
  assert.deepEqual(mergeOverlaySnapshot(cleared,{slots:[],shopRevision:5}).slots,[]);

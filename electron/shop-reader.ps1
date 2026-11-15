@@ -28,6 +28,34 @@ public class ZyonWindows {
     return new double[]{(client[0]-monitor[0]+(client[2]-referenceWidth)/2+referenceWidth*.2295)/monitor[2],
       (client[1]-monitor[1]+client[3]*.858)/monitor[3],referenceWidth*.53/monitor[2],client[3]*.139/monitor[3]};
   }
+  static double BorderScore(System.Drawing.Bitmap image,bool vertical,int at,int from,int length) {
+    double sum=0,square=0,contrast=0;int count=0;
+    for(int k=0;k<24;k++) {
+      double f=vertical?.3+k*.45/23:.12+k*.76/23;
+      if(!vertical&&f>.35&&f<.65)continue; // original jewel owns the top center
+      int along=from+(int)(length*f),x=vertical?at:along,y=vertical?along:at;
+      if(x<3||y<3||x>=image.Width-3||y>=image.Height-3)return -1000;
+      var p=image.GetPixel(x,y);var a=image.GetPixel(x-(vertical?2:0),y-(vertical?0:2));var b=image.GetPixel(x+(vertical?2:0),y+(vertical?0:2));
+      double v=(p.R+p.G+p.B)/3.0;
+      sum+=v;square+=v*v;contrast+=v-(a.R+a.G+a.B+b.R+b.G+b.B)/6.0;count++;
+    }
+    double mean=sum/count,deviation=Math.Sqrt(Math.Max(0,square/count-mean*mean));
+    return deviation>(vertical?20:90)?-1000:contrast/count-deviation*(vertical?.8:.15)+mean*.025;
+  }
+  public static double[] FindCardRect(System.Drawing.Bitmap image,int left,int top,int width,int height) {
+    int[] best={left+width/40,left+width-width/25,top,Math.Min(image.Height-2,top+height-4)};
+    double[] scores={-1000,-1000,-1000,-1000};
+    for(int side=0;side<4;side++) {
+      int center=best[side],range=side<2?Math.Max(4,width/25):4;
+      for(int at=center-range;at<=center+range;at++) {
+        if((side==0&&at<left)||(side==1&&at>left+width))continue;
+        double score=BorderScore(image,side<2,at,side<2?top:left,side<2?height:width);
+        if(score>scores[side]){scores[side]=score;best[side]=at;}
+      }
+    }
+    if(scores[0]<2||scores[1]<2||scores[2]<2||scores[3]<2||best[1]-best[0]<width*.83||best[3]-best[2]<height*.8)return null;
+    return new double[]{best[0]/(double)image.Width,best[2]/(double)image.Height,(best[1]-best[0])/(double)image.Width,(best[3]-best[2])/(double)image.Height};
+  }
   [DllImport("user32.dll")] static extern short GetAsyncKeyState(int key);
   [DllImport("user32.dll")] static extern bool GetCursorPos(out Point p);
   [StructLayout(LayoutKind.Sequential)] struct Point { public int X,Y; }
@@ -265,6 +293,8 @@ public class ZyonWindows {
   $matchProcess=$null
   $matchId=$null
   $cachedNames=@('','','','','')
+  $cardRects=@($null,$null,$null,$null,$null)
+  $rectAttempt=@(0L,0L,0L,0L,0L)
   $unreadableSince=@(0L,0L,0L,0L,0L)
   $lastRead=@(0L,0L,0L,0L,0L)
   $nameMisses=@(0,0,0,0,0)
@@ -313,7 +343,7 @@ public class ZyonWindows {
           $fitted=@{x=$fit[0];y=$fit[1];width=$fit[2];height=$fit[3]}
           if($fitted.x -ge 0 -and $fitted.y -ge 0 -and $fitted.x+$fitted.width -le 1.001 -and $fitted.y+$fitted.height -le 1.001){
             Set-ZyonGeometry $fitted
-            [ZyonWindows]::ResetVisuals();$cachedNames=@('','','','','');$lastRead=@(0L,0L,0L,0L,0L);$pendingClicks=@();$geometryKey=$key
+            [ZyonWindows]::ResetVisuals();$cachedNames=@('','','','','');$cardRects=@($null,$null,$null,$null,$null);$rectAttempt=@(0L,0L,0L,0L,0L);$lastRead=@(0L,0L,0L,0L,0L);$pendingClicks=@();$geometryKey=$key
           }
         }
       }
@@ -334,6 +364,12 @@ public class ZyonWindows {
       for($i=0;$i -lt 5;$i++){
         $slotLeft=$left-$bounds.X+$i*$slotWidth
         $emptySlots += [ZyonWindows]::EmptyCard($frame,$slotLeft,($cardTop-$bounds.Y),$slotWidth,$cardHeight)
+        if(-not $cardRects[$i] -and $cachedNames[$i] -and -not $emptySlots[$i] -and $capturedAt-$rectAttempt[$i] -ge 500){
+          $rectAttempt[$i]=$capturedAt
+          # Snap only once to the original frame. Never chase our own outline.
+          $found=[ZyonWindows]::FindCardRect($frame,$slotLeft,($cardTop-$bounds.Y),$slotWidth,$cardHeight)
+          if($found){$cardRects[$i]=@{x=$found[0];y=$found[1];width=$found[2];height=$found[3]}}
+        }
         $visualChanged=[ZyonWindows]::SlotChanged($i,$frame,$slotLeft,($cardTop-$bounds.Y),$slotWidth,$cardHeight,($textTop-$bounds.Y),$textHeight)
         if($visualChanged -or $emptySlots[$i] -or $capturedAt-$lastRead[$i] -ge 2000){
           if($visualChanged){$cachedNames[$i]='';$nameMisses[$i]=0;$unreadableSince[$i]=0}
@@ -341,7 +377,7 @@ public class ZyonWindows {
         }
       }
       # Publish disappearance before spending time on recognition or HUD OCR.
-      @{kind='shop';phase='observed';shopRect=$rect;slots=$cachedNames;capturedAt=$capturedAt;matchId=$matchId;idle=$false;fixtureIndex=$sequenceIndex;fixtureChangedAt=$sequenceChangedAt}|ConvertTo-Json -Compress -Depth 3
+      @{kind='shop';phase='observed';shopRect=$rect;shopCards=$cardRects;slots=$cachedNames;capturedAt=$capturedAt;matchId=$matchId;idle=$false;fixtureIndex=$sequenceIndex;fixtureChangedAt=$sequenceChangedAt}|ConvertTo-Json -Compress -Depth 3
       if($changed.Count -gt 0){
         $readNames=@('','','','','')
         $rowHeight=$textHeight*2+24
@@ -378,9 +414,14 @@ public class ZyonWindows {
                 if($capturedAt-$unreadableSince[$i] -ge 250){$cachedNames[$i]=''}
               }else{$nameMisses[$i]=0;$unreadableSince[$i]=0;$cachedNames[$i]=$readNames[$i]}
             }else{$cachedNames[$i]=$readNames[$i]}
+            if(-not $cardRects[$i] -and $cachedNames[$i] -and $capturedAt-$rectAttempt[$i] -ge 500){
+              $rectAttempt[$i]=$capturedAt
+              $found=[ZyonWindows]::FindCardRect($frame,($left-$bounds.X+$i*$slotWidth),($cardTop-$bounds.Y),$slotWidth,$cardHeight)
+              if($found){$cardRects[$i]=@{x=$found[0];y=$found[1];width=$found[2];height=$found[3]}}
+            }
           }
         }finally{$atlasGraphics.Dispose();$atlas.Dispose()}
-        @{kind='shop';phase='recognized';shopRect=$rect;slots=$cachedNames;capturedAt=$capturedAt;matchId=$matchId;idle=$false;processingMs=([ZyonWindows]::Now()-$capturedAt);fixtureIndex=$sequenceIndex;fixtureChangedAt=$sequenceChangedAt}|ConvertTo-Json -Compress -Depth 3
+        @{kind='shop';phase='recognized';shopRect=$rect;shopCards=$cardRects;slots=$cachedNames;capturedAt=$capturedAt;matchId=$matchId;idle=$false;processingMs=([ZyonWindows]::Now()-$capturedAt);fixtureIndex=$sequenceIndex;fixtureChangedAt=$sequenceChangedAt}|ConvertTo-Json -Compress -Depth 3
       }
       $names=@($cachedNames)
       if($capturedAt-$lastHudAt -lt 400){
