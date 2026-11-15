@@ -1,5 +1,9 @@
 # Zyon TFT
 
+## 0.17.3
+
+Leitura da loja mais rápida com OCR nativo em lote, detecção visual de mudanças e medalhas atualizadas diretamente. Remove avisos antigos antes da leitura, preserva cartas repetidas e avisos de envio à dupla, sem novas dependências.
+
 ## 0.17.2
 
 Corrige o overlay que desaparecia durante a partida após falhas temporárias na leitura de nível e ouro. Preserva Alt+Tab, compras e detecção real do fim da partida; adiciona diagnóstico de visibilidade.
