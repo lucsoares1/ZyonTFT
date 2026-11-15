@@ -6,7 +6,7 @@ O executável portátil pode ser enviado para outro PC Windows x64. Ambos os jog
 
 1. Abra Duplas Dinâmicas e crie sua conta com e-mail, nome, usuário e senha. A confirmação por e-mail foi desativada no projeto a pedido de Lucas. O cadastro direto foi verificado pela interface, sem envio de mensagem.
 2. Copie seu código de amigo. O outro jogador adiciona o código; o destinatário aceita a amizade.
-3. Convide o amigo e aceite o convite no outro app. A dupla permanece até encerrar; cada participante escolhe sua comp.
+3. Convide o amigo e aceite o convite no outro app. Cada participante escolhe sua comp. A dupla termina ao encerrar manualmente, ao desligar/reiniciar o Windows ou após ausência prolongada do parceiro (comportamento da 0.17.9).
 4. Durante o jogo, Planejar no overlay apresenta todos os campeões do set. Os escolhidos estão marcados; adicione, retire ou restaure a composição. A fonte original continua preservada. Pedidos podem ser desativados ou definidos para 1★/2★/3★.
 5. O outro jogador recebe o plano por Realtime. A loja distingue compras próprias, envio à dupla e necessidade dos dois. Somente pedidos pendentes de uma partida ativa e com atualização recente geram avisos de envio.
 
@@ -48,3 +48,15 @@ A identificação do processo Windows usa AppUserModelID `local.zyon.tft`, igual
 A aba Comps no overlay lista o catálogo salvo, incluindo planos pessoais, com busca pelo nome da composição ou de seus campeões. O nome da comp no cabeçalho também abre essa lista. Escolher uma comp atualiza o app e os pedidos da dupla sem tirar o foco do jogo; ouro, nível e histórico de compras são preservados. A aba Dupla só é exibida quando existe uma dupla formada. Ao encerrá-la, quem estiver nessa aba volta a Agora.
 
 Ao recolher ou expandir, o controle mantém a mesma posição na tela, usando o centro do botão como referência. Isso também vale depois de arrastar o painel pequeno; limites do monitor são respeitados se não houver espaço para abrir a janela inteira.
+
+## Desconexão automática da dupla (0.17.9)
+
+O evento confirmado `BrowserWindow.session-end` do Windows encerra a dupla ao desligar, reiniciar ou sair da sessão do sistema. O Zyon grava primeiro um marcador local com IDs, sem credenciais, e tenta avisar o servidor imediatamente. Não bloqueia nem atrasa o desligamento. `query-session-end` não encerra a dupla, pois um desligamento ainda pode ser cancelado.
+
+Se o Windows terminar o processo antes da resposta, a próxima abertura autenticada resolve o marcador antes de publicar qualquer plano. O horário de inicialização do Windows também identifica uma nova inicialização quando não houve evento de encerramento. Um marcador de uma conta não encerra a dupla de outra; uma dupla nova não é removida por um marcador antigo.
+
+As presenças são renovadas a cada 15 segundos. Após 120 segundos sem atualização do parceiro, o cliente conectado encerra a dupla na próxima verificação bem-sucedida. Isso cobre falta de energia, processo encerrado à força e ausência prolongada de rede. Se ambos estiverem offline, a limpeza ocorre quando um voltar, antes de republicar o plano antigo. O prazo inclui o intervalo de consulta e eventual demora da rede; não é uma garantia de desconexão instantânea sem internet. Reabrir rapidamente o app ou aplicar uma atualização durante a mesma inicialização do Windows preserva a dupla dentro dessa tolerância.
+
+Conta, login, amizade e comp escolhida são preservados. Para jogar juntos novamente, basta enviar e aceitar um novo convite. Ambos devem atualizar o app para receber todas essas proteções; não foi adicionado serviço residente, dependência ou modelo extra.
+
+`tests/duo-lifecycle.test.mjs` cobre marcadores persistentes, mudança de boot, isolamento por usuário/dupla, falha de rede, corrida entre encerramentos e supressão de publicações. `node scripts/verify-duo.mjs --live-shop --background --no-captures --lifecycle` verifica dois clientes Electron autenticados no Supabase real, incluindo reabertura, evento nativo simulado, falha de rede, boot anterior e expiração real de 120 segundos. O teste não desliga/reinicia o PC nem modifica o perfil pessoal.

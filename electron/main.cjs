@@ -41,6 +41,7 @@ const {
 } = require("./gold-ocr.cjs");
 const { PurchaseTracker } = require("./purchase-tracker.cjs");
 const {SocialService}=require('./social-service.cjs');
+const {readBootId,bindSessionEnd}=require('./duo-lifecycle.cjs');
 const {SocialNoticeTracker}=require('./social-notices.cjs');
 const {guideBoundsFor,shopOnlyPlacement}=require('./guide-layout.cjs');
 const {chooseGuideComposition,guardCompositionPublication}=require('./guide-selection.cjs');
@@ -905,7 +906,7 @@ if (primaryInstance)
     } catch {
       /* First launch. */
     }
-    socialService=new SocialService({directory:app.getPath('userData'),safeStorage,
+    socialService=new SocialService({directory:app.getPath('userData'),safeStorage,bootId:await readBootId(),
       getLocal:()=>planTools.sharingPayload(state.guideComp,state.overlayPlans?.[state.pinned],state.gameSession,championById),
       normalizePlan:value=>planTools.normalizeSharedPlan(value,championById),
       onChange:snapshot=>{state.social=snapshot;mainWindow?.webContents.send('social:update',snapshot);
@@ -938,6 +939,7 @@ if (primaryInstance)
         sandbox: true,
       },
     });
+    bindSessionEnd(mainWindow,socialService);
     mainWindow.once("ready-to-show", showMainWindow);
     mainWindow.webContents.once("did-finish-load", () =>
       startupLog("Main interface loaded"),

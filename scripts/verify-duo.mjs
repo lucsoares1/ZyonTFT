@@ -14,7 +14,7 @@ const out=path.resolve(`design/review/${version}/duo`);await fs.mkdir(out,{recur
 const fixture=path.resolve('design/references/17-game-ocr.png');
 const apps=[],errors=[],checks=[];
 const pause=ms=>new Promise(r=>setTimeout(r,ms));
-async function waitValue(fn,predicate,label){const until=Date.now()+25000;let value;while(Date.now()<until){value=await fn();if(predicate(value))return value;await pause(130);}throw new Error(`Timed out: ${label}`);}
+async function waitValue(fn,predicate,label,timeout=25000){const until=Date.now()+timeout;let value;while(Date.now()<until){value=await fn();if(predicate(value))return value;await pause(130);}throw new Error(`Timed out: ${label}`);}
 const social=p=>p.evaluate(()=>window.zyon.getSocial());
 const state=p=>p.evaluate(()=>window.zyon.getState());
 const act=(p,a)=>p.evaluate(a=>window.zyon.socialAction(a),a);
@@ -31,17 +31,19 @@ async function capture(app,page,file){
  const png=await app.evaluate(async({BrowserWindow},url)=>{const w=BrowserWindow.getAllWindows().find(w=>w.webContents.getURL()===url);const wasVisible=w.isVisible();w.removeAllListeners('show');w.setAlwaysOnTop(false);w.showInactive();try{await w.webContents.executeJavaScript('new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)))');await new Promise(r=>setTimeout(r,150));return (await w.webContents.capturePage(undefined,{stayHidden:true,stayAwake:true})).toPNG().toString('base64');}finally{if(!wasVisible)w.hide();}},page.url());
  assert.ok(png.length>100);await fs.writeFile(file,Buffer.from(png,'base64'));
 }
-async function launch(i){
- const profile=path.resolve('.runtime',`duo-${i}-${Date.now()}`),env={...process.env,ZYON_USER_DATA:profile,ZYON_OVERLAY_PREVIEW:'1',ZYON_OCR_FIXTURE:fixture};delete env.ELECTRON_RUN_AS_NODE;delete env.ZYON_DEV_URL;
+async function launch(i,reuseProfile){
+ const profile=reuseProfile||path.resolve('.runtime',`duo-${i}-${Date.now()}`),env={...process.env,ZYON_USER_DATA:profile,ZYON_OVERLAY_PREVIEW:'1',ZYON_OCR_FIXTURE:fixture};delete env.ELECTRON_RUN_AS_NODE;delete env.ZYON_DEV_URL;
  if(process.argv.includes('--background'))env.ZYON_TEST_BACKGROUND='1';
  const app=await electron.launch({...packaged?{executablePath:path.resolve(process.env.ZYON_TEST_EXE||'release/win-unpacked/Zyon TFT.exe'),args:[]}:{args:['.']},env});apps.push(app);
  if(process.argv.includes('--background'))await app.evaluate(({app,BrowserWindow})=>{const quiet=w=>{w.webContents.setBackgroundThrottling(false);w.setAlwaysOnTop(false);w.setOpacity(0);w.setIgnoreMouseEvents(true);};BrowserWindow.getAllWindows().forEach(quiet);app.on('browser-window-created',(_e,w)=>quiet(w));});
  const page=await app.firstWindow();page.on('pageerror',e=>errors.push(e.message));
- await page.getByRole('heading',{name:'Bom ter você por aqui.',exact:true}).waitFor();
  await app.evaluate(({BrowserWindow})=>BrowserWindow.getAllWindows()[0].setBounds({x:35,y:25,width:1536,height:1000}));
+ if(!reuseProfile){
+ await page.getByRole('heading',{name:'Bom ter você por aqui.',exact:true}).waitFor();
  await page.getByRole('textbox',{name:'E-mail da conta Zyon'}).fill(users[i].email);
  await page.getByLabel('Senha da conta Zyon',{exact:true}).fill(users[i].password);
  await page.getByRole('button',{name:'Entrar no Zyon',exact:true}).click();
+ }
  await waitValue(()=>social(page),s=>s?.profile&&s.status==='online',`user${i} login`);
  await page.getByRole('heading',{name:'Composições',exact:true}).waitFor();
  await page.getByRole('navigation',{name:'Navegação principal'}).getByRole('button',{name:'Duplas Dinâmicas',exact:true}).click();
@@ -188,6 +190,10 @@ try{
  await waitValue(async()=>ga.getByRole('tab',{name:'Dupla',exact:true}).count(),n=>n===0,'Dupla hides when partnership ends');
  await ga.getByRole('tab',{name:'Agora',exact:true,selected:true}).waitFor();
  checks.push('encrypted desktop sessions contain no plaintext tokens/passwords; leaving a duo clears partner plans on the other PC');
+ if(process.argv.includes('--lifecycle')){
+  const {verifyDuoLifecycle}=await import('./verify-duo-lifecycle.mjs');
+  await verifyDuoLifecycle({a,b,launch,users,social,act,waitValue,pause,checks});
+ }
  await act(a.page,{type:'friendRemove',id:(await social(a.page)).friends[0].id});
  await act(a.page,{type:'logout'});await act(b.page,{type:'logout'});
  assert.deepEqual(errors,[]);
