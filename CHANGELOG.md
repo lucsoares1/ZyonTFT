@@ -1,5 +1,9 @@
 # Zyon TFT
 
+## 0.17.7
+
+Aviso de novas solicitações de amizade e convites fora da aba Duplas, contador de pendências e notificações do Windows. Modo só avisos da loja mantém leitura e medalhas com o painel encolhido. Arraste livremente o cabeçalho; a posição fica salva. O botão de trocar lado foi substituído pelo de encolher. Correção da piscada ao revalidar a mesma carta, preservando remoção rápida de unidades compradas e trocas da loja.
+
 ## 0.17.6 (não publicada)
 
 Publicação cancelada; substituída pela0.17.7 com identificação de notificações do Windows completa.
