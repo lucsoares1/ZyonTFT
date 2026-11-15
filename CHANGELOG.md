@@ -1,5 +1,9 @@
 # Zyon TFT
 
+## 0.17.6
+
+Pedidos de amizade recebidos e convites agora têm aviso no app, contador e notificação do Windows. Novo modo só avisos da loja mantém OCR e medalhas com o painel encolhido. Arraste o cabeçalho para posicionar livremente, com posição salva; o botão de trocar lado foi substituído pelo de encolher. Corrigida a piscada do destaque ao revalidar a mesma carta, sem atrasar a remoção de cartas vazias ou a troca da loja.
+
 ## 0.17.5
 
 Medalha e aviso unidos e alinhados acima da carta. Moldura de cristal acompanha as bordas originais, preserva as joias e mantém o topo completo nas unidades de custo 1. Destaques mais estáveis durante brilho e hover, com remoção imediata ao vender ou atualizar a loja e posição adaptada à janela do jogo.
