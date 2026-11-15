@@ -1,5 +1,9 @@
 # Zyon TFT
 
+## 0.17.10
+
+Planejador do overlay reformulado com catálogo legível, edição de metas por peça e seleção de sinergias. Campeões, transições e sinergias destacados na loja são compartilhados com a dupla; a leitura associa as características ao campeão reconhecido sem uma segunda passagem de OCR. Proteção ao abrir durante a atualização evita carregar dependências incompletas. A publicação agora verifica todos os arquivos e dependências e testa o aplicativo extraído do próprio Setup, incluindo OCR offline e recuperação de instalação interrompida.
+
 ## 0.17.9
 
 A dupla é desconectada ao desligar, reiniciar ou sair da sessão do Windows. Proteção contra falha de rede e queda de energia impede restaurar conexões antigas; ausência prolongada encerra a dupla após cerca de 2 minutos. Conta, amizade e comp são preservadas, assim como reaberturas rápidas do app. Inclui biblioteca de comps no overlay, aba Dupla apenas quando conectado e posição estável do botão ao recolher e expandir.
