@@ -17,9 +17,16 @@ async function waitValue(fn,predicate,label){const until=Date.now()+25000;let va
 const social=p=>p.evaluate(()=>window.zyon.getSocial());
 const state=p=>p.evaluate(()=>window.zyon.getState());
 const act=(p,a)=>p.evaluate(a=>window.zyon.socialAction(a),a);
+async function capture(app,page,file){
+ await page.emulateMedia({reducedMotion:'reduce'});
+ if(!process.argv.includes('--background'))return page.screenshot({path:file,animations:'disabled'});
+ const png=await app.evaluate(async({BrowserWindow},url)=>{const w=BrowserWindow.getAllWindows().find(w=>w.webContents.getURL()===url);w.removeAllListeners('show');w.setAlwaysOnTop(false);w.showInactive();try{return (await w.webContents.capturePage(undefined,{stayHidden:true,stayAwake:true})).toPNG().toString('base64');}finally{w.hide();w.on('show',()=>w.hide());}},page.url());
+ assert.ok(png.length>100);await fs.writeFile(file,Buffer.from(png,'base64'));
+}
 async function launch(i){
  const profile=path.resolve('.runtime',`duo-${i}-${Date.now()}`),env={...process.env,ZYON_USER_DATA:profile,ZYON_OVERLAY_PREVIEW:'1',ZYON_OCR_FIXTURE:fixture};delete env.ELECTRON_RUN_AS_NODE;delete env.ZYON_DEV_URL;
  const app=await electron.launch({...packaged?{executablePath:path.resolve(process.env.ZYON_TEST_EXE||'release/win-unpacked/Zyon TFT.exe'),args:[]}:{args:['.']},env});apps.push(app);
+ if(process.argv.includes('--background'))await app.evaluate(({app,BrowserWindow})=>{const quiet=w=>{w.webContents.setBackgroundThrottling(false);w.setAlwaysOnTop(false);w.on('show',()=>w.hide());w.hide();};BrowserWindow.getAllWindows().forEach(quiet);app.on('browser-window-created',(_e,w)=>quiet(w));});
  const page=await app.firstWindow();page.on('pageerror',e=>errors.push(e.message));
  await page.getByRole('heading',{name:'Bom ter você por aqui.',exact:true}).waitFor();
  await app.evaluate(({BrowserWindow})=>BrowserWindow.getAllWindows()[0].setBounds({x:35,y:25,width:1536,height:1000}));
@@ -75,7 +82,7 @@ try{
  const modified=await waitValue(()=>state(b.page),s=>s.guideComp.champions.includes('DA_18_Teemo'),'working roster');
  assert.deepEqual(modified.gameSession,before,'plan edits do not mutate match/copies/gold');
  assert.ok(!modified.baseGuideComp.champions.includes('DA_18_Teemo'));
- await gb.getByRole('combobox',{name:'Pedido de Teemo',exact:true}).selectOption('1');
+ await gb.getByRole('radio',{name:'1 estrela, 1 cópia de Teemo',exact:true}).check();
  const sentAt=Date.now();
  await waitValue(()=>social(a.page),s=>s.partnerPlan?.payload?.wishes.some(w=>w.id==='DA_18_Teemo'&&w.goal===1),'realtime requested Teemo');
  const syncMs=Date.now()-sentAt;
@@ -84,19 +91,29 @@ try{
  const badges=await waitValue(async()=>a.app.windows().find(w=>w.url().includes('view=overlay')),Boolean,'shop badges');
  await badges.locator('.shop-medal[data-kind="send"]').waitFor();
  assert.ok((await badges.locator('.shop-medal[data-kind="send"]').getAttribute('aria-label')).includes(users[1].displayName));
- await badges.screenshot({path:path.join(out,`shop-send${suffix}.png`),animations:'disabled'});
+ await capture(a.app,badges,path.join(out,`shop-send${suffix}.png`));
  await ga.getByRole('tab',{name:'Dupla',exact:true}).click();
- await ga.locator('.duo-wish').first().waitFor();await ga.screenshot({path:path.join(out,`overlay-duo${suffix}.png`),animations:'disabled'});
- await gb.screenshot({path:path.join(out,`overlay-planner${suffix}.png`),animations:'disabled'});
- await a.page.screenshot({path:path.join(out,`friends${suffix}.png`),animations:'disabled'});
- await gb.getByRole('combobox',{name:'Pedido de Teemo',exact:true}).selectOption('0');
+ await ga.locator('.duo-wish').first().waitFor();await capture(a.app,ga,path.join(out,`overlay-duo${suffix}.png`));
+ await capture(b.app,gb,path.join(out,`overlay-planner${suffix}.png`));
+ await capture(a.app,a.page,path.join(out,`friends${suffix}.png`));
+ await gb.getByRole('radio',{name:'Não pedir cópias de Teemo',exact:true}).check();
  await waitValue(async()=>badges.locator('.shop-medal[data-kind="send"]').count(),n=>n===0,'request cleared from shop');
- await gb.getByRole('combobox',{name:'Pedido de Teemo',exact:true}).selectOption('9');
+ await gb.getByRole('radio',{name:'3 estrelas, 9 cópias de Teemo',exact:true}).check();
  await badges.locator('.shop-medal[data-kind="send"]').waitFor();
  await gb.locator('.overlay-plan-roster').getByRole('button',{name:'Retirar Teemo da comp',exact:true}).click();
  await waitValue(async()=>badges.locator('.shop-medal[data-kind="send"]').count(),n=>n===0,'removed unit no longer requested');
  await gb.getByRole('button',{name:'Restaurar comp',exact:true}).click();
  const restored=await state(b.page);assert.deepEqual(restored.guideComp.champions,restored.baseGuideComp.champions);assert.ok(restored.guideComp.pivot);
+ for(const width of [840,640]){
+  await b.app.evaluate(({BrowserWindow},width)=>BrowserWindow.getAllWindows().find(w=>w.webContents.getURL().includes('view=guide')).setBounds({width}),width);
+  await gb.evaluate(()=>document.querySelector('.game-content')?.scrollTo(0,0));
+  await capture(b.app,gb,path.join(out,`planner-${width}${suffix}.png`));
+  await gb.getByRole('tab',{name:'Itens',exact:true}).click();
+  const layout=await gb.locator('.game-content').evaluate(el=>({left:el.getBoundingClientRect().left,right:el.getBoundingClientRect().right,scroll:el.scrollWidth,width:el.clientWidth,route:el.querySelector('.game-item-route')?.getBoundingClientRect().toJSON()}));
+  assert.ok(layout.scroll<=layout.width+1);if(layout.route)assert.ok(layout.route.left-layout.left<30,'item routes use full content width');
+  await capture(b.app,gb,path.join(out,`items-${width}${suffix}.png`));
+  await gb.getByRole('tab',{name:'Planejar',exact:true}).click();
+ }
  checks.push('shop medal identifies whom to send to; disabled requests and removed champions immediately clear it; restore preserves the published comp');
  for(const x of [a,b]){const ciphertext=await fs.readFile(path.join(x.profile,'online-session.enc'),'utf8');assert.ok(!ciphertext.includes(users[0].password)&&!ciphertext.includes(users[1].password)&&!ciphertext.includes('refresh_token')&&!ciphertext.includes('access_token'));}
  await a.page.getByRole('button',{name:'Encerrar dupla',exact:true}).click();

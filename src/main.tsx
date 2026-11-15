@@ -22,6 +22,7 @@ import "./duo.css";
 import "./account.css";
 import "./controls.css";
 import "./updates.css";
+import "./overlay-planner-polish.css";
 createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <App />

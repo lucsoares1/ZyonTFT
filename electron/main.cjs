@@ -876,10 +876,8 @@ if (primaryInstance)
     if(process.env.ZYON_USER_DATA&&process.env.ZYON_UPDATE_TEST==='1'&&process.env.ZYON_TEST_UPDATE_URL){
       const feed=new URL(process.env.ZYON_TEST_UPDATE_URL);
       if(feed.protocol!=='http:'||feed.hostname!=='127.0.0.1'||!path.resolve(app.getPath('exe')).includes(`${path.sep}.runtime${path.sep}`))throw new Error('Invalid isolated update test');
-      const {ElectronAppAdapter}=require('electron-updater/out/ElectronAppAdapter');
-      const adapter=new ElectronAppAdapter(app);
-      Object.defineProperty(adapter,'baseCachePath',{value:path.join(app.getPath('userData'),'update-cache')});
-      autoUpdater=new (require('electron-updater').NsisUpdater)({provider:'generic',url:feed.href},adapter);
+      autoUpdater.setFeedURL({provider:'generic',url:feed.href});
+      Object.defineProperty(autoUpdater.app,'baseCachePath',{value:path.join(app.getPath('userData'),'update-cache')});
       autoUpdater.disableDifferentialDownload=true;
     }
     autoUpdater.logger={info:()=>{},warn:()=>{},error:()=>{startupLog('Update: request failed');},debug:()=>{}};

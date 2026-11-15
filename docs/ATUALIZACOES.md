@@ -6,7 +6,7 @@ O canal estável usa o repositório público https://github.com/lucsoares1/ZyonT
 
 Distribua `Zyon-TFT-Setup-0.17.0.exe` a partir do release. Cada pessoa instala uma vez. A edição portátil anterior não contém atualizador: ela precisa dessa primeira instalação manual. O instalador é por usuário, mantém `%APPDATA%/zyon-tft`, cria um atalho e abre o app. Comps, configurações e sessão são preservadas. A desinstalação também preserva esses dados.
 
-O app consulta versões ao abrir (após8segundos), a cada4horas enquanto está aberto e pelo botão em Preferências. Uma versão nova mostra aviso, botão de download e progresso; após baixar, o usuário escolhe Reiniciar e atualizar. O download é validado pelo SHA-512 do feed. Fechar o app normalmente não instala uma versão pendente. Durante uma partida, reiniciar exige confirmação adicional. Nenhum update força a interrupção do jogo.
+O app consulta versões ao abrir (após 8 segundos), a cada 4 horas enquanto está aberto e pelo botão em Preferências. Uma versão nova mostra aviso, botão de download e progresso; após baixar, o usuário escolhe Reiniciar e atualizar. O download é validado pelo SHA-512 do feed. Fechar o app normalmente não instala uma versão pendente. Durante uma partida, reiniciar exige confirmação adicional. Nenhum update força a interrupção do jogo.
 
 ## Lançar uma versão
 
@@ -28,3 +28,5 @@ Ainda não existe certificado de assinatura Windows configurado. O Windows pode 
 ## Verificação
 
 Os testes de UpdateService cobrem concorrência, instalação somente após download, falha de integridade, nova tentativa, adiamento durante a partida, edição portátil/desenvolvimento e fechamento. A integração real de instalador/download/reinício deve ser conferida em perfil isolado, sem usar as preferências pessoais para testes. As verificações locais não substituem instalar em outro PC.
+
+Na validação da primeira versão, `verify-updates.mjs` instalou a base 0.16.99, rejeitou um instalador com byte corrompido, baixou novamente, instalou a 0.17.0 e confirmou o reinício automático, a mesma conta autenticada, 80 comps e opacidade preservadas. O feed desse teste era um servidor HTTP local, e o download/instalador eram reais. Evidências locais em design/review/0.17.0/updates. A publicação pública no GitHub é conferida separadamente.

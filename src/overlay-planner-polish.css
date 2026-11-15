@@ -1,0 +1,25 @@
+.game-guide .overlay-plan-roster{grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin:20px 0;}
+.game-guide .plan-unit{min-width:0;padding:12px;background:#0d1829ed;border:1px solid #2a405f;border-left:2px solid var(--cost-color,#426389);border-radius:12px;}
+.plan-unit>header{display:flex;align-items:center;gap:10px;min-height:47px;}
+.plan-unit>header>img{width:41px;height:41px;flex-shrink:0;object-fit:contain;border-width:1px;border-radius:9px;}
+.plan-unit>header>div{flex:1;min-width:0;}.plan-unit>header strong{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font:750 12px/1.4 Manrope,sans-serif;letter-spacing:-.1px;color:#e6effd;}
+.plan-unit>header small{display:block;margin-top:4px;font-size:8px;line-height:1.5;color:#8da2c0;}
+.game-guide .plan-unit .equipment{--item-size:17px;min-height:0;gap:3px;margin:5px 0 0;}
+.game-guide .overlay-planner .plan-remove{align-self:flex-start;flex-shrink:0;display:grid;place-items:center;width:23px;height:23px;min-height:23px;padding:0;border:0;border-radius:6px;background:transparent;color:#768ead;}
+.game-guide .overlay-planner .plan-remove:hover{background:#392338;color:#f2bfd0;}
+.plan-request{min-width:0;margin:13px 0 0;padding:0;border:0;}.plan-request legend{margin-bottom:7px;padding:0;color:#8fa5c7;font:500 9px/1.4 Manrope,sans-serif;}
+.plan-goals{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;}
+.game-guide .plan-goals .plan-goal{display:block;position:relative;min-width:0;margin:0;cursor:pointer;}
+.plan-goal>input{position:absolute;inset:0;opacity:0;width:100%;height:100%;margin:0;cursor:pointer;z-index:1;}
+.plan-goal>span{display:flex;align-items:center;justify-content:center;flex-direction:column;gap:3px;padding:7px 2px;min-height:42px;box-sizing:border-box;border:1px solid transparent;border-radius:7px;background:#15233a;color:#8299bc;transition:background-color .14s,border-color .14s,color .14s;}
+.plan-goal strong{display:flex;gap:4px;align-items:center;justify-content:center;min-height:14px;font:750 12px/1 Manrope,sans-serif;}.plan-goal small{font:500 8px/1.2 Manrope,sans-serif;white-space:nowrap;}
+.plan-goal svg{fill:none;stroke-width:1.7;}.plan-goal:hover>span{background:#1b3151;color:#d1e3ff;}
+.plan-goal>input:checked+span{background:#1d4fb4;border-color:#377cff;color:#fff;}.plan-goal>input:checked+span svg{fill:currentColor;}.plan-goal>input:focus-visible+span{outline:2px solid #99c1ff;outline-offset:2px;}
+.game-guide.game-wide .game-tab-items{display:block;}
+.game-guide.game-wide .game-tab-items>.pivot-item-order{position:static;grid-row:auto;grid-column:auto;margin:0 0 20px;padding:0 0 18px;border-right:0;border-bottom:1px solid #2b405c;}
+.game-guide.game-wide .game-tab-items>.game-section{margin-bottom:18px;}
+.game-guide.game-wide .game-tab-items .game-item-route{margin:0 0 14px;padding:16px;border:1px solid #273c5a;border-radius:12px;background:#0d1829e8;}
+.game-guide.game-wide .game-tab-items .game-recipes{grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:10px;}
+.game-guide.game-wide .game-tab-items .game-holder{margin-bottom:13px;}.game-guide.game-wide .game-tab-items .game-holder>img{width:39px;height:39px;border-radius:8px;}
+@media(max-width:700px){.game-guide .overlay-plan-roster{grid-template-columns:repeat(2,minmax(0,1fr));}.game-guide .plan-unit{padding:10px;}.plan-unit>header{gap:8px;}.plan-unit>header strong{font-size:11px;}.game-guide.game-wide .game-tab-items .game-item-route{padding:13px;}}
+@media(prefers-reduced-motion:reduce){.plan-goal>span{transition:none;}}

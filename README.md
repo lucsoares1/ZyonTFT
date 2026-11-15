@@ -4,7 +4,7 @@ Companion para TFT no Windows: biblioteca de comps, equipes por nível, itens, a
 
 ## Baixar e instalar
 
-Use o instalador **Zyon-TFT-Setup** da versão mais recente em [Releases](https://github.com/lucsoares1/ZyonTFT/releases/latest). A partir da0.17.0, o app avisa sobre versões novas e permite baixar e reiniciar para atualizar. Os portáteis antigos precisam dessa primeira instalação manual. Windows64bits e conexão à internet são necessários para contas e sincronização.
+Use o instalador **Zyon-TFT-Setup** da versão mais recente em [Releases](https://github.com/lucsoares1/ZyonTFT/releases/latest). A partir da versão 0.17.0, o app avisa sobre versões novas e permite baixar e reiniciar para atualizar. Os portáteis antigos precisam dessa primeira instalação manual. Windows 64 bits e conexão à internet são necessários para contas e sincronização.
 
 Cada jogador cria sua conta, adiciona o amigo pelo código e aceita o convite no Zyon. A fila de Duplas Dinâmicas e o envio por Canhão de Cooperação continuam no próprio TFT. As compras observadas pelo OCR podem precisar de correção; o app não lê a posse completa do tabuleiro nem transfere campeões automaticamente.
 
@@ -29,7 +29,7 @@ O GitHub Actions gera e verifica os arquivos em um rascunho antes de publicar. N
 
 O Zyon não é afiliado à Riot Games. As imagens e nomes do jogo pertencem aos seus respectivos titulares.
 
-## Histórico técnico anterior à0.17
+## Histórico técnico anterior à versão 0.17
 
 Overlay com comp completa na faixa recolhida e painel amplo com abas e duas colunas quando aberto. Com o app aberto e uma comp fixada, a confirmação de ouro no jogo inicia o overlay automaticamente. Só aparece com o processo do jogo em primeiro plano; Alt+Tab oculta guia e badges, voltar retoma a mesma sessão. Ouro zero confirmado também é válido. Ocultar manualmente é respeitado na partida atual. Nova identidade de processo limpa o registro.
 
