@@ -1,5 +1,9 @@
 # Zyon TFT
 
+## 0.17.13
+
+Pedidos da dupla salvos automaticamente ao marcar um campeão e mudar a meta ou a prioridade, no app e no overlay, sem botão de confirmação. Proteção para alterações rápidas, cancelamentos e respostas atrasadas, com aviso de falha e opção de tentar novamente.
+
 ## 0.17.12
 
 Dupla com pedidos avulsos e prioridades Normal, Alta e Urgente, sincronizados no app e overlay sem mudar a comp. Moldura roxa completa para enviar ao parceiro, com aviso Enviar urgente. Retratos quadrados e cards com enquadramento corrigido.
