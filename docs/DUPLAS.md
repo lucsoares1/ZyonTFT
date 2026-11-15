@@ -2,6 +2,8 @@
 
 Depois de formar a dupla, abra **Duplas Dinâmicas → Seus pedidos à dupla → Pedir campeão**. O mesmo controle está na aba **Dupla** do overlay. Busque qualquer campeão, selecione a meta total de uma, três ou nove cópias e escolha a prioridade:
 
+Marcar o campeão já cria o pedido. Mudar a meta ou a prioridade salva automaticamente, sem botão de confirmação. O editor continua aberto para você marcar mais campeões. Se não for possível salvar, ele mostra o erro e permite tentar novamente. A sincronização com o parceiro exige conexão com o servidor.
+
 - **Normal:** aparece junto aos outros campeões procurados.
 - **Alta:** vem antes dos pedidos normais e recebe a indicação Alta.
 - **Urgente:** aparece primeiro na lista do amigo e como **Enviar urgente** na loja dele.

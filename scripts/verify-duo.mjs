@@ -206,9 +206,13 @@ try{
   await editor.getByRole('button',{name:'Pedir campeão',exact:true}).click();
   await editor.getByRole('textbox',{name:'Buscar campeão para pedir à dupla',exact:true}).fill(requestedName);
   await editor.getByRole('button',{name:`Pedir ${requestedName} à dupla`,exact:true}).click();
+  await waitValue(()=>social(a.page),s=>s.partnerPlan?.payload?.shopping.some(w=>w.id===requestedId&&w.reason==='request'&&w.goal===1),'marking champion immediately creates the request');
+  assert.equal(await editor.getByRole('button',{name:'Enviar pedido à dupla',exact:true}).count(),0);
+  await editor.getByRole('combobox',{name:'Meta de cópias do pedido à dupla',exact:true}).selectOption('3');
+  await waitValue(()=>social(a.page),s=>s.partnerPlan?.payload?.shopping.find(w=>w.id===requestedId)?.goal===3,'goal auto-saves without confirmation');
+  await editor.getByRole('combobox',{name:'Meta de cópias do pedido à dupla',exact:true}).selectOption('1');
   await editor.getByRole('radio',{name:'Prioridade urgente do pedido',exact:true}).check();
   await capture(b.app,b.page,path.join(out,`duo-request-editor${suffix}.png`));
-  await editor.getByRole('button',{name:'Enviar pedido à dupla',exact:true}).click();
   await waitValue(()=>social(a.page),s=>s.partnerPlan?.payload?.shopping[0]?.id===requestedId&&s.partnerPlan.payload.shopping[0].priority===2,'urgent off-comp request reaches partner first');
   const changed=await state(b.page);assert.deepEqual(changed.guideComp.champions,before.guideComp.champions);assert.deepEqual(changed.gameSession,before.gameSession);
   await waitValue(async()=>requestedBadge.textContent(),text=>/Urgente|urgente/.test(text),'urgent shop caption');
@@ -223,7 +227,7 @@ try{
   const nativeEditor=gb.getByRole('region',{name:'Seus pedidos à dupla',exact:true});
   await nativeEditor.getByRole('button',{name:`Editar pedido de ${requestedName}`,exact:true}).click();
   await nativeEditor.getByRole('radio',{name:'Prioridade alta do pedido',exact:true}).check();
-  await nativeEditor.getByRole('button',{name:'Atualizar pedido',exact:true}).click();
+  assert.equal(await nativeEditor.getByRole('button',{name:'Atualizar pedido',exact:true}).count(),0);
   await waitValue(()=>social(a.page),s=>s.partnerPlan?.payload?.shopping.find(w=>w.id===requestedId)?.priority===1,'priority update from guide');
   await waitValue(async()=>requestedBadge.textContent(),text=>text.includes('Alta')&&!/urgente/i.test(text),'shop caption changes without stale urgency');
   for(const width of [840,640]){
@@ -239,7 +243,7 @@ try{
   await waitValue(async()=>requestedBadge.count(),n=>n===0,'cancel clears partner shop badge');
   await gb.getByRole('tab',{name:'Planejar',exact:true}).click();
   if(clean.id!==original.pinned){await gb.getByRole('tab',{name:'Comps',exact:true}).click();await gb.getByRole('textbox',{name:'Buscar composição no overlay',exact:true}).fill(original.guideComp.name);await gb.locator(`[data-comp="${original.pinned}"]`).click();await gb.getByRole('tab',{name:'Planejar',exact:true}).click();}
-  checks.push('off-comp request from main reaches partner through real Realtime, urgent sorts first and labels shop; overlay priority changes and main cancellation sync, with no roster/session mutation; purple rim and 640/840 layouts verified');
+  checks.push('marking off-comp champion auto-saves immediately; goal and priority changes auto-save from main/guide without confirmation; real partner Realtime/shop update and cancellation work without roster/session mutation; purple rim and 640/840 layouts verified');
  }
  for(const width of [840,640]){
   await b.app.evaluate(({BrowserWindow},width)=>BrowserWindow.getAllWindows().find(w=>w.webContents.getURL().includes('view=guide')).setBounds({width}),width);

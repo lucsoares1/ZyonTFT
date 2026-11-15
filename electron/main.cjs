@@ -1014,6 +1014,7 @@ if (primaryInstance)
       if(!current&&(!mainSender(event)||action?.type!=='restore'))return {error:'Escolha uma comp antes de editar.'};
       const base=current?state.baseGuideComp:state.saved?.comps?.find(c=>c.id===action.compId);if(!base)return {error:'Escolha uma comp no aplicativo.'};
       if(!['toggle','goal','trait','restore','request','removeRequest'].includes(action?.type))return {error:'Ação de plano inválida.'};
+      if(action.type==='request'&&(state.overlayPlans[base.id]?.requests||[]).length>=28&&!state.overlayPlans[base.id].requests.some(w=>w.id===action.id))return {error:'Você já tem 28 pedidos. Remova um para pedir outro campeão.'};
       const edit=planTools.editWorkingPlan(base,state.overlayPlans[base.id],action,championById);
       state.overlayPlans={...state.overlayPlans};if(edit)state.overlayPlans[base.id]=edit;else delete state.overlayPlans[base.id];
       applyWorkingPlan();state.selected=state.guideComp?.champions||[];

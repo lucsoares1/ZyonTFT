@@ -32,6 +32,8 @@ jobs:
           "RELEASE_VERSION=$version" >> $env:GITHUB_ENV
       - run: npm test
       - run: npm run build
+      - name: Verificar salvamento automático dos pedidos
+        run: node scripts/verify-duo-autosave.mjs
       - run: node scripts/release-notes.mjs
       - name: Preparar rascunho
         shell: pwsh
