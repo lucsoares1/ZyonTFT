@@ -35,8 +35,10 @@ O fim confirmado da partida limpa as compras e os pedidos ativos. Alt+Tab contin
 
 Sem certificado de assinatura de código configurado. A compilação funciona, mas o Windows pode pedir confirmação ao abrir um executável baixado.
 
-## Notificações e controles do overlay (0.17.6)
+## Notificações e controles do overlay (0.17.7)
 
 Pedidos recebidos e convites aparecem em um aviso global mesmo fora de Duplas Dinâmicas, com ação para abrir a lista. O contador lateral permanece até aceitar ou recusar. Com o Zyon sem foco, uma notificação do Windows abre Duplas ao clicar; sua exibição depende das permissões de notificações do sistema. Reatualizações não repetem o aviso nativo.
 
 O botão Só avisos da loja reduz o painel a um pequeno controle Painel; leitura, medalhas de compra/envio e sincronização continuam. Clique em Painel ou use Ctrl+Shift+G para voltar. Arraste o cabeçalho (ou a alça do controle pequeno) para posicionar. A posição é salva e limitada ao monitor escolhido, preservando o acesso quando a resolução muda.
+
+A identificação do processo Windows usa AppUserModelID `local.zyon.tft`, igual ao instalador NSIS, antes de criar notificações. Referência: [Electron — notificações no Windows](https://www.electronjs.org/docs/latest/tutorial/notifications#windows). Falhas de exibição são registradas sem conteúdo de solicitações no startup.log.

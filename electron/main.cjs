@@ -9,6 +9,7 @@ const {
   safeStorage,
   Notification,
 } = require("electron");
+if(process.platform==='win32')app.setAppUserModelId('local.zyon.tft');
 const path = require("node:path");
 const fs = require("node:fs");
 const { spawn } = require("node:child_process");
@@ -892,6 +893,7 @@ if (primaryInstance)
           if(!backgroundTest&&Notification.isSupported()&&(!mainWindow?.isVisible()||mainWindow.isMinimized()||!mainWindow.isFocused())){
             const notification=new Notification({title:notice.kind==='friend'?'Novo pedido de amizade':'Convite para jogar em dupla',body:notice.kind==='friend'?`${notice.name} quer adicionar você no Zyon.`:`${notice.name} convidou você para jogar.`,icon:path.join(__dirname,'icon.png'),silent:true});
             notification.on('click',()=>{showMainWindow();mainWindow?.webContents.send('social:open');});
+            notification.on('failed',()=>startupLog('Social notification: Windows could not display the notification'));
             notification.show();
           }
         }

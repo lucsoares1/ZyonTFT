@@ -1,6 +1,8 @@
 # Zyon TFT
 
-## 0.17.6
+## 0.17.6 (não publicada)
+
+Publicação cancelada; substituída pela0.17.7 com identificação de notificações do Windows completa.
 
 Pedidos de amizade recebidos e convites agora têm aviso no app, contador e notificação do Windows. Novo modo só avisos da loja mantém OCR e medalhas com o painel encolhido. Arraste o cabeçalho para posicionar livremente, com posição salva; o botão de trocar lado foi substituído pelo de encolher. Corrigida a piscada do destaque ao revalidar a mesma carta, sem atrasar a remoção de cartas vazias ou a troca da loja.
 
