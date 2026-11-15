@@ -1,5 +1,9 @@
 # Zyon TFT
 
+## 0.17.21
+
+Compras de transição acompanham o nível confirmado pelo OCR: peças de etapas anteriores deixam de ser marcadas e pedidas à dupla, preservando pedidos manuais, sinergias e equipe final.
+
 ## 0.17.20
 
 Corrige molduras e badges deslocadas da loja, remove compras extras em comps pessoais e mantém a posição do overlay ao recolher e expandir.
