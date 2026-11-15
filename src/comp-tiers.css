@@ -1,0 +1,329 @@
+/* Ranked library: shield + traits + compact unit rack, following reference 28. */
+.comp-tier-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 28px;
+  height: 35px;
+  color: #f3bc48;
+  vertical-align: middle;
+}
+.comp-tier-badge svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.comp-tier-badge[data-tier="A"] {
+  color: #71c8c2;
+}
+.comp-tier-badge[data-tier="B"] {
+  color: #abbdd1;
+}
+.comp-tier-badge[data-tier="C"] {
+  color: #b29bc6;
+}
+.comp-tier-badge[data-tier="X"],
+.comp-tier-badge[data-tier="unranked"] {
+  color: #929ca9;
+}
+.comp-tier-badge[data-tier="legacy"],
+.comp-tier-badge[data-tier="personal"] {
+  color: #9aabba;
+}
+.workspace-v4 .tier-section {
+  min-width: 0;
+  margin: 0 0 20px;
+}
+.workspace-v4 .tier-section-heading {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 8px 1px 13px;
+  margin-bottom: 3px;
+}
+.workspace-v4 .tier-section-heading h2 {
+  font:
+    650 16px/1.4 "Segoe UI",
+    sans-serif;
+  color: #e8edf4;
+  margin: 0;
+}
+.workspace-v4 .tier-section-heading p {
+  font-size: 11px;
+  color: #a1adbd;
+  margin: 2px 0 0;
+  line-height: 1.5;
+}
+.workspace-v4 .tier-section-heading > span:last-child {
+  margin-left: auto;
+  color: #98a6b8;
+  font-size: 11px;
+  white-space: nowrap;
+}
+.workspace-v4 .tier-section-cards {
+  display: grid;
+  gap: 11px;
+}
+.workspace-v4 .tier-section-cards .comp-row {
+  background: #15191f;
+  border: 1px solid #2b333d;
+  border-radius: 12px;
+}
+.workspace-v4 .tier-section-cards .comp-row:hover {
+  border-color: #56606e;
+}
+.workspace-v4 .tier-section-cards .comp-row.row-selected {
+  border-color: #8e7747;
+  background: #171c24;
+}
+.workspace-v4 .tier-section-cards .comp-row-summary {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 70px;
+  align-items: center;
+  padding: 16px;
+  gap: 16px;
+  min-height: 0;
+}
+.workspace-v4 .tier-section-cards .comp-option {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 14px;
+  position: relative;
+  min-width: 0;
+  text-align: left;
+  padding: 0;
+}
+.workspace-v4 .tier-section-cards .comp-row-title {
+  display: grid;
+  grid-template-columns: 30px minmax(0, 1fr) max-content;
+  position: static;
+  align-items: center;
+  gap: 11px;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+}
+.workspace-v4 .tier-section-cards .rank-marker {
+  display: flex;
+  position: static;
+  align-items: center;
+  justify-content: center;
+  grid-column: auto;
+}
+.workspace-v4 .tier-section-cards .comp-heading-copy {
+  min-width: 0;
+}
+.workspace-v4 .tier-section-cards .comp-heading-copy > strong {
+  display: block;
+  margin: 0 0 4px;
+  padding: 0;
+  color: #f3bc48;
+  font:
+    650 15px/1.4 "Segoe UI",
+    sans-serif;
+  letter-spacing: 0;
+  white-space: normal;
+  overflow: visible;
+}
+.workspace-v4 .tier-section-cards .comp-row-title .row-style {
+  position: static;
+  margin: 0;
+  font-size: 11px;
+  font-weight: 600;
+  color: #d4dce7;
+  background: #262b33c9;
+  border-radius: 4px;
+  padding: 3px 7px;
+  white-space: nowrap;
+  max-width: 180px;
+}
+.workspace-v4 .tier-section-cards .comp-traits {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  min-height: 20px;
+  flex-wrap: wrap;
+  width: auto;
+}
+.workspace-v4 .tier-section-cards .comp-traits > span:nth-child(n) {
+  display: inline-flex;
+  align-items: center;
+  color: #c4cedb;
+  gap: 4px;
+  font-size: 11px;
+}
+.workspace-v4 .tier-section-cards .comp-traits > span > span {
+  display: none;
+}
+.workspace-v4 .tier-section-cards .comp-traits > span img {
+  width: 20px;
+  height: 20px;
+  opacity: 1;
+}
+.workspace-v4 .tier-section-cards .ranked-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 172px;
+  gap: 20px;
+  align-items: center;
+}
+.workspace-v4 .tier-section-cards .ranked-lineup {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  min-width: 0;
+}
+.workspace-v4 .tier-section-cards .ranked-core {
+  min-width: 0;
+}
+.workspace-v4 .tier-section-cards .roster-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  position: static;
+  color: #aab9ce;
+  font-size: 11px;
+  line-height: 16px;
+  margin: 0 0 6px;
+}
+.workspace-v4 .tier-section-cards .ranked-core > .roster-label::after {
+  content: "";
+  height: 1px;
+  background: #ffffff12;
+  flex: 1;
+}
+.workspace-v4 .tier-section-cards .ranked-flex {
+  position: static;
+  border-left: 1px solid #ffffff15;
+  padding-left: 12px;
+  flex-shrink: 0;
+}
+.workspace-v4 .tier-section-cards .comp-playstyle {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  position: static;
+  gap: 10px;
+  width: auto;
+  margin: 22px 0 0;
+  text-align: center;
+  font-size: 10px;
+}
+.workspace-v4 .tier-section-cards .comp-playstyle > span {
+  display: block;
+  color: #91a0b5;
+  min-width: 0;
+}
+.workspace-v4 .tier-section-cards .comp-playstyle b {
+  display: block;
+  color: #dde8f8;
+  font-size: 12px;
+  font-weight: 650;
+  margin: 4px 0 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.workspace-v4 .tier-section-cards .comp-playstyle > span:first-child b {
+  color: #eed18d;
+}
+.workspace-v4 .tier-section-cards .comp-rank-source {
+  display: none;
+}
+.workspace-v4 .tier-section-cards .row-controls {
+  display: grid;
+  grid-template-columns: repeat(2, 32px);
+  align-self: center;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  z-index: 2;
+}
+.workspace-v4 .tier-section-cards .row-controls button {
+  display: grid;
+  place-items: center;
+  padding: 0;
+  margin: 0;
+  background: #313844bd;
+  border: 1px solid #ffffff08;
+  border-radius: 6px;
+  width: 32px;
+  height: 32px;
+  line-height: 1;
+}
+.workspace-v4 .tier-section-cards .row-controls button > svg {
+  display: block;
+  width: 16px;
+  height: 16px;
+  margin: 0;
+}
+.workspace-v4 .tier-section-cards .row-controls .row-pinned {
+  color: #f3d28b;
+  background: #594823;
+}
+.pivot-builds .comp-tier-badge {
+  width: 19px;
+  height: 25px;
+}
+.pivot-builds button {
+  gap: 7px;
+}
+.game-guide .pivot-builds .comp-tier-badge {
+  width: 18px;
+  height: 23px;
+}
+.workspace-v4 .feed-toolbar {
+  flex-wrap: wrap;
+}
+.workspace-v4 .feed-toolbar .search-field {
+  min-width: 170px;
+}
+@media (max-width: 1350px) {
+  .workspace-v4 .tier-section-cards .ranked-body {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+  }
+  .workspace-v4 .tier-section-cards .comp-playstyle {
+    display: flex;
+    gap: 22px;
+    margin: 0;
+    text-align: left;
+    flex-wrap: wrap;
+  }
+  .workspace-v4 .tier-section-cards .comp-playstyle > span {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .workspace-v4 .tier-section-cards .comp-playstyle b {
+    margin: 0;
+  }
+}
+@media (max-width: 640px) {
+  .workspace-v4 .tier-section-heading p {
+    max-width: 29ch;
+  }
+  .workspace-v4 .tier-section-heading > span:last-child {
+    font-size: 10px;
+  }
+  .workspace-v4 .tier-section-cards .comp-row-summary {
+    padding: 12px 10px;
+    grid-template-columns: minmax(0, 1fr) 32px;
+    gap: 10px;
+  }
+  .workspace-v4 .tier-section-cards .comp-row-title {
+    grid-template-columns: 30px minmax(0, 1fr);
+  }
+  .workspace-v4 .tier-section-cards .comp-row-title .row-style {
+    grid-column: 2;
+    justify-self: start;
+  }
+  .workspace-v4 .tier-section-cards .ranked-lineup {
+    flex-wrap: wrap;
+  }
+  .workspace-v4 .tier-section-cards .row-controls {
+    grid-template-columns: 32px;
+  }
+}

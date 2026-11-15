@@ -1,0 +1,575 @@
+/* Shared game pieces: one geometry for the planner and the native overlay. */
+.workspace-v4 .tier-section-cards .row-splash {
+  opacity: 0.32;
+}
+/* A shared star lane keeps Core and Flex portraits on the same baseline. */
+.lineup-stars {
+  height: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.lineup-stars .unit-stars {
+  position: static;
+  transform: none;
+  display: flex;
+  justify-content: center;
+}
+.lineup-stars .unit-stars svg {
+  width: 13px;
+  height: 13px;
+}
+.tier-section-cards .comp-row-summary .lineup-unit {
+  --portrait-size: 48px;
+  display: grid;
+  grid-template-rows: 48px 16px 14px;
+  row-gap: 3px;
+}
+.tier-section-cards .comp-row-summary .has-target-stars .lineup-unit {
+  grid-template-rows: 14px 48px 16px 14px;
+}
+.tier-section-cards .comp-row-summary .lineup-unit > span {
+  margin: 0;
+  line-height: 14px;
+}
+.tier-section-cards .comp-row-summary .mini-equipment {
+  margin: 0;
+  height: 16px;
+  align-items: center;
+}
+.tier-section-cards .comp-row-summary .mini-equipment .equipment {
+  --item-size: 14px;
+  gap: 2px;
+}
+.lineup-strip {
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 10px 7px;
+}
+.lineup-unit {
+  --portrait-size: 52px;
+  width: var(--portrait-size);
+  flex-shrink: 0;
+  text-align: center;
+}
+.portrait-frame {
+  margin-inline: auto;
+  position: relative;
+  width: var(--portrait-size);
+  height: var(--portrait-size);
+  background: #11151b;
+  border: 1px solid var(--cost-color, #77818c);
+  border-radius: 5px;
+  padding: 2px;
+  box-shadow: 0 2px 3px #0004;
+}
+.portrait-frame > img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 2px;
+}
+.lineup-unit > span {
+  display: block;
+  margin-top: 5px;
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 1.4;
+  color: #c5cdd9;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.mini-equipment {
+  position: relative;
+  height: 18px;
+  margin-top: 3px;
+  display: flex;
+  justify-content: center;
+}
+.equipment {
+  --item-size: 28px;
+  display: inline-flex;
+  flex-wrap: nowrap;
+  gap: 3px;
+  align-items: center;
+  vertical-align: middle;
+}
+.equipment > img {
+  display: block;
+  width: var(--item-size);
+  height: var(--item-size);
+  object-fit: cover;
+  border: 1px solid #a39365;
+  border-radius: 3px;
+  box-shadow:
+    0 1px 0 #000,
+    0 0 0 1px #080b10;
+  background: #11151b;
+}
+.mini-equipment .equipment {
+  --item-size: 16px;
+  gap: 2px;
+}
+.mini-equipment .equipment > img {
+  border-radius: 2px;
+}
+.workspace-v4 .quick-carry > div > img {
+  width: 64px;
+  height: 64px;
+  border-radius: 5px;
+  object-fit: cover;
+}
+.workspace-v4 .quick-carry small {
+  font-size: 11px;
+  margin: 3px 0 9px;
+}
+.workspace-v4 .quick-carry .equipment {
+  --item-size: 28px;
+}
+.workspace-v4 .pinned-plan .lineup-strip {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px 7px;
+  margin: 22px 0;
+}
+.pinned-plan .lineup-unit {
+  --portrait-size: 43px;
+  width: 100%;
+}
+.pinned-plan .portrait-frame {
+  margin: auto;
+}
+.pinned-plan .mini-equipment .equipment {
+  --item-size: 13px;
+  gap: 1px;
+}
+.pinned-plan .mini-equipment {
+  height: 15px;
+}
+.pinned-plan .lineup-unit > span {
+  font-size: 9px;
+}
+.workspace-v4 .data-table .equipment {
+  --item-size: 27px;
+  gap: 5px;
+}
+
+/* Anchoring both edges avoids a cropped rectangle at the right of a banner. */
+.workspace-v4 .row-splash {
+  position: absolute;
+  inset: 0 0 0 auto;
+  width: 48%;
+  height: 100%;
+  pointer-events: none;
+  background-size: cover;
+  background-position: 75% 35%;
+  opacity: 0.55;
+  mask-image: linear-gradient(90deg, transparent 0%, #0009 45%, #000 100%);
+}
+.workspace-v4 .row-splash::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg, #191d2380, transparent 65%);
+}
+.pinned-art {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 190px;
+  background-size: cover;
+  background-position: 70% 20%;
+  opacity: 0.36;
+  mask-image: linear-gradient(#000, transparent);
+  pointer-events: none;
+}
+.workspace-v4 .comp-option {
+  align-self: center;
+}
+.workspace-v4 .row-selected .comp-row-title strong {
+  color: #ebc577;
+}
+.workspace-v4 .rank-marker {
+  color: #d1ad65;
+}
+.workspace-v4 .quick-frontline .lineup-unit {
+  --portrait-size: 48px;
+}
+
+.tft-board-grid {
+  display: block;
+  flex: 1;
+  min-width: 0;
+  width: 100%;
+  max-width: 780px;
+  margin-inline: auto;
+  padding: 0;
+  container-type: inline-size;
+}
+.tft-board-lattice {
+  --hex-gap: 6px;
+  --hex-width: calc((100cqw - 6.5 * var(--hex-gap)) / 7.5);
+  --hex-height: calc(var(--hex-width) / 0.8660254);
+  position: relative;
+  width: 100%;
+  height: calc(3.25 * var(--hex-height) + 3 * var(--hex-gap));
+  margin: 10px 0 8px;
+}
+.tft-board-row {
+  position: absolute;
+  display: flex;
+  gap: var(--hex-gap);
+  left: 0;
+  top: calc(var(--row) * (0.75 * var(--hex-height) + var(--hex-gap)));
+  width: max-content;
+  margin: 0;
+  padding: 0;
+  transform: none;
+}
+.tft-board-row.shift-row {
+  left: calc((var(--hex-width) + var(--hex-gap)) / 2);
+}
+.tft-hex {
+  --hex-item-size: clamp(8px, calc(var(--hex-width) * 0.28), 24px);
+  position: relative;
+  width: var(--hex-width);
+  height: var(--hex-height);
+  flex: 0 0 var(--hex-width);
+  margin: 0;
+  padding: 0;
+  background: none;
+  border: 0;
+  isolation: isolate;
+}
+button.tft-hex {
+  cursor: pointer;
+}
+.empty-hex,
+.hex-portrait {
+  position: absolute;
+  inset: 0;
+  clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
+  background: #3c4753;
+}
+.empty-hex::after {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  clip-path: inherit;
+  background: #1c242b;
+}
+.hex-portrait {
+  background: var(--cost-color, #7c8c9f);
+}
+.hex-portrait > img {
+  position: absolute;
+  inset: 2px;
+  width: calc(100% - 4px);
+  height: calc(100% - 4px);
+  object-fit: cover;
+  object-position: center 45%;
+  clip-path: inherit;
+}
+.hex-portrait::after {
+  content: "";
+  position: absolute;
+  inset: 40% 0 0;
+  background: linear-gradient(transparent, #090e18bc 68%);
+  pointer-events: none;
+}
+.hex-unit-name {
+  position: absolute;
+  bottom: calc(5% + var(--hex-item-size) + 3px);
+  left: 2px;
+  right: 2px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  z-index: 1;
+  text-align: center;
+  color: #fff;
+  font-size: clamp(9px, 1.5cqw, 12px);
+  line-height: 1.2;
+  font-weight: 750;
+  white-space: nowrap;
+  letter-spacing: -0.025em;
+  text-shadow: 0 1px 3px #000;
+}
+.hex-equipment {
+  --item-size: var(--hex-item-size);
+  position: absolute;
+  left: 50%;
+  bottom: 5%;
+  transform: translateX(-50%);
+  z-index: 2;
+  gap: 2px;
+}
+.hex-equipment > img {
+  border-radius: 2px;
+}
+.unit-stars {
+  position: absolute;
+  display: flex;
+  gap: 0;
+  top: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  color: #d8e1ec;
+  filter: drop-shadow(0 1px 1px #000);
+}
+.unit-stars svg {
+  width: clamp(11px, 1.9cqw, 17px);
+  height: clamp(11px, 1.9cqw, 17px);
+  stroke: #121720;
+  stroke-width: 2px;
+}
+.gold-stars {
+  color: #f4ce5d;
+}
+.tft-hex.cell-selected .empty-hex {
+  background: #dfbd70;
+}
+.tft-hex.cell-selected .empty-hex::after {
+  background: #343128;
+}
+.tft-hex.cell-selected .hex-portrait {
+  background: #f3d388;
+}
+button.tft-hex:hover .empty-hex {
+  background: #7a8998;
+}
+button.tft-hex:hover .hex-portrait > img {
+  filter: brightness(1.12);
+}
+button.tft-hex:focus-visible {
+  outline: none;
+  filter: drop-shadow(0 0 3px #f5cf69);
+}
+.workspace-v4 .planner-board .trait-line > span:last-child {
+  font-size: 11px;
+  line-height: 1.35;
+  white-space: nowrap;
+  overflow-wrap: normal;
+}
+.workspace-v4 .planner-board .tft-board-content {
+  max-width: 992px;
+  margin-inline: auto;
+}
+.workspace-v4 .sidebar-bottom > button {
+  font-size: 11px;
+  padding-inline: 8px;
+}
+.workspace-v4 .sidebar-bottom > button > span {
+  white-space: nowrap;
+}
+.workspace-v4 .planner-board .board-panel-heading strong {
+  font-size: 14px;
+}
+.workspace-v4 .planner-board .board-panel-footer {
+  font-size: 9px;
+  color: #9ca8b6;
+}
+.workspace-v4 .planner-board .board-panel-footer > span:first-child {
+  font-size: 9px;
+  letter-spacing: 0;
+}
+.native-board-panel .tft-board-content {
+  padding: 12px 5px 16px;
+  gap: 16px;
+}
+.native-board-panel .tft-board-lattice {
+  --hex-gap: 5px;
+}
+.native-board-panel .hex-unit-name {
+  font-size: 9px;
+}
+.native-board-panel .unit-stars svg {
+  width: 12px;
+  height: 12px;
+}
+
+/* The narrow in-game guide retains the shared hex geometry. */
+.game-guide .native-board-panel .trait-stack,
+.game-guide .native-board-panel .board-panel-heading,
+.game-guide .native-board-panel .board-panel-footer {
+  display: none;
+}
+.game-guide .native-board-panel .tft-board-content {
+  padding: 10px 0;
+  display: block;
+}
+.game-guide .native-board-panel .hex-unit-name {
+  font-size: 8px;
+}
+.game-guide .native-board-panel .hex-equipment {
+  gap: 1px;
+}
+.game-guide .native-board-panel .unit-stars svg {
+  width: 9px;
+  height: 9px;
+}
+.game-guide .native-board-panel .tft-board-lattice {
+  --hex-gap: 4px;
+}
+.aside-carry .equipment {
+  --item-size: 21px;
+}
+.workspace-v4 .row-selected .comp-row-title strong {
+  color: #f0e2c8;
+}
+
+@media (min-width: 1700px) {
+  .lineup-unit {
+    --portrait-size: 58px;
+  }
+  .lineup-strip {
+    gap: 10px;
+  }
+  .mini-equipment .equipment {
+    --item-size: 18px;
+  }
+  .mini-equipment {
+    height: 20px;
+  }
+}
+@media (max-width: 1350px) {
+  .lineup-unit {
+    --portrait-size: 46px;
+  }
+  .lineup-strip {
+    gap: 8px 6px;
+  }
+  .mini-equipment .equipment {
+    --item-size: 14px;
+  }
+  .mini-equipment {
+    height: 16px;
+  }
+  .workspace-v4 .planner-board .tft-board-content {
+    grid-template-columns: 126px minmax(0, 1fr);
+    gap: 12px;
+    padding: 24px 18px;
+  }
+}
+@media (max-width: 1100px) {
+  .workspace-v4 .comp-row-summary {
+    padding: 16px 14px;
+  }
+  .workspace-v4 .comp-row-title strong {
+    font-size: 14px;
+  }
+  .workspace-v4 .row-style {
+    font-size: 10px;
+  }
+  .workspace-v4 .quick-start {
+    grid-template-columns: 1fr;
+  }
+  .workspace-v4 .quick-frontline {
+    border: 0;
+    padding: 0;
+  }
+}
+@media (max-width: 850px) {
+  .workspace-v4 .pinned-plan .lineup-strip {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .pinned-plan .lineup-unit {
+    width: 43px;
+  }
+  .workspace-v4 .planner-board .tft-board-content {
+    display: block;
+    overflow-x: auto;
+  }
+  .workspace-v4 .planner-board .trait-stack {
+    display: none;
+  }
+  .workspace-v4 .planner-board .tft-board-grid {
+    min-width: 560px;
+  }
+  .workspace-v4 .planner-board .hex-unit-name {
+    font-size: 10px;
+  }
+}
+@media (max-width: 540px) {
+  .workspace-v4 .comp-row-summary {
+    padding: 14px 10px;
+    gap: 8px;
+  }
+  .workspace-v4 .comp-row-title {
+    flex-wrap: wrap;
+  }
+  .workspace-v4 .row-style {
+    margin-left: 0;
+    margin-right: 0;
+  }
+  .workspace-v4 .comp-row-title strong {
+    font-size: 13px;
+  }
+  .lineup-unit {
+    --portrait-size: 44px;
+  }
+  .lineup-unit > span {
+    font-size: 9px;
+  }
+  .mini-equipment .equipment {
+    --item-size: 13px;
+  }
+  .workspace-v4 .row-controls {
+    padding-bottom: 25px;
+  }
+  .workspace-v4 .row-splash {
+    width: 100%;
+    opacity: 0.24;
+  }
+  .workspace-v4 .quick-frontline .lineup-unit {
+    --portrait-size: 44px;
+  }
+  .workspace-v4 .planner-board .board-panel-footer {
+    font-size: 8px;
+  }
+  .workspace-v4 .planner-board .board-panel-footer > span:first-child {
+    display: none;
+  }
+  .workspace-v4 .planner-board .board-panel-heading strong {
+    font-size: 12px;
+  }
+}
+
+/* The full-comp rail in the live overlay has its own consistent piece scale. */
+.overlay-roster .lineup-strip {
+  flex-wrap: nowrap;
+  gap: 5px;
+}
+.overlay-roster .lineup-unit {
+  --portrait-size: 40px;
+  display: grid;
+  grid-template-rows: 40px 13px 12px;
+  gap: 2px;
+}
+.overlay-roster .has-target-stars .lineup-unit {
+  grid-template-rows: 13px 40px 13px 12px;
+}
+.overlay-roster .lineup-stars {
+  height: 13px;
+}
+.overlay-roster .lineup-stars svg {
+  width: 12px;
+  height: 12px;
+}
+.overlay-roster .mini-equipment {
+  height: 13px;
+  margin: 0;
+  align-items: center;
+}
+.overlay-roster .mini-equipment .equipment {
+  --item-size: 12px;
+  gap: 1px;
+}
+.overlay-roster .lineup-unit > span {
+  margin: 0;
+  font-size: 9px;
+  line-height: 12px;
+}

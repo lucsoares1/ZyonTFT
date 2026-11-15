@@ -1,0 +1,34 @@
+import { _electron as electron } from 'playwright';
+import fs from 'node:fs/promises';
+import path from 'node:path';
+const out=path.resolve('design/review/0.6'); await fs.mkdir(out,{recursive:true});
+const env={...process.env,ZYON_USER_DATA:path.resolve('.runtime',`level-visual-${Date.now()}`)};
+delete env.ELECTRON_RUN_AS_NODE; delete env.ZYON_DEV_URL;
+const app=await electron.launch({args:['.'],env});
+try {
+ const page=await app.firstWindow(); page.setDefaultTimeout(15000);
+ await page.setViewportSize({width:1536,height:1800});
+ await page.getByRole('button',{name:'Expandir AP Exodia',exact:true}).click();
+ const ready=async()=>{await page.evaluate(()=>document.fonts.ready);await page.waitForFunction(()=>[...document.images].every(i=>i.complete&&i.naturalWidth>0));};
+ const capture=async(name)=>{await ready();await page.locator('.level-guide').screenshot({path:path.join(out,name)});};
+ await page.getByRole('button',{name:'Nível 7',exact:true}).click();
+ await capture('level-7.png');
+ await page.getByRole('button',{name:'Nível 8',exact:true}).click();
+ await capture('level-8-transition.png');
+ await page.getByRole('button',{name:'Nível 9',exact:true}).click();
+ await capture('level-9.png');
+ await page.getByRole('button',{name:'Expandir Adapt or Die',exact:true}).click();
+ await page.getByRole('button',{name:'Nível 7',exact:true}).click();
+ await page.locator('.level-inventory summary').click();
+ await page.getByLabel('Cópias de Master Yi',{exact:true}).fill('7');
+ await page.getByLabel('Cópias de Vi',{exact:true}).fill('6');
+ await page.getByLabel('Cópias de Rengar',{exact:true}).fill('3');
+ await page.locator('.level-inventory summary').click();
+ await capture('reroll-level-7.png');
+ await page.getByRole('button',{name:'Expandir AP Exodia',exact:true}).click();
+ await page.getByRole('button',{name:'Nível 8',exact:true}).click();
+ await page.setViewportSize({width:1536,height:1024});
+ await page.locator('.comp-list').evaluate(el=>el.scrollTop=240);
+ await ready(); await page.screenshot({path:path.join(out,'level-desktop.png')});
+ console.log('Captured level 7, level 8 transition, level 9, reroll and full desktop.');
+} finally { await app.close(); }

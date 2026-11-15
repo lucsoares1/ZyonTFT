@@ -1,0 +1,113 @@
+/* Shared field material: ink, slate face, steel edge and a precise blue focus. */
+:is(.entry-screen,.zyon-reimagined,.game-guide){--control-ink:#0c121c;--control-face:#142133;--control-edge:#354d6d;--control-accent:#88b4f5;--control-text:#edf4ff;--control-muted:#8ca3c5;}
+
+/* Account modes are open tabs, with one moving baseline instead of a capsule. */
+.entry-mode{padding:0;border:0;border-bottom:1px solid #31435e;border-radius:0;background:transparent;gap:0;min-height:49px;}
+.entry-mode>span{top:auto;bottom:-1px;left:0;height:3px;width:50%;border:0;border-radius:3px;background:#b3d1ff;box-shadow:0 -4px 15px #86b4f518;transition:transform .34s cubic-bezier(.16,1,.3,1);}
+.entry-mode[data-mode=signup]>span{transform:translateX(100%);}
+.entry-mode button{display:flex;align-items:center;justify-content:center;gap:9px;padding:12px 5px 16px;border-radius:7px 7px 0 0;min-height:49px;background:transparent;color:#7d97ba;font-size:13px;font-weight:650;transition:color .18s,background .18s;}
+.entry-mode button svg{color:#6c88af;transition:color .18s,transform .25s;}.entry-mode button[aria-pressed=true]{background:transparent;color:#f1f6ff;font-weight:800;}.entry-mode button[aria-pressed=true] svg{color:#b3d1ff;transform:translateY(-1px);}.entry-mode button:hover:not(:disabled){background:#b8d4ff06;color:#c9dfff;}
+.entry-form{gap:23px;}.entry-fields{gap:13px;}
+.entry-form .entry-input,.entry-form .entry-name-field{position:relative;display:flex;align-items:center;gap:13px;min-height:66px;padding:11px 15px;border:1px solid #354b68;border-radius:13px;background:#142133;box-shadow:inset 0 1px #d7e8ff08;transition:border-color .18s,background .18s;overflow:hidden;}
+.entry-form .entry-input::before,.entry-form .entry-name-field::before{content:'';position:absolute;left:0;top:12px;bottom:12px;width:3px;border-radius:0 3px 3px 0;background:#a3c8ff;opacity:0;transform:scaleY(.4);transition:opacity .18s,transform .22s cubic-bezier(.16,1,.3,1);}
+.entry-form .entry-input:hover,.entry-form .entry-name-field:hover{border-color:#536e92;background:#17263b;}
+.entry-form .entry-input:focus-within,.entry-form .entry-name-field:focus-within{border-color:#91b8ed;background:#192b43;box-shadow:inset 0 1px #dbeaff12;}.entry-form .entry-input:focus-within::before,.entry-form .entry-name-field:focus-within::before{opacity:1;transform:scaleY(1);}
+.entry-form .entry-input>svg{flex:0 0 19px;color:#7e9ec8;}.entry-form .entry-input:focus-within>svg{color:#c1dcff;}
+.entry-field-body{display:flex;flex-direction:column;gap:5px;flex:1;min-width:0;}.entry-field-body>span,.entry-form .entry-name-field>span{font-size:10px;font-weight:600;line-height:1.3;color:#91aaca;transition:color .18s;}
+.entry-field-body input,.entry-form .entry-name-field input{display:block;width:100%;min-width:0;min-height:0;padding:0;border:0!important;border-radius:0;background:transparent!important;box-shadow:none!important;outline:none!important;color:#edf4ff;font-size:13px;line-height:1.5;font-weight:550;caret-color:#c7dfff;}
+.entry-field-body input::placeholder,.entry-form .entry-name-field input::placeholder{color:#7992b5;font-size:12px;font-weight:450;}
+.entry-form .entry-input:focus-within .entry-field-body>span,.entry-form .entry-name-field:focus-within>span{color:#c5ddff;}
+.entry-form .entry-name-field{flex-direction:column;align-items:stretch;justify-content:center;gap:5px;}.entry-name-fields{gap:12px;}
+.entry-input>button{width:31px;height:31px;padding:7px;margin:0 -5px 0 0;flex:0 0 31px;border-radius:9px;color:#91afd8;}.entry-input>button:hover{background:#2b4363;}
+.entry-form input:-webkit-autofill{-webkit-text-fill-color:#edf4ff;box-shadow:0 0 0 1000px #142133 inset!important;caret-color:#c7dfff;}
+
+/* Search and filter fields share the same material throughout the workbench. */
+.workspace-v4.zyon-reimagined .search-field,.game-guide .search-field{display:flex;align-items:center;min-width:0;min-height:46px;gap:10px;padding:5px 12px 5px 7px;border:1px solid var(--control-edge);border-radius:12px;background:var(--control-face);box-shadow:inset 0 1px #d7e8ff06;transition:border-color .18s,background .18s;}
+.workspace-v4.zyon-reimagined .search-field>svg,.game-guide .search-field>svg{box-sizing:content-box;width:15px;height:15px;flex:0 0 15px;padding:7px;border-radius:8px;background:#233852;color:#accbf7;}
+.workspace-v4.zyon-reimagined .search-field input,.game-guide .search-field input{min-width:0;flex:1;width:100%;background:transparent;border:0;border-radius:0;box-shadow:none;outline:none;padding:6px 0;color:var(--control-text);font-size:12px;min-height:28px;}
+.workspace-v4.zyon-reimagined .search-field:focus-within,.game-guide .search-field:focus-within{border-color:#91b8ed;background:#192b43;box-shadow:inset 3px 0 #a3c8ff;}
+.workspace-v4.zyon-reimagined .search-field:hover,.game-guide .search-field:hover{border-color:#536e92;}
+:is(.workspace-v4.zyon-reimagined,.game-guide) input:where(:not([type=range]):not([type=checkbox]):not([type=radio]):not([type=color])),:is(.workspace-v4.zyon-reimagined,.game-guide) select{border:1px solid var(--control-edge);border-radius:10px;background-color:var(--control-face);color:var(--control-text);caret-color:#c7dfff;box-shadow:inset 0 1px #d7e8ff06;transition:border-color .18s,background-color .18s;}
+:is(.workspace-v4.zyon-reimagined,.game-guide) input:where(:not([type=range]):not([type=checkbox]):not([type=radio]):not([type=color])):focus-visible,:is(.workspace-v4.zyon-reimagined,.game-guide) select:focus-visible{border-color:#a3c8ff;outline:2px solid #a3c8ff30;outline-offset:2px;background-color:#192b43;}
+:is(.workspace-v4.zyon-reimagined,.game-guide) input::placeholder{color:#819aba;}
+:is(.workspace-v4.zyon-reimagined,.game-guide) .search-field input{border:0;background:transparent;border-radius:0;box-shadow:none;outline:none;}
+:is(.workspace-v4.zyon-reimagined,.game-guide) select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='m3 4.5 3 3 3-3' fill='none' stroke='%23a7c8f6' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 11px center;padding-right:31px;}
+.workspace-v4.zyon-reimagined select:hover,.game-guide select:hover{border-color:#607da3;background-color:#192a40;}
+.workspace-v4.zyon-reimagined select option,.game-guide select option{background:#142133;color:#edf4ff;}
+.workspace-v4.zyon-reimagined :is(.planner-topline input,.calibration-fields input,.level-context input){padding:10px 12px;}
+.workspace-v4.zyon-reimagined .duo-add-friend input{padding:12px 14px;min-height:44px;}
+.game-guide .overlay-planner-tools>label{padding:5px 11px;background:#142133;border-color:#354d6d;border-radius:12px;}.game-guide .overlay-planner-tools>label:focus-within{border-color:#91b8ed;background:#192b43;}.game-guide .overlay-planner-tools>label input{background:transparent;border:0;box-shadow:none;outline:none;padding:6px 0;}
+
+/* Main page switches use open navigation; a baseline marks the chosen section. */
+.workspace-v4.zyon-reimagined :is(.library-tabs,.database-tabs,.pool-tabs){border:0;border-bottom:1px solid #30435f;border-radius:0;background:transparent;padding:0;gap:9px;box-shadow:none;}
+.workspace-v4.zyon-reimagined :is(.library-tabs,.database-tabs,.pool-tabs) button{position:relative;border:0;border-radius:8px 8px 0 0;background:transparent;padding:13px 13px 15px;color:#8099bc;font-weight:600;box-shadow:none;}
+.workspace-v4.zyon-reimagined :is(.library-tabs,.database-tabs,.pool-tabs) button.active{background:transparent;color:#e8f2ff;border:0;box-shadow:none;font-weight:800;}
+.workspace-v4.zyon-reimagined :is(.library-tabs,.database-tabs,.pool-tabs) button::after{content:'';display:block;position:absolute;left:12px;right:12px;bottom:-1px;height:3px;border-radius:3px;background:#a8caff;opacity:0;transform:scaleX(.55);transition:opacity .18s,transform .25s cubic-bezier(.16,1,.3,1);}
+.workspace-v4.zyon-reimagined :is(.library-tabs,.database-tabs,.pool-tabs) button.active::after{opacity:1;transform:scaleX(1);}
+.workspace-v4.zyon-reimagined :is(.library-tabs,.database-tabs,.pool-tabs) button:hover:not(.active){color:#c2d9fb;background:#a8caff08;}
+.workspace-v4.zyon-reimagined .detail-tabs button.tab-active{background:#223750;box-shadow:none;color:#e6f1ff;}
+.game-guide.game-wide .game-subtabs button[aria-pressed=true]{background:#a8caff;color:#122b4c;box-shadow:none;}
+/* Native guide: all sections fit together, including the compact 640px width. */
+.game-guide.game-wide .game-tabs{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);gap:3px;padding:7px 10px;overflow:visible;min-height:55px;}
+.game-guide.game-wide .game-tabs button{min-width:0;width:100%;padding:9px 4px;gap:5px;white-space:nowrap;}
+.game-guide .overlay-planner-tools>select{flex:0 0 128px;width:128px;max-width:none;}
+.game-guide .overlay-plan-roster>div>button{min-height:42px;align-items:center;}
+.game-guide .overlay-plan-roster>div>button>span:not(.roster-remove){display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;overflow-wrap:normal;}
+@media(max-width:700px){.game-guide.game-wide .game-tabs button{font-size:10px;padding-inline:3px;}.game-guide.game-wide .game-tabs button>svg{width:13px;height:13px;flex-shrink:0;}}
+@media(max-height:830px){.entry-form{gap:18px;}.entry-form .entry-input,.entry-form .entry-name-field{min-height:61px;padding-block:9px;}.entry-fields{gap:11px;}}
+@media(prefers-reduced-motion:reduce){.entry-mode>span,.entry-mode button,.entry-form .entry-input,.entry-form .entry-name-field,.entry-form .entry-input::before,.entry-form .entry-name-field::before,.workspace-v4.zyon-reimagined :is(.library-tabs,.database-tabs,.pool-tabs) button::after{transition:none;}}
+
+/* Final preference: saturated royal blue and flat controls in every window.
+   These reset the bevels in older skins, including hover/pressed variants. */
+:is(.entry-screen,.zyon-reimagined,.game-guide){--brand-blue:#2563eb;--brand-hover:#3575f4;--brand-active:#1d4ed8;--accent:#347aff;--control-face:#101e35;--control-edge:#294871;--control-accent:#3e83ff;--control-text:#eef4ff;--control-muted:#8ea9cf;}
+:is(.entry-screen,.zyon-reimagined,.game-guide) button{background-image:none!important;box-shadow:none!important;text-shadow:none!important;filter:none!important;}
+:is(.entry-screen,.zyon-reimagined,.game-guide) button:where(:not(.tft-hex)):is(:hover,:active){transform:none!important;}
+:is(.entry-screen,.zyon-reimagined,.game-guide) :is(input,select,textarea,.search-field,.entry-input,.entry-name-field){box-shadow:none!important;}
+:is(.entry-screen,.zyon-reimagined,.game-guide) button:focus-visible{outline:2px solid #4e8fff;outline-offset:3px;}
+.entry-submit::after{display:none;}.entry-submit:hover:not(:disabled)>svg:last-child{transform:none;}
+
+.workspace-v4.zyon-reimagined :is(.workspace-actions button,.spotlight-actions button,.primary-action,.secondary-action,.shopping-planner,.planner-actions button,.planner-topline .pin-button,.settings-panel .text-button,.data-table button,.database-comp-focus>button),.game-guide.game-wide .game-heading-controls button{background-color:#142746;border-color:#2c4c78;color:#c2d8ff;}
+.workspace-v4.zyon-reimagined :is(.workspace-actions .overlay-toggle,.spotlight-actions .spotlight-primary,.primary-action,.shopping-tools .secondary-action,.settings-panel .primary-button,.planner-topline .pin-button.pinned),.workspace-v4.zyon-reimagined .detail-toolbar>.detail-planner,.entry-screen .entry-submit,.account-duo-action,.social-panel .duo-primary{background:#2563eb;border-color:#3273f6;color:#fff;}
+.workspace-v4.zyon-reimagined :is(.workspace-actions .overlay-toggle,.spotlight-actions .spotlight-primary,.primary-action,.shopping-tools .secondary-action,.settings-panel .primary-button,.planner-topline .pin-button.pinned):hover:not(:disabled),.workspace-v4.zyon-reimagined .detail-toolbar>.detail-planner:hover,.entry-screen .entry-submit:hover:not(:disabled),.account-duo-action:hover,.social-panel .duo-primary:hover:not(:disabled){background:#3575f4;border-color:#4c8dff;color:#fff;}
+.workspace-v4.zyon-reimagined :is(.spotlight-actions .spotlight-selected,.workspace-actions .overlay-toggle.is-on){background:#133365;border-color:#2863bd;color:#c3daff;}
+.workspace-v4.zyon-reimagined .sidebar nav button.nav-active{background:#122f5c;border-color:#2455a0;color:#e4efff;}
+.workspace-v4.zyon-reimagined .sidebar nav button.nav-active::before{background:#347aff;}
+.workspace-v4.zyon-reimagined .tier-section-cards .comp-row.row-selected{border-color:#2d6bd0;box-shadow:inset 3px 0 #347aff;}
+.workspace-v4.zyon-reimagined .tier-section-cards .row-controls .row-pin.row-pinned{background:#2563eb;border-color:#347aff;color:#fff;}
+.workspace-v4.zyon-reimagined .tier-section-cards .row-controls .row-pin{background-color:#142a4a;border-color:#2b4d7a;}
+.workspace-v4.zyon-reimagined .brand .zyon-mark{filter:none;}
+
+.entry-screen .entry-world h1 em{color:#4c8dff;}.entry-world-label>span{background:#347aff;box-shadow:none;}
+.entry-screen .entry-access{background:#0d1727;box-shadow:none;}.entry-screen .entry-account-mark{background:#142b4d;border-color:#2b5187;}.entry-screen .entry-board-caption{background:#10223d;border-color:#284e82;box-shadow:none;}
+.entry-screen .entry-mode>span{background:#347aff;box-shadow:none;}.entry-screen .entry-mode button[aria-pressed=true] svg{color:#5896ff;transform:none;}
+.entry-screen .entry-form .entry-input,.entry-screen .entry-form .entry-name-field{background:#101e35;border-color:#294871;}
+.entry-screen .entry-form .entry-input:focus-within,.entry-screen .entry-form .entry-name-field:focus-within{background:#12284a;border-color:#347aff;}
+.entry-screen .entry-form .entry-input::before,.entry-screen .entry-form .entry-name-field::before{background:#347aff;}
+.entry-screen .entry-form .entry-input:focus-within>svg{color:#67a2ff;}.entry-screen .entry-switch button{color:#6ca5ff;}
+.account-profile-identity>span:first-child{background:#2563eb;border-color:#347aff;color:#fff;}
+
+.workspace-v4.zyon-reimagined :is(.library-tabs,.database-tabs,.pool-tabs) button::after{background:#347aff;}
+.workspace-v4.zyon-reimagined .search-field>svg,.game-guide .search-field>svg{background:#173361;color:#76aaff;}
+.workspace-v4.zyon-reimagined .search-field:focus-within,.game-guide .search-field:focus-within{background:#12284a;border-color:#347aff;}
+.entry-screen .entry-form input::selection,:is(.zyon-reimagined,.game-guide) input::selection{background:#2563eb;color:#fff;}
+:is(.workspace-v4.zyon-reimagined,.game-guide) input:where(:not([type=range]):not([type=checkbox]):not([type=radio])):focus-visible,:is(.workspace-v4.zyon-reimagined,.game-guide) select:focus-visible{outline-color:#347aff66;border-color:#347aff;}
+.workspace-v4.zyon-reimagined .detail-tabs button.tab-active{background:#143464;color:#e8f1ff;}
+
+.game-guide.game-wide .game-tabs{background:#0c1729;border-color:#203d66;}
+.game-guide.game-wide .game-tabs button{position:relative;background:transparent;border:0;border-radius:5px;color:#819cc4;}
+.game-guide.game-wide .game-tabs button[aria-selected=true]{background:transparent;border:0;color:#f0f5ff;}
+.game-guide.game-wide .game-tabs button:hover:not([aria-selected=true]){background:#14294a;color:#c5ddff;}
+.game-guide.game-wide .game-tabs button::after{content:'';position:absolute;left:8px;right:8px;bottom:-7px;height:2px;border-radius:2px;background:#347aff;opacity:0;transform:scaleX(.45);transition:opacity .16s,transform .22s cubic-bezier(.16,1,.3,1);}
+.game-guide.game-wide .game-tabs button[aria-selected=true]::after{opacity:1;transform:scaleX(1);}
+.game-guide.game-wide .game-tabs button[aria-selected=true]>svg{color:#5b98ff;}
+.game-guide.game-wide .game-subtabs{background:#0c1729;border-color:#25446b;border-radius:8px;}
+.game-guide.game-wide .game-subtabs button[aria-pressed=true]{background:#2563eb;border:0;border-radius:5px;color:#fff;}
+:is(.zyon-reimagined,.game-guide) .level-rail-track::after{background:#2563eb;border-color:#347aff;box-shadow:none;}
+:is(.zyon-reimagined,.game-guide.game-wide) .level-navigator .level-rail-track button[aria-pressed=true]{color:#fff;}
+:is(.zyon-reimagined,.game-guide) .pivot-levels button[aria-pressed=true]{background:#2563eb;color:#fff;}
+:is(.zyon-reimagined,.game-guide) .pivot-builds button[aria-pressed=true]{background:#133365;border-color:#2863bd;color:#c5dcff;}
+:is(.zyon-reimagined,.game-guide) .pivot-item-order ol li>b{background:#153361;border-color:#2a5590;box-shadow:none;color:#bdd7ff;}
+:is(.zyon-reimagined,.game-guide) .pivot-item-order ol li:first-child>b{background:#2563eb;border-color:#347aff;box-shadow:none;color:#fff;}
+.game-guide .overlay-planner .overlay-champion-pool>button[aria-pressed=true]{background:#14386a;border-color:#347aff;}
+.game-guide .overlay-champion-pool button[aria-pressed=true] .overlay-pool-portrait>svg{background:#2563eb;border-color:#347aff;color:#fff;}
+@media(prefers-reduced-motion:reduce){.game-guide.game-wide .game-tabs button::after{transition:none;}}

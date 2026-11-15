@@ -1,0 +1,510 @@
+{
+  "retrieved": "2026-11-14T16:12:37.380Z",
+  "assets": [
+    {
+      "file": "public/assets/items/DA_Component_RecurveBow.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-item/DA_Component_RecurveBow.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/items/DA_WarmogsArmor.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-item/DA_WarmogsArmor.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/items/DA_Component_NeedlesslyLargeRod.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-item/DA_Component_NeedlesslyLargeRod.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/items/DA_ArchangelsStaff.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-item/DA_ArchangelsStaff.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/items/DA_VoidStaff.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-item/DA_VoidStaff.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/items/DA_TacticiansCape.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-item/DA_TacticiansCape.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/items/DA_SunfireCape.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-item/DA_SunfireCape.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/items/DA_Component_NegatronCloak.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-item/DA_Component_NegatronCloak.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/items/DA_RabadonsDeathcap.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-item/DA_RabadonsDeathcap.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/items/DA_IonicSpark.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-item/DA_IonicSpark.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/items/DA_Component_GiantsBelt.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-item/DA_Component_GiantsBelt.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/items/DA_BrambleVest.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-item/DA_BrambleVest.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/items/DA_SteadfastHeart.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-item/DA_SteadfastHeart.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/items/DA_TacticiansCrown.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-item/DA_TacticiansCrown.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/items/DA_Component_ChainVest.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-item/DA_Component_ChainVest.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/items/DA_NashorsTooth.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-item/DA_NashorsTooth.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/items/DA_TitansResolve.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-item/DA_TitansResolve.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/items/DA_BlueBuff.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-item/DA_BlueBuff.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/items/DA_RedBuff.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-item/DA_RedBuff.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/items/DA_AdaptiveHelm.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-item/DA_AdaptiveHelm.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/items/DA_18_EmblemHunter.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-item/DA_18_EmblemHunter.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/items/DA_18_EmblemExecutioner.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-item/DA_18_EmblemExecutioner.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/items/DA_18_EmblemSlayer.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-item/DA_18_EmblemSlayer.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/items/DA_18_EmblemInvoker.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-item/DA_18_EmblemInvoker.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/items/DA_18_EmblemSpellweaver.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-item/DA_18_EmblemSpellweaver.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/items/DA_18_EmblemBlackthorn.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-item/DA_18_EmblemBlackthorn.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/items/DA_18_EmblemFae.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-item/DA_18_EmblemFae.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/items/DA_18_EmblemBlossom.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-item/DA_18_EmblemBlossom.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/items/DA_18_EmblemRapidfire.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-item/DA_18_EmblemRapidfire.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/items/DA_18_EmblemInferno.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-item/DA_18_EmblemInferno.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/items/DA_18_EmblemLunar.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-item/DA_18_EmblemLunar.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/items/DA_18_EmblemBrawler.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-item/DA_18_EmblemBrawler.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/items/DA_18_EmblemPrimal.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-item/DA_18_EmblemPrimal.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/items/DA_18_EmblemElderwood.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-item/DA_18_EmblemElderwood.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/items/DA_18_EmblemVanguard.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-item/DA_18_EmblemVanguard.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/items/DA_18_EmblemSprykin.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-item/DA_18_EmblemSprykin.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/items/DA_TacticiansShield.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-item/DA_TacticiansShield.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/items/DA_Component_BFSword.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-item/DA_Component_BFSword.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/items/DA_Component_Spatula.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-item/DA_Component_Spatula.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/items/DA_Component_FryingPan.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-item/DA_Component_FryingPan.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/items/DA_KrakensFury.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-item/DA_KrakensFury.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/items/DA_DragonsClaw.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-item/DA_DragonsClaw.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/items/DA_InfinityEdge.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-item/DA_InfinityEdge.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/items/DA_ProtectorsVow.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-item/DA_ProtectorsVow.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/items/DA_Component_TearOfTheGoddess.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-item/DA_Component_TearOfTheGoddess.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/items/DA_GuinsoosRageblade.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-item/DA_GuinsoosRageblade.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/items/DA_Deathblade.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-item/DA_Deathblade.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/items/DA_SpearOfShojin.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-item/DA_SpearOfShojin.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/items/DA_EdgeOfNight.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-item/DA_EdgeOfNight.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/items/DA_ThiefsGloves.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-item/DA_ThiefsGloves.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/items/DA_Component_SparringGloves.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-item/DA_Component_SparringGloves.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/items/DA_StrikersFlail.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-item/DA_StrikersFlail.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/items/DA_JeweledGauntlet.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-item/DA_JeweledGauntlet.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/items/DA_HandOfJustice.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-item/DA_HandOfJustice.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/items/DA_GiantSlayer.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-item/DA_GiantSlayer.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/items/DA_Quicksilver.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-item/DA_Quicksilver.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/items/DA_Morellonomicon.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-item/DA_Morellonomicon.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/items/DA_HextechGunblade.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-item/DA_HextechGunblade.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/items/DA_GargoyleStoneplate.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-item/DA_GargoyleStoneplate.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/items/DA_Evenshroud.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-item/DA_Evenshroud.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/items/DA_Bloodthirster.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-item/DA_Bloodthirster.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/items/DA_SpiritVisage.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-item/DA_SpiritVisage.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/items/DA_SteraksGage.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-item/DA_SteraksGage.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/items/DA_Crownguard.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-item/DA_Crownguard.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/items/DA_LastWhisper.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-item/DA_LastWhisper.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/traits/DA_18_Elderwood.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_elderwood.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/traits/DA_18_LuxUniqueTrait.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_avatar.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/traits/DA_18_Slayer.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_ravager.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/traits/DA_DravenUniqueTrait18.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_bountyseeker.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/traits/DA_18_Solar.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_solar.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/traits/DA_18_Sprykin.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_sprykin.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/traits/DA_18_Adaptor.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_adaptor.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/traits/DA_18_Coven.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_coven.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/traits/DA_18_Eclipse.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_eclipse.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/traits/DA_18_Hunter.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_hunter.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/traits/DA_18_Maokai_UniqueTrait.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_oldgrowth.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/traits/DA_18_Battlemage.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_monolith.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/traits/DA_Primal18.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_primal.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/traits/DA_18_Greenfather.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_greenfather.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/traits/DA_18_Invoker.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_invoker.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/traits/DA_18_Rapidfire.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_rapidfire.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/traits/DA_Juggernaut18.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_juggernaut.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/traits/DA_18_Inferno.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_inferno.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/traits/DA_AluneUniqueTrait18.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_attuned.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/traits/DA_18_Rival.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_rival.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/traits/DA_18_Vanguard.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_vanguard.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/traits/DA_18_Brawler.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_brawler.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/traits/DA_18_Blackthorn.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_oldgod.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/traits/DA_18_Executioner.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_executioner.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/traits/DA_18_ApexPredator.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_apexpredator.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/traits/DA_Riftbeast18.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_riftbeast.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/traits/DA_18_Caustic.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_caustic.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/traits/DA_18_Fae.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_fae.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/traits/DA_18_Lunar.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_lunar.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/traits/DA_18_Defender.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_defender.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/traits/DA_18_Spellweaver.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_spellweaver.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/traits/DA_18_ZyraUniqueTrait.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_zyraorigin.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/traits/DA_FloraFatalis18.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_florafatalis.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/traits/DA_18_Summoner.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_summoner.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/traits/DA_18_Blossom.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_blossom.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/traits/DA_Emerald18.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_emeraldaspect.png",
+      "owner": "Riot Games"
+    }
+  ]
+}

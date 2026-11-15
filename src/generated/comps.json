@@ -1,0 +1,1110 @@
+[
+  {
+    "id": "s18-ap-exodia",
+    "name": "AP Exodia",
+    "subtitle": "Fast 9",
+    "style": "Fast 9",
+    "carry": "DA_18_Alune",
+    "champions": [
+      "DA_18_Alune",
+      "DA_18_Lux_Moonbeam",
+      "DA_Taric18",
+      "DA_18_Lillia",
+      "DA_18_Morgana",
+      "DA_Sentinel18",
+      "DA_18_Diana",
+      "DA_Fiddlesticks18",
+      "DA_18_Hecarim"
+    ],
+    "items": {
+      "DA_18_Alune": [
+        "DA_ArchangelsStaff",
+        "DA_JeweledGauntlet",
+        "DA_BlueBuff"
+      ],
+      "DA_Taric18": [
+        "DA_SpiritVisage",
+        "DA_WarmogsArmor",
+        "DA_GargoyleStoneplate"
+      ],
+      "DA_18_Lux_Moonbeam": [
+        "DA_SpearOfShojin",
+        "DA_VoidStaff",
+        "DA_Morellonomicon"
+      ]
+    },
+    "color": "#f3bd36",
+    "description": "Alune e Lux Lunar na retaguarda. Plano final de nível 9 com Taric na frente.",
+    "source": {
+      "name": "Mobalytics",
+      "checkedAt": "2026-11-14",
+      "patch": "18.6",
+      "set": 18,
+      "url": "https://mobalytics.gg/tft/comps-guide/fast-9-3GPZwhL0OfLE8Wv4bDvZMi1lUUR"
+    },
+    "tier": "S"
+  },
+  {
+    "id": "s18-elderwood",
+    "name": "Wrath of the Woods",
+    "subtitle": "Fast 8",
+    "style": "Fast 8",
+    "carry": "DA_18_Aphelios",
+    "champions": [
+      "DA_18_Lux_Elderwood",
+      "DA_18_Aphelios",
+      "DA_18_Ezreal",
+      "DA_18_Lillia",
+      "DA_18_GnarSmall",
+      "DA_18_Hecarim",
+      "DA_18_Alistar",
+      "DA_18_Ornn",
+      "DA_18_Xayah"
+    ],
+    "items": {
+      "DA_18_Aphelios": [
+        "DA_KrakensFury",
+        "DA_18_EmblemElderwood",
+        "DA_GuinsoosRageblade"
+      ],
+      "DA_18_Ezreal": [
+        "DA_Deathblade",
+        "DA_LastWhisper",
+        "DA_SpearOfShojin"
+      ]
+    },
+    "color": "#f3bd36",
+    "description": "Aphelios com Emblema de Sabugueiro. Lux Sabugueiro e Gnar completam o plano final; confira o guia antes da transição.",
+    "source": {
+      "name": "Mobalytics",
+      "checkedAt": "2026-11-14",
+      "patch": "18.6",
+      "set": 18,
+      "url": "https://mobalytics.gg/tft/comps-guide/elderwood-3GPSrl1mdvWbwjkesuBNjDFFKvx"
+    },
+    "tier": "S"
+  },
+  {
+    "id": "s18-ad-exodia",
+    "name": "AD Exodia",
+    "subtitle": "Fast 9",
+    "style": "Fast 9",
+    "carry": "DA_Draven18",
+    "champions": [
+      "DA_Draven18",
+      "DA_18_Maokai",
+      "DA_18_ElderDragon",
+      "DA_18_Kennen",
+      "DA_18_Ivern",
+      "DA_Taric18",
+      "DA_Amumu18",
+      "DA_Sentinel18"
+    ],
+    "items": {
+      "DA_18_Maokai": [
+        "DA_SpiritVisage",
+        "DA_WarmogsArmor",
+        "DA_GargoyleStoneplate"
+      ],
+      "DA_18_ElderDragon": [
+        "DA_LastWhisper",
+        "DA_InfinityEdge"
+      ]
+    },
+    "color": "#f3bd36",
+    "description": "Draven e Dragão Ancião com uma frente de alto custo. O Dragão Ancião ocupa dois espaços da equipe.",
+    "source": {
+      "name": "Mobalytics",
+      "checkedAt": "2026-11-14",
+      "patch": "18.6",
+      "set": 18,
+      "url": "https://mobalytics.gg/tft/comps-guide/ad-fast-9-3HIz3Cx7oNI4RGtlcnOVu0H4xFh"
+    },
+    "tier": "S"
+  },
+  {
+    "id": "s18-b4l",
+    "name": "B4L Power",
+    "subtitle": "Fast 8",
+    "style": "Fast 8",
+    "carry": "DA_18_Ahri",
+    "champions": [
+      "DA_18_Ahri",
+      "DA_18_Sett",
+      "DA_18_Zyra",
+      "DA_18_GnarSmall",
+      "DA_Taric18",
+      "DA_18_Lillia",
+      "DA_Fiddlesticks18",
+      "DA_18_Yorick"
+    ],
+    "items": {
+      "DA_18_Ahri": [
+        "DA_JeweledGauntlet",
+        "DA_SpearOfShojin"
+      ],
+      "DA_18_Zyra": [
+        "DA_SpearOfShojin",
+        "DA_Morellonomicon",
+        "DA_VoidStaff"
+      ]
+    },
+    "color": "#f3bd36",
+    "description": "Ahri com várias características de baixa contagem. O plano prioriza o aprimoramento Bronze for Life; veja as condições no guia.",
+    "source": {
+      "name": "Mobalytics",
+      "checkedAt": "2026-11-14",
+      "patch": "18.6",
+      "set": 18,
+      "url": "https://mobalytics.gg/tft/comps-guide/b4l-power-3L2xQCFLgOSMn8MXctfDy1ZyQCo"
+    },
+    "tier": "S"
+  },
+  {
+    "id": "s18-adaptors",
+    "name": "Adapt or Die",
+    "subtitle": "Slow roll · nível 7",
+    "style": "Slow roll · nível 7",
+    "carry": "DA_Nidalee18_AP",
+    "champions": [
+      "DA_Nidalee18_AP",
+      "DA_18_MasterYi_AD",
+      "DA_18_Rengar",
+      "DA_Vi18",
+      "DA_18_GnarSmall",
+      "DA_18_Sett",
+      "DA_Krug18",
+      "DA_18_Yorick"
+    ],
+    "items": {
+      "DA_Nidalee18_AP": [
+        "DA_GuinsoosRageblade",
+        "DA_RabadonsDeathcap",
+        "DA_JeweledGauntlet"
+      ],
+      "DA_Vi18": [
+        "DA_GargoyleStoneplate"
+      ]
+    },
+    "color": "#f3bd36",
+    "description": "Nidalee, Master Yi e Rengar com Vi e Krugue na frente. O guia orienta a rolagem no nível 7 e a evolução da equipe.",
+    "source": {
+      "name": "Mobalytics",
+      "checkedAt": "2026-11-14",
+      "patch": "18.6",
+      "set": 18,
+      "url": "https://mobalytics.gg/tft/comps-guide/adaptor-reroll-3HRVQSudB7SJTckVeLxU4ICvPDg"
+    },
+    "tier": "S"
+  },
+  {
+    "id": "s18-riftbeasts",
+    "name": "Riftbeast Ascension",
+    "subtitle": "Fast 8",
+    "style": "Fast 8",
+    "carry": "DA_18_ElderDragon",
+    "champions": [
+      "DA_18_ElderDragon",
+      "DA_Brambleback18",
+      "DA_Krug18",
+      "DA_18_GnarSmall",
+      "DA_Taric18",
+      "DA_Sentinel18",
+      "DA_Murkwolf18",
+      "DA_18_Sentry"
+    ],
+    "items": {
+      "DA_18_ElderDragon": [
+        "DA_LastWhisper",
+        "DA_InfinityEdge"
+      ],
+      "DA_Krug18": [
+        "DA_SpiritVisage",
+        "DA_WarmogsArmor",
+        "DA_GargoyleStoneplate"
+      ],
+      "DA_Brambleback18": [
+        "DA_GuinsoosRageblade"
+      ]
+    },
+    "color": "#f3bd36",
+    "description": "Feras do Rift com Rubrivira e Dragão Ancião. O Dragão ocupa dois espaços; confira a Marca Alfa no guia.",
+    "source": {
+      "name": "Mobalytics",
+      "checkedAt": "2026-11-14",
+      "patch": "18.6",
+      "set": 18,
+      "url": "https://mobalytics.gg/tft/comps-guide/riftbeasts-3GPdjNA6ylpo7iCTllcNRj1b8fs"
+    },
+    "tier": "S"
+  },
+  {
+    "id": "s18-deadwood-execution",
+    "name": "Deadwood Execution",
+    "subtitle": "Fast 8",
+    "style": "Fast 8",
+    "carry": "DA_18_Ezreal",
+    "tier": "S",
+    "champions": [
+      "DA_18_Ezreal",
+      "DA_18_Soraka",
+      "DA_18_Hecarim",
+      "DA_18_GnarSmall",
+      "DA_18_Kennen",
+      "DA_Fiddlesticks18",
+      "DA_18_Alistar",
+      "DA_18_LeBlanc",
+      "DA_18_Ornn"
+    ],
+    "items": {
+      "DA_18_Ezreal": [
+        "DA_Deathblade",
+        "DA_SpearOfShojin",
+        "DA_LastWhisper"
+      ],
+      "DA_18_Soraka": [
+        "DA_RabadonsDeathcap",
+        "DA_SpearOfShojin",
+        "DA_18_EmblemElderwood"
+      ],
+      "DA_18_Hecarim": [
+        "DA_WarmogsArmor",
+        "DA_BrambleVest",
+        "DA_SunfireCape"
+      ],
+      "DA_18_GnarSmall": [
+        "DA_ThiefsGloves"
+      ]
+    },
+    "color": "#f3bd36",
+    "description": "Ezreal causa dano físico e Soraka complementa com dano mágico; Hecarim segura a frente. Prepare a transição no nível 8 e adicione os lendários conforme aparecerem.",
+    "conditions": [
+      "O plano usa Emblema de Sabugueiro na Soraka. Sem ele, a sinergia final muda; não conte com o mesmo bônus."
+    ],
+    "strategy": {
+      "damage": [
+        "DA_18_Xayah",
+        "DA_18_LeBlanc",
+        "DA_18_Ezreal"
+      ],
+      "tank": [
+        "DA_18_Ornn",
+        "DA_18_Alistar",
+        "DA_18_Hecarim"
+      ],
+      "rerollStages": []
+    },
+    "stars": {},
+    "source": {
+      "name": "Mobalytics",
+      "checkedAt": "2026-11-14",
+      "patch": "18.6",
+      "set": 18,
+      "url": "https://mobalytics.gg/tft/comps-guide/deadwood-execution-3L2zmysTYfMJTvmFeHzmJTD67Ls"
+    }
+  },
+  {
+    "id": "s18-solar-yunara",
+    "name": "Solar Yunara",
+    "subtitle": "Slow roll · nível 6",
+    "style": "Slow roll · nível 6",
+    "carry": "DA_18_Yunara",
+    "tier": "S",
+    "champions": [
+      "DA_18_Sejuani",
+      "DA_18_Yunara",
+      "DA_Karma18",
+      "DA_18_LeBlanc",
+      "DA_18_Azir",
+      "DA_18_Kayle",
+      "DA_18_Leona",
+      "DA_18_Yorick"
+    ],
+    "items": {
+      "DA_18_Yunara": [
+        "DA_Deathblade",
+        "DA_SpearOfShojin",
+        "DA_LastWhisper"
+      ],
+      "DA_18_Sejuani": [
+        "DA_GargoyleStoneplate",
+        "DA_WarmogsArmor",
+        "DA_SpiritVisage"
+      ],
+      "DA_Karma18": [
+        "DA_BlueBuff",
+        "DA_RabadonsDeathcap",
+        "DA_JeweledGauntlet"
+      ],
+      "DA_18_LeBlanc": [
+        "DA_VoidStaff",
+        "DA_Morellonomicon"
+      ]
+    },
+    "color": "#f3bd36",
+    "description": "Reroll de Yunara e Sejuani no nível 6, com Karma como segunda fonte de dano. Depois do núcleo melhorado, abra espaço para Solar.",
+    "conditions": [
+      "Solar recompensa várias unidades 3★. LeBlanc, Yorick, Kayle e Leona são opções adicionais conforme as cópias; não esgote o ouro perseguindo todas."
+    ],
+    "strategy": {
+      "damage": [
+        "DA_18_Yunara",
+        "DA_Karma18",
+        "DA_18_LeBlanc"
+      ],
+      "tank": [
+        "DA_18_Yorick",
+        "DA_18_Rakan",
+        "DA_18_Sejuani"
+      ],
+      "rerollStages": [
+        {
+          "level": 6,
+          "targets": [
+            "DA_18_Yunara",
+            "DA_18_Sejuani",
+            "DA_Karma18"
+          ]
+        }
+      ]
+    },
+    "stars": {
+      "DA_18_Yunara": 3,
+      "DA_18_Sejuani": 3,
+      "DA_Karma18": 3
+    },
+    "source": {
+      "name": "Mobalytics",
+      "checkedAt": "2026-11-14",
+      "patch": "18.6",
+      "set": 18,
+      "url": "https://mobalytics.gg/tft/comps-guide/solar-yunara-3JKiktTzy9h1I1MpQ5rqtmtdv9l"
+    }
+  },
+  {
+    "id": "s18-final-forest",
+    "name": "The Final Forest",
+    "subtitle": "Fast 9",
+    "style": "Fast 9",
+    "carry": "DA_Draven18",
+    "tier": "A",
+    "champions": [
+      "DA_Draven18",
+      "DA_18_Maokai",
+      "DA_18_Ezreal",
+      "DA_18_Kennen",
+      "DA_18_GnarSmall",
+      "DA_18_Ivern",
+      "DA_Taric18",
+      "DA_Amumu18",
+      "DA_18_Alistar"
+    ],
+    "items": {
+      "DA_Draven18": [
+        "DA_KrakensFury",
+        "DA_Deathblade",
+        "DA_GuinsoosRageblade"
+      ],
+      "DA_18_Maokai": [
+        "DA_DragonsClaw",
+        "DA_WarmogsArmor",
+        "DA_BrambleVest"
+      ],
+      "DA_18_Ezreal": [
+        "DA_SpearOfShojin",
+        "DA_Deathblade",
+        "DA_LastWhisper"
+      ],
+      "DA_18_Kennen": [
+        "DA_ThiefsGloves"
+      ]
+    },
+    "color": "#f3bd36",
+    "description": "Uma rota de dano físico até os lendários do nível 9. Ezreal pode sustentar o meio de jogo; Maokai precisa de tempo para crescer.",
+    "conditions": [
+      "Precisa de economia e uma abertura forte. Se estiver perdendo muita vida, melhore a equipe de nível 8 antes de investir no 9."
+    ],
+    "strategy": {
+      "damage": [
+        "DA_18_Xayah",
+        "DA_18_Varus",
+        "DA_18_Ezreal"
+      ],
+      "tank": [
+        "DA_18_Ornn",
+        "DA_18_Alistar",
+        "DA_18_Shen",
+        "DA_Amumu18"
+      ],
+      "rerollStages": []
+    },
+    "stars": {},
+    "source": {
+      "name": "Mobalytics",
+      "checkedAt": "2026-11-14",
+      "patch": "18.6",
+      "set": 18,
+      "url": "https://mobalytics.gg/tft/comps-guide/elderwood-cap-3HBMcPmR81fWMyuppwi8smQJ37O"
+    }
+  },
+  {
+    "id": "s18-kill-stack-repeat",
+    "name": "Kill, Stack, Repeat",
+    "subtitle": "Slow roll · nível 5",
+    "style": "Slow roll · nível 5",
+    "carry": "DA_18_Veigar",
+    "tier": "A",
+    "champions": [
+      "DA_18_LeBlanc",
+      "DA_18_Ornn",
+      "DA_18_Veigar",
+      "DA_18_Cassiopeia",
+      "DA_Fiddlesticks18",
+      "DA_18_Alistar",
+      "DA_18_RekSai"
+    ],
+    "items": {
+      "DA_18_Veigar": [
+        "DA_HextechGunblade",
+        "DA_BlueBuff",
+        "DA_JeweledGauntlet"
+      ],
+      "DA_18_Ornn": [
+        "DA_Crownguard",
+        "DA_WarmogsArmor",
+        "DA_GargoyleStoneplate"
+      ],
+      "DA_18_LeBlanc": [
+        "DA_SpearOfShojin",
+        "DA_VoidStaff",
+        "DA_Morellonomicon"
+      ]
+    },
+    "color": "#f3bd36",
+    "description": "Veigar acumula poder enquanto Ornn protege a equipe. Complete os dois no nível 5; a segunda etapa procura LeBlanc e Alistar no 6.",
+    "conditions": [
+      "A coleta de cópias define a transição entre as duas etapas. Vida baixa ou disputa podem exigir encerrar o reroll antes dos alvos 3★."
+    ],
+    "strategy": {
+      "damage": [
+        "DA_18_Veigar",
+        "DA_18_LeBlanc",
+        "DA_18_Cassiopeia"
+      ],
+      "tank": [
+        "DA_18_Ornn",
+        "DA_18_Alistar",
+        "DA_18_RekSai"
+      ],
+      "rerollStages": [
+        {
+          "level": 5,
+          "targets": [
+            "DA_18_Veigar",
+            "DA_18_Ornn"
+          ]
+        },
+        {
+          "level": 6,
+          "targets": [
+            "DA_18_LeBlanc",
+            "DA_18_Alistar"
+          ]
+        }
+      ]
+    },
+    "stars": {
+      "DA_18_Veigar": 3,
+      "DA_18_Ornn": 3,
+      "DA_18_LeBlanc": 3,
+      "DA_18_Alistar": 3
+    },
+    "source": {
+      "name": "Mobalytics",
+      "checkedAt": "2026-11-14",
+      "patch": "18.6",
+      "set": 18,
+      "url": "https://mobalytics.gg/tft/comps-guide/veigar-reroll-3GRav9EJC9f18s1Fsh4A1709SmK"
+    }
+  },
+  {
+    "id": "s18-moonlit-hunt",
+    "name": "Moonlit Hunt",
+    "subtitle": "Fast 8",
+    "style": "Fast 8",
+    "carry": "DA_18_Aphelios",
+    "tier": "A",
+    "champions": [
+      "DA_Amumu18",
+      "DA_18_Aphelios",
+      "DA_Nidalee18_AP",
+      "DA_18_Alune",
+      "DA_Sentinel18",
+      "DA_18_Diana",
+      "DA_KogMaw18_AD",
+      "DA_Vi18",
+      "DA_18_Varus"
+    ],
+    "items": {
+      "DA_18_Aphelios": [
+        "DA_GiantSlayer",
+        "DA_Deathblade",
+        "DA_GuinsoosRageblade"
+      ],
+      "DA_Nidalee18_AP": [
+        "DA_SteraksGage",
+        "DA_SpearOfShojin",
+        "DA_InfinityEdge"
+      ],
+      "DA_Amumu18": [
+        "DA_GargoyleStoneplate",
+        "DA_BrambleVest",
+        "DA_WarmogsArmor"
+      ]
+    },
+    "color": "#f3bd36",
+    "description": "Aphelios e Nidalee dividem o dano, com Amumu ou Sentinela na linha de frente. O pico principal vem dos campeões de custo 4 em 2★.",
+    "conditions": [
+      "Alune é uma expansão tardia. No nível 8, estabilize os custos 4 sem gastar toda a economia atrás dela."
+    ],
+    "strategy": {
+      "damage": [
+        "DA_18_Xayah",
+        "DA_18_Varus",
+        "DA_18_Aphelios"
+      ],
+      "tank": [
+        "DA_18_Yorick",
+        "DA_18_Rakan",
+        "DA_18_Hecarim",
+        "DA_Amumu18"
+      ],
+      "rerollStages": []
+    },
+    "stars": {},
+    "source": {
+      "name": "Mobalytics",
+      "checkedAt": "2026-11-14",
+      "patch": "18.6",
+      "set": 18,
+      "url": "https://mobalytics.gg/tft/comps-guide/moonlit-hunt-3JBJHbLQQVkdfm6vFl6EPiJcEKw"
+    }
+  },
+  {
+    "id": "s18-eclipse",
+    "name": "The Eclipse",
+    "subtitle": "Slow roll · nível 6",
+    "style": "Slow roll · nível 6",
+    "carry": "DA_18_Kayle",
+    "tier": "A",
+    "champions": [
+      "DA_18_Aphelios",
+      "DA_18_Kayle",
+      "DA_18_Sejuani",
+      "DA_18_Alune",
+      "DA_Amumu18",
+      "DA_18_Diana",
+      "DA_18_Shen",
+      "DA_18_Leona",
+      "DA_18_Varus"
+    ],
+    "items": {
+      "DA_18_Kayle": [
+        "DA_GuinsoosRageblade",
+        "DA_JeweledGauntlet",
+        "DA_RabadonsDeathcap"
+      ],
+      "DA_18_Sejuani": [
+        "DA_GargoyleStoneplate",
+        "DA_SteadfastHeart",
+        "DA_WarmogsArmor"
+      ],
+      "DA_18_Aphelios": [
+        "DA_RedBuff",
+        "DA_KrakensFury",
+        "DA_Deathblade"
+      ]
+    },
+    "color": "#f3bd36",
+    "description": "Kayle e Sejuani são o núcleo do reroll no nível 6. Depois, a equipe cresce com Lunar para ativar Eclipse.",
+    "conditions": [
+      "Leona, Shen e Varus são alvos extras de 3★ para Solar. Se as cópias estiverem distantes, considere subir para Lunar. Emblema Lunar antecipa Eclipse sem depender de Alune."
+    ],
+    "strategy": {
+      "damage": [
+        "DA_18_Varus",
+        "DA_18_Kayle",
+        "DA_18_Aphelios"
+      ],
+      "tank": [
+        "DA_18_Leona",
+        "DA_18_Shen",
+        "DA_18_Sejuani"
+      ],
+      "rerollStages": [
+        {
+          "level": 6,
+          "targets": [
+            "DA_18_Kayle",
+            "DA_18_Sejuani"
+          ]
+        }
+      ]
+    },
+    "stars": {
+      "DA_18_Kayle": 3,
+      "DA_18_Sejuani": 3
+    },
+    "source": {
+      "name": "Mobalytics",
+      "checkedAt": "2026-11-14",
+      "patch": "18.6",
+      "set": 18,
+      "url": "https://mobalytics.gg/tft/comps-guide/the-eclipse-3KMQCX7doCgzY4en0qzPAG3j2pp"
+    }
+  },
+  {
+    "id": "s18-spikes-soldiers",
+    "name": "Spikes and Soldiers",
+    "subtitle": "Slow roll · nível 7",
+    "style": "Slow roll · nível 7",
+    "carry": "DA_18_Azir",
+    "tier": "A",
+    "champions": [
+      "DA_18_Zyra",
+      "DA_18_Azir",
+      "DA_18_Rammus",
+      "DA_Fiddlesticks18",
+      "DA_18_Kennen",
+      "DA_18_Soraka",
+      "DA_18_Teemo",
+      "DA_18_Veigar"
+    ],
+    "items": {
+      "DA_18_Azir": [
+        "DA_HextechGunblade",
+        "DA_RabadonsDeathcap",
+        "DA_GuinsoosRageblade"
+      ],
+      "DA_18_Rammus": [
+        "DA_Crownguard",
+        "DA_GargoyleStoneplate",
+        "DA_GargoyleStoneplate"
+      ],
+      "DA_Fiddlesticks18": [
+        "DA_ThiefsGloves"
+      ],
+      "DA_18_Zyra": [
+        "DA_Morellonomicon",
+        "DA_VoidStaff",
+        "DA_SpearOfShojin"
+      ]
+    },
+    "color": "#f3bd36",
+    "description": "Azir causa dano atrás de Rammus e Fiddlesticks. O reroll se concentra nos três custos 3; Zyra traz utilidade no fim do jogo.",
+    "conditions": [
+      "Use a mecânica de montaria em Rammus. Mama Beak pode substituir Kennen enquanto o lendário não aparece."
+    ],
+    "strategy": {
+      "damage": [
+        "DA_Karma18",
+        "DA_18_Veigar",
+        "DA_18_Azir"
+      ],
+      "tank": [
+        "DA_18_Yorick",
+        "DA_18_Rakan",
+        "DA_18_Rammus"
+      ],
+      "rerollStages": [
+        {
+          "level": 7,
+          "targets": [
+            "DA_18_Azir",
+            "DA_18_Rammus",
+            "DA_Fiddlesticks18"
+          ]
+        }
+      ]
+    },
+    "stars": {
+      "DA_18_Azir": 3,
+      "DA_18_Rammus": 3,
+      "DA_Fiddlesticks18": 3
+    },
+    "source": {
+      "name": "Mobalytics",
+      "checkedAt": "2026-11-14",
+      "patch": "18.6",
+      "set": 18,
+      "url": "https://mobalytics.gg/tft/comps-guide/spikes-and-soldiers-3Jpro0TlxLOqmqzej8jZ7IEBApI"
+    }
+  },
+  {
+    "id": "s18-ashe-to-ashes",
+    "name": "Ashe to Ashes",
+    "subtitle": "Fast 9",
+    "style": "Fast 9",
+    "carry": "DA_18_Ashe",
+    "tier": "A",
+    "champions": [
+      "DA_18_Ashe",
+      "DA_18_Maokai",
+      "DA_18_Sivir",
+      "DA_18_Ivern",
+      "DA_18_Kennen",
+      "DA_Taric18",
+      "DA_Amumu18",
+      "DA_Vi18",
+      "DA_18_Rakan"
+    ],
+    "items": {
+      "DA_18_Ashe": [
+        "DA_SpearOfShojin",
+        "DA_LastWhisper",
+        "DA_RedBuff"
+      ],
+      "DA_18_Sivir": [
+        "DA_InfinityEdge",
+        "DA_StrikersFlail",
+        "DA_SpearOfShojin"
+      ],
+      "DA_18_Maokai": [
+        "DA_GargoyleStoneplate",
+        "DA_SpiritVisage",
+        "DA_WarmogsArmor"
+      ]
+    },
+    "color": "#f3bd36",
+    "description": "Sivir conduz a transição de dano físico até Ashe. Uma frente com Maokai, Taric e Amumu sustenta o plano de nível 9.",
+    "conditions": [
+      "Se não houver economia para o nível 9, fortaleça Sivir no 8. Taric ou Amumu podem segurar os itens enquanto Maokai ainda está fraco."
+    ],
+    "strategy": {
+      "damage": [
+        "DA_18_Xayah",
+        "DA_18_Yunara",
+        "DA_18_Tristana",
+        "DA_18_Sivir"
+      ],
+      "tank": [
+        "DA_18_Rakan",
+        "DA_18_Yorick",
+        "DA_Vi18",
+        "DA_Amumu18"
+      ],
+      "rerollStages": []
+    },
+    "stars": {},
+    "source": {
+      "name": "Mobalytics",
+      "checkedAt": "2026-11-14",
+      "patch": "18.6",
+      "set": 18,
+      "url": "https://mobalytics.gg/tft/comps-guide/ashe-to-ashes-3J9V7i6GFrOujQPGxcWbr4cqwKC"
+    }
+  },
+  {
+    "id": "s18-riftbeast-reroll",
+    "name": "Riftbeast Reroll",
+    "subtitle": "Slow roll · nível 5",
+    "style": "Slow roll · nível 5",
+    "carry": "DA_18_Sentry",
+    "tier": "A",
+    "champions": [
+      "DA_18_ElderDragon",
+      "DA_Krug18",
+      "DA_Cinderling18",
+      "DA_18_Sentry",
+      "DA_18_GnarSmall",
+      "DA_Taric18",
+      "DA_Sentinel18",
+      "DA_Scuttlecrab18"
+    ],
+    "items": {
+      "DA_18_Sentry": [
+        "DA_BlueBuff",
+        "DA_JeweledGauntlet",
+        "DA_RabadonsDeathcap"
+      ],
+      "DA_Cinderling18": [
+        "DA_BlueBuff",
+        "DA_InfinityEdge",
+        "DA_LastWhisper"
+      ],
+      "DA_Krug18": [
+        "DA_WarmogsArmor",
+        "DA_Crownguard",
+        "DA_GargoyleStoneplate"
+      ],
+      "DA_18_ElderDragon": [
+        "DA_Deathblade",
+        "DA_InfinityEdge",
+        "DA_StrikersFlail"
+      ]
+    },
+    "color": "#f3bd36",
+    "description": "Melhore Pebbles e Rubrivirim primeiro. Krug custa 3 e tem uma etapa posterior; Dragão Ancião só entra no fim da partida.",
+    "conditions": [
+      "Cinco Feras do Rift mudam as lojas: aproveite as cópias naturais e reavalie a necessidade de rolar. As odds exibidas pelo Zyon são da loja comum, não da loja especial."
+    ],
+    "strategy": {
+      "damage": [
+        "DA_18_Sentry",
+        "DA_Cinderling18",
+        "DA_Brambleback18"
+      ],
+      "tank": [
+        "DA_Scuttlecrab18",
+        "DA_18_RekSai",
+        "DA_Krug18",
+        "DA_Sentinel18"
+      ],
+      "rerollStages": [
+        {
+          "level": 5,
+          "targets": [
+            "DA_18_Sentry",
+            "DA_Cinderling18"
+          ]
+        },
+        {
+          "level": 7,
+          "targets": [
+            "DA_Krug18"
+          ]
+        }
+      ]
+    },
+    "stars": {
+      "DA_18_Sentry": 3,
+      "DA_Cinderling18": 3,
+      "DA_Krug18": 3
+    },
+    "source": {
+      "name": "Mobalytics",
+      "checkedAt": "2026-11-14",
+      "patch": "18.6",
+      "set": 18,
+      "url": "https://mobalytics.gg/tft/comps-guide/riftbeast-reroll-3HF3zdBtCA0c8SV4vflw85oZehT"
+    }
+  },
+  {
+    "id": "s18-fae-cat",
+    "name": "Fae Cat",
+    "subtitle": "Slow roll · nível 7",
+    "style": "Slow roll · nível 7",
+    "carry": "DA_18_Rengar",
+    "tier": "A",
+    "champions": [
+      "DA_18_Rammus",
+      "DA_18_Rengar",
+      "DA_18_Tristana",
+      "DA_18_Sivir",
+      "DA_18_Lillia",
+      "DA_Vi18",
+      "DA_18_Kobuko",
+      "DA_18_Rakan"
+    ],
+    "items": {
+      "DA_18_Rengar": [
+        "DA_18_EmblemFae",
+        "DA_GuinsoosRageblade",
+        "DA_EdgeOfNight"
+      ],
+      "DA_18_Tristana": [
+        "DA_GuinsoosRageblade",
+        "DA_HextechGunblade",
+        "DA_KrakensFury"
+      ],
+      "DA_18_Sivir": [
+        "DA_LastWhisper",
+        "DA_RedBuff"
+      ],
+      "DA_18_Rammus": [
+        "DA_SpiritVisage",
+        "DA_WarmogsArmor",
+        "DA_GargoyleStoneplate"
+      ]
+    },
+    "color": "#f3bd36",
+    "description": "Rengar luta de perto, Tristana ataca de trás e Rammus absorve o dano. Busque o núcleo de custo 3 no nível 7.",
+    "conditions": [
+      "Precisa de Emblema de Fada no Rengar para reproduzir esta versão. Sem o emblema, adapte a comp; Sivir é uma alternativa se Rengar estiver disputado."
+    ],
+    "strategy": {
+      "damage": [
+        "DA_18_Yunara",
+        "DA_18_Tristana",
+        "DA_18_Rengar"
+      ],
+      "tank": [
+        "DA_18_Yorick",
+        "DA_18_Rakan",
+        "DA_18_Rammus",
+        "DA_Vi18"
+      ],
+      "rerollStages": [
+        {
+          "level": 7,
+          "targets": [
+            "DA_18_Rengar",
+            "DA_18_Tristana",
+            "DA_18_Rammus"
+          ]
+        }
+      ]
+    },
+    "stars": {
+      "DA_18_Rengar": 3,
+      "DA_18_Tristana": 3,
+      "DA_18_Rammus": 3
+    },
+    "source": {
+      "name": "Mobalytics",
+      "checkedAt": "2026-11-14",
+      "patch": "18.6",
+      "set": 18,
+      "url": "https://mobalytics.gg/tft/comps-guide/tristana-flex-3I0gUijUZqOlrBnnQB0HfHV05b5"
+    }
+  },
+  {
+    "id": "s18-bloom-doom",
+    "name": "Bloom and Doom",
+    "subtitle": "Fast 8",
+    "style": "Fast 8",
+    "carry": "DA_18_Ahri",
+    "tier": "A",
+    "champions": [
+      "DA_18_Ahri",
+      "DA_18_Morgana",
+      "DA_18_Sett",
+      "DA_18_Ivern",
+      "DA_Taric18",
+      "DA_Sentinel18",
+      "DA_Krug18",
+      "DA_Karma18",
+      "DA_18_Sentry"
+    ],
+    "items": {
+      "DA_18_Ahri": [
+        "DA_JeweledGauntlet",
+        "DA_StrikersFlail",
+        "DA_SpearOfShojin"
+      ],
+      "DA_18_Morgana": [
+        "DA_AdaptiveHelm",
+        "DA_Morellonomicon",
+        "DA_VoidStaff"
+      ],
+      "DA_18_Sett": [
+        "DA_WarmogsArmor",
+        "DA_GargoyleStoneplate",
+        "DA_SteadfastHeart"
+      ]
+    },
+    "color": "#f3bd36",
+    "description": "Ahri recebe os itens de dano; Morgana reduz cura e resistência. Sett e Sentinela formam a frente durante a transição de nível 8.",
+    "conditions": [
+      "Emblema de Emanador na Ahri permite trocar Shojin por dano. Ivern e Taric são expansões tardias, não motivo para perseguir custo 5 no nível 8."
+    ],
+    "strategy": {
+      "damage": [
+        "DA_Karma18",
+        "DA_18_LeBlanc",
+        "DA_18_Azir",
+        "DA_18_Ahri"
+      ],
+      "tank": [
+        "DA_18_Yorick",
+        "DA_18_Rakan",
+        "DA_Krug18",
+        "DA_18_Sett"
+      ],
+      "rerollStages": []
+    },
+    "stars": {},
+    "source": {
+      "name": "Mobalytics",
+      "checkedAt": "2026-11-14",
+      "patch": "18.6",
+      "set": 18,
+      "url": "https://mobalytics.gg/tft/comps-guide/bloom-and-doom-3IYZrgrxpycIWCeI7z4uJ44MTMA"
+    }
+  },
+  {
+    "id": "s18-defenders-dot",
+    "name": "Defenders of the DoT",
+    "subtitle": "Slow roll · nível 7",
+    "style": "Slow roll · nível 7",
+    "carry": "DA_18_Cassiopeia",
+    "tier": "A",
+    "champions": [
+      "DA_18_Cassiopeia",
+      "DA_Fiddlesticks18",
+      "DA_18_Rammus",
+      "DA_18_Lillia",
+      "DA_18_Soraka",
+      "DA_18_Shen",
+      "DA_18_Leona",
+      "DA_18_Ornn"
+    ],
+    "items": {
+      "DA_18_Cassiopeia": [
+        "DA_ArchangelsStaff",
+        "DA_HextechGunblade",
+        "DA_ArchangelsStaff"
+      ],
+      "DA_Fiddlesticks18": [
+        "DA_SpiritVisage",
+        "DA_SunfireCape",
+        "DA_IonicSpark"
+      ],
+      "DA_18_Rammus": [
+        "DA_GargoyleStoneplate",
+        "DA_WarmogsArmor",
+        "DA_SteadfastHeart"
+      ]
+    },
+    "color": "#f3bd36",
+    "description": "Uma linha de Defensores compra tempo para Cassiopeia e Fiddlesticks. A rolagem principal acontece no nível 7 para melhorar o trio com Rammus.",
+    "conditions": [
+      "Prefira esta rota quando os custos 3 estiverem pouco disputados. Soraka e Lillia completam a equipe depois do núcleo."
+    ],
+    "strategy": {
+      "damage": [
+        "DA_18_LeBlanc",
+        "DA_Karma18",
+        "DA_18_Cassiopeia"
+      ],
+      "tank": [
+        "DA_18_Ornn",
+        "DA_18_Leona",
+        "DA_18_Shen",
+        "DA_18_Rammus"
+      ],
+      "rerollStages": [
+        {
+          "level": 7,
+          "targets": [
+            "DA_18_Cassiopeia",
+            "DA_Fiddlesticks18",
+            "DA_18_Rammus"
+          ]
+        }
+      ]
+    },
+    "stars": {
+      "DA_18_Cassiopeia": 3,
+      "DA_Fiddlesticks18": 3,
+      "DA_18_Rammus": 3
+    },
+    "source": {
+      "name": "Mobalytics",
+      "checkedAt": "2026-11-14",
+      "patch": "18.6",
+      "set": 18,
+      "url": "https://mobalytics.gg/tft/comps-guide/defenders-of-the-dot-3IQjiZdfHWypkfHdKpdhuYQindM"
+    }
+  }
+]

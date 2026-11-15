@@ -1,0 +1,524 @@
+{
+  "retrieved": "2026-11-14T16:54:02.809Z",
+  "catalogSource": "https://raw.communitydragon.org/latest/cdragon/tft/pt_br.json",
+  "assets": [
+    {
+      "id": "DA_18_Ahri",
+      "file": "public/assets/portraits/DA_18_Ahri.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_ahri/tft18_ahri_square.png",
+      "owner": "Riot Games",
+      "purpose": "HUD portrait"
+    },
+    {
+      "id": "DA_18_Akali_AD",
+      "file": "public/assets/portraits/DA_18_Akali_AD.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_akali/tft18_akali_square.png",
+      "owner": "Riot Games",
+      "purpose": "HUD portrait"
+    },
+    {
+      "id": "DA_18_Alistar",
+      "file": "public/assets/portraits/DA_18_Alistar.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_alistar/tft18_alistar_square.png",
+      "owner": "Riot Games",
+      "purpose": "HUD portrait"
+    },
+    {
+      "id": "DA_18_Alune",
+      "file": "public/assets/portraits/DA_18_Alune.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_alune/hud/tft18_alune_square.png",
+      "owner": "Riot Games",
+      "purpose": "HUD portrait"
+    },
+    {
+      "id": "DA_18_Aphelios",
+      "file": "public/assets/portraits/DA_18_Aphelios.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_aphelios/tft18_aphelios_square.png",
+      "owner": "Riot Games",
+      "purpose": "HUD portrait"
+    },
+    {
+      "id": "DA_18_Ashe",
+      "file": "public/assets/portraits/DA_18_Ashe.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_ashe/tft18_ashe_square.png",
+      "owner": "Riot Games",
+      "purpose": "HUD portrait"
+    },
+    {
+      "id": "DA_18_Azir",
+      "file": "public/assets/portraits/DA_18_Azir.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_azir/tft18_azir_square.png",
+      "owner": "Riot Games",
+      "purpose": "HUD portrait"
+    },
+    {
+      "id": "DA_18_Caitlyn",
+      "file": "public/assets/portraits/DA_18_Caitlyn.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_caitlyn/tft18_caitlyn_square.png",
+      "owner": "Riot Games",
+      "purpose": "HUD portrait"
+    },
+    {
+      "id": "DA_18_Camille",
+      "file": "public/assets/portraits/DA_18_Camille.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_camille/tft18_camille_square.png",
+      "owner": "Riot Games",
+      "purpose": "HUD portrait"
+    },
+    {
+      "id": "DA_18_Cassiopeia",
+      "file": "public/assets/portraits/DA_18_Cassiopeia.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_cassiopeia/tft18_cassiopeia_square.png",
+      "owner": "Riot Games",
+      "purpose": "HUD portrait"
+    },
+    {
+      "id": "DA_18_Diana",
+      "file": "public/assets/portraits/DA_18_Diana.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_diana/tft18_diana_square.png",
+      "owner": "Riot Games",
+      "purpose": "HUD portrait"
+    },
+    {
+      "id": "DA_18_ElderDragon",
+      "file": "public/assets/portraits/DA_18_ElderDragon.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_elderdragon/hud/tft18_elderdragon_square.png",
+      "owner": "Riot Games",
+      "purpose": "HUD portrait"
+    },
+    {
+      "id": "DA_18_Elise",
+      "file": "public/assets/portraits/DA_18_Elise.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_elise/tft18_elise_square.png",
+      "owner": "Riot Games",
+      "purpose": "HUD portrait"
+    },
+    {
+      "id": "DA_18_Ezreal",
+      "file": "public/assets/portraits/DA_18_Ezreal.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_ezreal/tft18_ezreal_square.png",
+      "owner": "Riot Games",
+      "purpose": "HUD portrait"
+    },
+    {
+      "id": "DA_18_GnarSmall",
+      "file": "public/assets/portraits/DA_18_GnarSmall.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_gnar/tft18_gnar_square.png",
+      "owner": "Riot Games",
+      "purpose": "HUD portrait"
+    },
+    {
+      "id": "DA_18_Hecarim",
+      "file": "public/assets/portraits/DA_18_Hecarim.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_hecarim/tft18_hecarim_square.png",
+      "owner": "Riot Games",
+      "purpose": "HUD portrait"
+    },
+    {
+      "id": "DA_18_Ivern",
+      "file": "public/assets/portraits/DA_18_Ivern.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_ivern/hud/tft18_ivern_square.png",
+      "owner": "Riot Games",
+      "purpose": "HUD portrait"
+    },
+    {
+      "id": "DA_18_Kayle",
+      "file": "public/assets/portraits/DA_18_Kayle.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_kayle/tft18_kayle_square.png",
+      "owner": "Riot Games",
+      "purpose": "HUD portrait"
+    },
+    {
+      "id": "DA_18_Kennen",
+      "file": "public/assets/portraits/DA_18_Kennen.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_kennen/tft18_kennen_square.png",
+      "owner": "Riot Games",
+      "purpose": "HUD portrait"
+    },
+    {
+      "id": "DA_18_KhaZix",
+      "file": "public/assets/portraits/DA_18_KhaZix.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_khazix/tft18_khazix_square.png",
+      "owner": "Riot Games",
+      "purpose": "HUD portrait"
+    },
+    {
+      "id": "DA_18_Kobuko",
+      "file": "public/assets/portraits/DA_18_Kobuko.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_kobuko/tft18_kobuko_square.png",
+      "owner": "Riot Games",
+      "purpose": "HUD portrait"
+    },
+    {
+      "id": "DA_18_LeBlanc",
+      "file": "public/assets/portraits/DA_18_LeBlanc.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_leblanc/tft18_leblanc_square.png",
+      "owner": "Riot Games",
+      "purpose": "HUD portrait"
+    },
+    {
+      "id": "DA_18_Leona",
+      "file": "public/assets/portraits/DA_18_Leona.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_leona/tft18_leona_square.png",
+      "owner": "Riot Games",
+      "purpose": "HUD portrait"
+    },
+    {
+      "id": "DA_18_Lillia",
+      "file": "public/assets/portraits/DA_18_Lillia.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_lillia/tft18_lillia_square.png",
+      "owner": "Riot Games",
+      "purpose": "HUD portrait"
+    },
+    {
+      "id": "DA_18_Lux_Coven",
+      "file": "public/assets/portraits/DA_18_Lux_Coven.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_lux/tft18_lux_coven_square.png",
+      "owner": "Riot Games",
+      "purpose": "HUD portrait"
+    },
+    {
+      "id": "DA_18_Lux_Elderwood",
+      "file": "public/assets/portraits/DA_18_Lux_Elderwood.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_lux/tft18_lux_elderwood_square.png",
+      "owner": "Riot Games",
+      "purpose": "HUD portrait"
+    },
+    {
+      "id": "DA_18_Lux_Fae",
+      "file": "public/assets/portraits/DA_18_Lux_Fae.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_lux/tft18_lux_fae_square.png",
+      "owner": "Riot Games",
+      "purpose": "HUD portrait"
+    },
+    {
+      "id": "DA_18_Lux_Inferno",
+      "file": "public/assets/portraits/DA_18_Lux_Inferno.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_lux/tft18_lux_inferno_square.png",
+      "owner": "Riot Games",
+      "purpose": "HUD portrait"
+    },
+    {
+      "id": "DA_18_Lux_Moonbeam",
+      "file": "public/assets/portraits/DA_18_Lux_Moonbeam.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_lux/tft18_lux_moonbeam_square.png",
+      "owner": "Riot Games",
+      "purpose": "HUD portrait"
+    },
+    {
+      "id": "DA_18_Lux_Primal",
+      "file": "public/assets/portraits/DA_18_Lux_Primal.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_lux/tft18_lux_primal_square.png",
+      "owner": "Riot Games",
+      "purpose": "HUD portrait"
+    },
+    {
+      "id": "DA_18_Lux_Sunbeam",
+      "file": "public/assets/portraits/DA_18_Lux_Sunbeam.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_lux/tft18_lux_sunbeam_square.png",
+      "owner": "Riot Games",
+      "purpose": "HUD portrait"
+    },
+    {
+      "id": "DA_18_Malphite",
+      "file": "public/assets/portraits/DA_18_Malphite.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_malphite/tft18_malphite_square.png",
+      "owner": "Riot Games",
+      "purpose": "HUD portrait"
+    },
+    {
+      "id": "DA_18_Maokai",
+      "file": "public/assets/portraits/DA_18_Maokai.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_maokai/tft18_maokai_square.png",
+      "owner": "Riot Games",
+      "purpose": "HUD portrait"
+    },
+    {
+      "id": "DA_18_MasterYi_AD",
+      "file": "public/assets/portraits/DA_18_MasterYi_AD.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_masteryi/tft18_masteryi_square.png",
+      "owner": "Riot Games",
+      "purpose": "HUD portrait"
+    },
+    {
+      "id": "DA_18_Morgana",
+      "file": "public/assets/portraits/DA_18_Morgana.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_morgana/tft18_morgana_square.png",
+      "owner": "Riot Games",
+      "purpose": "HUD portrait"
+    },
+    {
+      "id": "DA_18_Ornn",
+      "file": "public/assets/portraits/DA_18_Ornn.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_ornn/tft18_ornn_square.png",
+      "owner": "Riot Games",
+      "purpose": "HUD portrait"
+    },
+    {
+      "id": "DA_18_Rakan",
+      "file": "public/assets/portraits/DA_18_Rakan.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_rakan/tft18_rakan_square.png",
+      "owner": "Riot Games",
+      "purpose": "HUD portrait"
+    },
+    {
+      "id": "DA_18_Rammus",
+      "file": "public/assets/portraits/DA_18_Rammus.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_rammus/tft18_rammus_square.png",
+      "owner": "Riot Games",
+      "purpose": "HUD portrait"
+    },
+    {
+      "id": "DA_18_RekSai",
+      "file": "public/assets/portraits/DA_18_RekSai.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_reksai/tft18_reksai_square.png",
+      "owner": "Riot Games",
+      "purpose": "HUD portrait"
+    },
+    {
+      "id": "DA_18_Rengar",
+      "file": "public/assets/portraits/DA_18_Rengar.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_rengar/tft18_rengar_square.png",
+      "owner": "Riot Games",
+      "purpose": "HUD portrait"
+    },
+    {
+      "id": "DA_18_Sejuani",
+      "file": "public/assets/portraits/DA_18_Sejuani.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_sejuani/tft18_sejuani_square.png",
+      "owner": "Riot Games",
+      "purpose": "HUD portrait"
+    },
+    {
+      "id": "DA_18_Sentry",
+      "file": "public/assets/portraits/DA_18_Sentry.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_sentry/tft18_sentry_square.png",
+      "owner": "Riot Games",
+      "purpose": "HUD portrait"
+    },
+    {
+      "id": "DA_18_Sett",
+      "file": "public/assets/portraits/DA_18_Sett.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_sett/tft18_sett_square.png",
+      "owner": "Riot Games",
+      "purpose": "HUD portrait"
+    },
+    {
+      "id": "DA_18_Shen",
+      "file": "public/assets/portraits/DA_18_Shen.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_shen/tft18_shen_square.png",
+      "owner": "Riot Games",
+      "purpose": "HUD portrait"
+    },
+    {
+      "id": "DA_18_Sivir",
+      "file": "public/assets/portraits/DA_18_Sivir.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_sivir/tft18_sivir_square.png",
+      "owner": "Riot Games",
+      "purpose": "HUD portrait"
+    },
+    {
+      "id": "DA_18_Soraka",
+      "file": "public/assets/portraits/DA_18_Soraka.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_soraka/tft18_soraka_square.png",
+      "owner": "Riot Games",
+      "purpose": "HUD portrait"
+    },
+    {
+      "id": "DA_18_Teemo",
+      "file": "public/assets/portraits/DA_18_Teemo.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_teemo/tft18_teemo_square.png",
+      "owner": "Riot Games",
+      "purpose": "HUD portrait"
+    },
+    {
+      "id": "DA_18_Tristana",
+      "file": "public/assets/portraits/DA_18_Tristana.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_tristana/tft18_tristana_square.png",
+      "owner": "Riot Games",
+      "purpose": "HUD portrait"
+    },
+    {
+      "id": "DA_18_Varus",
+      "file": "public/assets/portraits/DA_18_Varus.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_varus/tft18_varus_square.png",
+      "owner": "Riot Games",
+      "purpose": "HUD portrait"
+    },
+    {
+      "id": "DA_18_Veigar",
+      "file": "public/assets/portraits/DA_18_Veigar.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_veigar/tft18_veigar_square.png",
+      "owner": "Riot Games",
+      "purpose": "HUD portrait"
+    },
+    {
+      "id": "DA_18_Warwick",
+      "file": "public/assets/portraits/DA_18_Warwick.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_warwick/tft18_warwick_square.png",
+      "owner": "Riot Games",
+      "purpose": "HUD portrait"
+    },
+    {
+      "id": "DA_18_Xayah",
+      "file": "public/assets/portraits/DA_18_Xayah.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_xayah/tft18_xayah_square.png",
+      "owner": "Riot Games",
+      "purpose": "HUD portrait"
+    },
+    {
+      "id": "DA_18_Yorick",
+      "file": "public/assets/portraits/DA_18_Yorick.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_yorick/tft18_yorick_square.png",
+      "owner": "Riot Games",
+      "purpose": "HUD portrait"
+    },
+    {
+      "id": "DA_18_Yunara",
+      "file": "public/assets/portraits/DA_18_Yunara.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_yunara/tft18_yunara_square.png",
+      "owner": "Riot Games",
+      "purpose": "HUD portrait"
+    },
+    {
+      "id": "DA_18_Zyra",
+      "file": "public/assets/portraits/DA_18_Zyra.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_zyra/tft18_zyra_square.png",
+      "owner": "Riot Games",
+      "purpose": "HUD portrait"
+    },
+    {
+      "id": "DA_Amumu18",
+      "file": "public/assets/portraits/DA_Amumu18.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_amumu/tft18_amumu_square.png",
+      "owner": "Riot Games",
+      "purpose": "HUD portrait"
+    },
+    {
+      "id": "DA_Brambleback18",
+      "file": "public/assets/portraits/DA_Brambleback18.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_brambleback/tft18_brambleback_square.png",
+      "owner": "Riot Games",
+      "purpose": "HUD portrait"
+    },
+    {
+      "id": "DA_Cinderling18",
+      "file": "public/assets/portraits/DA_Cinderling18.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_cinderling/tft18_cinderling_square.png",
+      "owner": "Riot Games",
+      "purpose": "HUD portrait"
+    },
+    {
+      "id": "DA_CrimsonRaptor18",
+      "file": "public/assets/portraits/DA_CrimsonRaptor18.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_raptor/tft18_crimsonraptor_teamplanner_splash.png",
+      "owner": "Riot Games",
+      "purpose": "HUD portrait"
+    },
+    {
+      "id": "DA_Draven18",
+      "file": "public/assets/portraits/DA_Draven18.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_draven/tft18_draven_square.png",
+      "owner": "Riot Games",
+      "purpose": "HUD portrait"
+    },
+    {
+      "id": "DA_Fiddlesticks18",
+      "file": "public/assets/portraits/DA_Fiddlesticks18.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_fiddlesticks/tft18_fiddlesticks_square.png",
+      "owner": "Riot Games",
+      "purpose": "HUD portrait"
+    },
+    {
+      "id": "DA_Gromp18_AP",
+      "file": "public/assets/portraits/DA_Gromp18_AP.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_gromp/tft18_gromp_square.png",
+      "owner": "Riot Games",
+      "purpose": "HUD portrait"
+    },
+    {
+      "id": "DA_Karma18",
+      "file": "public/assets/portraits/DA_Karma18.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_karma/tft18_karma_square.png",
+      "owner": "Riot Games",
+      "purpose": "HUD portrait"
+    },
+    {
+      "id": "DA_KogMaw18_AD",
+      "file": "public/assets/portraits/DA_KogMaw18_AD.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_kogmaw/tft18_kogmaw_square.png",
+      "owner": "Riot Games",
+      "purpose": "HUD portrait"
+    },
+    {
+      "id": "DA_Krug18",
+      "file": "public/assets/portraits/DA_Krug18.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_krug/tft18_krug_square.png",
+      "owner": "Riot Games",
+      "purpose": "HUD portrait"
+    },
+    {
+      "id": "DA_Lux18_Base",
+      "file": "public/assets/portraits/DA_Lux18_Base.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_lux/tft18_lux_square.png",
+      "owner": "Riot Games",
+      "purpose": "HUD portrait"
+    },
+    {
+      "id": "DA_Lux18_Blackthorn",
+      "file": "public/assets/portraits/DA_Lux18_Blackthorn.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_lux/tft18_lux_blackthorn_square.png",
+      "owner": "Riot Games",
+      "purpose": "HUD portrait"
+    },
+    {
+      "id": "DA_Lux18_Blossom",
+      "file": "public/assets/portraits/DA_Lux18_Blossom.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_lux/tft18_lux_blossom_square.png",
+      "owner": "Riot Games",
+      "purpose": "HUD portrait"
+    },
+    {
+      "id": "DA_Murkwolf18",
+      "file": "public/assets/portraits/DA_Murkwolf18.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_murkwolf/tft18_murkwolf_square.png",
+      "owner": "Riot Games",
+      "purpose": "HUD portrait"
+    },
+    {
+      "id": "DA_Nidalee18_AP",
+      "file": "public/assets/portraits/DA_Nidalee18_AP.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_nidalee/tft18_nidalee_square.png",
+      "owner": "Riot Games",
+      "purpose": "HUD portrait"
+    },
+    {
+      "id": "DA_Scuttlecrab18",
+      "file": "public/assets/portraits/DA_Scuttlecrab18.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_scuttlecrab/tft18_scuttlecrab_square.png",
+      "owner": "Riot Games",
+      "purpose": "HUD portrait"
+    },
+    {
+      "id": "DA_Sentinel18",
+      "file": "public/assets/portraits/DA_Sentinel18.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_sentinel/tft18_sentinel_square.png",
+      "owner": "Riot Games",
+      "purpose": "HUD portrait"
+    },
+    {
+      "id": "DA_Taric18",
+      "file": "public/assets/portraits/DA_Taric18.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_taric/tft18_taric_square.png",
+      "owner": "Riot Games",
+      "purpose": "HUD portrait"
+    },
+    {
+      "id": "DA_Vi18",
+      "file": "public/assets/portraits/DA_Vi18.png",
+      "source": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_vi/tft18_vi_square.png",
+      "owner": "Riot Games",
+      "purpose": "HUD portrait"
+    }
+  ]
+}

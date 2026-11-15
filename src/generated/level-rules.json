@@ -1,0 +1,527 @@
+{
+  "set": 18,
+  "patch": "18.6",
+  "checkedAt": "2026-11-14",
+  "source": "https://raw.communitydragon.org/16.22/game/data/maps/shipping/map22/map22.bin.json",
+  "setPath": "Maps/Shipping/Map22/Sets/TFTSet18",
+  "tableKey": "{1ee21754}",
+  "sha256": "18d5b0eee7d5df60c268cc3c36177afad1e014e7fa8b5eccd99b2ecca986c8e2",
+  "odds": {
+    "1": [
+      100,
+      0,
+      0,
+      0,
+      0
+    ],
+    "2": [
+      100,
+      0,
+      0,
+      0,
+      0
+    ],
+    "3": [
+      75,
+      25,
+      0,
+      0,
+      0
+    ],
+    "4": [
+      55,
+      30,
+      15,
+      0,
+      0
+    ],
+    "5": [
+      45,
+      33,
+      20,
+      2,
+      0
+    ],
+    "6": [
+      30,
+      40,
+      25,
+      5,
+      0
+    ],
+    "7": [
+      19,
+      30,
+      40,
+      10,
+      1
+    ],
+    "8": [
+      15,
+      20,
+      32,
+      30,
+      3
+    ],
+    "9": [
+      10,
+      17,
+      25,
+      33,
+      15
+    ],
+    "10": [
+      5,
+      10,
+      20,
+      40,
+      25
+    ]
+  },
+  "units": {
+    "DA_18_Akali_AD": {
+      "damage": "ad",
+      "frontline": true,
+      "slots": 1,
+      "family": "DA_18_Akali_AD"
+    },
+    "DA_18_Camille": {
+      "damage": "ad",
+      "frontline": true,
+      "slots": 1,
+      "family": "DA_18_Camille"
+    },
+    "DA_18_Sentry": {
+      "damage": "ap",
+      "frontline": false,
+      "slots": 1,
+      "family": "DA_18_Sentry"
+    },
+    "DA_Karma18": {
+      "damage": "ap",
+      "frontline": false,
+      "slots": 1,
+      "family": "DA_Karma18"
+    },
+    "DA_18_Kobuko": {
+      "damage": "ap",
+      "frontline": true,
+      "slots": 1,
+      "family": "DA_18_Kobuko"
+    },
+    "DA_18_Leona": {
+      "damage": "ap",
+      "frontline": true,
+      "slots": 1,
+      "family": "DA_18_Leona"
+    },
+    "DA_18_Ornn": {
+      "damage": "ap",
+      "frontline": true,
+      "slots": 1,
+      "family": "DA_18_Ornn"
+    },
+    "DA_18_Rakan": {
+      "damage": "utility",
+      "frontline": true,
+      "slots": 1,
+      "family": "DA_18_Rakan"
+    },
+    "DA_18_RekSai": {
+      "damage": "ap",
+      "frontline": true,
+      "slots": 1,
+      "family": "DA_18_RekSai"
+    },
+    "DA_Cinderling18": {
+      "damage": "ad",
+      "frontline": false,
+      "slots": 1,
+      "family": "DA_Cinderling18"
+    },
+    "DA_18_Varus": {
+      "damage": "ad",
+      "frontline": false,
+      "slots": 1,
+      "family": "DA_18_Varus"
+    },
+    "DA_18_Veigar": {
+      "damage": "ap",
+      "frontline": false,
+      "slots": 1,
+      "family": "DA_18_Veigar"
+    },
+    "DA_18_Xayah": {
+      "damage": "ad",
+      "frontline": false,
+      "slots": 1,
+      "family": "DA_18_Xayah"
+    },
+    "DA_18_Yorick": {
+      "damage": "ad",
+      "frontline": true,
+      "slots": 1,
+      "family": "DA_18_Yorick"
+    },
+    "DA_18_Alistar": {
+      "damage": "ap",
+      "frontline": true,
+      "slots": 1,
+      "family": "DA_18_Alistar"
+    },
+    "DA_Scuttlecrab18": {
+      "damage": "ad",
+      "frontline": true,
+      "slots": 1,
+      "family": "DA_Scuttlecrab18"
+    },
+    "DA_18_Caitlyn": {
+      "damage": "ad",
+      "frontline": false,
+      "slots": 1,
+      "family": "DA_18_Caitlyn"
+    },
+    "DA_18_Elise": {
+      "damage": "ap",
+      "frontline": true,
+      "slots": 1,
+      "family": "DA_18_Elise"
+    },
+    "DA_Gromp18_AP": {
+      "damage": "ap",
+      "frontline": false,
+      "slots": 1,
+      "family": "DA_Gromp18_AP"
+    },
+    "DA_18_Kayle": {
+      "damage": "ap",
+      "frontline": false,
+      "slots": 1,
+      "family": "DA_18_Kayle"
+    },
+    "DA_18_LeBlanc": {
+      "damage": "ap",
+      "frontline": false,
+      "slots": 1,
+      "family": "DA_18_LeBlanc"
+    },
+    "DA_Murkwolf18": {
+      "damage": "ad",
+      "frontline": true,
+      "slots": 1,
+      "family": "DA_Murkwolf18"
+    },
+    "DA_18_Sejuani": {
+      "damage": "ap",
+      "frontline": true,
+      "slots": 1,
+      "family": "DA_18_Sejuani"
+    },
+    "DA_18_Shen": {
+      "damage": "ap",
+      "frontline": true,
+      "slots": 1,
+      "family": "DA_18_Shen"
+    },
+    "DA_18_Teemo": {
+      "damage": "ap",
+      "frontline": false,
+      "slots": 1,
+      "family": "DA_18_Teemo"
+    },
+    "DA_18_Warwick": {
+      "damage": "ad",
+      "frontline": true,
+      "slots": 1,
+      "family": "DA_18_Warwick"
+    },
+    "DA_18_Yunara": {
+      "damage": "ad",
+      "frontline": false,
+      "slots": 1,
+      "family": "DA_18_Yunara"
+    },
+    "DA_18_Azir": {
+      "damage": "ap",
+      "frontline": false,
+      "slots": 1,
+      "family": "DA_18_Azir"
+    },
+    "DA_18_Cassiopeia": {
+      "damage": "ap",
+      "frontline": false,
+      "slots": 1,
+      "family": "DA_18_Cassiopeia"
+    },
+    "DA_18_Diana": {
+      "damage": "ap",
+      "frontline": true,
+      "slots": 1,
+      "family": "DA_18_Diana"
+    },
+    "DA_Fiddlesticks18": {
+      "damage": "ap",
+      "frontline": true,
+      "slots": 1,
+      "family": "DA_Fiddlesticks18"
+    },
+    "DA_18_Hecarim": {
+      "damage": "ap",
+      "frontline": true,
+      "slots": 1,
+      "family": "DA_18_Hecarim"
+    },
+    "DA_18_KhaZix": {
+      "damage": "ap",
+      "frontline": true,
+      "slots": 1,
+      "family": "DA_18_KhaZix"
+    },
+    "DA_KogMaw18_AD": {
+      "damage": "ad",
+      "frontline": false,
+      "slots": 1,
+      "family": "DA_KogMaw18_AD"
+    },
+    "DA_Krug18": {
+      "damage": "utility",
+      "frontline": true,
+      "slots": 1,
+      "family": "DA_Krug18"
+    },
+    "DA_CrimsonRaptor18": {
+      "damage": "ad",
+      "frontline": false,
+      "slots": 1,
+      "family": "DA_CrimsonRaptor18"
+    },
+    "DA_18_MasterYi_AD": {
+      "damage": "utility",
+      "frontline": true,
+      "slots": 1,
+      "family": "DA_18_MasterYi_AD"
+    },
+    "DA_18_Rammus": {
+      "damage": "ad",
+      "frontline": true,
+      "slots": 1,
+      "family": "DA_18_Rammus"
+    },
+    "DA_18_Rengar": {
+      "damage": "ad",
+      "frontline": true,
+      "slots": 1,
+      "family": "DA_18_Rengar"
+    },
+    "DA_18_Tristana": {
+      "damage": "ad",
+      "frontline": false,
+      "slots": 1,
+      "family": "DA_18_Tristana"
+    },
+    "DA_Vi18": {
+      "damage": "utility",
+      "frontline": true,
+      "slots": 1,
+      "family": "DA_Vi18"
+    },
+    "DA_18_Ahri": {
+      "damage": "ap",
+      "frontline": false,
+      "slots": 1,
+      "family": "DA_18_Ahri"
+    },
+    "DA_Amumu18": {
+      "damage": "ap",
+      "frontline": true,
+      "slots": 1,
+      "family": "DA_Amumu18"
+    },
+    "DA_18_Aphelios": {
+      "damage": "ad",
+      "frontline": false,
+      "slots": 1,
+      "family": "DA_18_Aphelios"
+    },
+    "DA_Sentinel18": {
+      "damage": "ap",
+      "frontline": true,
+      "slots": 1,
+      "family": "DA_Sentinel18"
+    },
+    "DA_18_Ezreal": {
+      "damage": "ad",
+      "frontline": false,
+      "slots": 1,
+      "family": "DA_18_Ezreal"
+    },
+    "DA_18_Lillia": {
+      "damage": "ap",
+      "frontline": true,
+      "slots": 1,
+      "family": "DA_18_Lillia"
+    },
+    "DA_18_Malphite": {
+      "damage": "ap",
+      "frontline": true,
+      "slots": 1,
+      "family": "DA_18_Malphite"
+    },
+    "DA_18_Morgana": {
+      "damage": "ap",
+      "frontline": true,
+      "slots": 1,
+      "family": "DA_18_Morgana"
+    },
+    "DA_Nidalee18_AP": {
+      "damage": "ap",
+      "frontline": false,
+      "slots": 1,
+      "family": "DA_Nidalee18_AP"
+    },
+    "DA_Brambleback18": {
+      "damage": "ad",
+      "frontline": true,
+      "slots": 1,
+      "family": "DA_Brambleback18"
+    },
+    "DA_18_Sett": {
+      "damage": "ad",
+      "frontline": true,
+      "slots": 1,
+      "family": "DA_18_Sett"
+    },
+    "DA_18_Sivir": {
+      "damage": "ad",
+      "frontline": false,
+      "slots": 1,
+      "family": "DA_18_Sivir"
+    },
+    "DA_18_Soraka": {
+      "damage": "ap",
+      "frontline": false,
+      "slots": 1,
+      "family": "DA_18_Soraka"
+    },
+    "DA_18_Zyra": {
+      "damage": "ap",
+      "frontline": false,
+      "slots": 1,
+      "family": "DA_18_Zyra"
+    },
+    "DA_18_Alune": {
+      "damage": "ap",
+      "frontline": false,
+      "slots": 1,
+      "family": "DA_18_Alune"
+    },
+    "DA_18_Ashe": {
+      "damage": "ad",
+      "frontline": false,
+      "slots": 1,
+      "family": "DA_18_Ashe"
+    },
+    "DA_18_ElderDragon": {
+      "damage": "ad",
+      "frontline": true,
+      "slots": 2,
+      "family": "DA_18_ElderDragon"
+    },
+    "DA_Draven18": {
+      "damage": "ad",
+      "frontline": false,
+      "slots": 1,
+      "family": "DA_Draven18"
+    },
+    "DA_18_GnarSmall": {
+      "damage": "ad",
+      "frontline": true,
+      "slots": 1,
+      "family": "DA_18_GnarSmall"
+    },
+    "DA_18_Ivern": {
+      "damage": "ap",
+      "frontline": false,
+      "slots": 1,
+      "family": "DA_18_Ivern"
+    },
+    "DA_18_Kennen": {
+      "damage": "ap",
+      "frontline": true,
+      "slots": 1,
+      "family": "DA_18_Kennen"
+    },
+    "DA_Lux18_Base": {
+      "damage": "ap",
+      "frontline": false,
+      "slots": 1,
+      "family": "Lux"
+    },
+    "DA_18_Lux_Coven": {
+      "damage": "ap",
+      "frontline": false,
+      "slots": 1,
+      "family": "Lux"
+    },
+    "DA_Lux18_Blackthorn": {
+      "damage": "ap",
+      "frontline": false,
+      "slots": 1,
+      "family": "Lux"
+    },
+    "DA_18_Lux_Fae": {
+      "damage": "ap",
+      "frontline": false,
+      "slots": 1,
+      "family": "Lux"
+    },
+    "DA_Lux18_Blossom": {
+      "damage": "ap",
+      "frontline": false,
+      "slots": 1,
+      "family": "Lux"
+    },
+    "DA_18_Lux_Inferno": {
+      "damage": "ap",
+      "frontline": false,
+      "slots": 1,
+      "family": "Lux"
+    },
+    "DA_18_Lux_Moonbeam": {
+      "damage": "ap",
+      "frontline": false,
+      "slots": 1,
+      "family": "Lux"
+    },
+    "DA_18_Lux_Primal": {
+      "damage": "ap",
+      "frontline": false,
+      "slots": 1,
+      "family": "Lux"
+    },
+    "DA_18_Lux_Elderwood": {
+      "damage": "ap",
+      "frontline": false,
+      "slots": 1,
+      "family": "Lux"
+    },
+    "DA_18_Lux_Sunbeam": {
+      "damage": "ap",
+      "frontline": false,
+      "slots": 1,
+      "family": "Lux"
+    },
+    "DA_18_Maokai": {
+      "damage": "ap",
+      "frontline": true,
+      "slots": 1,
+      "family": "DA_18_Maokai"
+    },
+    "DA_Taric18": {
+      "damage": "ap",
+      "frontline": true,
+      "slots": 1,
+      "family": "DA_Taric18"
+    }
+  }
+}

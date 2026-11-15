@@ -1,0 +1,251 @@
+/* 0.15.1: tactile controls and a composition dock. Unit/hex geometry is unchanged. */
+:is(.zyon-reimagined,.game-guide) button {
+  -webkit-tap-highlight-color:transparent;
+  transition:background .18s,border-color .18s,color .18s,box-shadow .18s,transform .15s;
+}
+:is(.zyon-reimagined,.game-guide) button:not(:disabled):active {transform:translateY(1px) scale(.98);}
+:is(.zyon-reimagined,.game-guide) button:disabled {opacity:.38;cursor:default;}
+.workspace-v4.zyon-reimagined .sidebar {
+  width:216px;padding:22px 16px 16px;background:#090e17;overflow-y:auto;scrollbar-width:thin;
+}
+.workspace-v4.zyon-reimagined .sidebar>* {flex-shrink:0;}
+.workspace-v4.zyon-reimagined .brand {margin-bottom:18px;}
+.workspace-v4.zyon-reimagined .sidebar-set {margin-bottom:20px;padding:10px;background:#101824;border:0;border-radius:12px;}
+.workspace-v4.zyon-reimagined .nav-group-label {color:#8292aa;letter-spacing:0;font-size:10px;margin-bottom:8px;}
+.workspace-v4.zyon-reimagined .sidebar nav {gap:7px;}
+.workspace-v4.zyon-reimagined .sidebar nav button {height:48px;border:1px solid transparent;border-radius:13px;font-size:12px;gap:12px;}
+.workspace-v4.zyon-reimagined .sidebar nav button svg {color:#8e9cb2;}
+.workspace-v4.zyon-reimagined .sidebar nav button.nav-active {
+  background:linear-gradient(110deg,#29466f,#1c2d47);border-color:#3e5e89;color:#e5efff;
+  box-shadow:inset 0 1px #b8d5ff16,0 5px 13px #0003;
+}
+.workspace-v4.zyon-reimagined .sidebar nav button.nav-active::before {display:block;left:-17px;top:14px;bottom:14px;width:3px;border-radius:0 3px 3px 0;background:#9dc0ff;}
+.workspace-v4.zyon-reimagined .sidebar nav button.nav-active svg {color:#c6dcff;}
+.workspace-v4.zyon-reimagined .sidebar nav button:hover:not(.nav-active) {background:#152033;border-color:#27384f;}
+.workspace-v4.zyon-reimagined .sidebar .sidebar-comp {
+  margin:24px 0 0;flex:1 0 auto;display:flex;flex-direction:column;
+  border:1px solid #293b55;border-radius:16px;background:#0c1422;overflow:hidden;min-height:244px;
+}
+.sidebar-comp-cover {position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:stretch;flex-shrink:0;width:100%;height:auto;min-height:0;padding:0;background:#0c1422;text-align:left;}
+.sidebar-comp-art-frame {position:relative;width:100%;flex-shrink:0;}
+.sidebar-comp-art-frame::after {content:"";position:absolute;inset:auto 0 0;height:30px;max-height:40%;background:linear-gradient(0deg,#0c1422 0%,#0c1422b8 32%,#0c142240 68%,#0c142200 100%);pointer-events:none;}
+.sidebar-comp-art {display:block;width:100%;height:auto;max-height:none;object-fit:contain;object-position:center;pointer-events:none;}
+.sidebar-comp-compact-art {display:none;}
+.sidebar-comp-copy {display:grid;gap:4px;padding:9px 12px 12px;}
+.sidebar-comp-cover .sidebar-comp-label {display:flex;gap:4px;align-items:center;color:#c6d9f8;font-size:9px;}
+.sidebar-comp-label .zyon-mark {width:18px;height:18px;}
+.sidebar-comp-cover strong {font:800 14px/1.35 Manrope,sans-serif;letter-spacing:-.3px;color:#edf3fc;text-wrap:balance;}
+.sidebar-comp-cover small {font-size:10px;color:#a6bbda;margin-top:1px;}
+.sidebar-comp-cover:hover {filter:brightness(1.13);}
+.sidebar-comp-roster {display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px;padding:5px 12px 14px;}
+.sidebar-comp-roster img {width:100%;aspect-ratio:1;object-fit:cover;border-radius:7px;border-width:1px;}
+.sidebar-comp-links {display:grid;gap:4px;padding:0 7px 10px;}
+.sidebar-comp-links button,.sidebar-game-action {display:flex;align-items:center;gap:8px;text-align:left;color:#b6c8e4;padding:8px 6px;font-size:10px;border-radius:8px;}
+.sidebar-comp-links button>span,.sidebar-game-action>span {flex:1;}
+.sidebar-comp-links button:hover {background:#20314b;color:#eff5ff;}
+.workspace-v4.zyon-reimagined .sidebar .sidebar-game-action {margin-top:auto;border-top:1px solid #283a54;border-radius:0;padding:12px;color:#c4d8fa;background:#17253b;font-weight:700;}
+.sidebar-comp-empty {padding:20px 15px;display:grid;gap:12px;align-content:center;flex:1;}
+.sidebar-comp-empty strong {font-size:13px;}.sidebar-comp-empty p{font-size:10px;color:#8c9db7;line-height:1.7;}
+.workspace-v4.zyon-reimagined .sidebar-bottom {margin-top:16px;padding-top:8px;}
+.workspace-v4.zyon-reimagined .sidebar-bottom>button {min-height:35px;height:35px;border-radius:9px;font-size:10px;}
+.workspace-v4.zyon-reimagined .sidebar-profile {padding-top:11px;margin-top:10px;}
+
+/* Buttons: a blue face for commitment, dark metal for secondary actions. */
+.workspace-v4.zyon-reimagined :is(.workspace-actions button,.spotlight-actions button,.primary-action,.secondary-action,.shopping-planner) {
+  position:relative;border-radius:12px;min-height:42px;padding:11px 16px;font-size:12px;font-weight:700;
+  border:1px solid #435571;background:linear-gradient(#202d41,#152033);color:#d6e5fc;
+  box-shadow:inset 0 1px #c5d9ff12,0 3px 0 #05080e,0 5px 13px #0002;
+}
+.workspace-v4.zyon-reimagined :is(.workspace-actions .overlay-toggle,.spotlight-actions .spotlight-primary,.primary-action,.shopping-tools .secondary-action) {
+  background:linear-gradient(125deg,#b6d2ff 0%,#91b8f8 48%,#729ce2 100%);border:1px solid #b9d6ff;color:#0c203e;
+  box-shadow:inset 0 1px #eff7ff99,inset 0 -2px #335f9c45,0 3px 0 #273e61,0 6px 15px #0004;
+}
+.workspace-v4.zyon-reimagined :is(.workspace-actions .overlay-toggle,.spotlight-actions .spotlight-primary,.primary-action,.shopping-tools .secondary-action):hover {filter:brightness(1.08);box-shadow:inset 0 1px #fff8,0 3px 0 #304e79,0 7px 22px #6397e52b;transform:translateY(-1px);}
+.workspace-v4.zyon-reimagined :is(.spotlight-actions .spotlight-selected,.workspace-actions .overlay-toggle.is-on) {background:linear-gradient(#233956,#182b46);border-color:#637fa9;color:#d1e4ff;}
+.workspace-v4.zyon-reimagined .spotlight-actions {gap:12px;margin-top:18px;}
+.workspace-v4.zyon-reimagined .spotlight-actions .zyon-mark {width:24px;height:24px;}
+.workspace-v4.zyon-reimagined .comp-spotlight {border-radius:20px;border-color:#3b4e69;box-shadow:inset 0 1px #d9e6ff0d,0 12px 30px #0002;}
+.workspace-v4.zyon-reimagined .spotlight-copy {padding:26px;}
+.workspace-v4.zyon-reimagined .spotlight-copy h2 {margin-block:12px;font-size:clamp(26px,2.2vw,36px);}
+.workspace-v4.zyon-reimagined .spotlight-art {transition:transform .7s cubic-bezier(.2,.7,.2,1);}
+.workspace-v4.zyon-reimagined .comp-spotlight:hover .spotlight-art {transform:scale(1.025);}
+.workspace-v4.zyon-reimagined .preparation-flow {border:0;background:#0e1623;border-radius:13px;padding:7px 9px;gap:7px;}
+.workspace-v4.zyon-reimagined .preparation-flow>button {padding:9px 12px;border-radius:9px;font-weight:650;}
+.workspace-v4.zyon-reimagined .preparation-flow>button.active {background:#263b5b;color:#d8e8ff;box-shadow:inset 0 1px #c9dfff17;}
+.workspace-v4.zyon-reimagined .library-tabs {border-bottom:0;gap:5px;background:#0e1520;border:1px solid #28354b;padding:5px;border-radius:12px;margin-top:6px;}
+.workspace-v4.zyon-reimagined .library-tabs button {border:0;border-radius:8px;padding:10px 14px;font-size:12px;}
+.workspace-v4.zyon-reimagined .library-tabs button::after {display:none;}
+.workspace-v4.zyon-reimagined .library-tabs button.active {background:#253853;color:#e7f0ff;box-shadow:inset 0 1px #d6e5ff18,0 2px 6px #0004;}
+.workspace-v4.zyon-reimagined .search-field {min-height:44px;border-radius:12px;background:#0f1622;border-color:#2e3f58;}
+.workspace-v4.zyon-reimagined select {min-height:42px;border-radius:10px;background:#111c2b;border-color:#354863;}
+.workspace-v4.zyon-reimagined .tier-section-cards .comp-row {border-radius:17px;border-color:#2e3b50;background:#0e1520;box-shadow:inset 0 1px #cbdcfa08,0 5px 16px #0002;}
+.workspace-v4.zyon-reimagined .tier-section-cards .comp-row:hover {border-color:#59749e;}
+.workspace-v4.zyon-reimagined .tier-section-cards .comp-row.row-active {border-color:#789dd7;box-shadow:inset 3px 0 #9cbfff,0 5px 16px #0002;}
+.workspace-v4.zyon-reimagined .tier-section-cards .comp-row h3 {font-size:17px;letter-spacing:-.4px;}
+.workspace-v4.zyon-reimagined .tier-section-cards .row-splash {opacity:.48;}
+.workspace-v4.zyon-reimagined .tier-section-cards .row-controls {grid-template-columns:42px 34px;gap:8px;}
+.workspace-v4.zyon-reimagined .tier-section-cards .row-controls .row-pin {width:42px;height:42px;border-radius:14px;background:linear-gradient(145deg,#344967,#162236);border:1px solid #5d7394;box-shadow:none;}
+.workspace-v4.zyon-reimagined .tier-section-cards .row-controls .row-pin.row-pinned {background:linear-gradient(140deg,#6697dc,#304f80);border-color:#a0c4ff;box-shadow:none;}
+.workspace-v4.zyon-reimagined .tier-section-cards .row-controls .row-expand {width:34px;height:34px;border-radius:50%;border:1px solid #3c4b62;background:#1d293b;}
+.workspace-v4.zyon-reimagined .tier-section-cards .row-controls .row-expand:hover {background:#304666;border-color:#819fc8;}
+.workspace-v4.zyon-reimagined .detail-toolbar {display:flex;align-items:center;flex-wrap:wrap;gap:8px;padding:6px;margin:16px 0;border-radius:12px;background:#0e1725;}
+.workspace-v4.zyon-reimagined .detail-tabs {flex:1 1 520px;min-width:0;gap:5px;border:0;background:transparent;padding:0;border-radius:0;margin:0;height:auto;overflow:visible;flex-wrap:wrap;}
+.workspace-v4.zyon-reimagined .detail-tabs button {height:auto;flex:0 0 auto;padding:9px 12px;min-height:39px;border:0;border-radius:8px;font-size:11px;}
+.workspace-v4.zyon-reimagined .detail-tabs button.tab-active {background:#2a3e5d;color:#e0edff;box-shadow:inset 0 1px #cae0ff1c;}
+.workspace-v4.zyon-reimagined .detail-tabs button::after {display:none;}
+.workspace-v4.zyon-reimagined .detail-toolbar>.detail-planner {display:inline-flex;align-items:center;justify-content:center;gap:8px;flex:0 0 auto;min-height:40px;margin-left:auto;padding:10px 14px;border:1px solid #b6d0f6;border-radius:9px;background:linear-gradient(115deg,#b7d2fb,#87aceb);color:#102644;font-size:11px;font-weight:800;white-space:nowrap;transition:background-color .15s,border-color .15s,transform .15s;}
+.workspace-v4.zyon-reimagined .detail-toolbar>.detail-planner:hover {background:#c1d9ff;border-color:#e1edff;transform:translateY(-1px);}
+.workspace-v4.zyon-reimagined .detail-toolbar>.detail-planner:focus-visible {outline:2px solid #c6ddff;outline-offset:3px;}
+@media(prefers-reduced-motion:reduce){.workspace-v4.zyon-reimagined .detail-toolbar>.detail-planner{transition:none;}.workspace-v4.zyon-reimagined .detail-toolbar>.detail-planner:hover{transform:none;}}
+:is(.zyon-reimagined,.game-guide) .pivot-builds button {border-radius:10px;background:#162237;border-color:#344c6c;color:#9fb6da;padding:9px 13px;}
+:is(.zyon-reimagined,.game-guide) .pivot-builds button[aria-pressed="true"] {background:#2b466f;color:#e5f0ff;border-color:#8eafde;box-shadow:inset 0 1px #cee3ff24;}
+:is(.zyon-reimagined,.game-guide) .pivot-levels {background:#0d1624;border-color:#2e425f;padding:6px;border-radius:14px;gap:5px;}
+:is(.zyon-reimagined,.game-guide) .pivot-levels button {border-radius:9px;padding:10px 7px;font:700 13px Manrope,sans-serif;}
+:is(.zyon-reimagined,.game-guide) .pivot-levels button[aria-pressed="true"] {background:linear-gradient(#a8c8ff,#739ee1);color:#11223c;box-shadow:inset 0 1px #ffffff70,0 2px 0 #345481;}
+
+/* Connected level rail. Only this cursor moves, and only after a choice. */
+.level-navigator {border:1px solid #344966;border-radius:16px;background:#101c2d;padding:14px 12px 10px;margin:14px 0 16px;}
+.level-rail-heading {display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px;}
+.level-rail-heading>div:first-child>span {display:block;color:#91a5c3;font-size:10px;margin-bottom:3px;}
+.level-rail-heading strong {display:flex;align-items:center;gap:10px;font:800 30px/1.1 Manrope,sans-serif;color:#e7f1ff;animation:rail-value .2s ease-out;}
+.level-rail-heading strong small {font:600 10px/1.4 Manrope,sans-serif;color:#aac6ef;max-width:145px;}
+.level-rail-arrows {display:flex;gap:5px;}
+:is(.zyon-reimagined,.game-guide.game-wide) .level-rail-arrows button {display:grid;place-items:center;width:29px;height:29px;min-height:0;padding:0;border:1px solid #3b5374;border-radius:50%;background:#203450;color:#c8ddfc;}
+:is(.zyon-reimagined,.game-guide.game-wide) .level-rail-arrows button:hover:not(:disabled) {background:#38567e;}
+:is(.zyon-reimagined,.game-guide.game-wide) .level-navigator .level-rail-track {position:relative;isolation:isolate;display:grid;grid-template-columns:repeat(var(--rail-count),minmax(0,1fr));gap:0;padding:3px 0;margin:0;border:0;border-radius:13px;background:#09111e;overflow:visible;min-height:49px;}
+.level-rail-track::before {content:"";position:absolute;left:5%;right:5%;top:50%;height:1px;background:#2d425f;z-index:-1;}
+.level-rail-track::after {content:"";position:absolute;top:4px;bottom:4px;left:calc(var(--rail-index)*100%/var(--rail-count) + 3px);width:calc(100%/var(--rail-count) - 6px);background:linear-gradient(145deg,#b6d4ff,#779fe5);border:1px solid #c1daff;border-radius:11px;opacity:var(--rail-visible);z-index:-1;box-shadow:inset 0 1px #fff8,0 2px 0 #2c466d,0 3px 10px #0004;transition:left .26s cubic-bezier(.2,.8,.2,1),opacity .18s;}
+:is(.zyon-reimagined,.game-guide.game-wide) .level-navigator .level-rail-track button {position:relative;display:grid;place-items:center;min-width:0;min-height:43px;width:100%;height:43px;padding:0;border:0;border-radius:11px;background:transparent;color:#8fa7ca;box-shadow:none;gap:0;font:700 14px Manrope,sans-serif;}
+:is(.zyon-reimagined,.game-guide.game-wide) .level-navigator .level-rail-track button b {display:grid;place-items:center;font:inherit;min-width:23px;height:25px;border-radius:50%;background:#09111e;transition:font-size .18s,color .18s,background .18s;}
+:is(.zyon-reimagined,.game-guide.game-wide) .level-navigator .level-rail-track button[aria-pressed="true"] {color:#10274a;background:transparent;border:0;}
+:is(.zyon-reimagined,.game-guide.game-wide) .level-navigator .level-rail-track button[aria-pressed="true"] b {font-size:20px;font-weight:800;background:transparent;}
+:is(.zyon-reimagined,.game-guide.game-wide) .level-navigator .level-rail-track button:hover:not([aria-pressed="true"]) b {color:#eff5ff;background:#263e60;}
+.level-rail-track button>svg {position:absolute;right:5px;top:5px;color:#bad2f8;}
+.level-rail-track button[aria-pressed="true"]>svg {color:#18375e;}
+:is(.zyon-reimagined,.game-guide.game-wide) .level-navigator .level-rail-track button[data-live]::after {content:"";position:absolute;left:calc(50% - 2px);bottom:4px;width:4px;height:4px;background:#bdd5ff;border-radius:50%;box-shadow:0 0 0 2px #0a1424;}
+:is(.zyon-reimagined,.game-guide.game-wide) .level-navigator .level-rail-track button[data-live][aria-pressed="true"]::after {background:#142e52;box-shadow:none;}
+.level-rail-legend {display:flex;justify-content:space-between;color:#7187a8;font-size:9px;padding:7px 5px 0;}
+.level-rail-legend span:nth-child(2) {text-align:center;}
+.level-rail-live {display:flex;align-items:center;gap:5px;color:#a3bfe9;font-size:9px;margin-top:10px;line-height:1.5;}
+.level-rail-live>span {margin-left:auto;color:#6f84a3;font-size:8px;}
+
+/* The preparation notebook on the right has content with a next action. */
+.workspace-v4.zyon-reimagined .workspace-content {grid-template-columns:minmax(0,1fr) 304px;gap:28px;padding-right:32px;}
+.workspace-v4.zyon-reimagined .plan-aside {padding:0 14px 20px 2px;scrollbar-gutter:stable;}
+.workspace-v4.zyon-reimagined .aside-title {margin-bottom:14px;}
+.workspace-v4.zyon-reimagined .aside-title h2 {font-size:14px;letter-spacing:-.3px;}
+.workspace-v4.zyon-reimagined .aside-carry {min-height:174px;border-radius:18px 18px 0 0;border-color:#3b4e6b;}
+.workspace-v4.zyon-reimagined .aside-carry strong {font-size:19px;text-wrap:balance;}
+.workspace-v4.zyon-reimagined .plan-shortcuts {grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;border-color:#3b4e6b;padding:10px;background:#111c2d;}
+.workspace-v4.zyon-reimagined .plan-shortcuts button {flex-direction:column;justify-content:center;text-align:center;gap:7px;background:#1b2c45;border:1px solid #324a6b;border-radius:11px;padding:12px 3px;color:#b9d2f7;min-width:0;}
+.workspace-v4.zyon-reimagined .plan-shortcuts button>svg:last-child,.plan-shortcuts small {display:none;}
+.workspace-v4.zyon-reimagined .plan-shortcuts button>span {font-size:9px;flex:0;}
+.workspace-v4.zyon-reimagined .plan-shortcuts button:hover {background:#2c456a;color:#fff;transform:translateY(-2px);border-color:#7898c6;}
+.workspace-v4.zyon-reimagined .shopping-tools {padding:14px;border-radius:0 0 18px 18px;background:#101a29;border-color:#3b4e6b;margin-bottom:16px;}
+.workspace-v4.zyon-reimagined .shopping-tools .secondary-action {width:100%;min-height:43px;border-radius:11px;}
+.workspace-v4.zyon-reimagined .shopping-tool-links {margin-top:12px;}
+.aside-playbook {margin-bottom:18px;}
+.aside-opening {display:block;width:100%;text-align:left;padding:15px;border:1px solid #304561;border-radius:15px;background:#101c2e;margin-bottom:16px;}
+.aside-opening>div:first-child {display:flex;justify-content:space-between;align-items:center;color:#9fbde9;font-size:10px;font-weight:700;}
+.aside-opening>strong {display:block;color:#d5e3f9;font-size:12px;line-height:1.5;margin-top:6px;}
+.aside-opening-faces {display:flex;gap:7px;margin:12px 0 10px;flex-wrap:wrap;}
+.aside-opening-faces img {width:35px;height:35px;object-fit:cover;border-width:1px;border-radius:9px;}
+.aside-opening>small {color:#788fac;font-size:9px;}
+.aside-opening:hover {background:#17283f;border-color:#6484b2;}
+.aside-item-holders h3 {font-size:12px;margin:0 0 10px;color:#c7d8f2;}
+.aside-item-holders>button {display:flex;width:100%;gap:10px;align-items:center;padding:10px 3px;text-align:left;border-bottom:1px solid #26354a;color:#899fbf;}
+.aside-item-holders>button>img {width:38px;height:38px;object-fit:cover;border-radius:10px;border-width:1px;}
+.aside-item-holders>button>span {flex:1;min-width:0;}
+.aside-item-holders strong {display:block;color:#d2e0f4;font-size:11px;}
+.aside-item-holders small {display:block;color:#7f94b2;font-size:9px;margin:3px 0 5px;}
+.aside-item-holders .equipment {--item-size:19px;gap:3px;}
+.aside-item-holders>button:hover {background:#152239;border-radius:9px;}
+.workspace-v4.zyon-reimagined .preparation-checklist {background:#101925;border-radius:13px;padding:13px;border-color:#2c3f58;}
+
+/* Game controls use the same material without covering more of the board. */
+.game-guide.game-wide {border-radius:16px;border-color:#506b92;box-shadow:0 10px 30px #0007,inset 0 1px #c5dcff19;}
+.game-guide.game-wide .game-heading-controls button {border-radius:10px;background:linear-gradient(#2c3e59,#19263b);border-color:#506889;box-shadow:inset 0 1px #c9e0ff1b,0 2px 0 #080e18;}
+.game-guide.game-wide .game-tabs {gap:5px;padding:8px 14px;background:#0e1828;border-color:#304563;}
+.game-guide.game-wide .game-tabs button {border:1px solid transparent;min-width:86px;border-radius:11px;padding:10px 12px;font-size:11px;}
+.game-guide.game-wide .game-tabs button[aria-selected="true"] {background:linear-gradient(#35517b,#223b61);border-color:#7494c2;color:#e2efff;box-shadow:inset 0 1px #cce1ff28,0 2px 4px #0003;}
+.game-guide.game-wide .game-tabs button:hover:not([aria-selected="true"]) {background:#1d2e48;color:#d3e4ff;}
+.game-guide.game-wide .game-subtabs {background:#091221;border-color:#2e4464;border-radius:12px;gap:5px;padding:5px;}
+.game-guide.game-wide .game-subtabs button {padding:9px 12px;min-height:36px;border-radius:8px;color:#8ca3c4;font-weight:650;}
+.game-guide.game-wide .game-subtabs button[aria-pressed="true"] {background:linear-gradient(#2f4b73,#203758);border-radius:8px;color:#deedff;box-shadow:inset 0 1px #c6ddff25;}
+.game-guide.game-wide .game-decision {padding:18px;border-radius:15px;background:linear-gradient(125deg,#1b2e49,#111c2d);border-color:#44638d;border-left:3px solid #a2c6ff;}
+.game-guide.game-wide .game-decision h2 {font-size:21px;}
+.game-guide.game-wide .game-priority {padding:12px 8px;border-radius:11px;border:1px solid #293d59;background:#101d2e;margin-bottom:7px;}
+.game-guide.game-wide .game-priority>img {border-radius:10px;}
+.game-guide.game-wide .game-text-action {display:inline-flex;align-items:center;gap:6px;background:#1a2b44;border:1px solid #385174;border-radius:9px;padding:9px 12px;color:#c6dcfb;font-size:10px;}
+.game-guide.game-wide .game-team-info h3 {color:#c9dcf9;}
+.game-guide.game-wide .game-transition {background:#111e30;border:1px solid #2e4667;border-radius:13px;padding:14px;}
+.game-guide.game-wide .game-transition>p>b {color:#a1c1f0;}
+.game-guide.game-wide .game-unit {border-radius:11px;padding:7px 3px;background:#111d30;border:1px solid #263b59;}
+.game-guide.game-wide .game-footer button {border-radius:7px;padding:5px 8px;background:#1b2d48;}
+:is(.zyon-reimagined,.game-guide) .pivot-augment-list>div {border-radius:15px;background:linear-gradient(135deg,#1a283f,#0f1929);border-color:#3a4e70;box-shadow:inset 0 1px #d6e6ff0e;}
+:is(.zyon-reimagined,.game-guide) .pivot-augment-list img {border-radius:12px;background:#263956;}
+:is(.zyon-reimagined,.game-guide) .pivot-augment-list>div>b {border-radius:9px;background:#30486a;color:#d0e4ff;}
+@keyframes rail-value {from{opacity:.4;transform:translateY(3px);}to{opacity:1;transform:translateY(0);}}
+.workspace-v4.zyon-reimagined :is(.planner-topline .pin-button,.planner-actions button,.settings-panel .primary-button,.settings-panel .text-button,.database-comp-focus>button,.data-table button,.data-grid button) {border-radius:10px;background:linear-gradient(#263a56,#17263b);border:1px solid #49638a;color:#c8ddfb;min-height:35px;padding:8px 11px;font-size:11px;box-shadow:inset 0 1px #d8e8ff12,0 2px 0 #050b14;}
+.workspace-v4.zyon-reimagined :is(.planner-topline .pin-button.pinned,.settings-panel .primary-button,.database-comp-focus>button[aria-pressed="true"]) {background:linear-gradient(#a9caff,#759fe5);color:#122a4a;border-color:#b1cefb;box-shadow:inset 0 1px #ffffff60,0 2px 0 #2a456e;}
+.workspace-v4.zyon-reimagined :is(.database-tabs,.pool-tabs) {background:#101b2b;border:1px solid #304562;border-radius:12px;padding:5px;gap:5px;}
+.workspace-v4.zyon-reimagined :is(.database-tabs,.pool-tabs) button {border-radius:8px;border:0;padding:10px 13px;color:#8fa9d0;font-weight:650;}
+.workspace-v4.zyon-reimagined :is(.database-tabs,.pool-tabs) button.active {border:0;background:#2a4265;color:#e4f0ff;box-shadow:inset 0 1px #d2e5ff20;}
+.workspace-v4.zyon-reimagined :is(.database-tabs,.pool-tabs) button::after {display:none;}
+.workspace-v4.zyon-reimagined .settings-panel>section {border-radius:18px;padding:24px;background:#0f1826;border-color:#334b6c;}
+.workspace-v4.zyon-reimagined .settings-panel h2 {font-size:20px;letter-spacing:-.6px;}
+.workspace-v4.zyon-reimagined .setting-row {padding-block:20px;}
+.workspace-v4.zyon-reimagined input[type="range"] {height:5px;accent-color:#96bdf9;cursor:pointer;}
+.workspace-v4.zyon-reimagined :is(.calibration-fields input,.planner-topline input,.level-context input) {border-radius:9px;border:1px solid #3c5576;background:#152338;color:#e1edff;min-height:36px;padding:8px;}
+.workspace-v4.zyon-reimagined .level-context {gap:14px;padding:16px 0;}
+.workspace-v4.zyon-reimagined .planner-topline {gap:12px;}
+.workspace-v4.zyon-reimagined .planner-board {border-radius:18px;border-color:#3d5779;}
+.workspace-v4.zyon-reimagined :is(.unit-pool,.unit-inspector) {border-radius:15px;background:#0f1928;border-color:#304561;}
+.workspace-v4.zyon-reimagined .pool-unit {border-radius:11px;}
+.workspace-v4.zyon-reimagined .pool-unit img {border-radius:9px;}
+.workspace-v4.zyon-reimagined .database-comp-focus {border-radius:16px;padding:16px;background:#122036;border-color:#395477;}
+.workspace-v4.zyon-reimagined .database-comp-focus>img {border-radius:12px;}
+.workspace-v4.zyon-reimagined .data-table {border-radius:14px;overflow:hidden;border-color:#334764;}
+.workspace-v4.zyon-reimagined .data-table th {background:#18263b;padding-block:14px;color:#9ab3d8;}
+.workspace-v4.zyon-reimagined .data-table td {padding-block:11px;}
+.workspace-v4.zyon-reimagined .shop-lab-toggle {min-height:43px;background:#0e1726;}
+.workspace-v4.zyon-reimagined .shop-lab-toggle>strong {color:#a8c8fa;}
+.workspace-v4.zyon-reimagined .shopping-components {padding:0 3px 20px;}
+:is(.zyon-reimagined,.game-guide) .item-recipe {border-radius:12px;background:#111e30;border-color:#324b6c;padding:13px;}
+:is(.zyon-reimagined,.game-guide) .pivot-item-order ol li {border-radius:12px;background:#132137;border-color:#334c70;padding:12px;}
+:is(.zyon-reimagined,.game-guide) .pivot-item-order ol li>b {display:grid;place-items:center;flex:0 0 29px;width:29px;min-width:29px;height:34px;border:1px solid #5477a5;border-radius:8px;background:linear-gradient(150deg,#35547d,#1a2d49);box-shadow:inset 0 1px #c7dfff30,inset 0 -2px #07132660;color:#d8e8ff;font:800 19px/1 Manrope,sans-serif;font-variant-numeric:tabular-nums;letter-spacing:-.5px;}
+:is(.zyon-reimagined,.game-guide) .pivot-item-order ol li:first-child>b {border-color:#c1d8fc;background:linear-gradient(150deg,#c1dcff,#82a9e9);box-shadow:inset 0 1px #fff9,inset 0 -2px #46699c55;color:#122c4d;}
+:is(.zyon-reimagined,.game-guide) .augment-toolbar .search-field {border-radius:12px;background:#111e30;border-color:#3c567c;}
+.game-guide.game-wide .game-content {animation:game-page-reveal .24s cubic-bezier(.16,.8,.3,1);}
+.game-guide.game-wide .level-rail-heading>div:first-child {display:flex;align-items:center;gap:9px;}
+.game-guide.game-wide .level-rail-heading>div:first-child>span {max-width:55px;font-size:9px;line-height:1.4;margin:0;}
+.game-guide.game-wide .level-rail-heading strong {font-size:26px;}
+.game-guide.game-wide .level-rail-heading strong small {max-width:103px;font-size:9px;}
+.game-guide.game-wide .level-rail-heading {margin-bottom:10px;}
+@keyframes game-page-reveal {from{opacity:.45;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+@media(min-height:950px) and (min-width:1151px) {.sidebar-comp-roster{padding-block:12px 20px;gap:7px;}.sidebar-comp-links button{padding-block:10px;}}
+@media(max-width:1350px){
+  .workspace-v4.zyon-reimagined .sidebar{width:188px;padding-inline:12px;}
+  .workspace-v4.zyon-reimagined .workspace-content{grid-template-columns:minmax(0,1fr) 276px;gap:20px;padding-right:26px;}
+  .workspace-v4.zyon-reimagined .tier-section-cards .row-controls{grid-template-columns:42px;}
+  .workspace-v4.zyon-reimagined .spotlight-copy{max-width:85%;padding:22px;}
+  .workspace-v4.zyon-reimagined .detail-tabs button{padding-inline:9px;}
+}
+@media(max-width:1150px){
+  .workspace-v4.zyon-reimagined .sidebar{width:76px;padding-inline:9px;}
+  .workspace-v4.zyon-reimagined .sidebar .sidebar-comp{width:48px;min-height:120px;margin-top:24px;border:0;background:transparent;border-radius:10px;gap:12px;flex-grow:0;}
+  .workspace-v4.zyon-reimagined .sidebar-comp-cover{min-height:48px;height:48px;padding:0;border:1px solid #54749e;border-radius:12px;}
+  .workspace-v4.zyon-reimagined .sidebar-comp-cover>:not(.sidebar-comp-compact-art),.sidebar-comp-roster,.sidebar-comp-links button>span,.sidebar-comp-links button>svg:last-child,.sidebar-game-action>span,.sidebar-game-action>svg:last-child,.sidebar-comp-empty>*:not(.zyon-mark){display:none;}
+  .workspace-v4.zyon-reimagined .sidebar-comp-compact-art{display:block;width:100%;height:100%;object-fit:contain;object-position:center;}
+  .sidebar-comp-links{padding:0;gap:8px;}.sidebar-comp-links button{justify-content:center;padding:12px 0;background:#15233a;}
+  .workspace-v4.zyon-reimagined .sidebar .sidebar-game-action{display:none;}.workspace-v4.zyon-reimagined .sidebar-bottom{margin-top:auto;padding-top:24px;}
+}
+@media(max-width:700px){
+  .level-navigator{padding:11px 8px 9px;border-radius:13px;}.level-rail-heading strong{font-size:27px;}.level-rail-live>span{display:none;}
+  .game-guide.game-wide .game-tabs{gap:3px;padding-inline:9px;}.game-guide.game-wide .game-tabs button{min-width:78px;padding-inline:9px;}
+  .level-rail-track button>svg{right:1px;top:3px;width:8px;}.game-guide.game-wide .game-decision h2{font-size:19px;}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important;}
+  .workspace-v4.zyon-reimagined .comp-spotlight:hover .spotlight-art{transform:none;}
+}

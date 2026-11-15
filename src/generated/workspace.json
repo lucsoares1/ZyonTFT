@@ -1,0 +1,594 @@
+{
+  "items": [
+    {
+      "id": "DA_Component_RecurveBow",
+      "name": "Arco Recurvo",
+      "recipe": [],
+      "category": "Componente"
+    },
+    {
+      "id": "DA_WarmogsArmor",
+      "name": "Armadura de Warmog",
+      "recipe": ["DA_Component_GiantsBelt", "DA_Component_GiantsBelt"],
+      "category": "Completo"
+    },
+    {
+      "id": "DA_Component_NeedlesslyLargeRod",
+      "name": "Bastão Desnecessariamente Grande",
+      "recipe": [],
+      "category": "Componente"
+    },
+    {
+      "id": "DA_ArchangelsStaff",
+      "name": "Cajado do Arcanjo",
+      "recipe": [
+        "DA_Component_NeedlesslyLargeRod",
+        "DA_Component_TearOfTheGoddess"
+      ],
+      "category": "Completo"
+    },
+    {
+      "id": "DA_VoidStaff",
+      "name": "Cajado do Vazio",
+      "recipe": ["DA_Component_RecurveBow", "DA_Component_TearOfTheGoddess"],
+      "category": "Completo"
+    },
+    {
+      "id": "DA_TacticiansCape",
+      "name": "Capa de Estrategista",
+      "recipe": ["DA_Component_Spatula", "DA_Component_FryingPan"],
+      "category": "Completo"
+    },
+    {
+      "id": "DA_SunfireCape",
+      "name": "Capa de Fogo Solar",
+      "recipe": ["DA_Component_ChainVest", "DA_Component_GiantsBelt"],
+      "category": "Completo"
+    },
+    {
+      "id": "DA_Component_NegatronCloak",
+      "name": "Capa Negatron",
+      "recipe": [],
+      "category": "Componente"
+    },
+    {
+      "id": "DA_RabadonsDeathcap",
+      "name": "Capuz da Morte de Rabadon",
+      "recipe": [
+        "DA_Component_NeedlesslyLargeRod",
+        "DA_Component_NeedlesslyLargeRod"
+      ],
+      "category": "Completo"
+    },
+    {
+      "id": "DA_IonicSpark",
+      "name": "Centelha Iônica",
+      "recipe": [
+        "DA_Component_NeedlesslyLargeRod",
+        "DA_Component_NegatronCloak"
+      ],
+      "category": "Completo"
+    },
+    {
+      "id": "DA_Component_GiantsBelt",
+      "name": "Cinto do Gigante",
+      "recipe": [],
+      "category": "Componente"
+    },
+    {
+      "id": "DA_BrambleVest",
+      "name": "Colete Espinhoso",
+      "recipe": ["DA_Component_ChainVest", "DA_Component_ChainVest"],
+      "category": "Completo"
+    },
+    {
+      "id": "DA_SteadfastHeart",
+      "name": "Coração Inabalável",
+      "recipe": ["DA_Component_ChainVest", "DA_Component_SparringGloves"],
+      "category": "Completo"
+    },
+    {
+      "id": "DA_TacticiansCrown",
+      "name": "Coroa de Estrategista",
+      "recipe": ["DA_Component_Spatula", "DA_Component_Spatula"],
+      "category": "Completo"
+    },
+    {
+      "id": "DA_Component_ChainVest",
+      "name": "Cota de Malha",
+      "recipe": [],
+      "category": "Componente"
+    },
+    {
+      "id": "DA_NashorsTooth",
+      "name": "Dente de Na'Shor",
+      "recipe": ["DA_Component_RecurveBow", "DA_Component_GiantsBelt"],
+      "category": "Completo"
+    },
+    {
+      "id": "DA_TitansResolve",
+      "name": "Determinação Titânica",
+      "recipe": ["DA_Component_RecurveBow", "DA_Component_ChainVest"],
+      "category": "Completo"
+    },
+    {
+      "id": "DA_BlueBuff",
+      "name": "Efeito Azul",
+      "recipe": [
+        "DA_Component_TearOfTheGoddess",
+        "DA_Component_TearOfTheGoddess"
+      ],
+      "category": "Completo"
+    },
+    {
+      "id": "DA_RedBuff",
+      "name": "Efeito Vermelho",
+      "recipe": ["DA_Component_RecurveBow", "DA_Component_RecurveBow"],
+      "category": "Completo"
+    },
+    {
+      "id": "DA_AdaptiveHelm",
+      "name": "Elmo Adaptativo",
+      "recipe": ["DA_Component_TearOfTheGoddess", "DA_Component_NegatronCloak"],
+      "category": "Completo"
+    },
+    {
+      "id": "DA_18_EmblemHunter",
+      "name": "Emblema de Caçador",
+      "recipe": ["DA_Component_FryingPan", "DA_Component_BFSword"],
+      "category": "Emblema"
+    },
+    {
+      "id": "DA_18_EmblemExecutioner",
+      "name": "Emblema de Carrasco",
+      "recipe": ["DA_Component_FryingPan", "DA_Component_SparringGloves"],
+      "category": "Emblema"
+    },
+    {
+      "id": "DA_18_EmblemSlayer",
+      "name": "Emblema de Devastador",
+      "recipe": ["DA_Component_FryingPan", "DA_Component_NegatronCloak"],
+      "category": "Emblema"
+    },
+    {
+      "id": "DA_18_EmblemInvoker",
+      "name": "Emblema de Emanador",
+      "recipe": ["DA_Component_FryingPan", "DA_Component_TearOfTheGoddess"],
+      "category": "Emblema"
+    },
+    {
+      "id": "DA_18_EmblemSpellweaver",
+      "name": "Emblema de Enfeitiçador",
+      "recipe": ["DA_Component_FryingPan", "DA_Component_NeedlesslyLargeRod"],
+      "category": "Emblema"
+    },
+    {
+      "id": "DA_18_EmblemBlackthorn",
+      "name": "Emblema de Espinhos Negros",
+      "recipe": ["DA_Component_Spatula", "DA_Component_GiantsBelt"],
+      "category": "Emblema"
+    },
+    {
+      "id": "DA_18_EmblemFae",
+      "name": "Emblema de Feérico",
+      "recipe": ["DA_Component_Spatula", "DA_Component_BFSword"],
+      "category": "Emblema"
+    },
+    {
+      "id": "DA_18_EmblemBlossom",
+      "name": "Emblema de Florescer",
+      "recipe": ["DA_Component_Spatula", "DA_Component_NeedlesslyLargeRod"],
+      "category": "Emblema"
+    },
+    {
+      "id": "DA_18_EmblemRapidfire",
+      "name": "Emblema de Fumegante",
+      "recipe": ["DA_Component_FryingPan", "DA_Component_RecurveBow"],
+      "category": "Emblema"
+    },
+    {
+      "id": "DA_18_EmblemInferno",
+      "name": "Emblema de Inferno",
+      "recipe": ["DA_Component_Spatula", "DA_Component_RecurveBow"],
+      "category": "Emblema"
+    },
+    {
+      "id": "DA_18_EmblemLunar",
+      "name": "Emblema de Lunar",
+      "recipe": ["DA_Component_Spatula", "DA_Component_TearOfTheGoddess"],
+      "category": "Emblema"
+    },
+    {
+      "id": "DA_18_EmblemBrawler",
+      "name": "Emblema de Lutador",
+      "recipe": ["DA_Component_FryingPan", "DA_Component_GiantsBelt"],
+      "category": "Emblema"
+    },
+    {
+      "id": "DA_18_EmblemPrimal",
+      "name": "Emblema de Primitiva",
+      "recipe": ["DA_Component_Spatula", "DA_Component_SparringGloves"],
+      "category": "Emblema"
+    },
+    {
+      "id": "DA_18_EmblemElderwood",
+      "name": "Emblema de Sabugueiro",
+      "recipe": ["DA_Component_Spatula", "DA_Component_ChainVest"],
+      "category": "Emblema"
+    },
+    {
+      "id": "DA_18_EmblemVanguard",
+      "name": "Emblema de Vanguarda",
+      "recipe": ["DA_Component_FryingPan", "DA_Component_ChainVest"],
+      "category": "Emblema"
+    },
+    {
+      "id": "DA_18_EmblemSprykin",
+      "name": "Emblema de Vivaz",
+      "recipe": ["DA_Component_Spatula", "DA_Component_NegatronCloak"],
+      "category": "Emblema"
+    },
+    {
+      "id": "DA_TacticiansShield",
+      "name": "Escudo de Estrategista",
+      "recipe": ["DA_Component_FryingPan", "DA_Component_FryingPan"],
+      "category": "Completo"
+    },
+    {
+      "id": "DA_Component_BFSword",
+      "name": "Espada G.p.C.",
+      "recipe": [],
+      "category": "Componente"
+    },
+    {
+      "id": "DA_Component_Spatula",
+      "name": "Espátula",
+      "recipe": [],
+      "category": "Componente"
+    },
+    {
+      "id": "DA_Component_FryingPan",
+      "name": "Frigideira",
+      "recipe": [],
+      "category": "Componente"
+    },
+    {
+      "id": "DA_KrakensFury",
+      "name": "Fúria do Cráquem",
+      "recipe": ["DA_Component_RecurveBow", "DA_Component_NegatronCloak"],
+      "category": "Completo"
+    },
+    {
+      "id": "DA_DragonsClaw",
+      "name": "Garra do Dragão",
+      "recipe": ["DA_Component_NegatronCloak", "DA_Component_NegatronCloak"],
+      "category": "Completo"
+    },
+    {
+      "id": "DA_InfinityEdge",
+      "name": "Gume do Infinito",
+      "recipe": ["DA_Component_BFSword", "DA_Component_SparringGloves"],
+      "category": "Completo"
+    },
+    {
+      "id": "DA_ProtectorsVow",
+      "name": "Juramento do Protetor",
+      "recipe": ["DA_Component_ChainVest", "DA_Component_TearOfTheGoddess"],
+      "category": "Completo"
+    },
+    {
+      "id": "DA_Component_TearOfTheGoddess",
+      "name": "Lágrima da Deusa",
+      "recipe": [],
+      "category": "Componente"
+    },
+    {
+      "id": "DA_GuinsoosRageblade",
+      "name": "Lâmina da Fúria de Guinsoo",
+      "recipe": ["DA_Component_RecurveBow", "DA_Component_NeedlesslyLargeRod"],
+      "category": "Completo"
+    },
+    {
+      "id": "DA_Deathblade",
+      "name": "Lâmina Mortal",
+      "recipe": ["DA_Component_BFSword", "DA_Component_BFSword"],
+      "category": "Completo"
+    },
+    {
+      "id": "DA_SpearOfShojin",
+      "name": "Lança de Shojin",
+      "recipe": ["DA_Component_TearOfTheGoddess", "DA_Component_BFSword"],
+      "category": "Completo"
+    },
+    {
+      "id": "DA_EdgeOfNight",
+      "name": "Limiar da Noite",
+      "recipe": ["DA_Component_BFSword", "DA_Component_ChainVest"],
+      "category": "Completo"
+    },
+    {
+      "id": "DA_ThiefsGloves",
+      "name": "Luvas do Ladrão",
+      "recipe": ["DA_Component_SparringGloves", "DA_Component_SparringGloves"],
+      "category": "Completo"
+    },
+    {
+      "id": "DA_Component_SparringGloves",
+      "name": "Luvas do Pugilista",
+      "recipe": [],
+      "category": "Componente"
+    },
+    {
+      "id": "DA_StrikersFlail",
+      "name": "Mangual do Guerreiro",
+      "recipe": ["DA_Component_GiantsBelt", "DA_Component_SparringGloves"],
+      "category": "Completo"
+    },
+    {
+      "id": "DA_JeweledGauntlet",
+      "name": "Manopla Adornada",
+      "recipe": [
+        "DA_Component_SparringGloves",
+        "DA_Component_NeedlesslyLargeRod"
+      ],
+      "category": "Completo"
+    },
+    {
+      "id": "DA_HandOfJustice",
+      "name": "Mão da Justiça",
+      "recipe": [
+        "DA_Component_TearOfTheGoddess",
+        "DA_Component_SparringGloves"
+      ],
+      "category": "Completo"
+    },
+    {
+      "id": "DA_GiantSlayer",
+      "name": "Mata-Gigantes",
+      "recipe": ["DA_Component_RecurveBow", "DA_Component_BFSword"],
+      "category": "Completo"
+    },
+    {
+      "id": "DA_Quicksilver",
+      "name": "Mercúrio",
+      "recipe": ["DA_Component_NegatronCloak", "DA_Component_SparringGloves"],
+      "category": "Completo"
+    },
+    {
+      "id": "DA_Morellonomicon",
+      "name": "Morellonomicon",
+      "recipe": ["DA_Component_GiantsBelt", "DA_Component_NeedlesslyLargeRod"],
+      "category": "Completo"
+    },
+    {
+      "id": "DA_HextechGunblade",
+      "name": "Pistola Laminar Hextec",
+      "recipe": ["DA_Component_BFSword", "DA_Component_NeedlesslyLargeRod"],
+      "category": "Completo"
+    },
+    {
+      "id": "DA_GargoyleStoneplate",
+      "name": "Placa Gargolítica",
+      "recipe": ["DA_Component_ChainVest", "DA_Component_NegatronCloak"],
+      "category": "Completo"
+    },
+    {
+      "id": "DA_Evenshroud",
+      "name": "Proteção Imutável",
+      "recipe": ["DA_Component_NegatronCloak", "DA_Component_GiantsBelt"],
+      "category": "Completo"
+    },
+    {
+      "id": "DA_Bloodthirster",
+      "name": "Sedenta por Sangue",
+      "recipe": ["DA_Component_BFSword", "DA_Component_NegatronCloak"],
+      "category": "Completo"
+    },
+    {
+      "id": "DA_SpiritVisage",
+      "name": "Semblante Espiritual",
+      "recipe": ["DA_Component_GiantsBelt", "DA_Component_TearOfTheGoddess"],
+      "category": "Completo"
+    },
+    {
+      "id": "DA_SteraksGage",
+      "name": "Sinal de Sterak",
+      "recipe": ["DA_Component_BFSword", "DA_Component_GiantsBelt"],
+      "category": "Completo"
+    },
+    {
+      "id": "DA_Crownguard",
+      "name": "Stemmaguarda",
+      "recipe": ["DA_Component_NeedlesslyLargeRod", "DA_Component_ChainVest"],
+      "category": "Completo"
+    },
+    {
+      "id": "DA_LastWhisper",
+      "name": "Último Sussurro",
+      "recipe": ["DA_Component_RecurveBow", "DA_Component_SparringGloves"],
+      "category": "Completo"
+    }
+  ],
+  "traits": [
+    {
+      "id": "DA_18_Adaptor",
+      "name": "Adaptador",
+      "breakpoints": [2, 3, 4]
+    },
+    {
+      "id": "DA_Emerald18",
+      "name": "Aspecto Esmeralda",
+      "breakpoints": [1]
+    },
+    {
+      "id": "DA_18_LuxUniqueTrait",
+      "name": "Avatar",
+      "breakpoints": [1]
+    },
+    {
+      "id": "DA_DravenUniqueTrait18",
+      "name": "Caça-recompensas",
+      "breakpoints": [1]
+    },
+    {
+      "id": "DA_18_Hunter",
+      "name": "Caçador",
+      "breakpoints": [2, 3, 4, 5]
+    },
+    {
+      "id": "DA_18_Executioner",
+      "name": "Carrasco",
+      "breakpoints": [2, 3, 4]
+    },
+    {
+      "id": "DA_18_Caustic",
+      "name": "Cáustico",
+      "breakpoints": [1]
+    },
+    {
+      "id": "DA_Juggernaut18",
+      "name": "Colosso",
+      "breakpoints": [2, 4, 6]
+    },
+    {
+      "id": "DA_AluneUniqueTrait18",
+      "name": "Comunhão",
+      "breakpoints": [1]
+    },
+    {
+      "id": "DA_18_Coven",
+      "name": "Congregação das Bruxas",
+      "breakpoints": [3, 4, 5, 7]
+    },
+    {
+      "id": "DA_18_Maokai_UniqueTrait",
+      "name": "Crescimento Antigo",
+      "breakpoints": [1]
+    },
+    {
+      "id": "DA_18_ZyraUniqueTrait",
+      "name": "Dama de Espinhos",
+      "breakpoints": [1]
+    },
+    {
+      "id": "DA_18_Defender",
+      "name": "Defendente",
+      "breakpoints": [2, 4, 6]
+    },
+    {
+      "id": "DA_18_Slayer",
+      "name": "Devastador",
+      "breakpoints": [2, 4, 6]
+    },
+    {
+      "id": "DA_18_Eclipse",
+      "name": "Eclipse",
+      "breakpoints": []
+    },
+    {
+      "id": "DA_18_Invoker",
+      "name": "Emanador",
+      "breakpoints": [2, 3, 4, 5]
+    },
+    {
+      "id": "DA_18_Spellweaver",
+      "name": "Enfeitiçador",
+      "breakpoints": [2, 4, 6]
+    },
+    {
+      "id": "DA_18_Blackthorn",
+      "name": "Espinhos Negros",
+      "breakpoints": [2, 4, 6]
+    },
+    {
+      "id": "DA_18_Fae",
+      "name": "Feérico",
+      "breakpoints": [2, 4]
+    },
+    {
+      "id": "DA_Riftbeast18",
+      "name": "Fera do Rift",
+      "breakpoints": [3, 5, 7, 10]
+    },
+    {
+      "id": "DA_FloraFatalis18",
+      "name": "Flora Fatalis",
+      "breakpoints": [1, 2]
+    },
+    {
+      "id": "DA_18_Blossom",
+      "name": "Florescer",
+      "breakpoints": [3, 5, 7, 9, 11]
+    },
+    {
+      "id": "DA_18_Rapidfire",
+      "name": "Fumegante",
+      "breakpoints": [2, 3, 4, 5]
+    },
+    {
+      "id": "DA_18_Inferno",
+      "name": "Inferno",
+      "breakpoints": [2, 3, 5, 7]
+    },
+    {
+      "id": "DA_18_Summoner",
+      "name": "Invocador",
+      "breakpoints": [2, 3]
+    },
+    {
+      "id": "DA_18_Lunar",
+      "name": "Lunar",
+      "breakpoints": [2, 3, 4, 5]
+    },
+    {
+      "id": "DA_18_Brawler",
+      "name": "Lutador",
+      "breakpoints": [2, 4, 6]
+    },
+    {
+      "id": "DA_18_Battlemage",
+      "name": "Monólito",
+      "breakpoints": [1]
+    },
+    {
+      "id": "DA_18_Greenfather",
+      "name": "Pai do Verde",
+      "breakpoints": [1]
+    },
+    {
+      "id": "DA_18_ApexPredator",
+      "name": "Predador Perfeito",
+      "breakpoints": [1]
+    },
+    {
+      "id": "DA_Primal18",
+      "name": "Primordial",
+      "breakpoints": [2, 4]
+    },
+    {
+      "id": "DA_18_Rival",
+      "name": "Rival",
+      "breakpoints": [1, 1, 2]
+    },
+    {
+      "id": "DA_18_Elderwood",
+      "name": "Sabugueiro",
+      "breakpoints": [3, 5, 7, 9, 11]
+    },
+    {
+      "id": "DA_18_Solar",
+      "name": "Solar",
+      "breakpoints": [3]
+    },
+    {
+      "id": "DA_18_Vanguard",
+      "name": "Vanguarda",
+      "breakpoints": [2, 4, 6]
+    },
+    {
+      "id": "DA_18_Sprykin",
+      "name": "Vivaz",
+      "breakpoints": [3, 5, 7]
+    }
+  ]
+}

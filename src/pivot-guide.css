@@ -1,0 +1,364 @@
+/* Published routes read like a match notebook: board left, preparation right.
+   Graphite #171c22, rail #11171d, line #303943, text #e7edf3,
+   muted #9ba8b8, gold #d3b46e. Segoe UI throughout; unit art carries identity. */
+.pivot-builds {
+  display: flex;
+  gap: 8px;
+  padding: 14px 20px;
+  border-bottom: 1px solid #303943;
+  flex-wrap: wrap;
+}
+.pivot-builds button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid #424a55;
+  border-radius: 7px;
+  background: #202630;
+  color: #b8c2cf;
+  padding: 7px 12px;
+  font: 600 12px "Segoe UI";
+  cursor: pointer;
+}
+.pivot-builds button b {
+  background: #343d49;
+  border-radius: 4px;
+  padding: 2px 6px;
+  color: #ecf0f4;
+}
+.pivot-builds button[aria-pressed="true"] {
+  color: #f2d899;
+  border-color: #ad8e4f;
+  background: #393323;
+}
+.pivot-guide {
+  display: grid;
+  grid-template-columns: minmax(0, 1.18fr) minmax(270px, 0.82fr);
+  gap: 26px;
+  padding: 20px 0;
+  align-items: start;
+}
+.pivot-guide h3,
+.pivot-item-order h3,
+.pivot-augments h3 {
+  font-size: 14px;
+  margin: 0 0 10px;
+  color: #edf1f6;
+}
+.pivot-guide p,
+.pivot-item-order p,
+.pivot-augments > p {
+  font-size: 12px;
+  line-height: 1.65;
+  color: #aebbc9;
+  margin: 8px 0 12px;
+  max-width: 75ch;
+}
+.pivot-levels {
+  display: flex;
+  gap: 3px;
+  background: #11171d;
+  border: 1px solid #343e48;
+  padding: 5px;
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: auto;
+}
+.pivot-levels button {
+  flex: 1;
+  min-width: 28px;
+  border: 0;
+  background: transparent;
+  color: #a6b2c1;
+  border-radius: 4px;
+  padding: 7px;
+  font: 600 12px "Segoe UI";
+  cursor: pointer;
+}
+.pivot-levels button[aria-pressed="true"] {
+  background: #494332;
+  color: #ffdf8f;
+}
+.pivot-route-main {
+  min-width: 0;
+}
+.pivot-route-main .tft-board-panel {
+  margin: 0 !important;
+}
+.pivot-route-aside {
+  display: grid;
+  gap: 22px;
+  padding: 4px 0 0 22px;
+  border-left: 1px solid #303943;
+  min-width: 0;
+}
+.pivot-route-aside .lineup-strip {
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.pivot-route-aside > a {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #d3b46e;
+  font-size: 12px;
+}
+.pivot-step-detail,
+.pivot-final-note {
+  padding: 18px 0;
+}
+.pivot-step-heading {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 15px;
+}
+.pivot-step-heading strong {
+  font-size: 16px;
+  color: #f4d58c;
+}
+.pivot-step-heading span,
+.pivot-step-heading small {
+  font-size: 11px;
+  color: #aab8c9;
+}
+.pivot-step-heading small {
+  margin-left: auto;
+}
+.pivot-step-detail .lineup-strip {
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.pivot-changes {
+  border-left: 2px solid #b79b5d;
+  padding-left: 12px;
+  margin: 16px 0;
+}
+.pivot-changes b {
+  display: inline-block;
+  min-width: 48px;
+  color: #e5edf7;
+}
+.pivot-swaps h4,
+.pivot-alternatives h4 {
+  font-size: 12px;
+  margin: 16px 0 8px;
+  color: #e6edf7;
+}
+.pivot-swaps p {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 7px 0;
+}
+.pivot-swaps img {
+  height: 30px;
+  width: 30px;
+  border-radius: 4px;
+}
+.pivot-swaps strong {
+  color: #e4eaf2;
+}
+.pivot-alternatives p {
+  padding: 9px 12px;
+  background: #202731;
+  border-radius: 5px;
+  margin: 6px 0;
+}
+.pivot-alternatives b {
+  display: block;
+  color: #d5bc82;
+  font-size: 11px;
+  margin-bottom: 3px;
+}
+.pivot-step-detail .pivot-caution,
+.pivot-guide .pivot-caution {
+  color: #dfc38a;
+  border-left: 2px solid #8e7442;
+  padding-left: 10px;
+}
+.pivot-step-detail > small {
+  font-size: 11px;
+  color: #9ba8b8;
+  display: block;
+  line-height: 1.6;
+}
+.pivot-timeline {
+  margin-top: 20px;
+}
+.pivot-timeline details {
+  border-top: 1px solid #303943;
+  padding: 12px 0;
+}
+.pivot-timeline summary {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.pivot-timeline summary b {
+  font-size: 12px;
+  color: #ead396;
+  white-space: nowrap;
+}
+.pivot-timeline summary span {
+  font-size: 11px;
+  color: #9ba8b8;
+  white-space: nowrap;
+}
+.pivot-timeline summary small {
+  font-size: 11px;
+  color: #b9c5d3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.pivot-item-order ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+}
+.pivot-item-order li {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: #dde5ef;
+  font-size: 12px;
+}
+.pivot-item-order li > b {
+  color: #a58d59;
+  min-width: 14px;
+}
+.pivot-item-order li .equipment img {
+  width: 29px;
+  height: 29px;
+  border: 1px solid #867141;
+  border-radius: 4px;
+}
+.pivot-augment-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 16px;
+}
+.pivot-augment-list > div {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  background: #202731;
+  border: 1px solid #343d49;
+  border-radius: 6px;
+}
+.pivot-augment-list img {
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+}
+.pivot-augment-list span {
+  flex: 1;
+  min-width: 0;
+}
+.pivot-augment-list strong {
+  display: block;
+  font-size: 12px;
+  line-height: 1.4;
+  color: #e8edf3;
+}
+.pivot-augment-list small {
+  display: block;
+  font-size: 10px;
+  color: #9ba8b8;
+  margin-top: 4px;
+}
+.pivot-augment-list > div > b {
+  color: #f0cd78;
+  font-size: 14px;
+}
+.pivot-compact {
+  display: block;
+  padding: 0;
+}
+.pivot-compact .pivot-route-aside {
+  border: 0;
+  padding: 14px 0;
+  gap: 18px;
+}
+.pivot-compact .pivot-levels {
+  margin-top: 10px;
+}
+.pivot-compact .pivot-levels button {
+  min-width: 25px;
+  padding: 5px;
+}
+.pivot-compact .pivot-step-detail {
+  padding-top: 15px;
+}
+.pivot-compact .pivot-route-aside .lineup-unit {
+  width: 44px;
+}
+.pivot-compact .pivot-live-caption {
+  font-size: 11px;
+  margin: 8px 0 14px;
+}
+.game-guide .pivot-augment-list {
+  grid-template-columns: 1fr;
+}
+.game-guide .pivot-guide .lineup-strip {
+  gap: 8px;
+}
+.game-guide .pivot-guide .lineup-unit {
+  width: 44px;
+}
+.game-guide .pivot-guide .portrait-frame {
+  width: 42px;
+  height: 42px;
+}
+.game-guide .pivot-item-order {
+  margin-bottom: 20px;
+}
+.pivot-board-disclosure {
+  border-block: 1px solid #303943;
+  padding: 12px 0;
+  margin-bottom: 16px;
+}
+.pivot-board-disclosure summary {
+  cursor: pointer;
+  color: #d8bd80;
+  font-weight: 600;
+  font-size: 12px;
+}
+.pivot-board-disclosure .tft-board-panel {
+  margin-top: 15px !important;
+}
+.pivot-tier {
+  color: #e1c17b;
+  font-size: 12px;
+  margin-left: 10px;
+}
+.pivot-guide .pivot-position-caption {
+  font-size: 10px;
+  margin: 8px 0;
+  color: #9ba8b8;
+}
+@media (max-width: 1200px) {
+  .pivot-guide:not(.pivot-compact) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .pivot-route-aside {
+    border-left: 0;
+    border-top: 1px solid #303943;
+    padding: 20px 0 0;
+    grid-template-columns: 1fr 1fr;
+  }
+  .pivot-compact .pivot-route-aside {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+  .pivot-augment-list {
+    grid-template-columns: 1fr;
+  }
+}

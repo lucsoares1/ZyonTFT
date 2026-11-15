@@ -1,0 +1,341 @@
+/* Zyon 0.15. Brand, navigation and decision surfaces. Hex geometry stays in
+   tft-visuals.css; rarity borders and editorial tiers keep their own meaning. */
+:root {
+  --bg:#070a10; --panel:#0d1420; --raised:#151f30; --line:#2b3341;
+  --muted:#949fb2; --accent:#86aef2; --gold:#86aef2; --mint:#b5d0ff;
+  color:#edf3fc; background:#070a10;
+}
+::selection {background:#28406a;color:#fff;}
+button,input,select {font-family:Manrope,Arial,sans-serif;}
+button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible {
+  outline:2px solid #b5d0ff;outline-offset:3px;
+}
+input {caret-color:#86aef2;}
+.zyon-mark {display:block;object-fit:contain;width:26px;height:26px;flex-shrink:0;user-select:none;}
+.workspace-v4.zyon-reimagined {font-family:Manrope,Arial,sans-serif;background:#070a10;color:#edf3fc;}
+.workspace-v4.zyon-reimagined .sidebar {
+  width:196px;padding:26px 14px 14px;background:#0a0f18;border-right:1px solid #242c3a;
+}
+.workspace-v4.zyon-reimagined .brand {height:64px;margin:0 0 26px;gap:9px;letter-spacing:-1px;align-items:center;font-size:29px;}
+.workspace-v4.zyon-reimagined .brand .zyon-mark {width:50px;height:50px;filter:drop-shadow(0 2px 10px #86aef225);}
+.workspace-v4.zyon-reimagined .brand span {font-size:10px;letter-spacing:0;font-weight:500;margin-top:1px;color:#949fb2;}
+.workspace-v4.zyon-reimagined .sidebar-set {padding:13px 10px;margin-bottom:26px;border:1px solid #242c3a;border-radius:10px;background:#0f1217;}
+.workspace-v4.zyon-reimagined .sidebar-set img {border-color:#556177;border-radius:6px;width:32px;height:32px;}
+.workspace-v4.zyon-reimagined .sidebar-set strong {font-size:11px;}
+.workspace-v4.zyon-reimagined .sidebar-set span {font-size:9px;color:#949fb2;}
+.workspace-v4.zyon-reimagined .nav-group-label {font-size:10px;font-weight:600;color:#798498;margin-bottom:12px;}
+.workspace-v4.zyon-reimagined .sidebar nav {gap:6px;}
+.workspace-v4.zyon-reimagined .sidebar nav button {height:46px;border-radius:9px;font-size:12px;font-weight:600;padding:0 11px;color:#a2aab9;}
+.workspace-v4.zyon-reimagined .sidebar nav button:hover {background:#11161e;color:#edf3fc;}
+.workspace-v4.zyon-reimagined .sidebar nav button.nav-active {background:#223048;color:#bfd7ff;box-shadow:none;}
+.workspace-v4.zyon-reimagined .sidebar nav button.nav-active svg {color:#7a9dd9;}
+.workspace-v4.zyon-reimagined .sidebar-pinned {border-top:1px solid #242c3a;padding-top:20px;margin-top:28px;}
+.workspace-v4.zyon-reimagined .sidebar-pinned button {gap:8px;font-size:11px;line-height:1.6;color:#c1cbdb;}
+.workspace-v4.zyon-reimagined .sidebar-pinned .zyon-mark {width:22px;height:22px;}
+.workspace-v4.zyon-reimagined .sidebar-bottom {border-color:#242c3a;}
+.workspace-v4.zyon-reimagined .sidebar-bottom>button {color:#949fb2;font-size:11px;}
+.workspace-v4.zyon-reimagined .profile-avatar {background:#233148;color:#bfd7ff;border:1px solid #3c4c67;border-radius:10px;}
+.workspace-v4.zyon-reimagined .sidebar-profile strong {font-size:10px;}
+.workspace-v4.zyon-reimagined .sidebar-profile span {color:#798498;}
+.workspace-v4.zyon-reimagined .topbar {height:42px;background:#070a10;border-color:#1d2430;padding-inline:26px;color:#949fb2;}
+.workspace-v4.zyon-reimagined .topbar-section {font-size:11px;}
+.workspace-v4.zyon-reimagined .data-label {color:#949fb2;font-size:10px;}
+.workspace-v4.zyon-reimagined .window-actions>span {color:#636e81;}
+.workspace-v4.zyon-reimagined .workspace-heading {padding:25px 26px 18px;}
+.workspace-v4.zyon-reimagined .workspace-heading h1 {font:800 30px/1.2 Manrope,Arial,sans-serif;letter-spacing:-1.2px;}
+.workspace-v4.zyon-reimagined .workspace-heading p {font-size:12px;line-height:1.6;margin-top:7px;color:#949fb2;}
+.workspace-v4.zyon-reimagined .workspace-actions button {border-radius:8px;border-color:#313c4e;background:#11151c;font-size:11px;padding:11px 14px;}
+.workspace-v4.zyon-reimagined .workspace-actions .overlay-toggle {background:#86aef2;color:#101723;border-color:#86aef2;font-weight:800;}
+.workspace-v4.zyon-reimagined .workspace-actions .overlay-toggle.is-on {background:#131c2b;color:#bfd7ff;border-color:#42587d;}
+.preparation-flow {display:flex;align-items:center;gap:9px;margin:0 26px 20px;padding:10px 0;border-block:1px solid #202837;flex-shrink:0;}
+.preparation-flow>button {display:flex;align-items:center;gap:8px;padding:6px 9px;font-size:11px;color:#919cae;border-radius:6px;}
+.preparation-flow>button[aria-current] {color:#bfd7ff;background:#182336;}
+.preparation-flow>button:hover {color:#edf3fc;background:#11161e;}
+.preparation-flow>svg {transform:rotate(-90deg);color:#434f63;}
+.flow-note {display:flex;align-items:center;gap:7px;margin-left:auto;color:#6f7c92;font-size:10px;max-width:30%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.flow-note .zyon-mark {width:18px;height:18px;opacity:.75;}
+.workspace-v4.zyon-reimagined .workspace-content {grid-template-columns:minmax(0,1fr) 282px;gap:24px;padding:0 26px 16px;}
+.workspace-v4.zyon-reimagined .comp-feed {overflow-y:auto;display:block;padding-right:4px;scrollbar-gutter:stable;}
+.workspace-v4.zyon-reimagined .comp-list {overflow:visible;display:block;padding:0;}
+.comp-spotlight {position:relative;isolation:isolate;overflow:hidden;border:1px solid #374153;border-radius:14px;min-height:228px;background:#10141b;margin-bottom:24px;}
+.spotlight-art {position:absolute;z-index:-1;inset:0 0 0 25%;background-size:cover;background-position:65% 28%;animation:zyon-art .35s ease-out;}
+.spotlight-art::after {content:"";position:absolute;inset:0;background:linear-gradient(90deg,#10141b,#10141baa 28%,#070a1008 72%),linear-gradient(0deg,#0b0e14b8,transparent 75%);}
+.spotlight-copy {padding:22px 25px;max-width:74%;}
+.spotlight-context {display:flex;align-items:center;gap:7px;font-size:10px;font-weight:600;color:#acb8cc;}
+.spotlight-context .comp-tier-badge {width:17px;height:23px;}
+.spotlight-copy h2 {font:800 clamp(24px,2.1vw,34px)/1.2 Manrope,sans-serif;letter-spacing:-1px;color:#f5f8fc;margin:9px 0 8px;text-wrap:balance;}
+.spotlight-copy p {display:flex;gap:12px;flex-wrap:wrap;color:#b0b7c4;font-size:11px;align-items:center;}
+.spotlight-copy p strong {color:#edf3fc;}
+.spotlight-copy p>span {border-left:1px solid #6b778c55;padding-left:12px;}
+.spotlight-equipment {display:flex;align-items:center;gap:9px;margin:13px 0;color:#8c99af;font-size:10px;}
+.spotlight-equipment .equipment {--item-size:25px;gap:4px;}
+.spotlight-actions {display:flex;align-items:center;flex-wrap:wrap;gap:9px;margin-top:14px;}
+.spotlight-actions button {display:flex;align-items:center;gap:7px;padding:9px 12px;font-size:11px;border:1px solid #59657a;border-radius:7px;background:#0c1017c9;color:#dce3ef;font-weight:650;}
+.spotlight-actions .spotlight-primary {background:#86aef2;color:#101723;border-color:#86aef2;}
+.spotlight-actions .zyon-mark {width:20px;height:20px;}
+.spotlight-actions .spotlight-selected {color:#bfd7ff;border-color:#6a85b3;}
+.spotlight-primary>svg:last-child {transition:transform .18s;}
+.spotlight-primary:hover>svg:last-child {transform:translateX(3px);}
+.spotlight-actions button:active {transform:translateY(1px);}
+.workspace-v4.zyon-reimagined .library-tabs {gap:24px;border-color:#262f3e;margin-bottom:14px;}
+.workspace-v4.zyon-reimagined .library-tabs button {font-size:12px;color:#8c98ae;font-weight:600;}
+.workspace-v4.zyon-reimagined .library-tabs button.active {color:#eef2f9;border-color:#86aef2;}
+.workspace-v4.zyon-reimagined .library-tabs button.active::after {background:#86aef2;}
+.workspace-v4.zyon-reimagined .library-tabs .zyon-mark {width:17px;height:17px;}
+.workspace-v4.zyon-reimagined .search-field {background:#0c0f13;border-color:#2d3646;border-radius:7px;min-height:40px;}
+.workspace-v4.zyon-reimagined .search-field:focus-within {border-color:#86aef2;box-shadow:0 0 0 2px #86aef212;}
+.workspace-v4.zyon-reimagined input::placeholder {color:#717d92;}
+.workspace-v4.zyon-reimagined select {background:#0c0f13;border-color:#2d3646;border-radius:7px;color:#c7d0df;}
+.workspace-v4.zyon-reimagined .feed-caption {font-size:10px;color:#737e91;}
+.workspace-v4.zyon-reimagined .catalog-sources {font-size:11px;padding:0 0 14px;}
+.workspace-v4.zyon-reimagined .catalog-sources summary {color:#9aa5b9;}
+.workspace-v4.zyon-reimagined .tier-section {margin-bottom:25px;}
+.workspace-v4.zyon-reimagined .tier-section-heading {padding:7px 0 12px;margin-bottom:0;}
+.workspace-v4.zyon-reimagined .tier-section-heading h2 {font:750 16px/1.4 Manrope,sans-serif;color:#edf3fc;}
+.workspace-v4.zyon-reimagined .tier-section-heading p {font-size:10px;color:#828ea2;}
+.workspace-v4.zyon-reimagined .tier-section-heading>span:last-child {font-size:10px;color:#7e899d;}
+.workspace-v4.zyon-reimagined .tier-section-cards {gap:10px;}
+.workspace-v4.zyon-reimagined .tier-section-cards .comp-row {background:#0d1014;border:1px solid #2b3340;border-radius:11px;transition:border-color .18s,background .18s;}
+.workspace-v4.zyon-reimagined .tier-section-cards .comp-row:hover {border-color:#505f7a;background:#11151c;}
+.workspace-v4.zyon-reimagined .tier-section-cards .comp-row.row-selected {border-color:#557ab9;background:#11151c;box-shadow:inset 3px 0 #86aef2;}
+.workspace-v4.zyon-reimagined .tier-section-cards .comp-row-summary {padding:17px;gap:14px;grid-template-columns:minmax(0,1fr) 76px;}
+.workspace-v4.zyon-reimagined .tier-section-cards .comp-heading-copy>strong {color:#edf1f8;font:750 16px/1.4 Manrope,sans-serif;letter-spacing:-.3px;}
+.workspace-v4.zyon-reimagined .tier-section-cards .comp-row-title .row-style {color:#acbad1;background:#18202d;border:1px solid #36435a;padding:4px 8px;font-size:10px;border-radius:5px;}
+.workspace-v4.zyon-reimagined .tier-section-cards .row-splash {opacity:.32;filter:saturate(.8);}
+.workspace-v4.zyon-reimagined .tier-section-cards .roster-label {color:#8c98ad;font-size:10px;}
+.workspace-v4.zyon-reimagined .tier-section-cards .comp-traits>span {color:#c1c8d5;}
+.workspace-v4.zyon-reimagined .tier-section-cards .ranked-body {grid-template-columns:minmax(0,1fr);gap:10px;}
+.workspace-v4.zyon-reimagined .tier-section-cards .comp-playstyle {display:flex;gap:20px;margin:0;text-align:left;flex-wrap:wrap;}
+.workspace-v4.zyon-reimagined .tier-section-cards .comp-playstyle>span {display:flex;gap:7px;align-items:center;color:#7e8a9f;font-size:10px;}
+.workspace-v4.zyon-reimagined .tier-section-cards .comp-playstyle b {color:#c1c9d8;font:650 10px Manrope,sans-serif;margin:0;}
+.workspace-v4.zyon-reimagined .tier-section-cards .comp-playstyle>span:first-child b {color:#bfd7ff;}
+.workspace-v4.zyon-reimagined .tier-section-cards .row-controls {grid-template-columns:36px 30px;gap:6px;}
+.workspace-v4.zyon-reimagined .tier-section-cards .row-controls button {width:36px;height:36px;background:#141a24;border:1px solid #3a4456;border-radius:8px;}
+.workspace-v4.zyon-reimagined .tier-section-cards .row-controls .row-expand {width:30px;height:32px;background:transparent;border-color:transparent;}
+.workspace-v4.zyon-reimagined .tier-section-cards .row-pin .zyon-mark {width:28px;height:28px;opacity:.65;transition:transform .18s,opacity .18s;}
+.workspace-v4.zyon-reimagined .tier-section-cards .row-pin:hover .zyon-mark {opacity:1;transform:scale(1.12);}
+.workspace-v4.zyon-reimagined .tier-section-cards .row-controls .row-pinned {background:#274476;border-color:#80a1da;box-shadow:0 0 0 3px #86aef20c;}
+.workspace-v4.zyon-reimagined .tier-section-cards .row-pinned .zyon-mark {opacity:1;}
+.workspace-v4.zyon-reimagined .tier-section-cards .row-pinned .zyon-mark {animation:zyon-choice .28s ease-out;}
+.workspace-v4.zyon-reimagined .comp-expanded {background:#0a0c10;border-top:1px solid #374255;padding-inline:20px;animation:zyon-reveal .22s ease-out;}
+.workspace-v4.zyon-reimagined .detail-tabs {gap:16px;border-color:#293446;padding:4px 0;overflow-x:auto;}
+.workspace-v4.zyon-reimagined .detail-tabs button {display:inline-flex;align-items:center;gap:6px;font-size:11px;min-height:42px;color:#8a96ab;}
+.workspace-v4.zyon-reimagined .detail-tabs button.tab-active {color:#a9bfe6;border-color:#86aef2;}
+.workspace-v4.zyon-reimagined .detail-tabs button.tab-active::after {background:#86aef2;}
+.workspace-v4.zyon-reimagined .detail-tabs .detail-planner {color:#bdc6d5;font-size:10px;}
+.workspace-v4.zyon-reimagined .detail-tabs>span {display:none;}
+.comp-guide {animation:zyon-panel .2s ease-out;}
+.workspace-v4.zyon-reimagined .comp-guide h3 {color:#e2e8f1;font-family:Manrope,sans-serif;}
+.workspace-v4.zyon-reimagined .comp-guide p {color:#919db1;font-size:11px;}
+.workspace-v4.zyon-reimagined .plan-aside {padding:0;scrollbar-gutter:stable;}
+.workspace-v4.zyon-reimagined .aside-title {height:auto;min-height:29px;border:0;padding:0;margin-bottom:12px;}
+.workspace-v4.zyon-reimagined .aside-title h2 {font-size:12px;font-weight:750;}
+.workspace-v4.zyon-reimagined .aside-title>span {display:flex;align-items:center;gap:4px;color:#829ac3;font-size:10px;}
+.workspace-v4.zyon-reimagined .aside-title .zyon-mark {width:20px;height:20px;}
+.workspace-v4.zyon-reimagined .aside-carry {min-height:192px;border-radius:12px 12px 0 0;border:1px solid #2e394b;border-bottom:0;padding:18px 14px;background-position:66% 20%;}
+.workspace-v4.zyon-reimagined .aside-carry strong {font-size:17px;letter-spacing:-.4px;}
+.workspace-v4.zyon-reimagined .aside-carry small {color:#a5b5d0;}
+.workspace-v4.zyon-reimagined .aside-carry>img {width:48px;height:48px;border-radius:8px;}
+.plan-shortcuts {border-inline:1px solid #2e394b;background:#0d1420;display:grid;padding:5px 12px;}
+.plan-shortcuts button {display:flex;align-items:center;text-align:left;gap:10px;padding:10px 2px;border-bottom:1px solid #242d3c;color:#a1afc7;}
+.plan-shortcuts button:last-child {border:0;}
+.plan-shortcuts button>span {flex:1;font-size:12px;font-weight:650;}
+.plan-shortcuts small {display:block;font-size:9px;font-weight:400;margin-top:2px;color:#738198;}
+.plan-shortcuts button:hover {color:#d5e0f2;}
+.workspace-v4.zyon-reimagined .shopping-tools {background:#10141a;border-color:#2e394b;padding:14px;margin-bottom:18px;border-radius:0 0 12px 12px;}
+.workspace-v4.zyon-reimagined .shopping-tools h3 {font-size:11px;}
+.workspace-v4.zyon-reimagined .shopping-tools p {color:#8592a8;font-size:10px;}
+.workspace-v4.zyon-reimagined .shopping-tools .secondary-action {background:#86aef2;border-color:#86aef2;color:#101723;font-size:12px;font-weight:800;min-height:39px;border-radius:7px;}
+.workspace-v4.zyon-reimagined .shopping-tool-links button {color:#8290a8;font-size:10px;}
+.preparation-checklist {border:1px solid #293343;border-radius:9px;padding:12px;margin-bottom:18px;background:#0a0c10;}
+.preparation-checklist>summary {display:flex;align-items:center;justify-content:space-between;cursor:pointer;font-size:11px;font-weight:650;color:#a2afc6;list-style:none;}
+.preparation-checklist>summary::-webkit-details-marker {display:none;}
+.preparation-checklist[open]>summary {margin-bottom:16px;}
+.preparation-checklist[open]>summary svg {transform:rotate(180deg);}
+.preparation-checklist .zyon-mark {width:18px;height:18px;}
+.workspace-v4.zyon-reimagined .shopping-plan {border:0;padding:0;margin:0;}
+.workspace-v4.zyon-reimagined .shopping-plan-header h3 {font-size:10px;}
+.workspace-v4.zyon-reimagined .shopping-help {font-size:10px;line-height:1.7;color:#7f8a9d;}
+.workspace-v4.zyon-reimagined .purchase-checklist button {background:transparent;border-color:#242d3c;font-size:11px;}
+.workspace-v4.zyon-reimagined .purchase-checklist button.collected {background:#182234;border-color:#394d70;}
+.workspace-v4.zyon-reimagined .shopping-components {border:0;padding:0 3px;color:#9faabd;}
+.workspace-v4.zyon-reimagined .shopping-components h3 {font-size:12px;}
+.workspace-v4.zyon-reimagined .component-needs {gap:8px;}
+.workspace-v4.zyon-reimagined .component-needs>span {background:#171e2a;border:1px solid #2c374a;border-radius:6px;}
+.workspace-v4.zyon-reimagined .shop-lab {background:#090b0f;border-color:#283243;}
+.workspace-v4.zyon-reimagined .shop-title h2 {font-size:12px;}
+.workspace-v4.zyon-reimagined .shop-title>svg,.workspace-v4.zyon-reimagined .shop-header p {color:#7f8a9e;}
+.workspace-v4.zyon-reimagined .simulation-label {background:#1c2433;color:#9ca7b9;}
+.workspace-v4.zyon-reimagined .shop-footer .zyon-mark {width:18px;height:18px;}
+.workspace-v4.zyon-reimagined .shop-footer,.workspace-v4.zyon-reimagined .statusbar {color:#6b778d;background:#070a10;border-color:#242c3a;}
+.workspace-v4.zyon-reimagined .toast {background:#1f2d45;border-color:#5774a5;color:#e0e8f5;box-shadow:0 12px 40px #0008;animation:zyon-toast .22s ease-out;}
+.workspace-v4.zyon-reimagined .planner-page,.workspace-v4.zyon-reimagined .database-page,.workspace-v4.zyon-reimagined .settings-panel {animation:zyon-panel .2s ease-out;}
+.workspace-v4.zyon-reimagined .planner-topline input {font-weight:750;font-size:18px;color:#e7edf7;}
+.workspace-v4.zyon-reimagined .pin-button {display:flex;align-items:center;gap:7px;border-color:#4e658e;background:#141c2a;color:#b8cbeb;}
+.workspace-v4.zyon-reimagined .pin-button .zyon-mark {width:25px;height:25px;}
+.workspace-v4.zyon-reimagined .planner-board {border-color:#343f52;background:#090b0f;border-radius:12px;}
+.workspace-v4.zyon-reimagined .tft-board-panel {background:#0c0f13;border-color:#343f52;border-radius:11px;}
+.workspace-v4.zyon-reimagined .board-panel-heading {background:#13171d;border-color:#303a4c;}
+.workspace-v4.zyon-reimagined .board-panel-heading>div>svg {color:#8caade;}
+.workspace-v4.zyon-reimagined .board-panel-footer {background:#0a0d11;border-color:#303a4c;color:#8490a5;}
+.workspace-v4.zyon-reimagined .planner-topline input {background:#10141b;border:1px solid #374151;border-radius:7px;}
+.workspace-v4.zyon-reimagined .pool-tabs button.active::after {background:#86aef2;}
+.workspace-v4.zyon-reimagined .unit-pool,.workspace-v4.zyon-reimagined .unit-inspector {background:#0c0f13;border-color:#293343;border-radius:10px;}
+.workspace-v4.zyon-reimagined .pool-tabs,.workspace-v4.zyon-reimagined .database-tabs {border-color:#2d3748;}
+.workspace-v4.zyon-reimagined .pool-tabs button.active,.workspace-v4.zyon-reimagined .database-tabs button.active {color:#bfd7ff;border-color:#86aef2;}
+.workspace-v4.zyon-reimagined .pool-unit:hover,.workspace-v4.zyon-reimagined .item-pool button:hover {background:#202b3d;}
+.workspace-v4.zyon-reimagined .pool-check {background:#86aef2;color:#101724;}
+.workspace-v4.zyon-reimagined .pool-unit.on-board img {outline-color:#86aef2;}
+.database-comp-focus {display:flex;align-items:center;gap:12px;border:1px solid #2d394d;border-radius:10px;padding:13px;background:#10141a;margin-bottom:20px;}
+.database-comp-focus>img {width:44px;height:44px;border-radius:8px;}
+.database-comp-focus>div {flex:1;min-width:0;}
+.database-comp-focus small {display:block;color:#8390a7;font-size:10px;margin-bottom:4px;}
+.database-comp-focus strong {font-size:14px;}
+.database-comp-focus>button {display:flex;align-items:center;gap:6px;font-size:10px;padding:7px 10px;border:1px solid #425067;border-radius:7px;color:#adbcd6;}
+.database-comp-focus>button[aria-pressed="true"] {background:#283f66;border-color:#86aef2;color:#ecf1f9;}
+.database-comp-focus .zyon-mark {width:21px;height:21px;}
+.workspace-v4.zyon-reimagined .data-table {background:#0b0d11;border-color:#2a3240;}
+.workspace-v4.zyon-reimagined .data-table th {background:#13171d;color:#8c98ae;font-size:10px;border-color:#2a3240;}
+.workspace-v4.zyon-reimagined .data-table td {border-color:#202837;color:#b7c0d0;}
+.workspace-v4.zyon-reimagined .data-table tbody tr:hover {background:#19212f;}
+.workspace-v4.zyon-reimagined .settings-panel>section {background:#0c0f13;border-color:#2c3646;border-radius:12px;padding:20px;}
+.workspace-v4.zyon-reimagined .settings-panel h2 {font-size:17px;color:#e7edf8;}
+.workspace-v4.zyon-reimagined .settings-panel p {color:#8c98ac;font-size:12px;line-height:1.7;}
+.workspace-v4.zyon-reimagined .setting-row {border-color:#2c3646;}
+.workspace-v4.zyon-reimagined .help-step {border-color:#2c3646;background:#0e1117;}
+.workspace-v4.zyon-reimagined .help-step>.zyon-mark {width:28px;height:28px;}
+.workspace-v4.zyon-reimagined .primary-button {background:#86aef2;border-color:#86aef2;color:#101723;}
+
+/* Published guide, items and augments share the same context in both windows. */
+:is(.zyon-reimagined,.game-guide) .pivot-builds {border-color:#2d3749;gap:7px;padding:12px 0;}
+:is(.zyon-reimagined,.game-guide) .pivot-builds button {font:600 11px Manrope,sans-serif;border-color:#384355;background:#10141a;color:#9ca7ba;border-radius:6px;}
+:is(.zyon-reimagined,.game-guide) .pivot-builds button[aria-pressed="true"] {color:#c5d4ed;border-color:#6585bd;background:#213049;}
+:is(.zyon-reimagined,.game-guide) .pivot-guide {gap:22px;}
+:is(.zyon-reimagined,.game-guide) .pivot-levels {background:#080a0e;border-color:#303b4f;border-radius:7px;}
+:is(.zyon-reimagined,.game-guide) .pivot-levels button[aria-pressed="true"] {color:#cdd9ef;background:#293852;}
+:is(.zyon-reimagined,.game-guide) .pivot-tip {background:#19202d;border-color:#424f66;color:#c4cfe2;border-radius:8px;}
+:is(.zyon-reimagined,.game-guide) .pivot-step-detail {border-color:#343f52;}
+:is(.zyon-reimagined,.game-guide) .pivot-step-heading>strong {background:#243046;color:#c1cfe7;}
+:is(.zyon-reimagined,.game-guide) .pivot-item-order ol li {background:#10141a;border-color:#2d384a;border-radius:7px;}
+:is(.zyon-reimagined,.game-guide) .pivot-item-order ol {display:flex;flex-wrap:wrap;gap:7px;padding:0;margin:12px 0;list-style:none;}
+:is(.zyon-reimagined,.game-guide) .pivot-item-order ol li {display:flex;flex:1 1 155px;align-items:center;gap:7px;padding:9px;font-size:11px;}
+:is(.zyon-reimagined,.game-guide) .pivot-item-order ol li .equipment {--item-size:29px;}
+:is(.zyon-reimagined,.game-guide) .pivot-item-order ol li>b {width:17px;min-width:17px;}
+:is(.zyon-reimagined,.game-guide) .pivot-item-order li>b {color:#96b2e1;background:#26344c;}
+:is(.zyon-reimagined,.game-guide) .item-recipe {background:#0e1117;border-color:#2d3749;border-radius:7px;padding:10px;}
+:is(.zyon-reimagined,.game-guide) .holder-loadout {border-color:#2a3444;background:#0c0f15;border-radius:9px;}
+:is(.zyon-reimagined,.game-guide) .holder-heading {background:#141a23;border-color:#2a3444;}
+:is(.zyon-reimagined,.game-guide) .holder-heading>img {border-radius:8px;}
+:is(.zyon-reimagined,.game-guide) .guide-unit-table table {background:#0c0f13;}
+:is(.zyon-reimagined,.game-guide) .guide-unit-table th {background:#151b26;color:#9da9bd;}
+:is(.zyon-reimagined,.game-guide) .guide-unit-table td {border-color:#2d3749;}
+:is(.zyon-reimagined,.game-guide) .guide-source {border-color:#2d3749;color:#78859c;}
+:is(.zyon-reimagined,.game-guide) .guide-section-intro button,.workspace-v4.zyon-reimagined .shopping-planner {color:#a5bce5;}
+.augment-focus {display:flex;flex-wrap:wrap;gap:7px;margin:12px 0 17px;}
+.augment-focus>span {display:flex;align-items:center;gap:5px;padding:5px 8px;background:#161e2c;color:#a5b6d4;border:1px solid #344157;border-radius:5px;font-size:10px;}
+.augment-toolbar {display:flex;align-items:center;gap:8px;margin-bottom:16px;}
+.augment-toolbar .search-field {display:flex;align-items:center;gap:8px;flex:1;min-width:0;padding:0 11px;border:1px solid #374153;background:#0c0f13;border-radius:7px;min-height:37px;}
+.augment-toolbar input {min-width:0;width:100%;background:transparent;border:0;outline:none;color:#dae3f3;padding:9px 0;font-size:11px;}
+.augment-toolbar select {min-height:37px;max-width:135px;background:#10141a;border:1px solid #374153;border-radius:6px;color:#b9c3d5;padding:7px;font-size:10px;}
+:is(.zyon-reimagined,.game-guide) .pivot-augment-list {gap:10px;}
+:is(.zyon-reimagined,.game-guide) .pivot-augment-list>div {background:#10141a;border:1px solid #343f52;border-radius:10px;padding:13px;min-height:79px;}
+:is(.zyon-reimagined,.game-guide) .pivot-augment-list>div:hover {border-color:#647797;background:#141b26;}
+:is(.zyon-reimagined,.game-guide) .pivot-augment-list img {width:43px;height:43px;padding:4px;background:#1a212c;border-radius:8px;}
+:is(.zyon-reimagined,.game-guide) .pivot-augment-list strong {color:#dce3ef;font-size:12px;}
+:is(.zyon-reimagined,.game-guide) .pivot-augment-list small {color:#7f8a9e;line-height:1.5;}
+:is(.zyon-reimagined,.game-guide) .pivot-augment-list>div>b {color:#abc1e7;background:#28354b;border-radius:5px;padding:4px 7px;font-size:12px;}
+:is(.zyon-reimagined,.game-guide) .level-selector {background:#0e1117;border-color:#303b4e;}
+:is(.zyon-reimagined,.game-guide) .level-selector button.active {background:#2b3951;color:#bcceec;}
+:is(.zyon-reimagined,.game-guide) .level-decision {background:#141b27;border-color:#4c5c79;}
+
+/* In-game notebook: restrained contrast, one primary action, quieter chrome. */
+.game-guide.game-wide {background:#0a0f18fa;border:1px solid #48556c;border-radius:12px;color:#e6ecf7;font:400 12px/1.5 Manrope,Arial,sans-serif;}
+.game-guide.game-wide .game-heading {border-color:#2e3848;}
+.game-guide.game-wide .game-wordmark {display:flex;align-items:center;}
+.game-guide.game-wide .game-wordmark .zyon-mark {width:31px;height:31px;}
+.game-guide.game-wide.game-collapsed .game-wordmark {display:flex;}
+.game-guide.game-wide.game-collapsed .game-wordmark .zyon-mark {width:24px;height:24px;}
+.game-guide.game-wide .game-heading-title h1 {font:750 15px/1.4 Manrope,sans-serif;color:#edf1f9;letter-spacing:-.3px;}
+.game-guide.game-wide .game-heading-controls button {background:#1a2333;border-color:#354258;border-radius:7px;color:#b4becf;}
+.game-guide.game-wide .game-collapsed-action {background:#1a263a;color:#b9c9e4;}
+.game-guide.game-wide .game-collapsed-action>b {color:#bfcfec;}
+.game-guide.game-wide .game-collapsed-action .collapsed-gold {color:#dcc88a;border-color:#414e64;}
+.game-guide.game-wide .game-telemetry {background:#0c0f13;border-color:#293446;}
+.game-guide.game-wide .game-mode {border-color:#3b4f71;color:#9eb7e3;background:#1a2538;border-radius:5px;}
+.game-guide.game-wide .game-live-status {color:#93a5c4;}
+.game-guide.game-wide .game-tabs {background:#080a0e;border-color:#2d3747;gap:5px;}
+.game-guide.game-wide .game-tabs button {border-radius:7px;color:#8d98ab;padding:8px 12px;font-size:11px;min-width:92px;}
+.game-guide.game-wide .game-tabs button[aria-selected="true"] {background:#22314b;border-color:#516383;color:#cdd9ef;}
+.game-guide.game-wide .game-content {background:#0c0f13;padding:18px;animation:zyon-panel .18s ease-out;}
+.game-guide.game-wide .game-now-aside,.game-guide.game-wide .game-team-info {border-color:#2e384a;}
+.game-guide.game-wide .game-decision {background:#141c29;border:1px solid #3a4964;border-left:3px solid #789bd8;border-radius:9px;padding:16px;}
+.game-guide.game-wide .game-decision h2 {font:750 19px/1.35 Manrope,sans-serif;color:#ecf1f9;letter-spacing:-.4px;}
+.game-guide.game-wide .game-decision p {color:#a4b0c4;font-size:11px;}
+.game-guide.game-wide .game-phase .current {color:#8facdf;}
+.game-guide.game-wide .game-phase i {background:#2d384b;}
+.game-guide.game-wide .game-phase i::after {background:#688dcd;}
+.game-guide.game-wide .game-buy h3,.game-guide.game-wide .game-next h3 {color:#b8c8e4;}
+.game-guide.game-wide .game-priority {border-color:#283242;}
+.game-guide.game-wide .game-priority>img {border-radius:8px;}
+.game-guide.game-wide .game-subtabs {background:#080b0f;border-radius:8px;padding:4px;border:1px solid #2b364a;}
+.game-guide.game-wide .game-subtabs button[aria-pressed="true"] {background:#24334e;color:#cedaef;border-radius:5px;}
+.game-guide.game-wide .game-team-levels button {background:#0c0f15;border-color:#354155;color:#a8b3c6;}
+.game-guide.game-wide .game-team-levels button[aria-pressed="true"] {background:#2c3f5f;border-color:#7ea0da;color:#dfe7f5;}
+.game-guide.game-wide .game-team-levels button[data-live]::after {background:#99b3e1;}
+.game-guide.game-wide .native-board-panel {background:#080a0e;border-color:#353f50;border-radius:10px;}
+.game-guide.game-wide .game-caption {color:#7f8da5;}
+.game-guide.game-wide .game-section {border-color:#2c3648;}
+.game-guide.game-wide .game-portrait {background:#10141b;border-radius:7px;}
+.game-guide.game-wide .game-portrait b {background:#10141b;}
+.game-guide.game-wide .game-unit>strong {color:#d4dcea;}
+.game-guide.game-wide .game-unit>small {color:#838fa5;}
+.game-guide.game-wide .game-copy-count {background:#1b2638;color:#b2c0d8;border-radius:4px;}
+.game-guide.game-wide .game-text-action {color:#8caade;}
+.game-guide.game-wide .game-footer {background:#080b0f;border-color:#2a3547;color:#7d8aa0;}
+.game-guide.game-wide .game-footer button {border-color:#394760;color:#a3b7da;background:#172030;}
+.game-guide.game-wide .game-item-route {border-color:#303b4e;background:#0e1219;border-radius:9px;}
+.game-guide.game-wide .game-item-route h3 {color:#e5ecf7;}
+.game-guide.game-wide .game-item-route p {color:#95a1b7;}
+.game-guide.game-wide .game-now-layout .game-board-caption span {color:#7e8a9f;}
+.game-guide.game-wide button:focus-visible {outline-color:#b5d0ff;}
+
+.shop-medal.shop-badge {color:#d5e0f2;}
+.shop-medal.shop-badge>svg {filter:drop-shadow(0 0 5px #4d78c344);}
+.shop-medal .shop-medal-caption {background:linear-gradient(#283c5f,#131b29);border-color:#6388c9;color:#dce5f4;box-shadow:inset 0 1px #abc1e655,0 2px #0a0f17;}
+
+@keyframes zyon-reveal {from{opacity:.5;transform:translateY(-5px);}to{opacity:1;transform:translateY(0);}}
+@keyframes zyon-panel {from{opacity:.6;transform:translateY(4px);}to{opacity:1;transform:translateY(0);}}
+@keyframes zyon-toast {from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+@keyframes zyon-choice {0%{transform:scale(.8) rotate(-8deg);}65%{transform:scale(1.1) rotate(2deg);}100%{transform:scale(1) rotate(0);}}
+@keyframes zyon-art {from{opacity:.35;}to{opacity:1;}}
+@media(min-width:1700px){.workspace-v4.zyon-reimagined .workspace-content{grid-template-columns:minmax(0,1fr) 312px;gap:28px;}.comp-spotlight{min-height:250px;}.spotlight-copy{padding:27px;}}
+@media(max-width:1350px){
+  .workspace-v4.zyon-reimagined .sidebar{width:166px;padding-inline:10px;}
+  .workspace-v4.zyon-reimagined .brand{font-size:25px;}.workspace-v4.zyon-reimagined .brand .zyon-mark{width:42px;height:42px;}
+  .workspace-v4.zyon-reimagined .brand span{font-size:8px;}
+  .workspace-v4.zyon-reimagined .sidebar nav button{font-size:11px;}
+  .workspace-v4.zyon-reimagined .workspace-content{grid-template-columns:minmax(0,1fr) 254px;gap:18px;padding-inline:20px;}
+  .workspace-v4.zyon-reimagined .workspace-heading{padding-inline:20px;}
+  .preparation-flow{margin-inline:20px;}.flow-note{display:none;}
+  .spotlight-copy{max-width:82%;padding:20px;}.spotlight-copy h2{font-size:27px;}
+  .workspace-v4.zyon-reimagined .tier-section-cards .comp-row-summary{padding:14px;grid-template-columns:minmax(0,1fr) 36px;gap:10px;}
+  .workspace-v4.zyon-reimagined .tier-section-cards .row-controls{grid-template-columns:36px;justify-items:center;}
+  .workspace-v4.zyon-reimagined .detail-tabs{gap:12px;flex-wrap:wrap;}.workspace-v4.zyon-reimagined .detail-tabs button{min-height:36px;}
+}
+@media(max-width:1150px){
+  .workspace-v4.zyon-reimagined .sidebar{width:76px;padding:22px 9px;align-items:center;}
+  .workspace-v4.zyon-reimagined .brand{margin-inline:0;}.workspace-v4.zyon-reimagined .brand>div,.workspace-v4.zyon-reimagined .sidebar-set,.workspace-v4.zyon-reimagined .sidebar nav button>span,.workspace-v4.zyon-reimagined .nav-group-label,.workspace-v4.zyon-reimagined .sidebar-pinned span,.workspace-v4.zyon-reimagined .sidebar-profile,.workspace-v4.zyon-reimagined .sidebar-bottom>button>span{display:none;}
+  .workspace-v4.zyon-reimagined .sidebar nav{width:100%;}.workspace-v4.zyon-reimagined .sidebar nav button{justify-content:center;padding:0;width:48px;height:48px;}
+  .workspace-v4.zyon-reimagined .sidebar-bottom>button{width:48px;justify-content:center;padding:0;}
+  .workspace-v4.zyon-reimagined .sidebar-pinned{padding-top:17px;width:48px;}.workspace-v4.zyon-reimagined .sidebar-pinned button{justify-content:center;}
+  .workspace-v4.zyon-reimagined .workspace-heading h1{font-size:27px;}
+}
+@media(max-width:800px){
+  .workspace-v4.zyon-reimagined .workspace-content{display:block;overflow:auto;}.workspace-v4.zyon-reimagined .plan-aside{margin-top:24px;}
+  .workspace-v4.zyon-reimagined .comp-feed{overflow:visible;height:auto;}.workspace-v4.zyon-reimagined .comp-list{overflow:visible;}
+  .spotlight-copy{max-width:100%;}.spotlight-art{opacity:.6;}.preparation-flow{gap:4px;}.preparation-flow>button{font-size:10px;padding:5px;gap:4px;}
+  .workspace-v4.zyon-reimagined .workspace-heading{align-items:flex-start;gap:16px;flex-wrap:wrap;}.workspace-v4.zyon-reimagined .workspace-heading p{font-size:11px;}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{scroll-behavior:auto!important;animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;}
+}

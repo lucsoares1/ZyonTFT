@@ -1,0 +1,459 @@
+{
+  "retrieved": "2026-11-14T15:51:10.579Z",
+  "sources": [
+    "https://ddragon.leagueoflegends.com/cdn/16.22.1/data/pt_BR/tft-champion.json",
+    "https://raw.communitydragon.org/latest/cdragon/tft/pt_br.json"
+  ],
+  "assets": [
+    {
+      "file": "public/assets/champions/DA_Murkwolf18.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-champion/DA_Murkwolf18.TFT_Set18.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/champions/DA_18_Sentry.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-champion/DA_18_Sentry.TFT_Set18.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/champions/DA_Cinderling18.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-champion/DA_Cinderling18.TFT_Set18.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/champions/DA_Gromp18_AP.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-champion/DA_Gromp18_AP.TFT_Set18.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/champions/DA_Krug18.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-champion/DA_Krug18.TFT_Set18.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/champions/DA_Scuttlecrab18.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-champion/DA_Scuttlecrab18.TFT_Set18.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/champions/DA_Nidalee18_AP.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-champion/TFT18_Nidalee_splash_centered_0.TFT_Set18.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/champions/DA_Sentinel18.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-champion/DA_Sentinel18.TFT_Set18.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/champions/DA_Brambleback18.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-champion/DA_Brambleback18.TFT_Set18.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/champions/DA_18_Ornn.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-champion/TFT18_Ornn_splash_centered_2.TFT_Set18.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/champions/DA_18_Hecarim.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-champion/TFT18_Hecarim_splash_centered_5.TFT_Set18.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/champions/DA_18_Xayah.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-champion/TFT18_Xayah_splash_centered_8.TFT_Set18.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/champions/DA_18_Malphite.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-champion/TFT18_Malphite_splash_centered_27.TFT_Set18.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/champions/DA_18_Azir.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-champion/TFT18_Azir_splash_centered_5.TFT_Set18.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/champions/DA_18_Ezreal.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-champion/TFT18_Ezreal_splash_centered_1.TFT_Set18.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/champions/DA_18_RekSai.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-champion/TFT18_RekSai_splash_centered_17.TFT_Set18.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/champions/DA_18_Veigar.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-champion/TFT18_Veigar_splash_centered_13.TFT_Set18.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/champions/DA_18_Maokai.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-champion/TFT18_Maokai_splash_centered_0.TFT_Set18.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/champions/DA_18_Yorick.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-champion/TFT18_Yorick_splash_centered_30.TFT_Set18.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/champions/DA_18_Sett.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-champion/TFT18_Sett_splash_centered_38.TFT_Set18.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/champions/DA_18_Yunara.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-champion/TFT18_Yunara_splash_centered_0.TFT_Set18.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/champions/DA_18_Ahri.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-champion/TFT18_Ahri_splash_centered_27.TFT_Set18.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/champions/DA_18_Ashe.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-champion/TFT18_Ashe_splash_centered_76.TFT_Set18.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/champions/DA_18_Elise.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-champion/TFT18_Elise_splash_centered_24.TFT_Set18.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/champions/DA_18_Caitlyn.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-champion/TFT18_Caitlyn_splash_centered_30.TFT_Set18.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/champions/DA_18_Rakan.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-champion/TFT18_Rakan_splash_centered_9.TFT_Set18.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/champions/DA_18_Kobuko.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-champion/DA_18_Kobuko.TFT_Set18.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/champions/DA_18_Lillia.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-champion/TFT18_Lillia_splash_centered_28.TFT_Set18.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/champions/DA_18_Cassiopeia.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-champion/TFT18_Cassiopeia_splash_centered_18.TFT_Set18.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/champions/DA_18_Morgana.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-champion/TFT18_Morgana_splash_centered_26.TFT_Set18.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/champions/DA_18_GnarSmall.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-champion/TFT18_Gnar_splash_centered_0.TFT_Set18.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/champions/DA_18_Sivir.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-champion/TFT18_Sivir_splash_centered_61.TFT_Set18.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/champions/DA_Vi18.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-champion/TFT18_Vi_splash_centered_39.TFT_Set18.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/champions/DA_18_Rammus.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-champion/TFT18_Rammus_splash_centered_26.TFT_Set18.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/champions/DA_18_Teemo.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-champion/DA_18_Teemo.TFT_Set18.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/champions/DA_18_Tristana.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-champion/TFT18_Tristana_splash_centered_61.TFT_Set18.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/champions/DA_18_Diana.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-champion/TFT18_Diana_splash_centered_0.TFT_Set18.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/champions/DA_18_Aphelios.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-champion/TFT18_Aphelios_splash_centered_0.TFT_Set18.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/champions/DA_Amumu18.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-champion/TFT18_Amumu_splash_centered_17.TFT_Set18.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/champions/DA_18_Varus.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-champion/TFT18_Varus_splash_centered_9.TFT_Set18.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/champions/DA_18_Akali_AD.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-champion/TFT18_Akali_splash_centered_2.TFT_Set18.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/champions/DA_18_Kennen.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-champion/TFT18_Kennen_splash_centered_8.TFT_Set18.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/champions/DA_18_KhaZix.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-champion/TFT18_KhaZix_splash_centered_0.TFT_Set18.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/champions/DA_18_Leona.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-champion/TFT18_Leona_splash_centered_10.TFT_Set18.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/champions/DA_18_Alune.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-champion/DA_18_Alune.TFT_Set18.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/champions/DA_18_Sejuani.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-champion/TFT18_Sejuani_splash_centered_26.TFT_Set18.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/champions/DA_18_Rengar.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-champion/TFT18_Rengar_splash_centered_0.TFT_Set18.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/champions/DA_18_Kayle.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-champion/TFT18_Kayle_splash_centered_42.TFT_Set18.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/champions/DA_KogMaw18_AD.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-champion/TFT18_KogMaw_splash_centered_3.TFT_Set18.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/champions/DA_18_Zyra.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-champion/TFT18_Zyra_splash_centered_0.TFT_Set18.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/champions/DA_Fiddlesticks18.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-champion/TFT18_Fiddlesticks_splash_centered_46.TFT_Set18.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/champions/DA_18_Soraka.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-champion/TFT18_Soraka_splash_centered_53.TFT_Set18.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/champions/DA_18_Ivern.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-champion/TFT18_Ivern_splash_centered_0.TFT_Set18.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/champions/DA_Taric18.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-champion/TFT18_Taric_splash_centered_1.TFT_Set18.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/champions/DA_18_Alistar.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-champion/TFT18_Alistar_splash_centered_40.TFT_Set18.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/champions/DA_18_LeBlanc.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-champion/TFT18_Leblanc_splash_centered_5.TFT_Set18.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/champions/DA_18_ElderDragon.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-champion/DA_18_ElderDragon.TFT_Set18.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/champions/DA_Karma18.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-champion/TFT18_Karma_splash_centered_70.TFT_Set18.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/champions/DA_Draven18.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-champion/TFT18_Draven_splash_centered_5.TFT_Set18.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/champions/DA_Lux18_Base.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-champion/TFT18_Lux_splash_centered_7.TFT_Set18.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/champions/DA_18_MasterYi_AD.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-champion/TFT18_MasterYi_splash_centered_52.TFT_Set18.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/champions/DA_Lux18_Blackthorn.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-champion/TFT18_Lux_splash_centered_7.TFT_Set18.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/champions/DA_Lux18_Blossom.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-champion/TFT18_Lux_splash_centered_7.TFT_Set18.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/champions/DA_18_Shen.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-champion/TFT18_Shen_splash_centered_16.TFT_Set18.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/champions/DA_18_Camille.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-champion/TFT18_Camille_splash_centered_2.TFT_Set18.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/champions/DA_18_Warwick.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-champion/TFT18_Warwick_splash_centered_35.TFT_Set18.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/champions/DA_18_Lux_Elderwood.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-champion/TFT18_Lux_splash_centered_7.TFT_Set18.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/champions/DA_18_Lux_Coven.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-champion/TFT18_Lux_splash_centered_7.TFT_Set18.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/champions/DA_18_Lux_Primal.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-champion/TFT18_Lux_splash_centered_7.TFT_Set18.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/champions/DA_18_Lux_Fae.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-champion/TFT18_Lux_splash_centered_7.TFT_Set18.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/champions/DA_18_Lux_Inferno.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-champion/TFT18_Lux_splash_centered_7.TFT_Set18.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/champions/DA_18_Lux_Moonbeam.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-champion/TFT18_Lux_splash_centered_7.TFT_Set18.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/champions/DA_18_Lux_Sunbeam.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-champion/TFT18_Lux_splash_centered_7.TFT_Set18.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/items/DA_JeweledGauntlet.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-item/DA_JeweledGauntlet.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/items/DA_BlueBuff.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-item/DA_BlueBuff.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/items/DA_ArchangelsStaff.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-item/DA_ArchangelsStaff.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/items/DA_SpiritVisage.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-item/DA_SpiritVisage.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/champions/DA_CrimsonRaptor18.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-champion/DA_CrimsonRaptor18.TFT_Set18.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/items/DA_KrakensFury.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-item/DA_KrakensFury.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/items/DA_VoidStaff.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-item/DA_VoidStaff.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/items/DA_Morellonomicon.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-item/DA_Morellonomicon.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/items/DA_GargoyleStoneplate.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-item/DA_GargoyleStoneplate.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/items/DA_SpearOfShojin.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-item/DA_SpearOfShojin.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/items/DA_WarmogsArmor.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-item/DA_WarmogsArmor.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/items/DA_18_EmblemElderwood.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-item/DA_18_EmblemElderwood.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/items/DA_Deathblade.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-item/DA_Deathblade.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/items/DA_LastWhisper.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-item/DA_LastWhisper.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/items/DA_RabadonsDeathcap.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-item/DA_RabadonsDeathcap.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/items/DA_InfinityEdge.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-item/DA_InfinityEdge.png",
+      "owner": "Riot Games"
+    },
+    {
+      "file": "public/assets/items/DA_GuinsoosRageblade.png",
+      "source": "https://ddragon.leagueoflegends.com/cdn/16.22.1/img/tft-item/DA_GuinsoosRageblade.png",
+      "owner": "Riot Games"
+    }
+  ]
+}

@@ -1,0 +1,3184 @@
+{
+  "itemSlugs": {
+    "needlessly-large-rod": "DA_Component_NeedlesslyLargeRod",
+    "recurve-bow": "DA_Component_RecurveBow",
+    "guinsoos-rageblade": "DA_GuinsoosRageblade",
+    "champion-duplicator": "DA_Consumable_ChampionDuplicator",
+    "b-f-sword": "DA_Component_BFSword",
+    "bloodthirster": "DA_Bloodthirster",
+    "bramble-vest": "DA_BrambleVest",
+    "chain-vest": "DA_Component_ChainVest",
+    "sparring-gloves": "DA_Component_SparringGloves",
+    "deathblade": "DA_Deathblade",
+    "dragons-claw": "DA_DragonsClaw",
+    "": "TFT15_General_Consumable_ReduceThreat",
+    "tacticians-crown": "DA_TacticiansCrown",
+    "thiefs-gloves": "DA_ThiefsGloves",
+    "shroud-of-stillness": "TFT_Item_Shroud",
+    "protectors-vow": "DA_ProtectorsVow",
+    "giants-belt": "DA_Component_GiantsBelt",
+    "giant-slayer": "DA_GiantSlayer",
+    "edge-of-night": "DA_EdgeOfNight",
+    "hand-of-justice": "DA_HandOfJustice",
+    "hextech-gunblade": "DA_HextechGunblade",
+    "chalice-of-power": "TFT_Item_Chalice",
+    "infinity-edge": "DA_InfinityEdge",
+    "ionic-spark": "DA_IonicSpark",
+    "jeweled-gauntlet": "DA_JeweledGauntlet",
+    "last-whisper": "DA_LastWhisper",
+    "locket-of-the-iron-solari": "TFT_Item_LocketOfTheIronSolari",
+    "archangels-staff": "DA_ArchangelsStaff",
+    "spatula": "DA_Component_Spatula",
+    "quicksilver": "DA_Quicksilver",
+    "morellonomicon": "DA_Morellonomicon",
+    "negatron-cloak": "DA_Component_NegatronCloak",
+    "strikers-flail": "DA_StrikersFlail",
+    "rabadons-deathcap": "DA_RabadonsDeathcap",
+    "red-buff": "DA_RedBuff",
+    "sunfire-cape": "DA_SunfireCape",
+    "spirit-visage": "DA_SpiritVisage",
+    "krakens-fury": "DA_KrakensFury",
+    "spear-of-shojin": "DA_SpearOfShojin",
+    "void-staff": "DA_VoidStaff",
+    "gargoyle-stoneplate": "DA_GargoyleStoneplate",
+    "tear-of-the-goddess": "DA_Component_TearOfTheGoddess",
+    "zzrot-portal": "TFT5_Item_ZzRotPortalRadiant",
+    "titans-resolve": "DA_TitansResolve",
+    "warmogs-armor": "DA_WarmogsArmor",
+    "zekes-herald": "TFT_Item_ZekesHerald",
+    "zephyr": "TFT_Item_Zephyr",
+    "magnetic-remover": "TFT_Consumable_ItemRemover",
+    "reforger": "DA_Reforger",
+    "loaded-dice": "TFT_Consumable_ShopReroller",
+    "missingno": "TFT_Item_DebugBase",
+    "deaths-defiance": "TFT4_Item_OrnnDeathsDefiance",
+    "eternal-winter": "TFT4_Item_OrnnEternalWinter",
+    "gold-collector": "DA_Artifact_GoldCollector",
+    "infinity-force": "DA_Artifact_InfinityForce",
+    "manazane": "DA_Artifact_Manazane",
+    "obsidian-cleaver": "TFT4_Item_OrnnObsidianCleaver",
+    "randuins-omen": "TFT4_Item_OrnnRanduinsSanctum",
+    "zhonyas-paradox": "DA_Artifact_ZhonyasParadox",
+    "radiant-strikers-flail": "DA_StrikersFlailRadiant",
+    "radiant-bloodthirster": "DA_BloodthirsterRadiant",
+    "radiant-ionic-spark": "DA_IonicSparkRadiant",
+    "radiant-giant-slayer": "DA_GiantSlayer_Radiant",
+    "radiant-dragons-claw": "DA_DragonsClawRadiant",
+    "radiant-gargoyle-stoneplate": "DA_GargoyleStoneplate_Radiant",
+    "radiant-last-whisper": "DA_LastWhisperRadiant",
+    "radiant-hand-of-justice": "DA_HandOfJusticeRadiant",
+    "radiant-protectors-vow": "DA_ProtectorsVowRadiant",
+    "radiant-jeweled-gauntlet": "DA_JeweledGauntletRadiant",
+    "radiant-edge-of-night": "DA_EdgeOfNightRadiant",
+    "radiant-guinsoos-rageblade": "DA_GuinsoosRagebladeRadiant",
+    "radiant-hextech-gunblade": "DA_HextechGunbladeRadiant",
+    "radiant-deathblade": "DA_DeathbladeRadiant",
+    "radiant-morellonomicon": "DA_MorellonomiconRadiant",
+    "radiant-quicksilver": "DA_QuicksilverRadiant",
+    "radiant-rabadons-deathcap": "DA_RabadonsDeathcap_Radiant",
+    "radiant-spirit-visage": "DA_SpiritVisage_Radiant",
+    "radiant-red-buff": "DA_RedBuffRadiant",
+    "radiant-thiefs-gloves": "DA_ThiefsGlovesRadiant",
+    "radiant-bramble-vest": "DA_BrambleVestRadiant",
+    "radiant-krakens-fury": "DA_KrakensFury_Radiant",
+    "radiant-spear-of-shojin": "DA_SpearOfShojinRadiant",
+    "radiant-void-staff": "DA_VoidStaffRadiant",
+    "radiant-sunfire-cape": "DA_SunfireCape_Radiant",
+    "radiant-titans-resolve": "DA_TitansResolve_Radiant",
+    "radiant-archangels-staff": "DA_ArchangelsStaffRadiant",
+    "radiant-warmogs-armor": "DA_WarmogsArmorRadiant",
+    "radiant-infinity-edge": "DA_InfinityEdgeRadiant",
+    "portable-pain": "TFT_Item_DebugDamage",
+    "the-tears-of-my-enemies": "TFT_Item_DebugMana",
+    "hammer-to-the-face": "TFT_Item_DebugStun",
+    "do-you-know-who-i-am": "TFT_Item_DebugUnitID",
+    "needlessly-big-gem": "TFT7_Item_ShimmerscaleHeartOfGold_HR",
+    "lesser-champion-duplicator": "DA_Consumable_LesserChampionDuplicator",
+    "hullcrusher": "DA_Artifact_Hullcrusher",
+    "tricksters-glass": "TFT9_Item_OrnnTrickstersGlass",
+    "deathfire-grasp": "TFT9_Item_OrnnDeathfireGrasp",
+    "snipers-focus": "TFT9_Item_OrnnHorizonFocus",
+    "unusable-slot": "TFT_Item_UnusableSlot",
+    "evenshroud": "DA_Evenshroud",
+    "radiant-evenshroud": "DA_EvenshroudRadiant",
+    "crownguard": "DA_Crownguard",
+    "radiant-crownguard": "DA_CrownguardRadiant",
+    "steadfast-heart": "DA_SteadfastHeart",
+    "radiant-steadfast-heart": "DA_SteadfastHeartRadiant",
+    "steraks-gage": "DA_SteraksGage",
+    "radiant-steraks-gage": "DA_SteraksGageRadiant",
+    "blue-buff": "DA_BlueBuff",
+    "radiant-blue-buff": "DA_BlueBuffRadiant",
+    "adaptive-helm": "DA_AdaptiveHelm",
+    "radiant-adaptive-helm": "DA_AdaptiveHelm_Radiant",
+    "nashors-tooth": "DA_NashorsTooth",
+    "radiant-nashors-tooth": "DA_NashorsToothRadiant",
+    "aegis-of-the-legion": "TFT_Item_AegisOfTheLegion",
+    "virtue-of-the-martyr": "TFT_Item_RadiantVirtue",
+    "banshees-veil": "TFT_Item_BansheesVeil",
+    "blacksmiths-gloves": "TFT9_Item_OrnnPrototypeForge",
+    "pengus-protection": "TFT_Item_DebugShield",
+    "critical-hit": "TFT_Item_DebugCrit",
+    "gamblers-blade": "DA_Artifact_GamblersBlade",
+    "determined-investor": "TFT7_Item_ShimmerscaleDeterminedInvestor",
+    "diamond-hands": "TFT7_Item_ShimmerscaleDiamondHands",
+    "damage-amp": "TFT_Item_DebugDamageAmp",
+    "masterwork-upgrade": "DA_MasterworkUpgrade",
+    "accomplices-gloves": "TFT11_Item_ThiefsGlovesSupport",
+    "golden-item-remover": "DA_Consumable_GoldenItemRemover",
+    "the-eternal-flame": "TFT_Item_EternalFlame",
+    "knights-vow": "TFT_Item_SupportKnightsVow",
+    "moonstone-renewer": "TFT_Item_Moonstone",
+    "unstable-treasure-chest": "TFT_Item_UnstableTreasureChest",
+    "talisman-of-ascension": "DA_Item_Artifact_TalismanOfAscension",
+    "fishbones": "DA_Artifact_Fishbones",
+    "suspicious-trench-coat": "TFT_Item_Artifact_SuspiciousTrenchCoat",
+    "mittens": "DA_Artifact_Mittens",
+    "unending-despair": "TFT_Item_Artifact_UnendingDespair",
+    "rapid-firecannon": "DA_Artifact_RapidFireCannon",
+    "innervating-locket": "TFT_Item_Artifact_InnervatingLocket",
+    "ludens-tempest": "DA_Artifact_LudensTempest",
+    "silvermere-dawn": "DA_Artifact_SilvermereDawn",
+    "prowlers-claw": "TFT_Item_Artifact_ProwlersClaw",
+    "spectral-cutlass": "TFT_Item_Artifact_SpectralCutlass",
+    "blighting-jewel": "DA_Artifact_BlightingJewel",
+    "wits-end": "DA_Artifact_WitsEnd",
+    "forbidden-idol": "DA_Artifact_ForbiddenIdol",
+    "lich-bane": "DA_Artifact_LichBane",
+    "lightshield-crest": "DA_Artifact_LightshieldCrest",
+    "seekers-armguard": "DA_Artifact_SeekersArmguard",
+    "ace": "TFT_Item_DebugFirstHit",
+    "taunt": "TFT_Item_DebugTaunt",
+    "10-gold": "TFT_Assist_Gold_10",
+    "tiny-champion-duplicator": "TFT_Consumable_ChampionDuplicator_I",
+    "8-gold": "TFT_Assist_Gold_8",
+    "7-gold": "TFT_Assist_Gold_7",
+    "6-gold": "TFT_Assist_Gold_6",
+    "5-gold": "TFT17_MarketOffering_Gold_5_Reforger",
+    "4-gold": "TFT17_MarketOffering_Gold_4_Remover",
+    "3-gold": "TFT17_MarketOffering_Gold_3_Reforger",
+    "2-gold": "TFT17_MarketOffering_Gold_2_Reforger",
+    "20-gold": "TFT_Assist_Gold_20",
+    "training-dummy": "TFT_Consumable_TrainingDummy",
+    "moguls-mail": "DA_Artifact_MogulsMail",
+    "sentinel-swarm": "TFT_Item_SentinelSwarm",
+    "frying-pan": "DA_Component_FryingPan",
+    "tacticians-cape": "DA_TacticiansCape",
+    "tacticians-shield": "DA_TacticiansShield",
+    "corrupt-vampiric-scepter": "TFT_Item_Artifact_CursedVampiricScepter",
+    "magnetic-remover-rules-2-uses-left-rules": "TFT_Consumable_ItemRemover_UsesLeft2",
+    "magnetic-remover-rules-3-uses-left-rules": "TFT_Consumable_ItemRemover_UsesLeft3",
+    "magnetic-remover-rules-4-uses-left-rules": "TFT_Consumable_ItemRemover_UsesLeft4",
+    "magnetic-remover-rules-5-uses-left-rules": "TFT_Consumable_ItemRemover_UsesLeft5",
+    "magnetic-remover-rules-6-uses-left-rules": "TFT_Consumable_ItemRemover_UsesLeft6",
+    "magnetic-remover-rules-7-uses-left-rules": "TFT_Consumable_ItemRemover_UsesLeft7",
+    "magnetic-remover-rules-8-uses-left-rules": "TFT_Consumable_ItemRemover_UsesLeft8",
+    "magnetic-remover-rules-9-uses-left-rules": "TFT_Consumable_ItemRemover_UsesLeft9",
+    "magnetic-remover-rules-10-uses-left-rules": "TFT_Consumable_ItemRemover_UsesLeft10",
+    "reforger-rules-2-uses-left-rules": "TFT_Consumable_ItemReroller_UsesLeft2",
+    "reforger-rules-3-uses-left-rules": "TFT_Consumable_ItemReroller_UsesLeft3",
+    "reforger-rules-4-uses-left-rules": "TFT_Consumable_ItemReroller_UsesLeft4",
+    "reforger-rules-5-uses-left-rules": "TFT_Consumable_ItemReroller_UsesLeft5",
+    "reforger-rules-6-uses-left-rules": "TFT_Consumable_ItemReroller_UsesLeft6",
+    "reforger-rules-7-uses-left-rules": "TFT_Consumable_ItemReroller_UsesLeft7",
+    "reforger-rules-8-uses-left-rules": "TFT_Consumable_ItemReroller_UsesLeft8",
+    "reforger-rules-9-uses-left-rules": "TFT_Consumable_ItemReroller_UsesLeft9",
+    "reforger-rules-10-uses-left-rules": "TFT_Consumable_ItemReroller_UsesLeft10",
+    "1-gold": "TFT_Assist_Gold_1",
+    "15-gold": "TFT_Assist_Gold_15",
+    "55-gold": "TFT_Assist_Gold_55",
+    "9-gold": "TFT_Assist_Gold_9",
+    "2-cost-champion": "TFT17_MarketOffering_TwoCostChampion",
+    "3-cost-champion": "TFT17_MarketOffering_ThreeCostChampion",
+    "1-star-4-cost-champion": "TFT_Assist_1x4cost",
+    "1-star-5-cost-champion": "TFT_Assist_1x5cost",
+    "2-3-cost-champions": "TFT_Assist_2x3cost",
+    "3-2-cost-champions": "TFT_Assist_3x2cost",
+    "component-anvil": "TFT17_MarketOffering_DelayedComponentAnvil",
+    "2-star-2-cost-champion": "TFT_Assist_1x2star2cost",
+    "2-2-star-2-cost-champions": "TFT_Assist_2x2star2cost",
+    "3-3-cost-champions": "TFT_Assist_3x3cost",
+    "3-4-cost-champions": "TFT_Assist_3x4cost",
+    "3-lesser-champion-duplicators": "TFT_Assist_LesserDuplicator_3",
+    "2-4-cost-champions": "TFT_Assist_2x4cost",
+    "random-component": "TFT17_MarketOffering_RandomComponent",
+    "2-components": "TFT_Assist_RandomComponent_2",
+    "completed-item": "TFT17_MarketOffering_RandomCompleted_Eve",
+    "completed-item-anvil": "TFT17_MarketOffering_DelayedCompletedAnvil",
+    "artifact-anvil": "TFT_Item_GrantOrnnAnvil",
+    "radiant-item": "TFT_Assist_RandomRadiantItem",
+    "2-5-cost-champions": "TFT_Assist_2x5cost",
+    "2-star-4-cost-champion": "TFT_Assist_1x2star4cost",
+    "3-5-cost-champions": "TFT_Assist_3x5cost",
+    "support-anvil": "TFT_Assist_ItemArmorySupport",
+    "dummy-with-2-lockets": "TFT_Assist_Dummy_2xLocked",
+    "dummy-with-2-zekes": "TFT_Assist_Dummy_2xZekes",
+    "artifact-item": "TFT17_MarketOffering_DelayedRandomArtifact_Stage4",
+    "5-4-cost-champions": "TFT_Assist_5x4cost",
+    "3-star-5-cost-champion": "TFT_Assist_1x3star5cost",
+    "2-champion-duplicators": "TFT_Assist_ChampionDuplicator_2",
+    "4-5-cost-champions": "TFT_Assist_4x5cost",
+    "3-spatulas": "TFT_Assist_Spatula_3",
+    "2-radiant-items": "TFT_Assist_RandomRadiantItem_2",
+    "6-5-cost-champions": "TFT_Assist_6x5cost",
+    "3-masterwork-upgrades": "TFT_Assist_MasterworkUpgrade_3",
+    "5-1-cost-champions": "TFT_Assist_5x1cost",
+    "4-components": "TFT_Assist_RandomComponent_4",
+    "4-2-cost-champions": "TFT_Assist_4x2cost",
+    "2-star-3-cost-champion": "TFT_Assist_1x2star3cost",
+    "2-star-5-cost-champion": "TFT_Assist_1x2star5cost",
+    "6-lesser-champion-duplicators": "TFT_Assist_LesserDuplicator_6",
+    "7-5-cost-champions": "TFT_Assist_7x5cost",
+    "2-deathblades": "TFT_Assist_Deathblade_2",
+    "9-components": "TFT_Assist_RandomComponent_9",
+    "2-reforgers": "TFT_Assist_Reforger_2",
+    "2-item-removers": "TFT_Assist_Remover_2",
+    "all-double-component-items": "TFT_Assist_AllDoubleNonSpatItems",
+    "3-radiant-items": "TFT_Assist_RandomRadiantItem_3",
+    "2-tacticians-capes": "TFT_Assist_TacticiansCape_2",
+    "golem-with-2-aegises": "TFT_Assist_Golem_2xAegis",
+    "dummy-with-shroud": "TFT_Assist_Dummy_Shroud",
+    "12-radiant-items": "TFT14_CypherArmoryItem_SpecificRadiantItems",
+    "2-star-zac-aurora-urgot-and-samira": "TFT14_CypherArmoryItem_Specific5Costs",
+    "flickerblades": "DA_Artifact_NavoriFlickerblade",
+    "statikk-shiv": "DA_Artifact_StatikkShiv",
+    "the-indomitable": "DA_Artifact_TheIndomitable",
+    "dawncore": "DA_Artifact_Dawncore",
+    "titanic-hydra": "DA_Artifact_TitanicHydra",
+    "salvager": "TFT14_Consumable_Salvager",
+    "mirrored-persona": "TFT_Item_Artifact_MirroredPersona",
+    "lesser-mirrored-persona": "TFT_Item_Artifact_LesserMirroredPersona",
+    "hellfire-hatchet": "DA_Artifact_HellfireHatchet",
+    "cappa-juice": "TFT_Item_Artifact_CappaJuice",
+    "shadow-puppet": "TFT_Item_Artifact_ShadowPuppet",
+    "mending-echoes": "TFT_Item_Artifact_MendingEchoes",
+    "eternal-pact": "DA_Artifact_EternalPact",
+    "void-gauntlet": "DA_Artifact_VoidGauntlet",
+    "aegis-of-dawn": "DA_Artifact_AegisOfDawn",
+    "aegis-of-dusk": "DA_Artifact_AegisOfDusk",
+    "gwens-scissors": "TFT16_Consumable_GwensScissors",
+    "gwens-scissors-rules-2-uses-left-rules": "TFT16_Consumable_GwensScissors_2",
+    "gwens-scissors-rules-3-uses-left-rules": "TFT16_Consumable_GwensScissors_3",
+    "gwens-scissors-rules-4-uses-left-rules": "TFT16_Consumable_GwensScissors_4",
+    "gwens-scissors-rules-5-uses-left-rules": "TFT16_Consumable_GwensScissors_5",
+    "30-gold": "TFT_Assist_Gold_30",
+    "34-gold": "TFT_Assist_Gold_34",
+    "electrical-overload": "TFT16_Item_Piltover_ElectricalOverload",
+    "overclocked-capacitors": "TFT16_Item_Piltover_OverclockedCapacitors",
+    "bonusad-100-attack-damage-ability-power": "TFT16_Item_Bilgewater_ADAPTier3",
+    "bonusas-100-attack-speed": "TFT16_Item_Bilgewater_ASTier3",
+    "bonusarmormr-armor-magic-resist": "TFT16_Item_Bilgewater_ArmorMRTier3",
+    "cutthroats-cutlass": "TFT16_Item_Bilgewater_BilgeratCutlass",
+    "blackmarket-explosives": "TFT16_Item_Bilgewater_BlackmarketExplosives",
+    "brigands-dice": "TFT16_Item_Bilgewater_BrigandsDice",
+    "captains-hat": "TFT16_Item_Bilgewater_JollyRoger",
+    "dead-mans-dagger": "TFT16_Item_Bilgewater_DeadmansDagger",
+    "dreadway-cannon": "TFT16_Item_Bilgewater_DreadwayCannon",
+    "first-mates-flintlock": "TFT16_Item_Bilgewater_FirstMatesFlintlock",
+    "barknuckles": "TFT16_Item_Bilgewater_FreebootersFrock",
+    "haunted-spyglass": "TFT16_Item_Bilgewater_HauntedSpyglass",
+    "bonushealthpercent-100-max-health": "TFT16_Item_Bilgewater_HealthTier3",
+    "pile-o-citrus": "TFT16_Item_Bilgewater_PileOCitrus",
+    "bilgewater-lesser-champion-duplicator": "TFT16_Item_Bilgewater_BWLesserDuplicator",
+    "1-star-fizz": "TFT16_ChampionItem_Fizz",
+    "2-star-fizz": "TFT16_ChampionItem_Fizz_2Star",
+    "3-star-fizz": "TFT16_ChampionItem_Fizz_3Star",
+    "1-star-gangplank": "TFT16_ChampionItem_Gangplank",
+    "2-star-gangplank": "TFT16_ChampionItem_Gangplank_2Star",
+    "3-star-gangplank": "TFT16_ChampionItem_Gangplank_3Star",
+    "1-star-graves": "TFT16_ChampionItem_Graves",
+    "2-star-graves": "TFT16_ChampionItem_Graves_2Star",
+    "3-star-graves": "TFT16_ChampionItem_Graves_3Star",
+    "1-star-illaoi": "TFT17_ChampionItem_Illaoi",
+    "2-star-illaoi": "TFT17_ChampionItem_Illaoi_2Star",
+    "3-star-illaoi": "TFT17_ChampionItem_Illaoi_3Star",
+    "1-star-miss-fortune": "TFT16_ChampionItem_MissFortune",
+    "2-star-miss-fortune": "TFT16_ChampionItem_MissFortune_2Star",
+    "3-star-miss-fortune": "TFT16_ChampionItem_MissFortune_3Star",
+    "1-star-tahm-kench": "TFT16_ChampionItem_TahmKench",
+    "2-star-tahm-kench": "TFT16_ChampionItem_TahmKench_2Star",
+    "3-star-tahm-kench": "TFT16_ChampionItem_TahmKench_3Star",
+    "1-star-nautilus": "TFT16_ChampionItem_Nautilus",
+    "2-star-nautilus": "TFT16_ChampionItem_Nautilus_2Star",
+    "3-star-nautilus": "TFT16_ChampionItem_Nautilus_3Star",
+    "1-star-twisted-fate": "TFT16_ChampionItem_TwistedFate",
+    "2-star-twisted-fate": "TFT16_ChampionItem_TwistedFate_2Star",
+    "3-star-twisted-fate": "TFT16_ChampionItem_TwistedFate_3Star",
+    "black-market-restock": "TFT16_Item_Bilgewater_ShopRefresh",
+    "90-caliber-nets": "TFT16_Item_Piltover_90CaliberNets",
+    "blast-shield": "TFT16_Item_Piltover_BlastShield",
+    "e-m-p": "TFT16_Item_Piltover_EMP",
+    "momentum-drive": "TFT16_Item_Piltover_MomentumDrive",
+    "tuned-oscillator": "TFT16_Item_Piltover_TunedOscillator",
+    "gigantification-ray": "TFT16_Item_Piltover_GigantificationRay",
+    "kinetic-barrier": "TFT16_Item_Piltover_KineticBarrier",
+    "micro-rockets": "TFT16_Item_Piltover_MicroRockets",
+    "magnetron-coil": "TFT16_Item_Piltover_MagnetronCoil",
+    "upgrade": "TFT16_Item_Piltover_Upgrade",
+    "voltage-conduit": "TFT16_Item_Piltover_VoltageConduit",
+    "acceleration-gate": "TFT16_Item_Piltover_AccelerationGate",
+    "armor-nullifier": "TFT16_Item_Piltover_ArmorNullifier",
+    "echo-engine": "TFT16_Item_Piltover_EchoEngine",
+    "mining-drill": "TFT16_Item_Piltover_MiningDrill",
+    "superior-lifeform": "TFT16_Item_Piltover_SuperiorLifeform",
+    "unstable-core": "TFT16_Item_Piltover_UnstableCore",
+    "b-spend-all-i-set16ixtal-start-a-new-quest-next-round-b": "TFTEvent5YR_Explorer_Cashout",
+    "have-no-items-on-your-bench-for-tftunitproperty-tft16-explorer-questvariable1-rounds": "TFT16_Explorer_ClearItemBenchQuest",
+    "kill-tftunitproperty-tft16-explorer-questvariable1-enemies": "TFTEvent5YR_Explorer_KillQuest",
+    "lose-tftunitproperty-tft16-explorer-questvariable1-player-combats": "TFTEvent5YR_Explorer_LoseQuest",
+    "bilgewater-emblem": "TFT16_Item_BilgewaterEmblemItem",
+    "field-a-2-star-milio-in-combat": "TFT16_Explorer_2StarMilioQuest",
+    "field-a-2-star-neeko-in-combat": "TFT16_Explorer_2StarNeekoQuest",
+    "bruiser-emblem": "TFT16_Item_BrawlerEmblemItem",
+    "defender-emblem": "DA_18_EmblemDefender",
+    "have-tftunitproperty-tft16-explorer-questvariable1-of-your-units-die-in-player-combats": "TFTEvent5YR_Explorer_ChampsDiedQuest",
+    "demacia-emblem": "TFT16_Item_DemaciaEmblemItem",
+    "earn-tftunitproperty-tft16-explorer-questvariable1-interest": "TFTEvent5YR_Explorer_EarnInterestQuest",
+    "freljord-emblem": "TFT16_Item_FreljordEmblemItem",
+    "gunslinger-emblem": "TFT16_Item_GunslingerEmblemItem",
+    "reach-level-tftunitproperty-tft16-explorer-questvariable1": "TFTEvent5YR_Explorer_LevelUpQuest",
+    "invoker-emblem": "DA_18_EmblemInvoker",
+    "alternate-winning-and-losing-for-tftunitproperty-tft16-explorer-questvariable1-player-combats": "TFTEvent5YR_Explorer_LowStreakShortQuest",
+    "ionia-emblem": "TFT16_Item_IoniaEmblemItem",
+    "juggernaut-emblem": "DA_18_EmblemJuggernaut",
+    "neeko-survives-player-combat-for-tftunitproperty-tft16-explorer-questvariable1-seconds": "TFT16_Explorer_NeekoSurviveQuest",
+    "longshot-emblem": "TFT16_Item_LongshotEmblemItem",
+    "reroll-the-shop-tftunitproperty-tft16-explorer-questvariable1-times": "TFTEvent5YR_Explorer_ShopRerollHardQuest",
+    "disruptor-emblem": "TFT16_Item_MagusEmblemItem",
+    "noxus-emblem": "TFT16_Item_NoxusEmblemItem",
+    "piltover-emblem": "TFT16_Item_PiltoverEmblemItem",
+    "an-ixtal-champion-reaches-tftunitproperty-tft16-explorer-questvariable1-armor-in-player-combat": "TFT16_Explorer_TotalArmorQuest",
+    "quickstriker-emblem": "TFT16_Item_RapidfireEmblemItem",
+    "have-tftunitproperty-tft16-explorer-questvariable1-gold-at-the-end-of-combat": "TFTEvent5YR_Explorer_TotalGoldQuest",
+    "arcanist-emblem": "TFT16_Item_SorcererEmblemItem",
+    "an-ixtal-champion-reaches-tftunitproperty-tft16-explorer-questvariable1-magic-resist-in-combat": "TFT16_Explorer_TotalMRQuest",
+    "vanquisher-emblem": "TFT16_Item_VanquisherEmblemItem",
+    "void-emblem": "TFT16_Item_VoidEmblemItem",
+    "yordle-emblem": "TFT16_Item_YordleEmblemItem",
+    "zaun-emblem": "TFT16_Item_ZaunEmblemItem",
+    "slayer-emblem": "TFT16_Item_SlayerEmblemItem",
+    "field-a-2-star-skarner-in-combat": "TFT16_Explorer_2StarSkarnerQuest",
+    "first-ones-free": "TFT16_Item_Bilgewater_FirstFreeHealth",
+    "lucky-doubloon": "TFT16_Item_Bilgewater_LuckyEyepatch",
+    "captains-brew": "TFT16_Item_Bilgewater_CaptainsBrew",
+    "bonusad-100-attack-damage": "TFT16_Item_Bilgewater_ADTier3",
+    "bonusap-ability-power": "TFT16_Item_Bilgewater_APTier3",
+    "warden-emblem": "TFT16_Item_WardenEmblemItem",
+    "ixtal-emblem": "TFT16_Item_IxtalEmblemItem",
+    "qiyana-scores-tftunitproperty-tft16-explorer-questvariable1-takedowns-in-1-player-combat": "TFT16_Explorer_QiyanaTakedownQuest",
+    "an-ixtal-champion-deals-tftunitproperty-tft16-explorer-questvariable1-damage-in-1-combat": "TFT16_Explorer_DamageDealtQuest",
+    "an-ixtal-champion-blocks-tftunitproperty-tft16-explorer-questvariable1-damage-in-1-combat": "TFT16_Explorer_DamageBlockedQuest",
+    "continuum-cogs": "TFT16_Item_Piltover_ContinuumCogs",
+    "field-a-3-star-qiyana-in-combat": "TFT16_Explorer_3StarQiyanaQuest",
+    "field-the-ixtal-trait-for-tftunitproperty-tft16-explorer-questvariable1-player-combats": "TFT16_Explorer_Explorer3TraitQuest",
+    "the-darkin-scythe": "TFT16_TheDarkinScythe",
+    "win-tftunitproperty-tft16-explorer-questvariable1-player-combats": "TFTEvent5YR_Explorer_WinLateQuest",
+    "the-darkin-aegis": "TFT16_TheDarkinAegis",
+    "have-exactly-tftunitproperty-tft16-explorer-questvariable1-player-health": "TFTEvent5YR_Explorer_1HPQuest",
+    "the-darkin-bow": "TFT16_TheDarkinBow",
+    "the-darkin-staff": "TFT16_TheDarkinStaff",
+    "buy-tftunitproperty-tft16-explorer-questvariable1-xp": "TFTEvent5YR_Explorer_BuyXPQuest",
+    "lose-tftunitproperty-tft16-explorer-questvariable1-player-combats-in-a-row": "TFTEvent5YR_Explorer_LoseSmallStreakQuest",
+    "have-an-empty-bench-at-the-end-of-combat-for-tftunitproperty-tft16-explorer-questvariable1-rounds": "TFTEvent5YR_Explorer_ClearMindQuest",
+    "have-a-full-bench-at-the-end-of-combat-for-tftunitproperty-tft16-explorer-questvariable1-rounds": "TFTEvent5YR_Explorer_ClutteredMindQuest",
+    "start-combat-with-zero-gold-tftunitproperty-tft16-explorer-questvariable1-times": "TFTEvent5YR_Explorer_ZeroGoldQuest",
+    "win-tftunitproperty-tft16-explorer-questvariable1-player-combats-in-a-row": "TFTEvent5YR_Explorer_WinStreakShortQuest",
+    "have-less-than-tftunitproperty-tft16-explorer-questvariable1-player-health": "TFTEvent5YR_Explorer_LowHealthQuest",
+    "brock-survives-tftunitproperty-tft16-explorer-questvariable1-player-combats": "TFTEvent5YR_Explorer_BrockSurviveQuest",
+    "win-tftunitproperty-tft16-explorer-questvariable1-player-combats-with-only-1-unit-surviving": "TFTEvent5YR_Explorer_1UnitAliveQuest",
+    "adrenaline-modules": "TFT16_Consumable_Void_AdrenalineModules",
+    "iron-carapace": "TFT16_Consumable_Void_IronCarapace",
+    "leeching-nucleus": "TFT16_Consumable_Void_LeechingNucleus",
+    "predator-instincts": "TFT16_Consumable_Void_PredatorInstincts",
+    "royal-husk": "TFT16_Consumable_Void_RoyalHusk",
+    "spitter-spines": "TFT16_Consumable_Void_SpitterSpines",
+    "pocket-recombobulator-br-br": "TFT_Consumable_PocketRecombobulator",
+    "crown-of-demacia": "TFT9_Item_CrownOfDemacia",
+    "changing-glamour": "TFT_Augment_Changeling_GlamourItemTier5",
+    "lucky-item-chest": "DA_LuckyItemChest",
+    "radiant-lucky-item-chest": "DA_RadiantLuckyItemChest",
+    "all-done-br-tftitemrules-stop-transforming-and-allow-me-to-star-up-tftitemrules": "TFT_Augment_GrowingUp_SkipOption",
+    "chonccs-rocket-propelled-fist": "TFT4_Item_OrnnRocketPropelledFist",
+    "chonccs-prowlers-claw": "TFT9_Item_OrnnDuskbladeOfDraktharr",
+    "chonccs-crown": "TFT_Item_ChonccsCrown",
+    "chonccs-chalice": "TFT_Item_ChonccsChalice",
+    "chonccs-spork": "TFT_Item_ChonccsSpork",
+    "hextech-sniper-rifle": "TFTEventCT_Item_HextechSniper",
+    "gain-2-random-item-components": "TFTEventCT_Encounter_ChoiceItem_RandomComponents",
+    "recombobulate-your-board-gain-a-reforger": "TFTEventCT_Encounter_ChoiceItem_Recombobulate",
+    "gold-augment": "TFT17_MarketOffering_GoldAugment",
+    "mecha-former": "TFT17_Consumable_MechaTransformer",
+    "iceblast-armor": "TFT17_AnimaSquadItem_Tier2_IceblastArmor",
+    "command-mod-exhaust": "TFT17_SonaUnique_Consumable_Debuff",
+    "searing-shortbow": "TFT17_AnimaSquadItem_Tier2_SearingShortbow",
+    "command-mod-transmute": "TFT17_SonaUnique_Consumable_GoldOnKill",
+    "savage-slicer": "TFT17_AnimaSquadItem_Tier1_SavageSlicer",
+    "command-mod-disrupt": "TFT17_SonaUnique_Consumable_IncreaseThreat",
+    "the-annihilator": "TFT17_AnimaSquadItem_Tier2_Annihilator",
+    "command-mod-disguise": "TFT17_SonaUnique_Consumable_ReduceThreat",
+    "blue-loot-orb": "TFT17_MarketOffering_BlueOrb",
+    "cryogenic-hex": "TFT17_MarketOffering_EmpoweredHex_Ice",
+    "uwu-blaster": "TFT17_AnimaSquadItem_Tier2_UwuBlaster",
+    "1-star-briar": "TFT17_ChampionItem_Briar",
+    "2-star-briar": "TFT17_ChampionItem_Briar_2Star",
+    "3-star-briar": "TFT17_ChampionItem_Briar_3Star",
+    "1-star-jinx": "TFT17_ChampionItem_Jinx",
+    "2-star-jinx": "TFT17_ChampionItem_Jinx_2Star",
+    "3-star-jinx": "TFT17_ChampionItem_Jinx_3Star",
+    "1-star-aurora": "TFT17_ChampionItem_Aurora",
+    "2-star-aurora": "TFT17_ChampionItem_Aurora_2Star",
+    "3-star-aurora": "TFT17_ChampionItem_Aurora_3Star",
+    "1-star-fiora": "TFT17_ChampionItem_Fiora",
+    "2-star-fiora": "TFT17_ChampionItem_Fiora_2Star",
+    "3-star-fiora": "TFT17_ChampionItem_Fiora_3Star",
+    "challenger-mode": "TFT17_Item_MissFortuneUniqueASTraitStance",
+    "storm-hex": "TFT17_MarketOffering_EmpoweredHex_Electric",
+    "replicator-mode": "TFT17_Item_MissFortuneUniqueFlexTraitStance",
+    "solar-hex": "TFT17_MarketOffering_EmpoweredHex_Fire",
+    "conduit-mode": "TFT17_Item_MissFortuneUniqueManaTraitStance",
+    "cosmic-hex": "TFT17_MarketOffering_EmpoweredHex_Wood",
+    "gray-loot-orb": "TFT17_MarketOffering_GrayOrb",
+    "silver-augment": "TFT17_MarketOffering_SilverAugment",
+    "prismatic-augment": "TFT17_MarketOffering_PrismaticAugment",
+    "blue-loot-orb-and-2-gold": "TFT17_MarketOffering_BlueOrb_2Gold",
+    "gold-loot-orb": "TFT17_MarketOffering_GoldOrb",
+    "acceleration-hex": "TFT17_MarketOffering_EmpoweredHex_Wind",
+    "increased-interest": "TFT17_MarketOffering_IncreasedInterest",
+    "percentincrease-increased-5-cost-odds": "TFT17_MarketOffering_IncreasedFiveCostOdds_Large",
+    "4-cost-champion": "TFT17_MarketOffering_FourCostChampion",
+    "5-cost-champion": "TFT17_MarketOffering_FiveCostChampion",
+    "meeple-emblem": "TFT17_Item_AstronautEmblemItem",
+    "anima-emblem": "TFT17_Item_AnimaSquadEmblemItem",
+    "n-o-v-a-emblem": "TFT17_Item_DRXEmblemItem",
+    "dark-star-emblem": "TFT17_Item_DarkStarEmblemItem",
+    "arbiter-emblem": "TFT17_Item_FavoredEmblemItem",
+    "primordian-emblem": "TFT17_Item_PrimordianEmblemItem",
+    "psionic-emblem": "TFT17_Item_PsyOpsEmblemItem",
+    "space-groove-emblem": "TFT17_Item_SpaceGrooveEmblemItem",
+    "stargazer-emblem": "TFT17_Item_StargazerEmblemItem",
+    "timebreaker-emblem": "TFT17_Item_PulsefireEmblemItem",
+    "brawler-emblem": "DA_18_EmblemBrawler",
+    "bastion-emblem": "TFT15_Item_BastionEmblemItem",
+    "challenger-emblem": "TFT17_Item_ASTraitEmblemItem",
+    "marauder-emblem": "TFT17_Item_MeleeTraitEmblemItem",
+    "vanguard-emblem": "DA_18_EmblemVanguard",
+    "voyager-emblem": "TFT17_Item_FlexTraitEmblemItem",
+    "shepherd-emblem": "TFT17_Item_SummonTraitEmblemItem",
+    "rogue-emblem": "TFT17_Item_AssassinTraitEmblemItem",
+    "sniper-emblem": "TFT15_Item_SniperEmblemItem",
+    "xp-xp": "TFT17_MarketOffering_XP_Medium_Stage3",
+    "14-xp": "TFT17_MarketOffering_XP_14",
+    "rerolls-free-rerolls": "TFT17_MarketOffering_Rerolls_Small_Stage2",
+    "16-free-rerolls": "TFT17_MarketOffering_Rerolls_16",
+    "god-artifact-anvil": "TFT17_MarketOffering_ArtifactAnvil",
+    "16-xp": "TFT17_MarketOffering_XP_16_Stage1",
+    "2-salvagers": "TFT17_MarketOffering_Chosen_5Cost",
+    "precise-smithing": "TFT17_MarketOffering_Augment_PreciseSmithing",
+    "scuttle-party": "TFT17_MarketOffering_NextPVEScuttle",
+    "two-3-star-2-cost-champions": "TFT17_MarketOffering_TwoCostChampion_ThreeStar",
+    "two-3-star-1-cost-champions": "TFT17_MarketOffering_OneCostChampion_ThreeStar",
+    "command-mod-analyze": "TFT17_SonaUnique_Consumable_Experience",
+    "starter-kit": "TFT17_MarketOffering_Augment_StarterKit",
+    "command-mod-optimize": "TFT17_SonaUnique_Consumable_ReduceMana",
+    "starlight-hex": "TFT17_MarketOffering_EmpoweredHex_Socialite",
+    "command-mod-fabricate": "TFT17_SonaUnique_Consumable_TempItem",
+    "command-mod-doublestrike": "TFT17_SonaUnique_Consumable_Doublestrike",
+    "command-mod-brace": "TFT17_SonaUnique_Consumable_Freeze",
+    "biomatter-preserver": "TFT17_Item_PsyOps_GrenadeMod_Radiant",
+    "target-lock-optics": "TFT17_Item_PsyOps_TargetlockMod_Radiant",
+    "semiconductor": "TFT17_Item_PsyOps_SemiconductorMod_Radiant",
+    "1-cost-aatrox": "TFT17_ChampionItem_Chosen_Aatrox",
+    "sympathetic-implant": "TFT17_Item_PsyOps_SympatheticImplantMod_Radiant",
+    "2-cost-akali": "TFT17_ChampionItem_Chosen_Akali",
+    "malware-matrix": "TFT17_Item_PsyOps_ChemicalCapacitorMod_Radiant",
+    "4-cost-aurelion-sol": "TFT17_ChampionItem_Chosen_AurelionSol",
+    "3-cost-aurora": "TFT17_ChampionItem_Chosen_Aurora",
+    "5-cost-bard": "TFT17_ChampionItem_Chosen_Bard",
+    "2-cost-belveth": "TFT17_ChampionItem_Chosen_Belveth",
+    "5-cost-blitzcrank": "TFT17_ChampionItem_Chosen_Blitzcrank",
+    "1-cost-briar": "TFT17_ChampionItem_Chosen_Briar",
+    "1-cost-caitlyn": "TFT17_ChampionItem_Chosen_Caitlyn",
+    "1-cost-chogath": "TFT17_ChampionItem_Chosen_Chogath",
+    "4-cost-corki": "TFT17_ChampionItem_Chosen_Corki",
+    "3-cost-diana": "TFT17_ChampionItem_Chosen_Diana",
+    "1-cost-ezreal": "TFT17_ChampionItem_Chosen_Ezreal",
+    "5-cost-fiora": "TFT17_ChampionItem_Chosen_Fiora",
+    "3-cost-fizz": "TFT17_ChampionItem_Chosen_Fizz",
+    "4-cost-the-mighty-mech": "TFT17_ChampionItem_Chosen_Galio",
+    "2-cost-gnar": "TFT17_ChampionItem_Chosen_Gnar",
+    "2-cost-gragas": "TFT17_ChampionItem_Chosen_Gragas",
+    "2-cost-gwen": "TFT17_ChampionItem_Chosen_Gwen",
+    "3-cost-illaoi": "TFT17_ChampionItem_Chosen_Illaoi",
+    "2-cost-meepsie": "TFT17_ChampionItem_Chosen_IvernMinion",
+    "2-cost-jax": "TFT17_ChampionItem_Chosen_Jax",
+    "5-cost-jhin": "TFT17_ChampionItem_Chosen_Jhin",
+    "2-cost-jinx": "TFT17_ChampionItem_Chosen_Jinx",
+    "3-cost-kaisa": "TFT17_ChampionItem_Chosen_Kaisa",
+    "4-cost-karma": "TFT17_ChampionItem_Chosen_Karma",
+    "4-cost-kindred": "TFT17_ChampionItem_Chosen_Kindred",
+    "4-cost-leblanc": "TFT17_ChampionItem_Chosen_Leblanc",
+    "1-cost-leona": "TFT17_ChampionItem_Chosen_Leona",
+    "1-cost-lissandra": "TFT17_ChampionItem_Chosen_Lissandra",
+    "3-cost-lulu": "TFT17_ChampionItem_Chosen_Lulu",
+    "3-cost-maokai": "TFT17_ChampionItem_Chosen_Maokai",
+    "4-cost-master-yi": "TFT17_ChampionItem_Chosen_MasterYi",
+    "2-cost-milio": "TFT17_ChampionItem_Chosen_Milio",
+    "3-cost-miss-fortune": "TFT17_ChampionItem_Chosen_MissFortune",
+    "2-cost-mordekaiser": "TFT17_ChampionItem_Chosen_Mordekaiser",
+    "4-cost-nami": "TFT17_ChampionItem_Chosen_Nami",
+    "1-cost-nasus": "TFT17_ChampionItem_Chosen_Nasus",
+    "4-cost-nunu": "TFT17_ChampionItem_Chosen_Nunu",
+    "3-cost-ornn": "TFT17_ChampionItem_Chosen_Ornn",
+    "2-cost-pantheon": "TFT17_ChampionItem_Chosen_Pantheon",
+    "1-cost-poppy": "TFT17_ChampionItem_Chosen_Poppy",
+    "2-cost-pyke": "TFT17_ChampionItem_Chosen_Pyke",
+    "4-cost-rammus": "TFT17_ChampionItem_Chosen_Rammus",
+    "4-cost-riven": "TFT17_ChampionItem_Chosen_Riven",
+    "3-cost-samira": "TFT17_ChampionItem_Chosen_Samira",
+    "5-cost-shen": "TFT17_ChampionItem_Chosen_Shen",
+    "5-cost-sona": "TFT17_ChampionItem_Chosen_Sona",
+    "1-cost-talon": "TFT17_ChampionItem_Chosen_Talon",
+    "1-cost-teemo": "TFT17_ChampionItem_Chosen_Teemo",
+    "1-cost-twisted-fate": "TFT17_ChampionItem_Chosen_TwistedFate",
+    "3-cost-urgot": "TFT17_ChampionItem_Chosen_Urgot",
+    "1-cost-veigar": "TFT17_ChampionItem_Chosen_Veigar",
+    "5-cost-vex": "TFT17_ChampionItem_Chosen_Vex",
+    "3-cost-viktor": "TFT17_ChampionItem_Chosen_Viktor",
+    "5-cost-zed": "TFT17_ChampionItem_Chosen_Zed",
+    "2-cost-zoe": "TFT17_ChampionItem_Chosen_Zoe",
+    "assault-frame": "TFT17_GravesTrait_Offense_CloseQuarters",
+    "reinforced-frame": "TFT17_GravesTrait_FrameDefense",
+    "support-frame": "TFT17_GravesTrait_FrameSupport",
+    "tune-up": "TFT17_GravesTrait_Offense_Backup",
+    "grav-booster": "TFT17_GravesTrait_Offense_GravBooster2",
+    "emergency-shielding": "TFT17_GravesTrait_Offense_EmergencyShielding2",
+    "heavy-plating": "TFT17_GravesTrait_Offense_HeavyPlating",
+    "buckshot": "TFT17_GravesTrait_Offense_Buckshot3",
+    "choke": "TFT17_GravesTrait_Offense_Choke",
+    "laser-ballistics": "TFT17_GravesTrait_Offense_LaserBallistics2",
+    "laserballistics": "TFT17_GravesTrait_Offense_LaserBallistics3",
+    "meltthrough": "TFT17_GravesTrait_Offense_Meltthrough",
+    "marksman-frame": "TFT17_GravesTrait_Offense_DoubleTap",
+    "double-tap": "TFT17_GravesTrait_Offense_DoubleTap2",
+    "triple-tap": "TFT17_GravesTrait_Offense_TripleTap",
+    "rev-up": "TFT17_GravesTrait_Offense_RevUp2",
+    "ripper-bullets": "TFT17_GravesTrait_Offense_RipperBullets2",
+    "fragmentation-rounds": "TFT17_GravesTrait_Offense_FragmentationRounds2",
+    "precision-scope": "TFT17_GravesTrait_Offense_PrecisionScope3",
+    "aim-assistant": "TFT17_GravesTrait_Offense_AimAssistant",
+    "drone-uplink": "TFT17_Item_PsyOps_DroneMod",
+    "augment-wheel": "TFT17_MarketOffering_AugmentWheel",
+    "treasure-armory": "TFT17_MarketOffering_TreasureArmory",
+    "battle-bunny-crossbow": "TFT17_AnimaSquadItem_Tier2_BattleBunnyCrossbow",
+    "rocket-swarm": "TFT17_AnimaSquadItem_Tier1_RocketSwarm",
+    "cyclonic-slicers": "TFT17_AnimaSquadItem_Tier2_CyclonicSlicers",
+    "radiant-field": "TFT17_AnimaSquadItem_Tier2_RadiantField",
+    "lionesss-lament": "TFT17_AnimaSquadItem_Tier2_LionessLament",
+    "guiding-hex": "TFT17_AnimaSquadItem_Tier1_GuidingHex",
+    "tentacle-slam": "TFT17_AnimaSquadItem_Tier1_TentacleSlam",
+    "echoing-batblades": "TFT17_AnimaSquadItem_Tier2_EchoingBatblades",
+    "gold": "TFT17_AnimaSquad_Gold",
+    "power-frame": "TFT17_GravesTrait_Offense_SharpshooterModule",
+    "2-1-cost-champions": "TFT17_MarketOffering_OneCostChampion_2",
+    "heartseeker": "TFT17_GravesTrait_Offense_Heartseeker3",
+    "tankbuster": "TFT17_GravesTrait_Offense_Tankbuster",
+    "ap-rounds": "TFT17_GravesTrait_Offense_APRounds2",
+    "latent-explosion": "TFT17_GravesTrait_Offense_LatentExplosion",
+    "blast-radius": "TFT17_GravesTrait_Offense_BlastRadius3",
+    "sympathetic-detonation": "TFT17_GravesTrait_Offense_SympatheticDetonation",
+    "coolant": "TFT17_GravesTrait_Offense_Coolant2",
+    "void-coefficient": "TFT17_GravesTrait_Offense_VoidCoefficient",
+    "fission": "TFT17_GravesTrait_Offense_Fission3",
+    "anomaly": "TFT17_EkkoOffering_AnomalyItem",
+    "tome-of-traits": "TFT17_MarketOffering_TomeOfTraits",
+    "1-cost-reksai": "TFT17_ChampionItem_Chosen_Reksai",
+    "5-cost-graves": "TFT17_ChampionItem_Chosen_Graves",
+    "3-cost-rhaast": "TFT17_ChampionItem_Chosen_Rhaast",
+    "4-cost-xayah": "TFT17_ChampionItem_Chosen_Xayah",
+    "health-tactician-health": "TFT17_MarketOffering_Health",
+    "gold-gold": "TFT17_MarketOffering_Gold_Stage4_Eve",
+    "25-gold": "TFT_Assist_Gold_25",
+    "mystery-loot": "TFT17_MarketOffering_Sampler",
+    "4-cost": "TFT17_MarketOffering_1star4cost_Eve",
+    "random-emblem": "TFT17_MarketOffering_RandomEmblem",
+    "wealth-quest": "TFT17_MarketOffering_AurelionSol_GoldQuest_Stage2",
+    "starry-quest": "TFT17_MarketOffering_AurelionSol_StarQuest_Stage3",
+    "level-quest": "TFT17_MarketOffering_AurelionSol_LevelQuest_Stage4",
+    "2-star-2-cost": "TFT17_MarketOffering_TwoCostChampion_TwoStar",
+    "sacrifice": "TFT17_MarketOffering_Sacrifice",
+    "rainbow-shops": "TFT17_MarketOffering_RainbowShops",
+    "augment-rerolls": "TFT17_MarketOffering_ExtraAugmentRollsPlus",
+    "combat-hack": "TFT17_MarketOffering_CategoryHack_Combat",
+    "blessing-speed": "TFT14_Consumable_SpeedUp",
+    "zekes-bleak-herald": "TFT17_Item_Artifact_ZekesHeraldShadow",
+    "armored-dummy": "TFT17_MarketOffering_Dummy_Kayle",
+    "owned-tier-cost": "TFT17_MarketOffering_FourCostChampion_Owned",
+    "hard-pivot": "TFT17_MarketOffering_HardPivot",
+    "16-gold": "TFT_Assist_Gold_16",
+    "threshs-lantern": "TFT17_Item_Artifact_ThreshLantern",
+    "the-lovers": "TFT17_MarketOffering_Lovers",
+    "lovers": "TFT17_MarketOffering_LoversPlusPlus",
+    "2-tiny-duplicators": "TFT17_MarketOffering_2TinyDupes",
+    "blood-pact": "TFT17_MarketOffering_BloodPactPlusPlus",
+    "hunger-for-power-anomaly": "TFT17_Consumable_Anomaly_HungerForPower",
+    "striker-selector": "TFT17_DRXSelector",
+    "blessing-size": "TFT14_Consumable_SizeUp",
+    "tier-cost-shop": "TFT17_MarketOffering_AllTierFourShop",
+    "kayles-radiant-exaltation": "TFT17_Item_Artifact_KayleArtifact_Radiant",
+    "shockwave": "TFT17_GravesTrait_Offense_Shockwave",
+    "evelynns-instinct": "TFT17_Item_Artifact_EvelynnArtifact",
+    "reactive-armor": "TFT17_GravesTrait_Offense_ReactiveArmor",
+    "sheer-mass": "TFT17_GravesTrait_Offense_SheerMass",
+    "nanomachines": "TFT17_GravesTrait_Offense_Nanomachines",
+    "frontline-dummy": "TFT17_MarketOffering_Dummy_Evelynn",
+    "sorakas-miracle": "TFT17_Item_Artifact_SorakaArtifact",
+    "shared-wealth": "TFT17_MarketOffering_SharedWealth_Stage4",
+    "yasuos-bladework": "TFT17_Item_Artifact_YasuoArtifact",
+    "roll-the-bones": "TFT17_MarketOffering_RollTheBones",
+    "varuss-obsession": "TFT17_Item_Artifact_VarusArtifact",
+    "steamroll": "TFT17_MarketOffering_SteamrollPlus",
+    "ahris-aura": "TFT17_Item_Artifact_AhriArtifact",
+    "better-together": "TFT17_MarketOffering_GroupHugPlus",
+    "leeching-implants": "TFT17_GravesTrait_Offense_LeechingImplants2",
+    "random-boon": "TFT17_MarketOffering_RandomBoon_Stage4",
+    "golden-hex": "TFT17_MarketOffering_EmpoweredHex_Golden",
+    "broken-prototype": "TFT17_AnimaSquadItem_Tier0_ClunkyPrototype",
+    "sparking-prototype": "TFT17_AnimaSquadItem_Tier0_SparkingPrototype",
+    "leaky-prototype": "TFT17_AnimaSquadItem_Tier0_LeakyPrototype",
+    "solar-eclipse": "TFT17_AnimaSquadItem_Tier3_RadiantField",
+    "animapocalypse": "TFT17_AnimaSquadItem_Tier3_Annihilator",
+    "evolved-embershot": "TFT17_AnimaSquadItem_Tier3_SearingShortbow",
+    "leonine-lamentation": "TFT17_AnimaSquadItem_Tier3_LionessLament",
+    "unceasing-cyclone": "TFT17_AnimaSquadItem_Tier3_CyclonicSlicers",
+    "owo-blaster": "TFT17_AnimaSquadItem_Tier3_UwuBlaster",
+    "omniweapon": "TFT17_AnimaSquadItem_Tier4_Omniweapon",
+    "bunny-prime-ballista": "TFT17_AnimaSquadItem_Tier3_BattleBunnyCrossbow",
+    "deep-freeze": "TFT17_AnimaSquadItem_Tier3_IceblastArmor",
+    "vaynes-chromablades": "TFT17_AnimaSquadItem_Tier3_EchoingBatblades",
+    "2-star-1-cost-aatrox": "TFT17_ChampionItem_Chosen_Aatrox_2star",
+    "2-star-1-cost-briar": "TFT17_ChampionItem_Chosen_Briar_2star",
+    "2-star-1-cost-caitlyn": "TFT17_ChampionItem_Chosen_Caitlyn_2star",
+    "2-star-1-cost-leona": "TFT17_ChampionItem_Chosen_Leona_2star",
+    "2-star-1-cost-lissandra": "TFT17_ChampionItem_Chosen_Lissandra_2star",
+    "2-star-1-cost-ezreal": "TFT17_ChampionItem_Chosen_Ezreal_2star",
+    "2-star-1-cost-poppy": "TFT17_ChampionItem_Chosen_Poppy_2star",
+    "2-star-1-cost-twisted-fate": "TFT17_ChampionItem_Chosen_TwistedFate_2star",
+    "2-star-1-cost-teemo": "TFT17_ChampionItem_Chosen_Teemo_2star",
+    "2-star-1-cost-veigar": "TFT17_ChampionItem_Chosen_Veigar_2star",
+    "2-star-1-cost-reksai": "TFT17_ChampionItem_Chosen_Reksai_2star",
+    "2-star-1-cost-nasus": "TFT17_ChampionItem_Chosen_Nasus_2star",
+    "2-star-1-cost-talon": "TFT17_ChampionItem_Chosen_Talon_2star",
+    "4-cost-morgana": "TFT17_ChampionItem_Chosen_Morgana",
+    "2-star-4-cost": "TFT17_MarketOffering_2star4cost_Eve",
+    "2-star-3-cost": "TFT17_MarketOffering_2star3cost_Eve",
+    "3-star-1-cost": "TFT17_MarketOffering_3star1cost_Eve",
+    "40-gold": "TFT_Assist_Gold_40",
+    "cost-tooltiponly-cost-champion": "TFT17_MarketOffering_Delayed4Cost",
+    "numunits-tooltiponly-cost-tooltiponly-cost-champions": "TFT17_MarketOffering_Delayed5Cost",
+    "5-cost-shop": "TFT17_MarketOffering_Delayed5CostShop",
+    "cashflow": "TFT17_MarketOffering_Cashflow",
+    "divine-intervention": "TFT17_MarketOffering_Stimmy",
+    "2-star-1-cost-chogath": "TFT17_ChampionItem_Chosen_Chogath_2star",
+    "4-cost-tahm-kench": "TFT17_ChampionItem_Chosen_TahmKench",
+    "trait-quest": "TFT17_MarketOffering_AurelionSol_TraitQuest_Stage2",
+    "12-gold": "TFT_Assist_Gold_12",
+    "2-5-costs": "TFT17_MarketOffering_1star5cost_Eve",
+    "duplicator-bundle": "TFT17_MarketOffering_5TinyDupes",
+    "low-health-quest": "TFT17_MarketOffering_AurelionSol_LowHPQuest_Stage4",
+    "reroll-quest": "TFT17_MarketOffering_AurelionSol_RerollQuest_Stage4",
+    "humility": "TFT17_MarketOffering_Humility",
+    "craftsmanship": "TFT17_MarketOffering_Craftsmanship",
+    "sorakas-embrace": "TFT17_MarketOffering_SorakasEmbrace",
+    "starcrossed-upgrade": "TFT17_MarketOffering_StarlightPlusPlus",
+    "ephemeral-rerolls": "TFT17_MarketOffering_EphemeralRerolls",
+    "divine-refund": "TFT17_MarketOffering_DivineRefund",
+    "anvil-transformation": "TFT17_MarketOffering_AnvilTransformation",
+    "gold-every-turn": "TFT17_MarketOffering_GoldPerTurn_Stage3",
+    "pandoras-seat": "TFT17_MarketOffering_PandorasSeat",
+    "divine-investment": "TFT17_MarketOffering_MaxInterest_Stage3",
+    "chest-of-greed": "TFT17_MarketOffering_SplitGold_Stage4",
+    "mini-recombobulate": "TFT17_MarketOffering_Recombobulator_Stage2",
+    "super-parting-gift": "TFT17_MarketOffering_PenguPairs",
+    "finalist-gambit": "TFT17_MarketOffering_FinalistGambit",
+    "blessing-wealth": "TFT17_Consumable_BlessingWealth",
+    "blessing-prosperity": "TFT17_Consumable_BlessingProsperityPlus",
+    "divine-empathy": "TFT17_MarketOffering_DivineEmpathy",
+    "100-gold": "TFT_Assist_Gold_100",
+    "126-gold": "TFT_Assist_Gold_126",
+    "154-gold": "TFT_Assist_Gold_154",
+    "18-gold": "TFT_Assist_Gold_18",
+    "22-gold": "TFT_Assist_Gold_22",
+    "24-gold": "TFT_Assist_Gold_24",
+    "26-gold": "TFT_Assist_Gold_26",
+    "36-gold": "TFT_Assist_Gold_36",
+    "44-gold": "TFT_Assist_Gold_44",
+    "54-gold": "TFT_Assist_Gold_54",
+    "64-gold": "TFT_Assist_Gold_64",
+    "76-gold": "TFT_Assist_Gold_76",
+    "1-completed-item": "TFT_Item_GrantCompletedItem1",
+    "itemstogive-completed-items": "TFT_Item_GrantCompletedItem3",
+    "1-component": "TFT_Item_GrantComponent1",
+    "itemstogive-components": "TFT_Item_GrantComponent9",
+    "component-item-key": "TFT_Item_GrantComponentAnvil",
+    "1-loot-orb": "TFT_Item_GrantOrbs1",
+    "orbstogive-loot-orbs": "TFT_Item_GrantOrbs9",
+    "rammus": "TFT15_MonsterTrainerChoice_Rammus",
+    "kogmaw": "TFT15_MonsterTrainerChoice_KogMaw",
+    "smolder": "TFT15_MonsterTrainerChoice_Smolder",
+    "battle-academia-emblem": "TFT15_Item_BattleAcademiaEmblemItem",
+    "duelist-emblem": "TFT15_Item_ChallengerEmblemItem",
+    "executioner-emblem": "DA_18_EmblemExecutioner",
+    "edgelord-emblem": "TFT15_Item_EdgelordEmblemItem",
+    "wraith-emblem": "TFT15_Item_EmpyreanEmblemItem",
+    "luchador-emblem": "TFT15_Item_RingKingsEmblemItem",
+    "crystal-gambit-emblem": "TFT15_Item_CrystalRoseEmblemItem",
+    "heavyweight-emblem": "TFT15_Item_HeavyweightEmblemItem",
+    "sorcerer-emblem": "TFT15_Item_SpellslingerEmblemItem",
+    "prodigy-emblem": "TFT15_Item_ProdigyEmblemItem",
+    "protector-emblem": "TFT15_Item_ProtectorEmblemItem",
+    "soul-fighter-emblem": "TFT15_Item_SoulFighterEmblemItem",
+    "star-guardian-emblem": "TFT15_Item_StarGuardianEmblemItem",
+    "supreme-cells-emblem": "TFT15_Item_SupremeCellsEmblemItem",
+    "juggernaut-stance": "TFT15_Item_DragonFistTankStance",
+    "duelist-stance": "TFT15_Item_DragonFistFighterStance",
+    "executioner-stance": "TFT15_Item_DragonFistReaperStance",
+    "open-the-chest": "TFT15_CrystalRose_Cashout",
+    "double-down": "TFT15_CrystalRose_Pass_PVE",
+    "combination-core": "TFT15_RoboRanger_Core",
+    "mighty-blade": "TFT15_RoboRanger_Sword",
+    "mega-blade-upgrade": "TFT15_RoboRanger_Slicer",
+    "strategist-emblem": "TFT15_Item_ShotcallerEmblemItem",
+    "play-it-safe": "TFT15_Augment_CrystalGambit_DiamondHands_Continue",
+    "crystalline-reinforcements": "TFT15_Item_CrystalRoseHellionItem",
+    "a-hungry-snack": "TFT15_MechanicTrait_BloodFury_Consumable",
+    "power-snax": "TFT15_SetMechanic_Consumable",
+    "unlock-power-2-uses-left": "TFT15_SetMechanic_Consumable_2",
+    "power-remover": "TFT15_SetMechanic_Remover",
+    "power-remover-2-uses-left": "TFT15_SetMechanic_Remover_2",
+    "power-remover-3-uses-left": "TFT15_SetMechanic_Remover_3",
+    "power-remover-4-uses-left": "TFT15_SetMechanic_Remover_4",
+    "power-remover-5-uses-left": "TFT15_SetMechanic_Remover_5",
+    "power-remover-6-uses-left": "TFT15_SetMechanic_Remover_6",
+    "power-remover-7-uses-left": "TFT15_SetMechanic_Remover_7",
+    "power-remover-8-uses-left": "TFT15_SetMechanic_Remover_8",
+    "power-remover-9-uses-left": "TFT15_SetMechanic_Remover_10",
+    "phantom": "TFTEvent_5YR_Item_TraitPhantomActivator",
+    "mech-pilot": "TFTEvent_5YR_Item_TraitMechPilotActivator",
+    "pilot-selector": "TFTEvent5YR_Consumable_MechPilot_PilotMarker",
+    "glacial": "TFTEvent_5YR_Item_TraitGlacialActivator",
+    "glacial-mallet": "TFTEvent5YR_Item_GlacialMallet",
+    "mascot": "TFTEvent_5YR_Item_TraitMascotActivator",
+    "elderwood": "TFTEvent_5YR_Item_TraitElderwoodActivator",
+    "rebel": "TFTEvent_5YR_Item_TraitRebelActivator",
+    "yordle": "TFTEvent_5YR_Item_TraitYordleActivator",
+    "mountain": "TFTEvent_5YR_Item_TraitMountainActivator",
+    "shimmerscale": "TFTEvent_5YR_Item_TraitShimmerscaleActivator",
+    "coven": "TFTEvent_5YR_Item_TraitCovenActivator",
+    "crown-of-champions": "TFTEvent5YR_Item_ShimmerscaleCrownOfChampions",
+    "dravens-axe": "TFTEvent5YR_Item_ShimmerscaleDravensAxe",
+    "goldmancers-staff": "TFTEvent5YR_Item_ShimmerscaleGoldmancersStaff",
+    "bilgewater": "TFTEvent_5YR_Item_TraitBilgewaterActivator",
+    "renewer": "TFTEvent_5YR_Item_TraitPreserverActivator",
+    "high-roller": "TFTEvent_5YR_Item_TraitHighRollerActivator",
+    "pyro": "TFTEvent_5YR_Item_TraitPyroActivator",
+    "sevikas-jinxed-arm": "TFTEvent5YR_Item_SevikasJinxedArm",
+    "storyweaver": "TFTEvent_5YR_Item_TraitStoryweaverActivator",
+    "talisman-of-might": "TFTEvent5YR_Storyweaver3_AP",
+    "talisman-of-speed": "TFTEvent5YR_Storyweaver3_AS",
+    "talisman-of-aid": "TFTEvent5YR_Storyweaver3_Support",
+    "scroll-of-force": "TFTEvent5YR_Storyweaver5_AP",
+    "scroll-of-haste": "TFTEvent5YR_Storyweaver5_AS",
+    "tome-of-power": "TFTEvent5YR_Storyweaver7_AP",
+    "tome-of-swiftness": "TFTEvent5YR_Storyweaver7_AS",
+    "tome-of-mending": "TFTEvent5YR_Storyweaver7_Support",
+    "conqueror": "TFTEvent_5YR_Item_TraitConquerorActivator",
+    "pentakill": "TFTEvent_5YR_Item_TraitPentakillActivator",
+    "nitro": "TFTEvent_5YR_Item_TraitNitroActivator",
+    "chrome": "TFTEvent5YR_Item_Nitro_ChromeCounter",
+    "maestros-baton": "TFTEvent5YR_Item_MaestrosBaton",
+    "maestro": "TFTEvent_5YR_Item_TraitMaestroActivator",
+    "empress": "TFTEvent_5YR_Item_TraitEmpressActivator",
+    "lavender-crown": "TFTEvent5YR_Item_LavenderCrown",
+    "demacia": "TFTEvent_5YR_Item_TraitDemaciaActivator",
+    "honeymancy": "TFTEvent_5YR_Item_TraitHoneymancyActivator",
+    "overlord-selector": "TFTEvent5YR_Consumable_Overlord_OverlordMarker",
+    "overlord": "TFTEvent_5YR_Item_TraitOverlordActivator",
+    "ixtal": "TFTEvent_5YR_Item_TraitIxtalActivator",
+    "field-a-2-star-3-cost-caster-in-combat": "TFTEvent5YR_Explorer_2Star3CostDamageQuest",
+    "field-a-2-star-2-cost-tank-in-combat": "TFTEvent5YR_Explorer_2Star2CostTankQuest",
+    "field-a-3-star-1-cost-non-tank-in-combat": "TFTEvent5YR_Explorer_3Star1CostFighterQuest",
+    "field-a-2-star-4-cost-tank-in-combat": "TFTEvent5YR_Explorer_2Star4CostTankQuest",
+    "a-2-cost-tank-survives-player-combat-for-tftunitproperty-tft16-explorer-questvariable1-seconds": "TFTEvent5YR_Explorer_2CostTankSurviveQuest",
+    "a-champion-reaches-tftunitproperty-tft16-explorer-questvariable1-armor-in-player-combat": "TFTEvent5YR_Explorer_TotalArmorQuest",
+    "a-champion-reaches-tftunitproperty-tft16-explorer-questvariable1-magic-resist-in-combat": "TFTEvent5YR_Explorer_TotalMRQuest",
+    "a-champion-deals-tftunitproperty-tft16-explorer-questvariable1-damage-in-1-combat": "TFTEvent5YR_Explorer_DamageDealtQuest",
+    "a-champion-blocks-tftunitproperty-tft16-explorer-questvariable1-damage-in-1-combat": "TFTEvent5YR_Explorer_DamageBlockedQuest",
+    "field-a-1-cost-2-cost-and-3-cost-champion-for-tftunitproperty-tft16-explorer-questvariable1-player-combats": "TFTEvent5YR_Explorer_123CostQuest",
+    "a-1-cost-fighter-or-assassin-scores-tftunitproperty-tft16-explorer-questvariable1-takedowns-in-1-player-combat": "TFTEvent5YR_Explorer_1CostFighterTakedownQuest",
+    "the-crew": "TFTEvent_5YR_Item_TraitTheCrewActivator",
+    "hacker": "TFTEvent_5YR_Item_TraitHackerActivator",
+    "crystal": "TFTEvent_5YR_Item_TraitCrystalActivator",
+    "fated": "TFTEvent_5YR_Item_TraitFatedActivator",
+    "heart-of-gold": "TFTEventER_Item_HeartOfGold",
+    "avarice-blade": "TFTEventER_Item_AvariceBlade",
+    "lucky-pick": "TFTEventER_Item_LuckyPick",
+    "philosophers-stone": "TFTEventER_Item_PhilosophersStone",
+    "mikaels-crucible": "TFTEventER_Item_MikaelsCrucible",
+    "will-of-the-ancients": "TFTEventER_Item_WillOfTheAncients",
+    "chalice-of-harmony": "TFTEventER_Item_ChaliceOfHarmony",
+    "runic-bulwark": "TFTEventER_Item_RunicBulwark",
+    "mark-of-critical-chance": "TFTEventER_Consumable_RuneSmallCrit",
+    "glyph-of-ability-power": "TFTEventER_Consumable_RuneSmallAbilityPower",
+    "seal-of-armor": "TFTEventER_Consumable_RuneSmallArmor",
+    "mark-of-attack-damage": "TFTEventER_Consumable_RuneSmallAttackDamage",
+    "glyph-of-magic-resist": "TFTEventER_Consumable_RuneSmallMagicResist",
+    "seal-of-mana-regen": "TFTEventER_Consumable_RuneSmallMana",
+    "mark-of-attack-speed": "TFTEventER_Consumable_RuneSmallAttackSpeed",
+    "quintessence-of-health": "TFTEventER_Consumable_RuneQuintHealth",
+    "quintessence-of-omnivamp": "TFTEventER_Consumable_RuneQuintOmnivamp",
+    "quintessence-of-speed": "TFTEventER_Consumable_RuneQuintSpeed",
+    "banner-of-command": "TFTEventER_Item_BannerOfCommand",
+    "ohmwrecker": "TFTEventER_Item_Ohmwrecker",
+    "the-black-cleaver": "TFTEventER_Item_BlackCleaver",
+    "sword-of-the-divine": "TFTEventER_Item_SwordOfTheDivine",
+    "spirit-of-the-ancient-golem": "TFTEventER_Item_SpiritOfTheAncientGolem",
+    "spirit-of-the-elder-lizard": "TFTEventER_Item_SpiritOfTheElderLizard",
+    "spirit-of-the-spectral-wraith": "TFTEventER_Item_SpiritOfTheSpectralWraith",
+    "blackthorn-emblem": "DA_18_EmblemBlackthorn",
+    "blossom-emblem": "DA_18_EmblemBlossom",
+    "coven-emblem": "DA_18_EmblemCoven",
+    "elderwood-emblem": "DA_18_EmblemElderwood",
+    "fae-emblem": "DA_18_EmblemFae",
+    "flora-fatalis-emblem": "DA_18_EmblemFloraFatalisAugment",
+    "hunter-emblem": "DA_18_EmblemHunter",
+    "inferno-emblem": "DA_18_EmblemInferno",
+    "lunar-emblem": "DA_18_EmblemLunar",
+    "primal-emblem": "DA_18_EmblemPrimal",
+    "rapidfire-emblem": "DA_18_EmblemRapidfire",
+    "ravager-emblem": "DA_18_EmblemSlayer",
+    "spellweaver-emblem": "DA_18_EmblemSpellweaver",
+    "sprykin-emblem": "DA_18_EmblemSprykin",
+    "ability-power-booster": "DA_AbilityBooster18",
+    "armor-and-magic-resist-booster": "DA_ArmorMRBooster18",
+    "horizon-focus": "DA_Artifact_HorizonFocus",
+    "attack-damage-booster": "DA_AttackBooster18",
+    "blast-potion": "DA_BlastPotion18",
+    "radiant-blast-potion": "DA_BlastPotion18_Radiant",
+    "item-remover": "DA_Consumable_ItemRemover",
+    "health-booster": "DA_HealthBooster18",
+    "health-potion": "DA_HealthPotion18",
+    "radiant-health-potion": "DA_HealthPotion18_Radiant",
+    "mana-potion": "DA_ManaPotion18",
+    "radiant-mana-potion": "DA_ManaPotion18_Radiant",
+    "mana-regen-booster": "DA_ManaRegenBooster18",
+    "attack-speed-booster": "DA_SpeedBooster18",
+    "bf-sword": "DA_Component_BFSword",
+    "mogulsmail": "DA_Artifact_MogulsMail"
+  },
+  "items": [
+    {
+      "id": "DA_Component_RecurveBow",
+      "name": "Arco Recurvo",
+      "recipe": [],
+      "category": "Componente"
+    },
+    {
+      "id": "DA_WarmogsArmor",
+      "name": "Armadura de Warmog",
+      "recipe": [
+        "DA_Component_GiantsBelt",
+        "DA_Component_GiantsBelt"
+      ],
+      "category": "Completo"
+    },
+    {
+      "id": "DA_Component_NeedlesslyLargeRod",
+      "name": "Bastão Desnecessariamente Grande",
+      "recipe": [],
+      "category": "Componente"
+    },
+    {
+      "id": "DA_ArchangelsStaff",
+      "name": "Cajado do Arcanjo",
+      "recipe": [
+        "DA_Component_NeedlesslyLargeRod",
+        "DA_Component_TearOfTheGoddess"
+      ],
+      "category": "Completo"
+    },
+    {
+      "id": "DA_VoidStaff",
+      "name": "Cajado do Vazio",
+      "recipe": [
+        "DA_Component_RecurveBow",
+        "DA_Component_TearOfTheGoddess"
+      ],
+      "category": "Completo"
+    },
+    {
+      "id": "DA_TacticiansCape",
+      "name": "Capa de Estrategista",
+      "recipe": [
+        "DA_Component_Spatula",
+        "DA_Component_FryingPan"
+      ],
+      "category": "Completo"
+    },
+    {
+      "id": "DA_SunfireCape",
+      "name": "Capa de Fogo Solar",
+      "recipe": [
+        "DA_Component_ChainVest",
+        "DA_Component_GiantsBelt"
+      ],
+      "category": "Completo"
+    },
+    {
+      "id": "DA_Component_NegatronCloak",
+      "name": "Capa Negatron",
+      "recipe": [],
+      "category": "Componente"
+    },
+    {
+      "id": "DA_RabadonsDeathcap",
+      "name": "Capuz da Morte de Rabadon",
+      "recipe": [
+        "DA_Component_NeedlesslyLargeRod",
+        "DA_Component_NeedlesslyLargeRod"
+      ],
+      "category": "Completo"
+    },
+    {
+      "id": "DA_IonicSpark",
+      "name": "Centelha Iônica",
+      "recipe": [
+        "DA_Component_NeedlesslyLargeRod",
+        "DA_Component_NegatronCloak"
+      ],
+      "category": "Completo"
+    },
+    {
+      "id": "DA_Component_GiantsBelt",
+      "name": "Cinto do Gigante",
+      "recipe": [],
+      "category": "Componente"
+    },
+    {
+      "id": "DA_BrambleVest",
+      "name": "Colete Espinhoso",
+      "recipe": [
+        "DA_Component_ChainVest",
+        "DA_Component_ChainVest"
+      ],
+      "category": "Completo"
+    },
+    {
+      "id": "DA_SteadfastHeart",
+      "name": "Coração Inabalável",
+      "recipe": [
+        "DA_Component_ChainVest",
+        "DA_Component_SparringGloves"
+      ],
+      "category": "Completo"
+    },
+    {
+      "id": "DA_TacticiansCrown",
+      "name": "Coroa de Estrategista",
+      "recipe": [
+        "DA_Component_Spatula",
+        "DA_Component_Spatula"
+      ],
+      "category": "Completo"
+    },
+    {
+      "id": "DA_Component_ChainVest",
+      "name": "Cota de Malha",
+      "recipe": [],
+      "category": "Componente"
+    },
+    {
+      "id": "DA_NashorsTooth",
+      "name": "Dente de Na'Shor",
+      "recipe": [
+        "DA_Component_RecurveBow",
+        "DA_Component_GiantsBelt"
+      ],
+      "category": "Completo"
+    },
+    {
+      "id": "DA_TitansResolve",
+      "name": "Determinação Titânica",
+      "recipe": [
+        "DA_Component_RecurveBow",
+        "DA_Component_ChainVest"
+      ],
+      "category": "Completo"
+    },
+    {
+      "id": "DA_BlueBuff",
+      "name": "Efeito Azul",
+      "recipe": [
+        "DA_Component_TearOfTheGoddess",
+        "DA_Component_TearOfTheGoddess"
+      ],
+      "category": "Completo"
+    },
+    {
+      "id": "DA_RedBuff",
+      "name": "Efeito Vermelho",
+      "recipe": [
+        "DA_Component_RecurveBow",
+        "DA_Component_RecurveBow"
+      ],
+      "category": "Completo"
+    },
+    {
+      "id": "DA_AdaptiveHelm",
+      "name": "Elmo Adaptativo",
+      "recipe": [
+        "DA_Component_TearOfTheGoddess",
+        "DA_Component_NegatronCloak"
+      ],
+      "category": "Completo"
+    },
+    {
+      "id": "DA_18_EmblemHunter",
+      "name": "Emblema de Caçador",
+      "recipe": [
+        "DA_Component_FryingPan",
+        "DA_Component_BFSword"
+      ],
+      "category": "Emblema"
+    },
+    {
+      "id": "DA_18_EmblemExecutioner",
+      "name": "Emblema de Carrasco",
+      "recipe": [
+        "DA_Component_FryingPan",
+        "DA_Component_SparringGloves"
+      ],
+      "category": "Emblema"
+    },
+    {
+      "id": "DA_18_EmblemSlayer",
+      "name": "Emblema de Devastador",
+      "recipe": [
+        "DA_Component_FryingPan",
+        "DA_Component_NegatronCloak"
+      ],
+      "category": "Emblema"
+    },
+    {
+      "id": "DA_18_EmblemInvoker",
+      "name": "Emblema de Emanador",
+      "recipe": [
+        "DA_Component_FryingPan",
+        "DA_Component_TearOfTheGoddess"
+      ],
+      "category": "Emblema"
+    },
+    {
+      "id": "DA_18_EmblemSpellweaver",
+      "name": "Emblema de Enfeitiçador",
+      "recipe": [
+        "DA_Component_FryingPan",
+        "DA_Component_NeedlesslyLargeRod"
+      ],
+      "category": "Emblema"
+    },
+    {
+      "id": "DA_18_EmblemBlackthorn",
+      "name": "Emblema de Espinhos Negros",
+      "recipe": [
+        "DA_Component_Spatula",
+        "DA_Component_GiantsBelt"
+      ],
+      "category": "Emblema"
+    },
+    {
+      "id": "DA_18_EmblemFae",
+      "name": "Emblema de Feérico",
+      "recipe": [
+        "DA_Component_Spatula",
+        "DA_Component_BFSword"
+      ],
+      "category": "Emblema"
+    },
+    {
+      "id": "DA_18_EmblemBlossom",
+      "name": "Emblema de Florescer",
+      "recipe": [
+        "DA_Component_Spatula",
+        "DA_Component_NeedlesslyLargeRod"
+      ],
+      "category": "Emblema"
+    },
+    {
+      "id": "DA_18_EmblemRapidfire",
+      "name": "Emblema de Fumegante",
+      "recipe": [
+        "DA_Component_FryingPan",
+        "DA_Component_RecurveBow"
+      ],
+      "category": "Emblema"
+    },
+    {
+      "id": "DA_18_EmblemInferno",
+      "name": "Emblema de Inferno",
+      "recipe": [
+        "DA_Component_Spatula",
+        "DA_Component_RecurveBow"
+      ],
+      "category": "Emblema"
+    },
+    {
+      "id": "DA_18_EmblemLunar",
+      "name": "Emblema de Lunar",
+      "recipe": [
+        "DA_Component_Spatula",
+        "DA_Component_TearOfTheGoddess"
+      ],
+      "category": "Emblema"
+    },
+    {
+      "id": "DA_18_EmblemBrawler",
+      "name": "Emblema de Lutador",
+      "recipe": [
+        "DA_Component_FryingPan",
+        "DA_Component_GiantsBelt"
+      ],
+      "category": "Emblema"
+    },
+    {
+      "id": "DA_18_EmblemPrimal",
+      "name": "Emblema de Primitiva",
+      "recipe": [
+        "DA_Component_Spatula",
+        "DA_Component_SparringGloves"
+      ],
+      "category": "Emblema"
+    },
+    {
+      "id": "DA_18_EmblemElderwood",
+      "name": "Emblema de Sabugueiro",
+      "recipe": [
+        "DA_Component_Spatula",
+        "DA_Component_ChainVest"
+      ],
+      "category": "Emblema"
+    },
+    {
+      "id": "DA_18_EmblemVanguard",
+      "name": "Emblema de Vanguarda",
+      "recipe": [
+        "DA_Component_FryingPan",
+        "DA_Component_ChainVest"
+      ],
+      "category": "Emblema"
+    },
+    {
+      "id": "DA_18_EmblemSprykin",
+      "name": "Emblema de Vivaz",
+      "recipe": [
+        "DA_Component_Spatula",
+        "DA_Component_NegatronCloak"
+      ],
+      "category": "Emblema"
+    },
+    {
+      "id": "DA_TacticiansShield",
+      "name": "Escudo de Estrategista",
+      "recipe": [
+        "DA_Component_FryingPan",
+        "DA_Component_FryingPan"
+      ],
+      "category": "Completo"
+    },
+    {
+      "id": "DA_Component_BFSword",
+      "name": "Espada G.p.C.",
+      "recipe": [],
+      "category": "Componente"
+    },
+    {
+      "id": "DA_Component_Spatula",
+      "name": "Espátula",
+      "recipe": [],
+      "category": "Componente"
+    },
+    {
+      "id": "DA_Component_FryingPan",
+      "name": "Frigideira",
+      "recipe": [],
+      "category": "Componente"
+    },
+    {
+      "id": "DA_KrakensFury",
+      "name": "Fúria do Cráquem",
+      "recipe": [
+        "DA_Component_RecurveBow",
+        "DA_Component_NegatronCloak"
+      ],
+      "category": "Completo"
+    },
+    {
+      "id": "DA_DragonsClaw",
+      "name": "Garra do Dragão",
+      "recipe": [
+        "DA_Component_NegatronCloak",
+        "DA_Component_NegatronCloak"
+      ],
+      "category": "Completo"
+    },
+    {
+      "id": "DA_InfinityEdge",
+      "name": "Gume do Infinito",
+      "recipe": [
+        "DA_Component_BFSword",
+        "DA_Component_SparringGloves"
+      ],
+      "category": "Completo"
+    },
+    {
+      "id": "DA_ProtectorsVow",
+      "name": "Juramento do Protetor",
+      "recipe": [
+        "DA_Component_ChainVest",
+        "DA_Component_TearOfTheGoddess"
+      ],
+      "category": "Completo"
+    },
+    {
+      "id": "DA_Component_TearOfTheGoddess",
+      "name": "Lágrima da Deusa",
+      "recipe": [],
+      "category": "Componente"
+    },
+    {
+      "id": "DA_GuinsoosRageblade",
+      "name": "Lâmina da Fúria de Guinsoo",
+      "recipe": [
+        "DA_Component_RecurveBow",
+        "DA_Component_NeedlesslyLargeRod"
+      ],
+      "category": "Completo"
+    },
+    {
+      "id": "DA_Deathblade",
+      "name": "Lâmina Mortal",
+      "recipe": [
+        "DA_Component_BFSword",
+        "DA_Component_BFSword"
+      ],
+      "category": "Completo"
+    },
+    {
+      "id": "DA_SpearOfShojin",
+      "name": "Lança de Shojin",
+      "recipe": [
+        "DA_Component_TearOfTheGoddess",
+        "DA_Component_BFSword"
+      ],
+      "category": "Completo"
+    },
+    {
+      "id": "DA_EdgeOfNight",
+      "name": "Limiar da Noite",
+      "recipe": [
+        "DA_Component_BFSword",
+        "DA_Component_ChainVest"
+      ],
+      "category": "Completo"
+    },
+    {
+      "id": "DA_ThiefsGloves",
+      "name": "Luvas do Ladrão",
+      "recipe": [
+        "DA_Component_SparringGloves",
+        "DA_Component_SparringGloves"
+      ],
+      "category": "Completo"
+    },
+    {
+      "id": "DA_Component_SparringGloves",
+      "name": "Luvas do Pugilista",
+      "recipe": [],
+      "category": "Componente"
+    },
+    {
+      "id": "DA_StrikersFlail",
+      "name": "Mangual do Guerreiro",
+      "recipe": [
+        "DA_Component_GiantsBelt",
+        "DA_Component_SparringGloves"
+      ],
+      "category": "Completo"
+    },
+    {
+      "id": "DA_JeweledGauntlet",
+      "name": "Manopla Adornada",
+      "recipe": [
+        "DA_Component_SparringGloves",
+        "DA_Component_NeedlesslyLargeRod"
+      ],
+      "category": "Completo"
+    },
+    {
+      "id": "DA_HandOfJustice",
+      "name": "Mão da Justiça",
+      "recipe": [
+        "DA_Component_TearOfTheGoddess",
+        "DA_Component_SparringGloves"
+      ],
+      "category": "Completo"
+    },
+    {
+      "id": "DA_GiantSlayer",
+      "name": "Mata-Gigantes",
+      "recipe": [
+        "DA_Component_RecurveBow",
+        "DA_Component_BFSword"
+      ],
+      "category": "Completo"
+    },
+    {
+      "id": "DA_Quicksilver",
+      "name": "Mercúrio",
+      "recipe": [
+        "DA_Component_NegatronCloak",
+        "DA_Component_SparringGloves"
+      ],
+      "category": "Completo"
+    },
+    {
+      "id": "DA_Morellonomicon",
+      "name": "Morellonomicon",
+      "recipe": [
+        "DA_Component_GiantsBelt",
+        "DA_Component_NeedlesslyLargeRod"
+      ],
+      "category": "Completo"
+    },
+    {
+      "id": "DA_HextechGunblade",
+      "name": "Pistola Laminar Hextec",
+      "recipe": [
+        "DA_Component_BFSword",
+        "DA_Component_NeedlesslyLargeRod"
+      ],
+      "category": "Completo"
+    },
+    {
+      "id": "DA_GargoyleStoneplate",
+      "name": "Placa Gargolítica",
+      "recipe": [
+        "DA_Component_ChainVest",
+        "DA_Component_NegatronCloak"
+      ],
+      "category": "Completo"
+    },
+    {
+      "id": "DA_Evenshroud",
+      "name": "Proteção Imutável",
+      "recipe": [
+        "DA_Component_NegatronCloak",
+        "DA_Component_GiantsBelt"
+      ],
+      "category": "Completo"
+    },
+    {
+      "id": "DA_Bloodthirster",
+      "name": "Sedenta por Sangue",
+      "recipe": [
+        "DA_Component_BFSword",
+        "DA_Component_NegatronCloak"
+      ],
+      "category": "Completo"
+    },
+    {
+      "id": "DA_SpiritVisage",
+      "name": "Semblante Espiritual",
+      "recipe": [
+        "DA_Component_GiantsBelt",
+        "DA_Component_TearOfTheGoddess"
+      ],
+      "category": "Completo"
+    },
+    {
+      "id": "DA_SteraksGage",
+      "name": "Sinal de Sterak",
+      "recipe": [
+        "DA_Component_BFSword",
+        "DA_Component_GiantsBelt"
+      ],
+      "category": "Completo"
+    },
+    {
+      "id": "DA_Crownguard",
+      "name": "Stemmaguarda",
+      "recipe": [
+        "DA_Component_NeedlesslyLargeRod",
+        "DA_Component_ChainVest"
+      ],
+      "category": "Completo"
+    },
+    {
+      "id": "DA_LastWhisper",
+      "name": "Último Sussurro",
+      "recipe": [
+        "DA_Component_RecurveBow",
+        "DA_Component_SparringGloves"
+      ],
+      "category": "Completo"
+    },
+    {
+      "id": "DA_18_EmblemDefender",
+      "name": "Emblema de Defendente",
+      "recipe": [],
+      "category": "Emblema"
+    },
+    {
+      "id": "DA_Artifact_Dawncore",
+      "name": "Auronúcleo",
+      "recipe": [],
+      "category": "Especial"
+    },
+    {
+      "id": "DA_Artifact_LudensTempest",
+      "name": "Tormenta de Luden",
+      "recipe": [],
+      "category": "Especial"
+    },
+    {
+      "id": "DA_AdaptiveHelm_Radiant",
+      "name": "Elmo Adaptativo Radiante",
+      "recipe": [],
+      "category": "Especial"
+    },
+    {
+      "id": "DA_BlueBuffRadiant",
+      "name": "Efeito Azul Radiante",
+      "recipe": [],
+      "category": "Especial"
+    },
+    {
+      "id": "DA_GiantSlayer_Radiant",
+      "name": "Mata-Gigantes Radiante",
+      "recipe": [],
+      "category": "Especial"
+    },
+    {
+      "id": "DA_RabadonsDeathcap_Radiant",
+      "name": "Capuz da Morte de Rabadon Radiante",
+      "recipe": [],
+      "category": "Especial"
+    },
+    {
+      "id": "DA_SteraksGageRadiant",
+      "name": "Sinal de Sterak Radiante",
+      "recipe": [],
+      "category": "Especial"
+    },
+    {
+      "id": "DA_ThiefsGlovesRadiant",
+      "name": "Luvas do Ladrão Radiantes",
+      "recipe": [],
+      "category": "Especial"
+    },
+    {
+      "id": "DA_Artifact_SilvermereDawn",
+      "name": "Alvorada de Pratânia",
+      "recipe": [],
+      "category": "Especial"
+    },
+    {
+      "id": "DA_Artifact_WitsEnd",
+      "name": "Limite da Razão",
+      "recipe": [],
+      "category": "Especial"
+    },
+    {
+      "id": "DA_Artifact_EternalPact",
+      "name": "Pacto Eterno",
+      "recipe": [],
+      "category": "Especial"
+    },
+    {
+      "id": "DA_18_EmblemFloraFatalisAugment",
+      "name": "Emblema de Flora Fatalis",
+      "recipe": [],
+      "category": "Emblema"
+    },
+    {
+      "id": "DA_Artifact_HellfireHatchet",
+      "name": "Machadinha Infernal",
+      "recipe": [],
+      "category": "Especial"
+    },
+    {
+      "id": "DA_Artifact_HorizonFocus",
+      "name": "Foco do Horizonte",
+      "recipe": [],
+      "category": "Especial"
+    },
+    {
+      "id": "DA_18_EmblemJuggernaut",
+      "name": "Emblema de Colosso",
+      "recipe": [],
+      "category": "Emblema"
+    },
+    {
+      "id": "DA_Artifact_LichBane",
+      "name": "Perdição de Lich",
+      "recipe": [],
+      "category": "Especial"
+    },
+    {
+      "id": "DA_Artifact_LightshieldCrest",
+      "name": "Insígnia do Lumescudo",
+      "recipe": [],
+      "category": "Especial"
+    },
+    {
+      "id": "DA_Artifact_Manazane",
+      "name": "Manazane",
+      "recipe": [],
+      "category": "Especial"
+    },
+    {
+      "id": "DA_BloodthirsterRadiant",
+      "name": "Sedenta por Sangue Radiante",
+      "recipe": [],
+      "category": "Especial"
+    },
+    {
+      "id": "DA_BrambleVestRadiant",
+      "name": "Colete Espinhoso Radiante",
+      "recipe": [],
+      "category": "Especial"
+    },
+    {
+      "id": "DA_EdgeOfNightRadiant",
+      "name": "Limiar da Noite Radiante",
+      "recipe": [],
+      "category": "Especial"
+    },
+    {
+      "id": "DA_GuinsoosRagebladeRadiant",
+      "name": "Lâmina da Fúria de Guinsoo Radiante",
+      "recipe": [],
+      "category": "Especial"
+    },
+    {
+      "id": "DA_InfinityEdgeRadiant",
+      "name": "Gume do Infinito Radiante",
+      "recipe": [],
+      "category": "Especial"
+    },
+    {
+      "id": "DA_JeweledGauntletRadiant",
+      "name": "Manopla Adornada Radiante",
+      "recipe": [],
+      "category": "Especial"
+    },
+    {
+      "id": "DA_LastWhisperRadiant",
+      "name": "Último Sussurro Radiante",
+      "recipe": [],
+      "category": "Especial"
+    },
+    {
+      "id": "DA_NashorsToothRadiant",
+      "name": "Dente de Na'Shor Radiante",
+      "recipe": [],
+      "category": "Especial"
+    },
+    {
+      "id": "DA_StrikersFlailRadiant",
+      "name": "Mangual do Guerreiro Radiante",
+      "recipe": [],
+      "category": "Especial"
+    },
+    {
+      "id": "DA_TitansResolve_Radiant",
+      "name": "Determinação Titânica Radiante",
+      "recipe": [],
+      "category": "Especial"
+    },
+    {
+      "id": "DA_Item_Artifact_TalismanOfAscension",
+      "name": "Talismã da Ascensão",
+      "recipe": [],
+      "category": "Especial"
+    },
+    {
+      "id": "DA_Artifact_AegisOfDusk",
+      "name": "Égide do Crepúsculo",
+      "recipe": [],
+      "category": "Especial"
+    },
+    {
+      "id": "DA_Artifact_BlightingJewel",
+      "name": "Joia da Ruína",
+      "recipe": [],
+      "category": "Especial"
+    },
+    {
+      "id": "DA_Artifact_NavoriFlickerblade",
+      "name": "Adagas Oscilantes",
+      "recipe": [],
+      "category": "Especial"
+    },
+    {
+      "id": "DA_Artifact_GoldCollector",
+      "name": "Coletor de Ouro",
+      "recipe": [],
+      "category": "Especial"
+    },
+    {
+      "id": "DA_Artifact_InfinityForce",
+      "name": "Força do Infinito",
+      "recipe": [],
+      "category": "Especial"
+    },
+    {
+      "id": "TFT_Item_Artifact_InnervatingLocket",
+      "name": "Medalhão Enervante",
+      "recipe": [],
+      "category": "Especial"
+    },
+    {
+      "id": "TFT_Item_Artifact_MendingEchoes",
+      "name": "Ecos Restauradores",
+      "recipe": [],
+      "category": "Especial"
+    },
+    {
+      "id": "DA_Artifact_Mittens",
+      "name": "Luvinhas",
+      "recipe": [],
+      "category": "Especial"
+    },
+    {
+      "id": "TFT_Item_Artifact_ProwlersClaw",
+      "name": "Garra do Espreitador",
+      "recipe": [],
+      "category": "Especial"
+    },
+    {
+      "id": "DA_DragonsClawRadiant",
+      "name": "Garra do Dragão Radiante",
+      "recipe": [],
+      "category": "Especial"
+    },
+    {
+      "id": "DA_EvenshroudRadiant",
+      "name": "Proteção Imutável Radiante",
+      "recipe": [],
+      "category": "Especial"
+    },
+    {
+      "id": "DA_HandOfJusticeRadiant",
+      "name": "Mão da Justiça Radiante",
+      "recipe": [],
+      "category": "Especial"
+    },
+    {
+      "id": "DA_IonicSparkRadiant",
+      "name": "Centelha Iônica Radiante",
+      "recipe": [],
+      "category": "Especial"
+    },
+    {
+      "id": "DA_KrakensFury_Radiant",
+      "name": "Fúria do Cráquem Radiante",
+      "recipe": [],
+      "category": "Especial"
+    },
+    {
+      "id": "DA_MorellonomiconRadiant",
+      "name": "Morellonomicon Radiante",
+      "recipe": [],
+      "category": "Especial"
+    },
+    {
+      "id": "DA_ProtectorsVowRadiant",
+      "name": "Juramento do Protetor Radiante",
+      "recipe": [],
+      "category": "Especial"
+    },
+    {
+      "id": "DA_QuicksilverRadiant",
+      "name": "Mercúrio Radiante",
+      "recipe": [],
+      "category": "Especial"
+    },
+    {
+      "id": "DA_RedBuffRadiant",
+      "name": "Efeito Vermelho Radiante",
+      "recipe": [],
+      "category": "Especial"
+    },
+    {
+      "id": "DA_SunfireCape_Radiant",
+      "name": "Capa de Fogo Solar Radiante",
+      "recipe": [],
+      "category": "Especial"
+    },
+    {
+      "id": "DA_WarmogsArmorRadiant",
+      "name": "Armadura de Warmog Radiante",
+      "recipe": [],
+      "category": "Especial"
+    },
+    {
+      "id": "DA_Artifact_RapidFireCannon",
+      "name": "Canhão Fumegante",
+      "recipe": [],
+      "category": "Especial"
+    },
+    {
+      "id": "DA_Artifact_SeekersArmguard",
+      "name": "Armaguarda da Caçadora",
+      "recipe": [],
+      "category": "Especial"
+    },
+    {
+      "id": "TFT_Item_Artifact_SpectralCutlass",
+      "name": "Alfanje Espectral",
+      "recipe": [],
+      "category": "Especial"
+    },
+    {
+      "id": "DA_Artifact_StatikkShiv",
+      "name": "Faca de Statikk",
+      "recipe": [],
+      "category": "Especial"
+    },
+    {
+      "id": "DA_Artifact_TheIndomitable",
+      "name": "Imbatível",
+      "recipe": [],
+      "category": "Especial"
+    },
+    {
+      "id": "DA_Artifact_TitanicHydra",
+      "name": "Hidra Titânica",
+      "recipe": [],
+      "category": "Especial"
+    },
+    {
+      "id": "TFT_Item_Artifact_UnendingDespair",
+      "name": "Desespero Eterno",
+      "recipe": [],
+      "category": "Especial"
+    },
+    {
+      "id": "DA_Artifact_VoidGauntlet",
+      "name": "Manopla do Vazio",
+      "recipe": [],
+      "category": "Especial"
+    },
+    {
+      "id": "DA_Artifact_ZhonyasParadox",
+      "name": "Paradoxo de Zhonya",
+      "recipe": [],
+      "category": "Especial"
+    },
+    {
+      "id": "DA_Artifact_AegisOfDawn",
+      "name": "Égide da Alvorada",
+      "recipe": [],
+      "category": "Especial"
+    },
+    {
+      "id": "TFT_Item_Artifact_CappaJuice",
+      "name": "Suco de Chapéu",
+      "recipe": [],
+      "category": "Especial"
+    },
+    {
+      "id": "TFT_Item_Artifact_CursedVampiricScepter",
+      "name": "Cetro Vampírico Corrompido",
+      "recipe": [],
+      "category": "Especial"
+    },
+    {
+      "id": "DA_18_EmblemCoven",
+      "name": "Emblema de Congregação das Bruxas",
+      "recipe": [],
+      "category": "Emblema"
+    },
+    {
+      "id": "DA_Artifact_Fishbones",
+      "name": "Fishbones",
+      "recipe": [],
+      "category": "Especial"
+    },
+    {
+      "id": "DA_Artifact_ForbiddenIdol",
+      "name": "Ídolo Proibido",
+      "recipe": [],
+      "category": "Especial"
+    },
+    {
+      "id": "DA_Artifact_GamblersBlade",
+      "name": "Lâmina do Apostador",
+      "recipe": [],
+      "category": "Especial"
+    },
+    {
+      "id": "DA_Artifact_Hullcrusher",
+      "name": "Esmagacascos",
+      "recipe": [],
+      "category": "Especial"
+    },
+    {
+      "id": "TFT_Item_Artifact_LesserMirroredPersona",
+      "name": "Persona Espelhada Inferior",
+      "recipe": [],
+      "category": "Especial"
+    },
+    {
+      "id": "TFT_Item_Artifact_MirroredPersona",
+      "name": "Persona Espelhada",
+      "recipe": [],
+      "category": "Especial"
+    },
+    {
+      "id": "DA_Artifact_MogulsMail",
+      "name": "Carapaça do Manda-Chuva",
+      "recipe": [],
+      "category": "Especial"
+    },
+    {
+      "id": "DA_ArchangelsStaffRadiant",
+      "name": "Cajado do Arcanjo Radiante",
+      "recipe": [],
+      "category": "Especial"
+    },
+    {
+      "id": "DA_CrownguardRadiant",
+      "name": "Stemmaguarda Radiante",
+      "recipe": [],
+      "category": "Especial"
+    },
+    {
+      "id": "DA_DeathbladeRadiant",
+      "name": "Lâmina Mortal Radiante",
+      "recipe": [],
+      "category": "Especial"
+    },
+    {
+      "id": "DA_GargoyleStoneplate_Radiant",
+      "name": "Placa Gargolítica Radiante",
+      "recipe": [],
+      "category": "Especial"
+    },
+    {
+      "id": "DA_HextechGunbladeRadiant",
+      "name": "Pistola Laminar Hextec Radiante",
+      "recipe": [],
+      "category": "Especial"
+    },
+    {
+      "id": "DA_SpearOfShojinRadiant",
+      "name": "Lança de Shojin Radiante",
+      "recipe": [],
+      "category": "Especial"
+    },
+    {
+      "id": "DA_SpiritVisage_Radiant",
+      "name": "Semblante Espiritual Radiante",
+      "recipe": [],
+      "category": "Especial"
+    },
+    {
+      "id": "DA_SteadfastHeartRadiant",
+      "name": "Coração Inabalável Radiante",
+      "recipe": [],
+      "category": "Especial"
+    },
+    {
+      "id": "DA_VoidStaffRadiant",
+      "name": "Cajado do Vazio Radiante",
+      "recipe": [],
+      "category": "Especial"
+    },
+    {
+      "id": "TFT_Item_Artifact_ShadowPuppet",
+      "name": "Marionete das Sombras",
+      "recipe": [],
+      "category": "Especial"
+    },
+    {
+      "id": "TFT_Item_Artifact_SuspiciousTrenchCoat",
+      "name": "Sobretudo Suspeito",
+      "recipe": [],
+      "category": "Especial"
+    }
+  ],
+  "augments": {
+    "DA_LevelUp": {
+      "id": "DA_LevelUp",
+      "name": "Novo Nível!",
+      "icon": true
+    },
+    "DA_18_WispRebatePlusPlus": {
+      "id": "DA_18_WispRebatePlusPlus",
+      "name": "Restituição de Fogos-Fátuos+",
+      "icon": true
+    },
+    "DA_18_BlossomTraitAugment": {
+      "id": "DA_18_BlossomTraitAugment",
+      "name": "Chamado do Florescer",
+      "icon": true
+    },
+    "DA_EpicRolldown": {
+      "id": "DA_EpicRolldown",
+      "name": "Atualização Épica",
+      "icon": true
+    },
+    "DA_Staffsmith": {
+      "id": "DA_Staffsmith",
+      "name": "Fabricante de Bastões",
+      "icon": true
+    },
+    "DA_SeraphimsStaff": {
+      "id": "DA_SeraphimsStaff",
+      "name": "Cajado de Serafim",
+      "icon": true
+    },
+    "DA_LateGameScaling": {
+      "id": "DA_LateGameScaling",
+      "name": "Escalamento de Fim de Jogo",
+      "icon": true
+    },
+    "DA_LuxurySubscription": {
+      "id": "DA_LuxurySubscription",
+      "name": "Assinatura de Luxo",
+      "icon": true
+    },
+    "DA_RollingForDays": {
+      "id": "DA_RollingForDays",
+      "name": "Troca Sem Fim",
+      "icon": true
+    },
+    "DA_18_LunarTraitAugment": {
+      "id": "DA_18_LunarTraitAugment",
+      "name": "Sol e Lua",
+      "icon": true
+    },
+    "DA_18_SolarTraitAugment": {
+      "id": "DA_18_SolarTraitAugment",
+      "name": "Escolhida do Sol",
+      "icon": true
+    },
+    "DA_PatienceIsAVirtue": {
+      "id": "DA_PatienceIsAVirtue",
+      "name": "Quem Espera Sempre Alcança",
+      "icon": true
+    },
+    "DA_KickStart": {
+      "id": "DA_KickStart",
+      "name": "Início Rápido",
+      "icon": true
+    },
+    "DA_18_WeightTheWorth": {
+      "id": "DA_18_WeightTheWorth",
+      "name": "Espera Recompensada",
+      "icon": true
+    },
+    "DA_HeroicGrabBag": {
+      "id": "DA_HeroicGrabBag",
+      "name": "Saco de Brindes Heroico",
+      "icon": true
+    },
+    "DA_CommerceCore": {
+      "id": "DA_CommerceCore",
+      "name": "Núcleo de Negócios",
+      "icon": true
+    },
+    "DA_UpwardMobility": {
+      "id": "DA_UpwardMobility",
+      "name": "Mobilidade Crescente",
+      "icon": true
+    },
+    "DA_ExplosiveGrowth": {
+      "id": "DA_ExplosiveGrowth",
+      "name": "Crescimento Explosivo",
+      "icon": true
+    },
+    "DA_18_RiftbeastTraitAugment": {
+      "id": "DA_18_RiftbeastTraitAugment",
+      "name": "Fera do Rift Ômega",
+      "icon": true
+    },
+    "DA_ExplosiveGrowthPlus": {
+      "id": "DA_ExplosiveGrowthPlus",
+      "name": "Crescimento Explosivo+",
+      "icon": true
+    },
+    "DA_SilverSpoon": {
+      "id": "DA_SilverSpoon",
+      "name": "Colher de Prata",
+      "icon": true
+    },
+    "DA_CapitalGainsII": {
+      "id": "DA_CapitalGainsII",
+      "name": "Ganhos de Capital II",
+      "icon": true
+    },
+    "DA_LateGameSpecialist": {
+      "id": "DA_LateGameSpecialist",
+      "name": "Especialista em Fim de Jogo",
+      "icon": true
+    },
+    "DA_18_BranchingOut": {
+      "id": "DA_18_BranchingOut",
+      "name": "Quebrando Galhos",
+      "icon": true
+    },
+    "DA_Swordsmith": {
+      "id": "DA_Swordsmith",
+      "name": "Fabricante de Espadas",
+      "icon": true
+    },
+    "DA_18_PrimalAugment_Nidalee": {
+      "id": "DA_18_PrimalAugment_Nidalee",
+      "name": "Fera Interior",
+      "icon": true
+    },
+    "DA_BirthdayPresent": {
+      "id": "DA_BirthdayPresent",
+      "name": "Presente de Aniversário",
+      "icon": true
+    },
+    "DA_JeweledLotus_I": {
+      "id": "DA_JeweledLotus_I",
+      "name": "Lótus Adornada I",
+      "icon": true
+    },
+    "DA_GildedSteel": {
+      "id": "DA_GildedSteel",
+      "name": "Aço Áureo",
+      "icon": true
+    },
+    "DA_SpreadingRoots": {
+      "id": "DA_SpreadingRoots",
+      "name": "Raízes Alastradas",
+      "icon": true
+    },
+    "DA_LatentForge": {
+      "id": "DA_LatentForge",
+      "name": "Forja Latente",
+      "icon": true
+    },
+    "DA_SpreadingRootsPlus": {
+      "id": "DA_SpreadingRootsPlus",
+      "name": "Raízes Alastradas+",
+      "icon": true
+    },
+    "DA_BackupBows": {
+      "id": "DA_BackupBows",
+      "name": "Arcos Reserva",
+      "icon": true
+    },
+    "DA_ChampDeliveryPlusPlus": {
+      "id": "DA_ChampDeliveryPlusPlus",
+      "name": "Entrega de Campeão++",
+      "icon": true
+    },
+    "DA_TheTraitTree": {
+      "id": "DA_TheTraitTree",
+      "name": "Árvore de Características",
+      "icon": true
+    },
+    "DA_18_FloraFatalisAugment": {
+      "id": "DA_18_FloraFatalisAugment",
+      "name": "Flora Voraz",
+      "icon": true
+    },
+    "DA_18_SprykinAugment": {
+      "id": "DA_18_SprykinAugment",
+      "name": "Amiguinho Peludinho",
+      "icon": true
+    },
+    "DA_CryMeARiver": {
+      "id": "DA_CryMeARiver",
+      "name": "Chora, Me Liga",
+      "icon": true
+    },
+    "DA_DeadlierBlades": {
+      "id": "DA_DeadlierBlades",
+      "name": "Lâminas Fatais",
+      "icon": true
+    },
+    "DA_TeamBuilding": {
+      "id": "DA_TeamBuilding",
+      "name": "Trabalho em Equipe",
+      "icon": true
+    },
+    "DA_ComponentBuffet": {
+      "id": "DA_ComponentBuffet",
+      "name": "Deleite de Componentes",
+      "icon": true
+    },
+    "DA_PrismaticTicket": {
+      "id": "DA_PrismaticTicket",
+      "name": "Bilhete Prismático",
+      "icon": true
+    },
+    "DA_ClutteredMind": {
+      "id": "DA_ClutteredMind",
+      "name": "Confusão Mental",
+      "icon": true
+    },
+    "DA_WandOverflow": {
+      "id": "DA_WandOverflow",
+      "name": "Promoção de Varinhas",
+      "icon": true
+    },
+    "DA_FrontlineFoundation": {
+      "id": "DA_FrontlineFoundation",
+      "name": "Fundação da Linha de Frente",
+      "icon": true
+    },
+    "DA_BodyguardTraining": {
+      "id": "DA_BodyguardTraining",
+      "name": "Treinamento de Guarda-costas",
+      "icon": true
+    },
+    "DA_BaronsLair": {
+      "id": "DA_BaronsLair",
+      "name": "Covil do Barão",
+      "icon": true
+    },
+    "DA_ItemGrabBag": {
+      "id": "DA_ItemGrabBag",
+      "name": "Saco de Brindes I",
+      "icon": true
+    },
+    "DA_18_WispRebatePlus": {
+      "id": "DA_18_WispRebatePlus",
+      "name": "Restituição de Fogos-Fátuos",
+      "icon": true
+    },
+    "DA_ChampDeliveryPlus": {
+      "id": "DA_ChampDeliveryPlus",
+      "name": "Entrega de Campeão+",
+      "icon": true
+    },
+    "DA_PortableForge": {
+      "id": "DA_PortableForge",
+      "name": "Forja Portátil",
+      "icon": true
+    },
+    "DA_CookingPot": {
+      "id": "DA_CookingPot",
+      "name": "Panelinha",
+      "icon": true
+    },
+    "DA_18_PrimalAugmentPlus_Nidalee": {
+      "id": "DA_18_PrimalAugmentPlus_Nidalee",
+      "name": "Fera Interior+",
+      "icon": true
+    },
+    "DA_BacklineBlueprint": {
+      "id": "DA_BacklineBlueprint",
+      "name": "Projeto da Retaguarda",
+      "icon": true
+    },
+    "DA_BandOfThievesIIPlusPlus": {
+      "id": "DA_BandOfThievesIIPlusPlus",
+      "name": "Bando de Ladrões II++",
+      "icon": true
+    },
+    "DA_ForgeAFriend": {
+      "id": "DA_ForgeAFriend",
+      "name": "Forje uma Amizade",
+      "icon": true
+    },
+    "DA_ConstructACompanion": {
+      "id": "DA_ConstructACompanion",
+      "name": "Construção de Companheiro",
+      "icon": true
+    },
+    "DA_BlackthornTraitAugment": {
+      "id": "DA_BlackthornTraitAugment",
+      "name": "Extração de Itens",
+      "icon": true
+    },
+    "DA_MissedConnections": {
+      "id": "DA_MissedConnections",
+      "name": "Conexões Perdidas",
+      "icon": true
+    },
+    "DA_PandorasBench": {
+      "id": "DA_PandorasBench",
+      "name": "Reserva de Pandora",
+      "icon": true
+    },
+    "DA_EarlyLearnings": {
+      "id": "DA_EarlyLearnings",
+      "name": "Aprendizados Iniciais",
+      "icon": true
+    },
+    "DA_CarveAPath": {
+      "id": "DA_CarveAPath",
+      "name": "Abra o Caminho",
+      "icon": true
+    },
+    "DA_HoldTheLine": {
+      "id": "DA_HoldTheLine",
+      "name": "Posição Mantida",
+      "icon": true
+    },
+    "DA_CapitalGainsI": {
+      "id": "DA_CapitalGainsI",
+      "name": "Ganhos de Capital I",
+      "icon": true
+    },
+    "DA_GoldenGamble": {
+      "id": "DA_GoldenGamble",
+      "name": "Aposta em Ouro",
+      "icon": true
+    },
+    "DA_PandorasItemsI": {
+      "id": "DA_PandorasItemsI",
+      "name": "Itens de Pandora I",
+      "icon": true
+    },
+    "DA_18_CovenTraitAugment": {
+      "id": "DA_18_CovenTraitAugment",
+      "name": "Acólito da Congregação das Bruxas",
+      "icon": true
+    },
+    "DA_18_FaeTraitAugment": {
+      "id": "DA_18_FaeTraitAugment",
+      "name": "Agigantamento",
+      "icon": true
+    },
+    "DA_TacticiansKitchen": {
+      "id": "DA_TacticiansKitchen",
+      "name": "Cozinha do Estrategista",
+      "icon": true
+    },
+    "DA_BandOfThievesII": {
+      "id": "DA_BandOfThievesII",
+      "name": "Bando de Ladrões II",
+      "icon": true
+    },
+    "DA_BronzeForLifeII": {
+      "id": "DA_BronzeForLifeII",
+      "name": "Bronze é Vida II",
+      "icon": true
+    },
+    "DA_BandOfThievesIIPlus": {
+      "id": "DA_BandOfThievesIIPlus",
+      "name": "Bando de Ladrões II+",
+      "icon": true
+    },
+    "DA_CyberneticImplants_Gold": {
+      "id": "DA_CyberneticImplants_Gold",
+      "name": "Implantes Cibernéticos",
+      "icon": true
+    },
+    "DA_DeadlierCaps": {
+      "id": "DA_DeadlierCaps",
+      "name": "Capuzes Mais Mortais",
+      "icon": true
+    },
+    "DA_SpiritOfRedemption": {
+      "id": "DA_SpiritOfRedemption",
+      "name": "Espírito de Redenção",
+      "icon": true
+    },
+    "DA_LegionOfThrees": {
+      "id": "DA_LegionOfThrees",
+      "name": "Legião de Três",
+      "icon": true
+    },
+    "DA_TraitLadder": {
+      "id": "DA_TraitLadder",
+      "name": "Escada de Características",
+      "icon": true
+    },
+    "DA_18_RivalsAugment": {
+      "id": "DA_18_RivalsAugment",
+      "name": "Aminimigos",
+      "icon": true
+    },
+    "DA_18_BranchingOutPlus": {
+      "id": "DA_18_BranchingOutPlus",
+      "name": "Quebrando Galhos+",
+      "icon": true
+    },
+    "DA_18_PrimalAugmentPlus_Sivir": {
+      "id": "DA_18_PrimalAugmentPlus_Sivir",
+      "name": "Fera Interior+",
+      "icon": true
+    },
+    "DA_18_PrimalAugment_Sivir": {
+      "id": "DA_18_PrimalAugment_Sivir",
+      "name": "Fera Interior",
+      "icon": true
+    },
+    "DA_BoosterPackPlus": {
+      "id": "DA_BoosterPackPlus",
+      "name": "Pacote de Reforço+",
+      "icon": true
+    },
+    "DA_BoosterPackPlusPlus": {
+      "id": "DA_BoosterPackPlusPlus",
+      "name": "Pacote de Reforço++",
+      "icon": true
+    },
+    "DA_MagicRoll": {
+      "id": "DA_MagicRoll",
+      "name": "Jogada Mágica",
+      "icon": true
+    },
+    "DA_TheTraitTreePlus": {
+      "id": "DA_TheTraitTreePlus",
+      "name": "Árvore de Características+",
+      "icon": true
+    },
+    "DA_18_BigGrabBag": {
+      "id": "DA_18_BigGrabBag",
+      "name": "Saco de Brindes Recheado",
+      "icon": true
+    },
+    "DA_18_CaretakersAlly": {
+      "id": "DA_18_CaretakersAlly",
+      "name": "Aliado do Protetor",
+      "icon": true
+    },
+    "DA_18_DuoQueue": {
+      "id": "DA_18_DuoQueue",
+      "name": "Fila em Dupla",
+      "icon": true
+    },
+    "DA_BandOfThieves": {
+      "id": "DA_BandOfThieves",
+      "name": "Bando de Ladrões",
+      "icon": true
+    },
+    "DA_BirthdayReunion": {
+      "id": "DA_BirthdayReunion",
+      "name": "Festa de Aniversário",
+      "icon": true
+    },
+    "DA_BonusGift": {
+      "id": "DA_BonusGift",
+      "name": "Presentes Adicionais",
+      "icon": true
+    },
+    "DA_BoosterPack": {
+      "id": "DA_BoosterPack",
+      "name": "Pacote de Reforço",
+      "icon": true
+    },
+    "DA_CaretakersFavor": {
+      "id": "DA_CaretakersFavor",
+      "name": "Sorte do Protetor",
+      "icon": true
+    },
+    "DA_ChampDelivery": {
+      "id": "DA_ChampDelivery",
+      "name": "Entrega de Campeão",
+      "icon": true
+    },
+    "DA_Coronation": {
+      "id": "DA_Coronation",
+      "name": "Coroação",
+      "icon": true
+    },
+    "DA_CyberneticUplink_Gold": {
+      "id": "DA_CyberneticUplink_Gold",
+      "name": "Conexão Cibernética",
+      "icon": true
+    },
+    "DA_ExclusiveCustomization": {
+      "id": "DA_ExclusiveCustomization",
+      "name": "Personalização Exclusiva",
+      "icon": true
+    },
+    "DA_Expedition": {
+      "id": "DA_Expedition",
+      "name": "Expedição",
+      "icon": true
+    },
+    "DA_ForgedInStrength": {
+      "id": "DA_ForgedInStrength",
+      "name": "Forja na Força",
+      "icon": true
+    },
+    "DA_GoldDestiny": {
+      "id": "DA_GoldDestiny",
+      "name": "Destino Dourado",
+      "icon": true
+    },
+    "DA_GoldDestinyPlus": {
+      "id": "DA_GoldDestinyPlus",
+      "name": "Destino Dourado+",
+      "icon": true
+    },
+    "DA_GoldenGamblePlus": {
+      "id": "DA_GoldenGamblePlus",
+      "name": "Aposta em Ouro+",
+      "icon": true
+    },
+    "DA_GoldenGamblePlusPlus": {
+      "id": "DA_GoldenGamblePlusPlus",
+      "name": "Aposta em Ouro++",
+      "icon": true
+    },
+    "DA_GroupHugII": {
+      "id": "DA_GroupHugII",
+      "name": "Abraço Coletivo II",
+      "icon": true
+    },
+    "DA_HeroicGrabBagPlus": {
+      "id": "DA_HeroicGrabBagPlus",
+      "name": "Saco de Brindes Heroico+",
+      "icon": true
+    },
+    "DA_HeroicGrabBagPlusPlus": {
+      "id": "DA_HeroicGrabBagPlusPlus",
+      "name": "Saco de Brindes Heroico++",
+      "icon": true
+    },
+    "DA_InvestedPlusPlus": {
+      "id": "DA_InvestedPlusPlus",
+      "name": "Investimento++",
+      "icon": true
+    },
+    "DA_IronAssets": {
+      "id": "DA_IronAssets",
+      "name": "Recursos de Ferro",
+      "icon": true
+    },
+    "DA_ItsMeBaby": {
+      "id": "DA_ItsMeBaby",
+      "name": "Sou Eu, Benzinho!",
+      "icon": true
+    },
+    "DA_Kingslayer": {
+      "id": "DA_Kingslayer",
+      "name": "Regicida",
+      "icon": true
+    },
+    "DA_LivingForge": {
+      "id": "DA_LivingForge",
+      "name": "Forja Viva",
+      "icon": true
+    },
+    "DA_LoadedDice": {
+      "id": "DA_LoadedDice",
+      "name": "Dados Viciados",
+      "icon": true
+    },
+    "DA_MaxBuild": {
+      "id": "DA_MaxBuild",
+      "name": "Composição Máxima",
+      "icon": true
+    },
+    "DA_MoneyHungry_NotBroken": {
+      "id": "DA_MoneyHungry_NotBroken",
+      "name": "Sede de Riqueza",
+      "icon": true
+    },
+    "DA_NestingAnvils": {
+      "id": "DA_NestingAnvils",
+      "name": "Bigornas Agrupadas",
+      "icon": true
+    },
+    "DA_NestingAnvilsPlus": {
+      "id": "DA_NestingAnvilsPlus",
+      "name": "Bigornas Agrupadas+",
+      "icon": true
+    },
+    "DA_PartialAscension": {
+      "id": "DA_PartialAscension",
+      "name": "Ascensão Parcial",
+      "icon": true
+    },
+    "DA_PatientStudy": {
+      "id": "DA_PatientStudy",
+      "name": "Estudo Paciente",
+      "icon": true
+    },
+    "DA_PrismaticDestiny": {
+      "id": "DA_PrismaticDestiny",
+      "name": "Destino Prismático",
+      "icon": true
+    },
+    "DA_QuickStreaks": {
+      "id": "DA_QuickStreaks",
+      "name": "Sequências Velozes",
+      "icon": true
+    },
+    "DA_Replication": {
+      "id": "DA_Replication",
+      "name": "Replicação",
+      "icon": true
+    },
+    "DA_SalvageBin": {
+      "id": "DA_SalvageBin",
+      "name": "Desmanche",
+      "icon": true
+    },
+    "DA_ShoppingSpree": {
+      "id": "DA_ShoppingSpree",
+      "name": "Maratona de Compras",
+      "icon": true
+    },
+    "DA_SilverDestiny": {
+      "id": "DA_SilverDestiny",
+      "name": "Destino Prateado",
+      "icon": true
+    },
+    "DA_SilverDestinyPlus": {
+      "id": "DA_SilverDestinyPlus",
+      "name": "Destino Prateado+",
+      "icon": true
+    },
+    "DA_SilverDestinyPlusPlus": {
+      "id": "DA_SilverDestinyPlusPlus",
+      "name": "Destino Prateado++",
+      "icon": true
+    },
+    "DA_SlamminPlus": {
+      "id": "DA_SlamminPlus",
+      "name": "Empurrão+",
+      "icon": true
+    },
+    "DA_SliceOfLife": {
+      "id": "DA_SliceOfLife",
+      "name": "Vida Cotidiana",
+      "icon": true
+    },
+    "DA_SlightlyMagicRoll": {
+      "id": "DA_SlightlyMagicRoll",
+      "name": "Jogada Levemente Mágica",
+      "icon": true
+    },
+    "DA_SmallGrabBag": {
+      "id": "DA_SmallGrabBag",
+      "name": "Saco de Brindes Pequeno",
+      "icon": true
+    },
+    "DA_TheGoldenDragon": {
+      "id": "DA_TheGoldenDragon",
+      "name": "Dragão Dourado",
+      "icon": true
+    },
+    "DA_TimeSkip": {
+      "id": "DA_TimeSkip",
+      "name": "Salto Temporal",
+      "icon": true
+    },
+    "DA_VerticalityI": {
+      "id": "DA_VerticalityI",
+      "name": "Verticalidade I",
+      "icon": true
+    },
+    "DA_WorththeWait": {
+      "id": "DA_WorththeWait",
+      "name": "Vale a Espera",
+      "icon": true
+    },
+    "DA_WorththeWaitII": {
+      "id": "DA_WorththeWaitII",
+      "name": "Vale a Espera II",
+      "icon": true
+    },
+    "DA_18_CovenTraitAugment_LootToAP": {
+      "id": "DA_18_CovenTraitAugment_LootToAP",
+      "name": "Ritual Sombrio",
+      "icon": true
+    },
+    "DA_18_ElderwoodTraitAugment": {
+      "id": "DA_18_ElderwoodTraitAugment",
+      "name": "Abrigo da Natureza",
+      "icon": true
+    },
+    "DA_18_FOURcing": {
+      "id": "DA_18_FOURcing",
+      "name": "Dose Quádrupla",
+      "icon": true
+    },
+    "DA_18_GoodForSomethingI": {
+      "id": "DA_18_GoodForSomethingI",
+      "name": "Serve para Algo I",
+      "icon": true
+    },
+    "DA_18_LuxAugmentII": {
+      "id": "DA_18_LuxAugmentII",
+      "name": "Mestra de Todas as Origens",
+      "icon": true
+    },
+    "DA_18_OneTwoFive": {
+      "id": "DA_18_OneTwoFive",
+      "name": "Um, Dois, Cinco!",
+      "icon": true
+    },
+    "DA_18_ResidualMagic": {
+      "id": "DA_18_ResidualMagic",
+      "name": "Magia Residual",
+      "icon": true
+    },
+    "DA_18_ResidualMagicPlus": {
+      "id": "DA_18_ResidualMagicPlus",
+      "name": "Magia Residual+",
+      "icon": true
+    },
+    "DA_18_ResidualMagicPlusPlus": {
+      "id": "DA_18_ResidualMagicPlusPlus",
+      "name": "Magia Residual++",
+      "icon": true
+    },
+    "DA_AdvancedLoan": {
+      "id": "DA_AdvancedLoan",
+      "name": "Empréstimo Avançado",
+      "icon": true
+    },
+    "DA_AdvancedLoanPlus": {
+      "id": "DA_AdvancedLoanPlus",
+      "name": "Empréstimo Avançado+",
+      "icon": true
+    },
+    "DA_ArcaneViktory": {
+      "id": "DA_ArcaneViktory",
+      "name": "Viktória Arcana",
+      "icon": true
+    },
+    "DA_Ascension": {
+      "id": "DA_Ascension",
+      "name": "Ascensão",
+      "icon": true
+    },
+    "DA_AugmentedPower": {
+      "id": "DA_AugmentedPower",
+      "name": "Poder Aprimorado",
+      "icon": true
+    },
+    "DA_BeltOverflow": {
+      "id": "DA_BeltOverflow",
+      "name": "Promoção de Cintos",
+      "icon": true
+    },
+    "DA_BonusGiftPlus": {
+      "id": "DA_BonusGiftPlus",
+      "name": "Presentes Adicionais+",
+      "icon": true
+    },
+    "DA_BoxingLessons": {
+      "id": "DA_BoxingLessons",
+      "name": "Aulas de Boxe",
+      "icon": true
+    },
+    "DA_BronzeForLifeI": {
+      "id": "DA_BronzeForLifeI",
+      "name": "Bronze é Vida I",
+      "icon": true
+    },
+    "DA_BuriedTreasuresIII": {
+      "id": "DA_BuriedTreasuresIII",
+      "name": "Tesouros Enterrados III",
+      "icon": true
+    },
+    "DA_CallToChaos": {
+      "id": "DA_CallToChaos",
+      "name": "Chamado ao Caos",
+      "icon": true
+    },
+    "DA_CelestialBlessingI": {
+      "id": "DA_CelestialBlessingI",
+      "name": "Bênção Celestial I",
+      "icon": true
+    },
+    "DA_CelestialBlessingII": {
+      "id": "DA_CelestialBlessingII",
+      "name": "Bênção Celestial II",
+      "icon": true
+    },
+    "DA_CelestialBlessingIII": {
+      "id": "DA_CelestialBlessingIII",
+      "name": "Bênção Celestial III",
+      "icon": true
+    },
+    "DA_ClearMind": {
+      "id": "DA_ClearMind",
+      "name": "Mente Vazia",
+      "icon": true
+    },
+    "DA_ClockworkAccelerator": {
+      "id": "DA_ClockworkAccelerator",
+      "name": "Acelerador Mecanizado",
+      "icon": true
+    },
+    "DA_CognitiveOverload": {
+      "id": "DA_CognitiveOverload",
+      "name": "Sobrecarga Cognitiva",
+      "icon": true
+    },
+    "DA_CognitiveTax": {
+      "id": "DA_CognitiveTax",
+      "name": "Taxa Cognitiva",
+      "icon": true
+    },
+    "DA_CognitiveTaxPlus": {
+      "id": "DA_CognitiveTaxPlus",
+      "name": "Taxa Cognitiva+",
+      "icon": true
+    },
+    "DA_ComebackStory": {
+      "id": "DA_ComebackStory",
+      "name": "Reviravolta",
+      "icon": true
+    },
+    "DA_ComponentQuest": {
+      "id": "DA_ComponentQuest",
+      "name": "Missão de Componente",
+      "icon": true
+    },
+    "DA_Corrosion": {
+      "id": "DA_Corrosion",
+      "name": "Corrosão",
+      "icon": true
+    },
+    "DA_CraftedCrafting": {
+      "id": "DA_CraftedCrafting",
+      "name": "Criação Engenhosa",
+      "icon": true
+    },
+    "DA_Dummify": {
+      "id": "DA_Dummify",
+      "name": "Transformação em Boneco",
+      "icon": true
+    },
+    "DA_Epoch": {
+      "id": "DA_Epoch",
+      "name": "Época",
+      "icon": true
+    },
+    "DA_EpochPlus": {
+      "id": "DA_EpochPlus",
+      "name": "Época+",
+      "icon": true
+    },
+    "DA_ExpectedUnexpectedness": {
+      "id": "DA_ExpectedUnexpectedness",
+      "name": "Esperando o Inesperado",
+      "icon": true
+    },
+    "DA_FeelingLucky": {
+      "id": "DA_FeelingLucky",
+      "name": "Sorte em Alta",
+      "icon": true
+    },
+    "DA_FindYourCenter": {
+      "id": "DA_FindYourCenter",
+      "name": "Em Busca do Centro",
+      "icon": true
+    },
+    "DA_Flexible": {
+      "id": "DA_Flexible",
+      "name": "Flexível",
+      "icon": true
+    },
+    "DA_FlowingTears": {
+      "id": "DA_FlowingTears",
+      "name": "Lágrimas Abundantes",
+      "icon": true
+    },
+    "DA_FocusedFire": {
+      "id": "DA_FocusedFire",
+      "name": "Fogo Concentrado",
+      "icon": true
+    },
+    "DA_GainGold": {
+      "id": "DA_GainGold",
+      "name": "Recebe 21 de ouro.",
+      "icon": true
+    },
+    "DA_GiantAndMighty": {
+      "id": "DA_GiantAndMighty",
+      "name": "Gigante e Poderoso",
+      "icon": true
+    },
+    "DA_GlassCannon_Gold": {
+      "id": "DA_GlassCannon_Gold",
+      "name": "Canhão de Vidro II",
+      "icon": true
+    },
+    "DA_GlassCannon_Silver": {
+      "id": "DA_GlassCannon_Silver",
+      "name": "Canhão de Vidro I",
+      "icon": true
+    },
+    "DA_GroupHugI": {
+      "id": "DA_GroupHugI",
+      "name": "Abraço Coletivo I",
+      "icon": true
+    },
+    "DA_HardBargain": {
+      "id": "DA_HardBargain",
+      "name": "Barganha Acirrada",
+      "icon": true
+    },
+    "DA_HealingOrbsI": {
+      "id": "DA_HealingOrbsI",
+      "name": "Orbes Curativos I",
+      "icon": true
+    },
+    "DA_HealingOrbsII": {
+      "id": "DA_HealingOrbsII",
+      "name": "Orbes Curativos II",
+      "icon": true
+    },
+    "DA_HeartOfSteel": {
+      "id": "DA_HeartOfSteel",
+      "name": "Heart of Steel",
+      "icon": false,
+      "unresolved": true
+    },
+    "DA_HedgeFund": {
+      "id": "DA_HedgeFund",
+      "name": "Fundo de Garantia",
+      "icon": true
+    },
+    "DA_InvestedPlus": {
+      "id": "DA_InvestedPlus",
+      "name": "Investimento+",
+      "icon": true
+    },
+    "DA_JeweledLotus_II": {
+      "id": "DA_JeweledLotus_II",
+      "name": "Lótus Adornada II",
+      "icon": true
+    },
+    "DA_KnowYourEnemy": {
+      "id": "DA_KnowYourEnemy",
+      "name": "Conheça o Inimigo",
+      "icon": true
+    },
+    "DA_LuckyGloves": {
+      "id": "DA_LuckyGloves",
+      "name": "Luvas da Sorte",
+      "icon": true
+    },
+    "DA_LuckyGlovesPlus": {
+      "id": "DA_LuckyGlovesPlus",
+      "name": "Luvas da Sorte+",
+      "icon": true
+    },
+    "DA_MakeshiftArmorI": {
+      "id": "DA_MakeshiftArmorI",
+      "name": "Armadura Improvisada I",
+      "icon": true
+    },
+    "DA_MaliciousMonetization": {
+      "id": "DA_MaliciousMonetization",
+      "name": "Monetização Maliciosa",
+      "icon": true
+    },
+    "DA_MoneyHungryPlus": {
+      "id": "DA_MoneyHungryPlus",
+      "name": "Sede de Riqueza+",
+      "icon": true
+    },
+    "DA_MoneyMonsoon": {
+      "id": "DA_MoneyMonsoon",
+      "name": "Monção Monetária",
+      "icon": true
+    },
+    "DA_NoScoutNoPivot": {
+      "id": "DA_NoScoutNoPivot",
+      "name": "NÃO PIVOTO",
+      "icon": true
+    },
+    "DA_OneBuffTwoBuff": {
+      "id": "DA_OneBuffTwoBuff",
+      "name": "Distribuição de Efeitos",
+      "icon": true
+    },
+    "DA_PandorasItemsIII": {
+      "id": "DA_PandorasItemsIII",
+      "name": "Itens de Pandora III",
+      "icon": true
+    },
+    "DA_PandorasItemsIIPlus": {
+      "id": "DA_PandorasItemsIIPlus",
+      "name": "Itens de Pandora II+",
+      "icon": true
+    },
+    "DA_PandorasItemsIIPlusPlus": {
+      "id": "DA_PandorasItemsIIPlusPlus",
+      "name": "Itens de Pandora II++",
+      "icon": true
+    },
+    "DA_PlotArmor": {
+      "id": "DA_PlotArmor",
+      "name": "Plot Armor",
+      "icon": true
+    },
+    "DA_PrismaticDestinyPlus": {
+      "id": "DA_PrismaticDestinyPlus",
+      "name": "Destino Prismático+",
+      "icon": true
+    },
+    "DA_PromisedProtection": {
+      "id": "DA_PromisedProtection",
+      "name": "Proteção Prometida",
+      "icon": true
+    },
+    "DA_RadiantRascal": {
+      "id": "DA_RadiantRascal",
+      "name": "Malandro Radiante",
+      "icon": true
+    },
+    "DA_RadiantRelic": {
+      "id": "DA_RadiantRelic",
+      "name": "Relíquias Radiantes",
+      "icon": true
+    },
+    "DA_Recombobulator": {
+      "id": "DA_Recombobulator",
+      "name": "Recombobulador",
+      "icon": true
+    },
+    "DA_Retribution": {
+      "id": "DA_Retribution",
+      "name": "Castigo",
+      "icon": true
+    },
+    "DA_SalvageBinPlus": {
+      "id": "DA_SalvageBinPlus",
+      "name": "Desmanche+",
+      "icon": true
+    },
+    "DA_ShimmerscaleEssence": {
+      "id": "DA_ShimmerscaleEssence",
+      "name": "Essência de Escamaluz",
+      "icon": true
+    },
+    "DA_Slammin": {
+      "id": "DA_Slammin",
+      "name": "Empurrão",
+      "icon": true
+    },
+    "DA_SoloLeveling": {
+      "id": "DA_SoloLeveling",
+      "name": "Upando Solo",
+      "icon": true
+    },
+    "DA_SoloPlate": {
+      "id": "DA_SoloPlate",
+      "name": "Placa Solo",
+      "icon": true
+    },
+    "DA_SoulAwakening": {
+      "id": "DA_SoulAwakening",
+      "name": "Despertar da Alma",
+      "icon": true
+    },
+    "DA_SpeedyDoubleKill": {
+      "id": "DA_SpeedyDoubleKill",
+      "name": "Double Kill Veloz",
+      "icon": true
+    },
+    "DA_StandUnited": {
+      "id": "DA_StandUnited",
+      "name": "Manter a União",
+      "icon": true
+    },
+    "DA_SweetTreats": {
+      "id": "DA_SweetTreats",
+      "name": "Doces Deleites",
+      "icon": true
+    },
+    "DA_SwordOverflow": {
+      "id": "DA_SwordOverflow",
+      "name": "Promoção de Espadas",
+      "icon": true
+    },
+    "DA_TheTower": {
+      "id": "DA_TheTower",
+      "name": "A Torre",
+      "icon": true
+    },
+    "DA_TonsOfStatsI": {
+      "id": "DA_TonsOfStatsI",
+      "name": "Toneladas de Atributos!",
+      "icon": true
+    },
+    "DA_TonsOfStatsII": {
+      "id": "DA_TonsOfStatsII",
+      "name": "Toneladas de Atributos!",
+      "icon": true
+    },
+    "DA_TradeSector": {
+      "id": "DA_TradeSector",
+      "name": "Setor de Troca",
+      "icon": true
+    },
+    "DA_TradeSectorPlus": {
+      "id": "DA_TradeSectorPlus",
+      "name": "Setor de Troca+",
+      "icon": true
+    },
+    "DA_TwinGuardians": {
+      "id": "DA_TwinGuardians",
+      "name": "Guardiões Gêmeos",
+      "icon": true
+    },
+    "DA_URF": {
+      "id": "DA_URF",
+      "name": "URF",
+      "icon": true
+    },
+    "DA_UrfsGrabBag": {
+      "id": "DA_UrfsGrabBag",
+      "name": "Saco de Brindes do Urf",
+      "icon": true
+    },
+    "DA_VerticalityII": {
+      "id": "DA_VerticalityII",
+      "name": "Verticalidade II",
+      "icon": true
+    },
+    "DA_VerticalityIII": {
+      "id": "DA_VerticalityIII",
+      "name": "Verticalidade III",
+      "icon": true
+    },
+    "DA_Warpath": {
+      "id": "DA_Warpath",
+      "name": "Caminho da Guerra",
+      "icon": true
+    },
+    "DA_WeStickTogether": {
+      "id": "DA_WeStickTogether",
+      "name": "A União Faz a Força",
+      "icon": true
+    },
+    "DA_WovenMagic": {
+      "id": "DA_WovenMagic",
+      "name": "Tecendo Magia",
+      "icon": true
+    },
+    "DA_YoungAndWildAndFree": {
+      "id": "DA_YoungAndWildAndFree",
+      "name": "Jovens, Selvagens e Livres",
+      "icon": true
+    },
+    "TFT6_Augment_CalculatedLoss": {
+      "id": "TFT6_Augment_CalculatedLoss",
+      "name": "Derrota Planejada",
+      "icon": true
+    },
+    "TFT6_Augment_Twins2": {
+      "id": "TFT6_Augment_Twins2",
+      "name": "Encrenca em Dobro",
+      "icon": true
+    },
+    "DA_18_InfernoTraitAugment": {
+      "id": "DA_18_InfernoTraitAugment",
+      "name": "Chama Acesa",
+      "icon": true
+    },
+    "DA_18_LunarTraitAugmentPlus": {
+      "id": "DA_18_LunarTraitAugmentPlus",
+      "name": "Sol e Lua+",
+      "icon": true
+    },
+    "DA_18_OnesTwosThree": {
+      "id": "DA_18_OnesTwosThree",
+      "name": "Um Dois Três",
+      "icon": true
+    },
+    "DA_BuildABud": {
+      "id": "DA_BuildABud",
+      "name": "Monte um Amigo",
+      "icon": true
+    },
+    "DA_CalledShot": {
+      "id": "DA_CalledShot",
+      "name": "Jogada Anunciada",
+      "icon": true
+    },
+    "DA_ElectrochargeI": {
+      "id": "DA_ElectrochargeI",
+      "name": "Carga Elétrica I",
+      "icon": true
+    },
+    "DA_ElectrochargeII": {
+      "id": "DA_ElectrochargeII",
+      "name": "Carga Elétrica II",
+      "icon": true
+    },
+    "DA_ExtraBuckles": {
+      "id": "DA_ExtraBuckles",
+      "name": "Cintos Adicionais",
+      "icon": true
+    },
+    "DA_FutureFocused": {
+      "id": "DA_FutureFocused",
+      "name": "Foco no Futuro",
+      "icon": true
+    },
+    "DA_GoingLong": {
+      "id": "DA_GoingLong",
+      "name": "Longo Prazo",
+      "icon": true
+    },
+    "DA_GoldenEgg": {
+      "id": "DA_GoldenEgg",
+      "name": "O Ovo Dourado",
+      "icon": true
+    },
+    "DA_HardCommit": {
+      "id": "DA_HardCommit",
+      "name": "Compromisso Sério",
+      "icon": true
+    },
+    "DA_Hustler": {
+      "id": "DA_Hustler",
+      "name": "Vigarista",
+      "icon": true
+    },
+    "DA_InvestmentStrategy": {
+      "id": "DA_InvestmentStrategy",
+      "name": "Estratégia de Investimento II",
+      "icon": true
+    },
+    "DA_InvestmentStrategyI": {
+      "id": "DA_InvestmentStrategyI",
+      "name": "Estratégia de Investimento I",
+      "icon": true
+    },
+    "DA_MakeshiftArmorII": {
+      "id": "DA_MakeshiftArmorII",
+      "name": "Armadura Improvisada II",
+      "icon": true
+    },
+    "DA_Min_Max": {
+      "id": "DA_Min_Max",
+      "name": "Otimização",
+      "icon": true
+    },
+    "DA_PandorasItemsIIMinus": {
+      "id": "DA_PandorasItemsIIMinus",
+      "name": "Itens de Pandora II",
+      "icon": true
+    },
+    "DA_Pilfer": {
+      "id": "DA_Pilfer",
+      "name": "Furto",
+      "icon": true
+    }
+  }
+}

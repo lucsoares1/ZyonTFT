@@ -1,0 +1,11 @@
+import fs from 'node:fs/promises';import path from 'node:path';import crypto from 'node:crypto';import assert from 'node:assert/strict';
+const pkg=JSON.parse(await fs.readFile('package.json','utf8')),directory=path.resolve(process.argv[2]||'release'),name=`Zyon-TFT-Setup-${pkg.version}.exe`;
+const manifest=await fs.readFile(path.join(directory,'latest.yml'),'utf8');
+const field=key=>manifest.match(new RegExp(`^${key}:\\s*([^\\r\\n]+)`,'m'))?.[1].trim().replace(/^['"]|['"]$/g,'');
+assert.equal(field('version'),pkg.version);assert.equal(field('path'),name);
+const file=await fs.readFile(path.join(directory,name));assert.equal(file.subarray(0,2).toString(),'MZ');
+assert.equal(crypto.createHash('sha512').update(file).digest('base64'),field('sha512'),'Installer checksum does not match the update feed');
+assert.ok((await fs.stat(path.join(directory,`${name}.blockmap`))).size>0);
+const config=await fs.readFile(path.join(directory,'win-unpacked/resources/app-update.yml'),'utf8');
+assert.match(config,/provider: github/);assert.match(config,/owner: lucsoares1/);assert.match(config,/repo: ZyonTFT/);assert.doesNotMatch(config,/token:/i);
+console.log(JSON.stringify({ok:true,version:pkg.version,installer:name,bytes:file.length,sha512Verified:true,blockmap:true,publicGitHub:true}));

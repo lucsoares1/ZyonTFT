@@ -1,0 +1,40 @@
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import crypto from 'node:crypto';
+import assert from 'node:assert/strict';
+import {_electron as electron} from 'playwright';
+const {version}=JSON.parse(await fs.readFile('package.json','utf8'));
+const tag=crypto.randomBytes(5).toString('hex');
+const profile=path.resolve('.runtime',`signup-${tag}`),out=path.resolve(`design/review/${version}/duo`);
+await fs.mkdir(out,{recursive:true});
+const env={...process.env,ZYON_USER_DATA:profile};delete env.ELECTRON_RUN_AS_NODE;delete env.ZYON_DEV_URL;
+const args={executablePath:path.resolve(process.env.ZYON_TEST_EXE||'release-staging/0.16.0/win-unpacked/Zyon TFT.exe'),args:[],env};
+const email=`zyon-test-${tag}@example.invalid`,password=crypto.randomBytes(24).toString('base64url');
+let app,fixture;
+async function poll(page,fn){for(let i=0;i<180;i++){const s=await page.evaluate(()=>window.zyon.getSocial());if(fn(s))return s;await new Promise(r=>setTimeout(r,100));}throw new Error('Account state did not become ready');}
+try{
+ app=await electron.launch(args);let page=await app.firstWindow();
+ await page.getByRole('heading',{name:'Composições',exact:true}).waitFor();
+ await page.getByRole('navigation',{name:'Navegação principal'}).getByRole('button',{name:'Duplas Dinâmicas',exact:true}).click();
+ await page.getByRole('button',{name:'Criar conta',exact:true}).click();
+ await page.getByRole('textbox',{name:'Seu nome no Zyon',exact:true}).fill('Teste de cadastro');
+ await page.getByRole('textbox',{name:'Nome de usuário Zyon',exact:true}).fill(`teste_${tag}`);
+ await page.getByRole('textbox',{name:'E-mail da conta Zyon',exact:true}).fill(email);
+ await page.getByLabel('Senha da conta Zyon',{exact:true}).fill(password);
+ await page.getByRole('button',{name:'Criar minha conta',exact:true}).click();
+ const registered=await poll(page,s=>s.user&&s.profile&&s.status==='online');
+ fixture=registered.user.id;
+ await fs.writeFile('.runtime/signup-fixture-id.json',JSON.stringify({id:fixture}));
+ assert.equal(registered.profile.display_name,'Teste de cadastro');
+ assert.equal(registered.user.email,email);
+ await page.screenshot({path:path.join(out,'signup-direct.png'),animations:'disabled'});
+ const encrypted=await fs.readFile(path.join(profile,'online-session.enc'),'utf8');assert.ok(!encrypted.includes(password)&&!encrypted.includes(email));
+ await app.close();app=null;
+ app=await electron.launch(args);page=await app.firstWindow();
+ await page.getByRole('heading',{name:'Composições',exact:true}).waitFor();
+ const restored=await poll(page,s=>s.user&&s.profile&&s.status==='online');assert.equal(restored.user.id,fixture);
+ await page.evaluate(()=>window.zyon.socialAction({type:'logout'}));
+ await poll(page,s=>!s.user&&s.status==='signed-out');
+ await fs.writeFile(path.join(out,'signup-checks.json'),JSON.stringify({ok:true,directSignup:true,confirmationEmailSent:false,profileCreated:true,encryptedSessionRestoresAfterRestart:true,logoutClearsIdentity:true},null,2));
+ console.log({ok:true,directSignup:true,encryptedSessionRestoresAfterRestart:true});
+}finally{await app?.close().catch(()=>{});}

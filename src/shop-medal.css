@@ -1,0 +1,43 @@
+/* A forged Zyon token, above the card art and away from names/traits. */
+.shop-medal.shop-badge {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: #ffe6a1;
+  pointer-events: none;
+  filter: drop-shadow(0 3px 2px #000b);
+  animation: none;
+}
+.shop-medal.shop-badge > svg {
+  width: 48px;
+  height: 57px;
+  flex: none;
+  filter: drop-shadow(0 0 5px #e9b84c44);
+}
+.shop-medal .shop-medal-caption {
+  position: relative;
+  margin-top: -5px;
+  padding: 2px 7px 3px;
+  font: 800 9px/1.1 Manrope, sans-serif;
+  white-space: nowrap;
+  text-shadow: 0 1px 1px #000;
+  background: linear-gradient(#594324, #241c13);
+  border: 1px solid #bd9144;
+  border-radius: 3px;
+  box-shadow: inset 0 1px #f4d88f50, 0 2px #100d09;
+}
+.shop-medal[data-kind="reserve"] > svg { filter: saturate(.65) drop-shadow(0 0 4px #8acdb533); }
+.shop-medal[data-kind="reserve"] .shop-medal-caption { color: #b4e4d2; background: linear-gradient(#263d36, #14231f); border-color: #75a18f; }
+.shop-medal.badge-preview { transform: scale(.76); transform-origin: center; }
+.badge-space:has(.shop-medal) { height: 58px; }
+.game-wide .game-mode { display: inline-flex; align-items: center; padding: 5px 8px; border: 1px solid #a2864155; border-radius: 4px; color: #e8ca8b; font-size: 10px; }
+.workspace-v4 .shop-open .shop-medal.shop-badge { padding: 0; gap: 0; }
+.workspace-v4 .shop-open .shop-medal.shop-badge > svg { display: block; width: 48px; height: 57px; }
+.native-overlay .shop-medal { position: relative; isolation: isolate; }
+.native-overlay .shop-medal > svg { position: relative; z-index: 1; width: 40px; height: 48px; }
+.native-overlay .shop-medal-caption { position: absolute; right: calc(100% - 5px); top: 23px; margin: 0; padding-inline: 6px 9px; z-index: 0; }
