@@ -38,8 +38,10 @@ import {
   AugmentGuide,
   BuildSwitch,
   PivotTiersContext,
+  PivotAugmentContext,
 } from "./PivotGuide";
 import { pivotSnapshot } from "./data";
+import {augmentCatalog} from './comp-augments.mjs';
 import { boardPositions } from "./planning.mjs";
 import {
   costOdds,
@@ -157,7 +159,9 @@ export default function GameGuide() {
     <PivotTiersContext.Provider
       value={state.catalogTiers || pivotSnapshot.tiers}
     >
+      <PivotAugmentContext.Provider value={state.catalogAugments||augmentCatalog(pivotSnapshot)}>
       <LiveGuide state={state} />
+      </PivotAugmentContext.Provider>
     </PivotTiersContext.Provider>
   );
 }

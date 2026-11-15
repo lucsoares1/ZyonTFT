@@ -244,6 +244,8 @@
   gap: 10px;
   margin-top: 16px;
 }
+.augment-guide-source{display:inline-flex;align-items:center;gap:6px;color:#94baff;font-size:11px;line-height:1.6;text-decoration:none;margin-bottom:9px;}
+.augment-guide-source:hover{text-decoration:underline;color:#c3daff;}
 .pivot-augment-list > div {
   display: flex;
   align-items: center;

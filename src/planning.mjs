@@ -1,5 +1,6 @@
+import {augmentOrigin} from './comp-augments.mjs';
 export function personalizePlan(comp) {
-  return { ...comp, style: "Personalizada", source: undefined, pivot: undefined };
+  return { ...comp, augmentSource:augmentOrigin(comp), style: "Personalizada", source: undefined, pivot: undefined };
 }
 export function boardPositions(comp, catalog) {
   const positions = {};
@@ -49,6 +50,6 @@ export function moveUnit(comp, id, target, catalog) {
     carry: comp.champions.length ? comp.carry : id,
     positions,
     placement: "manual",
-    ...(!existing ? { style: "Personalizada", source: undefined } : {}),
+    ...(!existing ? { augmentSource:augmentOrigin(comp),style: "Personalizada", source: undefined } : {}),
   };
 }

@@ -39,7 +39,8 @@ import {
 import { migrateSaved } from "./preferences.mjs";
 import { mergePivot } from "./pivot-catalog.mjs";
 import { pivotSnapshot } from "./data";
-import { PivotTiersContext } from "./PivotGuide";
+import { PivotTiersContext, PivotAugmentContext } from "./PivotGuide";
+import {augmentCatalog} from './comp-augments.mjs';
 import { TierBadge, CompTierBadge } from "./CompTier";
 import { buildCompSections, tierSections, compTier } from "./comp-tiers.mjs";
 import { matchShop, recognizeNames, mergeOverlaySnapshot, mergeShopUpdate } from "./shop.mjs";
@@ -282,6 +283,7 @@ function Workbench() {
     error: null,
   });
   const [catalogBusy, setCatalogBusy] = useState(false);
+  const catalogAugments=useMemo(()=>augmentCatalog(catalogStatus.snapshot),[catalogStatus.snapshot]);
   function applyCatalog(result: any) {
     if (!result?.snapshot) return;
     setCatalogStatus(result);
@@ -316,6 +318,10 @@ function Workbench() {
       applyCatalog(result);
       return refreshCatalog();
     });
+    // The service enforces its six-hour cache. Check more often so a timer
+    // just before expiry cannot postpone fresh data for another six hours.
+    const timer=setInterval(()=>void refreshCatalog(),300000);
+    return ()=>clearInterval(timer);
   }, [hydrated]);
   useEffect(
     () =>
@@ -394,6 +400,7 @@ function Workbench() {
       guideComp: pinned || null,
       baseGuideComp: pinnedBase || null,
       catalogTiers: catalogStatus.snapshot.tiers,
+      catalogAugments,
       opacity: saved.opacity,
       rect: saved.rect,
       levelRect: saved.levelRect,
@@ -592,6 +599,7 @@ function Workbench() {
   }
   return (
     <PivotTiersContext.Provider value={catalogStatus.snapshot.tiers}>
+    <PivotAugmentContext.Provider value={catalogAugments}>
       <div className="app-shell workspace-v4 zyon-reimagined">
         <aside className="sidebar" aria-label="Menu lateral">
           <div className="brand" title="Zyon TFT">
@@ -918,7 +926,6 @@ function Workbench() {
                                       <strong>{c.name}</strong>
                                       <TraitStrip comp={c} />
                                     </div>
-                                    <span className="row-style">{c.style}</span>
                                   </div>
                                   <div className="ranked-body">
                                     <div className="ranked-lineup">
@@ -986,6 +993,8 @@ function Workbench() {
                                         : "Seu plano personalizado"}
                                   </small>
                                 </button>
+                                <div className="comp-row-utilities">
+                                <span className="row-style">{c.style}</span>
                                 <div className="row-controls">
                                   <button
                                     className={`row-pin ${saved.pinned === c.id ? "row-pinned" : ""}`}
@@ -1027,6 +1036,7 @@ function Workbench() {
                                   >
                                     <ChevronDown size={18} />
                                   </button>
+                                </div>
                                 </div>
                               </div>
                               {c.id === active.id && expanded && (
@@ -1499,6 +1509,7 @@ function Workbench() {
           </div>
         )}
       </div>
+    </PivotAugmentContext.Provider>
     </PivotTiersContext.Provider>
   );
 }

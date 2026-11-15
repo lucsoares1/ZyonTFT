@@ -15,10 +15,12 @@ import { BoardPanel, Items, UnitStrip } from "./TftPanels";
 import { boardPositions } from "./planning.mjs";
 import { costOdds, teamSlots } from "./level-planner.mjs";
 import { CompTierBadge } from "./CompTier";
+import {augmentCatalog,compAugments} from './comp-augments.mjs';
 import "./pivot-guide.css";
 
 const names = (ids: string[]) => ids.map((id) => byId[id]?.name).join(", ");
 export const PivotTiersContext = createContext(pivotSnapshot.tiers);
+export const PivotAugmentContext = createContext(augmentCatalog(pivotSnapshot));
 export function BuildSwitch({
   comp,
   builds,
@@ -68,7 +70,10 @@ export function ItemOrder({ comp }: { comp: Comp }) {
 export function AugmentGuide({ comp }: { comp: Comp }) {
   const [query,setQuery]=useState("");
   const [tier,setTier]=useState("all");
-  const recommended = comp.pivot?.augments || [];
+  const catalog=useContext(PivotAugmentContext);
+  const guide=compAugments(comp,catalog,allAugments);
+  const recommended:string[]=guide.ids;
+  useEffect(()=>{setQuery('');setTier('all');},[comp.id,guide.source?.id]);
   const currentTiers = useContext(PivotTiersContext);
   const tiers = new Map(currentTiers.augments.map((a) => [a.id, a.tier]));
   const shown=recommended.filter(id=>(tier==="all"||tiers.get(id)===tier)&&
@@ -78,13 +83,15 @@ export function AugmentGuide({ comp }: { comp: Comp }) {
     items: "Itens e componentes",
     combat: "Força de combate",
     traits: "Características",
+      emblem: "Emblemas",
     reroll: "Cópias e rolagens",
   };
   return (
     <section className="pivot-augments">
       <h3>Aprimoramentos para esta build</h3>
-      <p>Escolhas para <strong>{comp.name}</strong>. Compare com suas peças e itens antes de escolher.</p>
-      <div className="augment-focus">{comp.pivot?.augmentFocus.map(f=><span key={f}><Sparkles size={12}/>{focus[f]||f}</span>)}</div>
+      <p>{guide.adapted?<>Referência de <strong>{guide.source?.name}</strong> para seu plano adaptado. Compare com as peças e itens que você mudou.</>:<>Escolhas para <strong>{comp.name}</strong>. Compare com suas peças e itens antes de escolher.</>}</p>
+      {guide.source?.url&&<a className="augment-guide-source" href={guide.source.url} target="_blank" rel="noreferrer">PivotTFT · Patch {guide.source.patch}<ExternalLink size={12}/></a>}
+      <div className="augment-focus">{guide.focus.map(f=><span key={f}><Sparkles size={12}/>{focus[f]||f}</span>)}</div>
       {recommended.length>0 && <div className="augment-toolbar">
         <label className="search-field"><Search size={15}/><input aria-label="Buscar aprimoramento da comp" value={query} onChange={e=>setQuery(e.target.value)} placeholder="Encontre um aprimoramento"/></label>
         <select aria-label="Tier de aprimoramento da comp" value={tier} onChange={e=>setTier(e.target.value)}><option value="all">Todos os tiers</option>{[...new Set(recommended.map(id=>tiers.get(id)).filter(Boolean))].map(t=><option key={t} value={t}>Tier {t}</option>)}</select>
@@ -104,7 +111,7 @@ export function AugmentGuide({ comp }: { comp: Comp }) {
                 <small>
                   {a?.unresolved
                     ? "Nome da fonte; sem correspondência no catálogo Riot"
-                    : "Recomendado para esta build"}
+                    : guide.adapted?"Recomendado no guia-base":"Recomendado para esta build"}
                 </small>
               </span>
               {tiers.get(id) && (
@@ -116,7 +123,7 @@ export function AugmentGuide({ comp }: { comp: Comp }) {
       </div>
       {!!recommended.length&&!shown.length&&<p>Nenhum aprimoramento corresponde à busca. <button className="game-text-action" onClick={()=>{setQuery("");setTier("all");}}>Limpar filtros</button></p>}
       {!recommended.length && (
-        <p>Esta composição ainda não tem recomendações de aprimoramentos.</p>
+          <p>{guide.source?'O guia desta build não publicou recomendações de aprimoramentos.':'Esta composição não tem um guia do PivotTFT vinculado. Planos criados a partir de uma build mantêm as recomendações da origem.'}</p>
       )}
     </section>
   );

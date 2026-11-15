@@ -1,5 +1,6 @@
 import { useState, useContext } from "react";
-import { PivotTiersContext } from "./PivotGuide";
+import { PivotTiersContext, PivotAugmentContext } from "./PivotGuide";
+import {compAugments} from './comp-augments.mjs';
 import {
   ArrowDownAZ,
   ArrowRight,
@@ -677,6 +678,8 @@ export function Database({
   onPlanner: (id?: string) => void;
 }) {
   const tiers = useContext(PivotTiersContext);
+  const augmentGuides=useContext(PivotAugmentContext);
+  const focusAugments=new Set(compAugments(focusComp,augmentGuides,allAugments).ids);
   const [tab, setTab] = useState<"champions" | "traits" | "items" | "augments">(
       "champions",
     ),
@@ -691,7 +694,7 @@ export function Database({
   const guides = comps.filter((c) => c.source);
   const itemTiers = new Map(tiers.items.map((t) => [t.id, t.tier]));
   const augmentRows = tiers.augments.filter((a) =>
-    norm(allAugments[a.id]?.name || a.id).includes(norm(query)) && (!focusOnly || focusComp?.pivot?.augments.includes(a.id)),
+    norm(allAugments[a.id]?.name || a.id).includes(norm(query)) && (!focusOnly || focusAugments.has(a.id)),
   );
   const usages = (id: string) => guides.filter((c) => c.champions.includes(id));
   const itemHolders = (id: string) => [

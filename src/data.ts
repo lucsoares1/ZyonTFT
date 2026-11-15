@@ -15,6 +15,7 @@ export type Champion = {
   aliases?: string[];
 };
 export type Comp = {
+  augmentSource?: string;
   pivot?: {
     family: string;
     build: string;

@@ -249,3 +249,8 @@
   *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important;}
   .workspace-v4.zyon-reimagined .comp-spotlight:hover .spotlight-art{transform:none;}
 }
+/* Style belongs to the card's right edge, aligned with its own action column. */
+.workspace-v4.zyon-reimagined .tier-section-cards .comp-row-summary{grid-template-columns:minmax(0,1fr) max-content;}
+.workspace-v4.zyon-reimagined .tier-section-cards .comp-row-title{grid-template-columns:30px minmax(0,1fr);}
+.workspace-v4.zyon-reimagined .comp-row-utilities{display:grid;grid-template-rows:max-content 1fr;justify-items:end;align-items:center;align-self:stretch;gap:15px;min-width:0;}
+.workspace-v4.zyon-reimagined .comp-row-utilities>.row-style{position:static;display:block;margin:0;align-self:start;justify-self:end;max-width:100%;color:#acbad1;background:#18202d;border:1px solid #36435a;padding:4px 8px;font:600 10px/1.4 Manrope,sans-serif;border-radius:5px;white-space:nowrap;}
