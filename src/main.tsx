@@ -24,6 +24,7 @@ import "./planner-workbench.css";
 import "./duo-requests.css";
 import "./planner-studio.css";
 import "./database-catalog.css";
+import "./social-lobby.css";
 createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <App />

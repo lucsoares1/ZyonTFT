@@ -1,0 +1,93 @@
+/* A person, an invitation, then an accepted duo: each state has its own place. */
+.social-panel { container-type: inline-size; }
+.social-panel .social-heading { gap: 13px; margin-bottom: 20px; padding: 0 0 20px; border-color: #263548; }
+.social-panel .social-heading h2 { font-size: 26px; font-weight: 720; letter-spacing: -.7px; }
+.social-panel .social-heading p { font-size: 12px; line-height: 1.6; margin-top: 7px; color: #8fa3bf; }
+.social-panel .social-emblem { width: 46px; height: 46px; border-radius: 13px; border: 1px solid #347aff30; background: #347aff12; color: #74a4ff; }
+.social-panel .duo-identity { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 22px; align-items: center; padding: 0 0 22px; margin-bottom: 22px; border-bottom: 1px solid #263548; }
+.social-panel .duo-account { min-width: 0; gap: 10px; padding: 0; }
+.social-panel .duo-account strong { font-size: 13px; overflow-wrap: anywhere; line-height: 1.4; }
+.social-panel .duo-account small { margin-top: 3px; overflow-wrap: anywhere; }
+.social-panel .duo-account .duo-avatar { width: 36px; height: 36px; font-size: 11px; }
+.social-panel .duo-online { font-size: 10px; color: #8fa3bf; }
+.social-panel .duo-online.connected::before { background: #78cfa8; }
+.social-panel .duo-notice { padding: 9px 12px; }
+.social-panel .duo-notice > span { flex: 1; min-width: 0; }
+.social-panel .duo-notice > svg { flex-shrink: 0; }
+.social-panel .duo-friend-code { min-width: 0; padding: 0; margin: 0; border: 0; border-radius: 0; background: transparent; gap: 10px; }
+.social-panel .duo-friend-code > div { min-width: 0; }
+.social-panel .duo-friend-code small { font-size: 10px; line-height: 1.4; }
+.social-panel .duo-friend-code strong { font-size: 13px; letter-spacing: 1px; overflow-wrap: anywhere; }
+.social-panel .duo-friend-code > button { flex-shrink: 0; background: #ffffff06; border-color: #ffffff15; color: #bdcce0; box-shadow: none; font-size: 11px; }
+.social-panel .duo-avatar { background: #1a2b43; border: 1px solid #375276; color: #c5dafe; box-shadow: none; }
+.social-panel .duo-friends { margin-top: 8px; }
+.social-panel .duo-friends-heading { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 16px; }
+.social-panel .duo-friends-heading > div { min-width: 0; }
+.social-panel .duo-friends-heading h3 { display: flex; align-items: center; gap: 9px; font-size: 18px; line-height: 1.4; letter-spacing: -.4px; font-weight: 650; color: #edf3fc; margin: 0; }
+.social-panel :is(.duo-friends-heading h3, .duo-friend-requests h3, .duo-invites h3) > span { min-width: 22px; height: 22px; padding-inline: 6px; display: inline-grid; place-items: center; font-size: 11px; font-weight: 550; border-radius: 6px; background: #ffffff08; color: #8fa3bf; }
+.social-panel .duo-friends-heading p { font-size: 11px; color: #8fa3bf; margin-top: 5px; line-height: 1.6; }
+.social-panel .duo-add-toggle { flex-shrink: 0; min-height: 36px; padding-inline: 12px; background: #ffffff06; border-color: #ffffff17; color: #c9d8ec; font-weight: 550; font-size: 11px; }
+.social-panel .duo-add-friend { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 12px; padding: 18px; margin-bottom: 16px; border: 1px solid #304865; border-radius: 11px; background: #101b2b; }
+.social-panel .duo-add-friend > label { display: grid; gap: 8px; min-width: 0; font-size: 12px; color: #c6d6ec; font-weight: 550; }
+.social-panel .duo-add-friend input { width: 100%; height: 42px; font-size: 12px; font-weight: 450; background: #0b1421; border-color: #354c6b; }
+.social-panel .duo-add-friend > p { grid-column: 1 / -1; font-size: 11px; line-height: 1.6; color: #8fa3bf; }
+.social-panel .duo-primary { background: #2563eb; background-image: none; border: 1px solid #3273f6; color: #fff; box-shadow: none; border-radius: 8px; font-size: 12px; font-weight: 600; min-height: 42px; }
+.social-panel .duo-primary:hover:not(:disabled) { background: #3575f4; border-color: #4c8dff; color: #fff; }
+.social-panel .duo-friend-search { display: flex; align-items: center; gap: 10px; min-width: 0; border: 1px solid #293b53; border-radius: 8px; padding: 0 13px; background: #0d1725; margin-bottom: 14px; color: #7894b9; }
+.social-panel .duo-friend-search input { flex: 1; width: 100%; min-width: 0; height: 40px; padding: 0; border: 0; border-radius: 0; background: transparent; box-shadow: none; outline: none; font-size: 12px; }
+.social-panel .duo-friend-search:focus-within { outline: 2px solid #347aff; outline-offset: 2px; }
+.social-panel .duo-friend-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.social-panel .duo-friend-card { padding: 20px; min-width: 0; border: 1px solid #2b3b52; border-radius: 12px; background: #111b29; }
+.social-panel .duo-friend-card-heading { display: flex; align-items: center; gap: 12px; }
+.social-panel .duo-friend-card-heading > .duo-avatar { width: 46px; height: 46px; border-radius: 14px; font-size: 14px; }
+.social-panel .duo-friend-card-heading > div { min-width: 0; flex: 1; }
+.social-panel .duo-friend-card h4 { margin: 0; font-size: 16px; color: #edf3fc; font-weight: 650; line-height: 1.4; letter-spacing: -.2px; overflow-wrap: anywhere; }
+.social-panel .duo-friend-card-heading small { display: block; color: #8299b9; font-size: 11px; line-height: 1.5; margin-top: 3px; overflow-wrap: anywhere; }
+.social-panel .duo-friend-state { display: flex; gap: 6px; align-items: center; color: #8fa3bf; font-size: 11px; line-height: 1.5; margin: 18px 0 14px; }
+.social-panel .duo-friend-state > svg { flex-shrink: 0; color: #758fb4; }
+.social-panel .duo-friend-card .duo-invite-button { width: 100%; min-height: 40px; border-radius: 7px; background: #2563eb; border: 1px solid #3273f6; color: #fff; box-shadow: none; font-size: 12px; font-weight: 600; padding: 9px 12px; }
+.social-panel .duo-friend-card .duo-invite-button:hover:not(:disabled) { background: #3575f4; border-color: #4c8dff; }
+.social-panel .duo-friend-card .duo-invite-button:disabled { opacity: 1; color: #91a6c3; border-color: #ffffff0f; background: #ffffff05; cursor: default; }
+.social-panel .duo-friend-card[data-invite="pending"] .duo-friend-state { color: #b0bfe0; }
+.social-panel .duo-friend-card[data-invite="connected"] { border-color: #347aff66; }
+.social-panel .duo-friend-card[data-invite="connected"] .duo-friend-state { color: #8eb7ff; }
+.social-panel .duo-friend-menu { position: relative; align-self: flex-start; flex-shrink: 0; }
+.social-panel .duo-friend-menu > summary { display: grid; place-items: center; width: 28px; height: 28px; list-style: none; cursor: pointer; border-radius: 6px; color: #7d94b4; }
+.social-panel .duo-friend-menu > summary::-webkit-details-marker { display: none; }
+.social-panel .duo-friend-menu > summary:hover { background: #ffffff08; color: #d3e1f4; }
+.social-panel .duo-friend-menu > summary:focus-visible { outline: 2px solid #347aff; outline-offset: 2px; }
+.social-panel .duo-friend-menu > button { position: absolute; z-index: 5; top: 32px; right: 0; white-space: nowrap; padding: 10px 12px; border: 1px solid #4b3c4a; border-radius: 7px; color: #e5b3be; background: #20202c; font-size: 11px; font-weight: 500; }
+.social-panel .duo-friend-menu > button:hover:not(:disabled) { color: #ffe2e8; background: #35232f; border-color: #7d4c60; }
+.social-panel .duo-friend-requests { padding: 18px; margin-bottom: 24px; background: #101722; border: 1px solid #2c3c52; border-radius: 12px; }
+.social-panel .duo-friend-requests > h3, .social-panel .duo-invites > h3 { display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; color: #dce8f9; margin: 0 0 8px; }
+.social-panel .duo-invites { border-radius: 12px; background: #14233b; border-color: #347aff66; padding: 18px; margin-bottom: 24px; }
+.social-panel .duo-response-actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+.social-panel .duo-response-actions > button { font-size: 11px; min-height: 36px; padding: 8px 11px; border-radius: 7px; }
+.social-panel .duo-response-actions > button:not(.duo-primary) { background: #ffffff05; border-color: #ffffff12; }
+.social-panel .duo-friends-empty { padding: 36px 20px; border: 1px dashed #31445e; border-radius: 12px; text-align: center; color: #7694ba; }
+.social-panel .duo-friends-empty > svg { margin: 0 auto 12px; }
+.social-panel .duo-friends-empty h4 { margin: 0; color: #d6e3f6; font-size: 15px; font-weight: 600; }
+.social-panel .duo-friends-empty p { font-size: 12px; margin: 6px 0 16px; }
+.social-native .duo-identity { display: none; }
+@container (max-width: 740px) {
+  .social-panel .duo-identity { gap: 16px; }
+  .social-panel .duo-account { display: grid; grid-template-columns: 36px minmax(0, 1fr) 28px; gap: 2px 10px; }
+  .social-panel .duo-account > .duo-avatar { grid-row: 1 / 3; }
+  .social-panel .duo-account > div { grid-column: 2; grid-row: 1; }
+  .social-panel .duo-account > .duo-online { grid-column: 2; grid-row: 2; }
+  .social-panel .duo-account > button { grid-column: 3; grid-row: 1 / 3; }
+  .social-panel .duo-friend-code { display: grid; justify-items: start; gap: 6px; }
+  .social-panel .duo-friend-code button { min-height: 28px; padding: 5px 8px; font-size: 10px; }
+  .social-panel .duo-friend-card { padding: 16px; }
+}
+@container (max-width: 560px) {
+  .social-panel .duo-identity { grid-template-columns: minmax(0, 1fr); }
+  .social-panel .duo-friend-code { display: flex; }
+  .social-panel .duo-friend-grid { grid-template-columns: minmax(0, 1fr); }
+  .social-panel .social-heading h2 { font-size: 23px; }
+  .social-panel .social-emblem { display: none; }
+  .social-panel .duo-friends-heading { flex-wrap: wrap; gap: 12px; }
+  .social-panel .duo-add-friend { grid-template-columns: minmax(0, 1fr); }
+  .social-panel .duo-person { flex-wrap: wrap; }
+  .social-panel .duo-response-actions { margin-left: 44px; flex-wrap: wrap; }
+}

@@ -87,8 +87,9 @@ try{
  await waitValue(()=>state(a.page),s=>s.pinned===originalSelection.pinned,'original comp restored');
  checks.push('solo overlay hides Dupla; full comp library can switch across families in game without resetting resources or purchases, and rejects stale app selections');
  await b.page.getByRole('navigation',{name:'Navegação principal'}).getByRole('button',{name:'Composições',exact:true}).click();
+ await a.page.getByRole('button',{name:'Adicionar amigo',exact:true}).click();
  await a.page.getByRole('textbox',{name:'Código de amigo',exact:true}).fill(profileB.friend_code);
- await a.page.getByRole('button',{name:'Adicionar',exact:true}).click();
+ await a.page.getByRole('button',{name:'Enviar pedido',exact:true}).click();
  const requestState=await waitValue(()=>social(b.page),s=>s.friendRequests?.some(f=>f.incoming),'friend request');
  const request=requestState.friendRequests.find(f=>f.incoming);
  await b.page.getByRole('status',{name:'Nova notificação social'}).waitFor();
@@ -100,11 +101,11 @@ try{
  await waitValue(()=>social(a.page),s=>s.friends?.length===1,'accepted friendship');
  await waitValue(async()=>b.page.locator('.social-unread-count').count(),n=>n===0,'notification counter clears after acceptance');
  checks.push('incoming friendship displays a global notification outside Duplas, opens the request and clears its pending count on acceptance');
- await a.page.getByRole('button',{name:'Convidar',exact:true}).click();
+ await a.page.getByRole('button',{name:`Convidar ${profileB.display_name} para dupla`,exact:true}).click();
  const inviteState=await waitValue(()=>social(b.page),s=>s.invites?.some(i=>i.incoming),'duo invitation');
  const invite=inviteState.invites.find(i=>i.incoming);
  assert.ok((await c.rpc('zyon_duo_respond',{invite_id:invite.id,accept:true})).error,'third party cannot accept another player invitation');
- await b.page.getByRole('button',{name:`Aceitar convite de ${users[0].displayName}`,exact:true}).click();
+ await b.page.getByRole('region',{name:'Convites para jogar',exact:true}).getByRole('button',{name:`Aceitar convite de ${users[0].displayName}`,exact:true}).click();
  const together=await waitValue(()=>social(a.page),s=>s.session&&s.partner?.user_id===users[1].id,'duo formed');
  await waitValue(()=>social(b.page),s=>s.session?.id===together.session.id,'matching duo');
  checks.push('friend request, recipient acceptance, invitation and mutual duo formation work across clients');
