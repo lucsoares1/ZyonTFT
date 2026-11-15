@@ -1,5 +1,5 @@
-import { Crosshair, Star, Target } from "lucide-react";
-import type { CSSProperties } from "react";
+import { Crosshair, Plus, Star, Target } from "lucide-react";
+import {useRef, useState, type CSSProperties} from "react";
 import {
   byId,
   portrait,
@@ -84,6 +84,7 @@ export function BoardPanel({
   onUnitDrop,
   selectedCell,
   pinned = false,
+  pointerEditing = false,
 }: {
   comp: Comp;
   native?: boolean;
@@ -91,7 +92,12 @@ export function BoardPanel({
   onUnitDrop?: (id: string, cell: number) => void;
   selectedCell?: number;
   pinned?: boolean;
+  pointerEditing?: boolean;
 }) {
+  const board = useRef<HTMLElement>(null);
+  const gesture = useRef<{id:string;x:number;y:number;active:boolean;target:number|null}|null>(null);
+  const suppressClick = useRef(false);
+  const [drag, setDrag] = useState<{id:string;target:number|null}|null>(null);
   const traits = Object.entries(
     comp.champions.reduce<Record<string, number>>((map, id) => {
       for (const trait of byId[id]?.traits || [])
@@ -107,7 +113,8 @@ export function BoardPanel({
   );
   return (
     <section
-      className={`tft-board-panel ${native ? "native-board-panel" : ""}`}
+      ref={board}
+      className={`tft-board-panel ${native ? "native-board-panel" : ""} ${pointerEditing ? "pointer-board" : ""} ${drag ? "is-moving-unit" : ""}`}
       aria-label="Preview do tabuleiro"
     >
       <div className="board-panel-heading">
@@ -134,14 +141,14 @@ export function BoardPanel({
             );
           })}
           <div className="trait-divider" />
-          <div className="trait-note">
+          {comp.champions.includes(comp.carry)&&<div className="trait-note">
             <Target size={13} />
             <span>
               Carry principal
               <br />
               <strong>{byId[comp.carry]?.name || comp.name}</strong>
             </span>
-          </div>
+          </div>}
         </aside>
         <div className="tft-board-grid">
           <div className="tft-board-lattice">
@@ -157,7 +164,8 @@ export function BoardPanel({
                   const Cell = onCellClick ? "button" : "div";
                   return (
                     <Cell
-                      className={`tft-hex ${id ? "occupied" : ""} ${id === comp.carry ? "carry-hex" : ""} ${selectedCell === cell ? "cell-selected" : ""}`}
+                      className={`tft-hex ${id ? "occupied" : ""} ${id === comp.carry ? "carry-hex" : ""} ${selectedCell === cell ? "cell-selected" : ""} ${drag?.id===id ? "drag-origin" : ""} ${drag?.target===cell ? "drop-target" : ""}`}
+                      data-board-cell={cell}
                       key={col}
                       title={
                         id
@@ -175,8 +183,29 @@ export function BoardPanel({
                           ? `Casa ${cell + 1}${id ? ` · ${byId[id]?.name}` : " · vazia"}`
                           : undefined
                       }
-                      onClick={() => onCellClick?.(cell)}
-                      draggable={Boolean(onUnitDrop && id)}
+                      onClick={() => {if(suppressClick.current){suppressClick.current=false;return;}onCellClick?.(cell);}}
+                      draggable={Boolean(!pointerEditing && onUnitDrop && id)}
+                      onPointerDown={e=>{
+                        if(!pointerEditing||!onUnitDrop||!id||e.button!==0)return;
+                        suppressClick.current=false;
+                        gesture.current={id,x:e.clientX,y:e.clientY,active:false,target:cell};
+                        e.currentTarget.setPointerCapture(e.pointerId);
+                      }}
+                      onPointerMove={e=>{
+                        const g=gesture.current;if(!g)return;
+                        if(!g.active&&Math.hypot(e.clientX-g.x,e.clientY-g.y)<7)return;
+                        g.active=true;
+                        const hit=document.elementFromPoint(e.clientX,e.clientY)?.closest<HTMLElement>('[data-board-cell]');
+                        const target=hit&&board.current?.contains(hit)?Number(hit.dataset.boardCell):null;
+                        if(!drag||g.target!==target){g.target=target;setDrag({id:g.id,target});}
+                      }}
+                      onPointerUp={e=>{
+                        const g=gesture.current;gesture.current=null;setDrag(null);
+                        if(e.currentTarget.hasPointerCapture(e.pointerId))e.currentTarget.releasePointerCapture(e.pointerId);
+                        if(g?.active){suppressClick.current=true;if(g.target!==null&&g.target!==cell)onUnitDrop?.(g.id,g.target);}
+                      }}
+                      onPointerCancel={()=>{if(!pointerEditing)return;gesture.current=null;setDrag(null);suppressClick.current=false;}}
+                      onLostPointerCapture={()=>{if(gesture.current){gesture.current=null;setDrag(null);}}}
                       onDragStart={(e) => {
                         if (id) e.dataTransfer.setData("text/plain", id);
                       }}
@@ -196,7 +225,7 @@ export function BoardPanel({
                           <div
                             className={`hex-portrait cost-${byId[id]?.cost || 1}`}
                           >
-                            <img src={portrait(id)} alt={byId[id]?.name} />
+                            <img src={portrait(id)} alt={byId[id]?.name} draggable={false} />
                           </div>
 
                           <span className="hex-unit-name">
@@ -209,8 +238,9 @@ export function BoardPanel({
                           />
                         </>
                       ) : (
-                        <span className="empty-hex" />
+                        <span className="empty-hex">{pointerEditing&&<Plus size={18}/>}</span>
                       )}
+                      {drag?.target===cell&&drag.id!==id&&<span className="hex-drop-preview"><img src={portrait(drag.id)} alt="" draggable={false}/><span>{id?'Trocar posições':'Mover aqui'}</span></span>}
                     </Cell>
                   );
                 })}

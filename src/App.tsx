@@ -530,13 +530,14 @@ function Workbench() {
         ...prev.comps,
       ],
     }));
-    setEditor(true);
-    setExpanded(true);
+    setEditor(false);
+    setExpanded(false);
+    setPlannerFocus(undefined);
     setLibraryScope("all");
     setTierFilter("Todas");
     setStyleFilter("Todas");
     setQuery("");
-    setTab("comps");
+    setTab("planner");
   }
   function editPlan(next: Comp) {
     if(saved.overlayPlans?.[next.id])void window.zyon?.editPlan({type:'restore',compId:next.id});
@@ -731,7 +732,7 @@ function Workbench() {
             <button aria-current={tab==="planner"||tab==="comps"&&expanded?"step":undefined} onClick={()=>exploreComp(pinned||active)}><LayoutGrid size={15}/><span>Prepare o plano</span></button>
             <span className="flow-note">{pinned ? <><BrandMark/>{pinned.name}</> : "Escolha uma comp para começar"}</span>
           </nav>}
-          <div className="workspace-content">
+          <div className={`workspace-content ${tab==='planner'?'planner-content':''}`}>
             {tab === "comps" ? (
               <div className="composition-layout">
                 <section
@@ -1465,7 +1466,7 @@ function Workbench() {
                 </div>
               </main>
             )}
-            <PlanAside
+            {tab!=='planner'&&<PlanAside
               comp={
                 pinned ? { ...pinned, champions: saved.selected } : undefined
               }
@@ -1488,7 +1489,7 @@ function Workbench() {
               onUnpin={() => update({ pinned: null })}
               onSettings={() => setTab("overlay")}
               onGuide={(section)=>{if(pinned)exploreComp(pinned,section);}}
-            />
+            />}
           </div>
           <footer className="statusbar">
             <span>
