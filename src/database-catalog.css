@@ -1,0 +1,236 @@
+/* Catalog columns stay on one shared grid; compact trait links keep rows even. */
+.workspace-v4.zyon-reimagined .database-page {
+  container-type: inline-size;
+  gap: 0;
+}
+.workspace-v4.zyon-reimagined .database-page .database-tabs {
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+.workspace-v4.zyon-reimagined .database-page .database-tabs > span {
+  align-self: center;
+  white-space: nowrap;
+  font-size: 10px;
+}
+.workspace-v4.zyon-reimagined .database-page .database-tabs button {
+  font-size: 12px;
+  padding-inline: 12px;
+}
+.workspace-v4.zyon-reimagined .database-page .database-toolbar {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 14px 16px;
+  margin-bottom: 18px;
+  align-items: center;
+}
+.workspace-v4.zyon-reimagined .database-page .search-field {
+  grid-column: 1;
+  grid-row: 1;
+  min-width: 0;
+  min-height: 42px;
+  border-radius: 8px;
+  box-shadow: none;
+}
+.workspace-v4.zyon-reimagined .database-page .database-results {
+  grid-column: 2;
+  grid-row: 1;
+  margin: 0;
+  color: #8e9fb8;
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.workspace-v4.zyon-reimagined .database-page .database-filters {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr) minmax(0, 1.4fr);
+  gap: 12px;
+  min-width: 0;
+}
+.workspace-v4.zyon-reimagined .database-page .database-filters:empty { display: none; }
+.workspace-v4.zyon-reimagined .database-page .database-filter {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+}
+.workspace-v4.zyon-reimagined .database-page .database-filter > span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #8e9fb8;
+  font-size: 11px;
+  line-height: 16px;
+}
+.workspace-v4.zyon-reimagined .database-page .database-filter select {
+  width: 100%;
+  min-width: 0;
+  max-width: none;
+  height: 40px;
+  min-height: 40px;
+  padding: 0 30px 0 12px;
+  font-size: 12px;
+  border-radius: 8px;
+  box-shadow: none;
+}
+.workspace-v4.zyon-reimagined .database-page .data-table-wrap {
+  background: #0b1018;
+  border: 1px solid #263346;
+  border-radius: 10px;
+  scrollbar-gutter: stable;
+  overscroll-behavior: contain;
+}
+.workspace-v4.zyon-reimagined .database-page .data-table {
+  width: 100%;
+  min-width: 730px;
+  table-layout: fixed;
+  background: transparent;
+  border: 0;
+}
+.database-page .catalog-col-index { width: 34px; }
+.database-page .catalog-col-name { width: 24%; }
+.database-page .catalog-col-cost { width: 58px; }
+.database-page .catalog-col-traits { width: 29%; }
+.database-page .catalog-col-role { width: 106px; }
+.database-page .catalog-col-usage { width: 68px; }
+.database-page .catalog-col-action { width: 64px; }
+.database-page .catalog-col-levels { width: 22%; }
+.database-page .catalog-col-count { width: 72px; }
+.database-page .catalog-col-category { width: 105px; }
+.database-page .catalog-col-recipe { width: 21%; }
+.database-page .catalog-items .catalog-col-name { width: 30%; }
+.database-page .catalog-traits .catalog-col-name { width: 29%; }
+.workspace-v4.zyon-reimagined .database-page .data-table :is(th, td) {
+  box-sizing: border-box;
+  padding: 10px;
+  vertical-align: middle;
+  text-align: left;
+}
+.workspace-v4.zyon-reimagined .database-page .data-table th {
+  height: 40px;
+  background: #121c2a;
+  color: #99abc4;
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 11px;
+  font-weight: 550;
+}
+.workspace-v4.zyon-reimagined .database-page .data-table td {
+  height: 84px;
+  border-color: #202b3a;
+  color: #c3cede;
+  font-size: 12px;
+  line-height: 1.4;
+}
+.workspace-v4.zyon-reimagined .database-page .data-table :is(th, td):first-child {
+  width: auto;
+  padding-inline: 6px;
+  text-align: center;
+  color: #62738c;
+  font-size: 10px;
+  font-variant-numeric: tabular-nums;
+}
+.workspace-v4.zyon-reimagined .database-page .catalog-champions :is(th, td):is(:nth-child(3), :nth-child(6), :nth-child(7)),
+.workspace-v4.zyon-reimagined .database-page .catalog-traits :is(th, td):nth-child(4) { text-align: center; }
+.workspace-v4.zyon-reimagined .database-page .table-unit { min-width: 0; gap: 10px; }
+.database-page .catalog-unit-copy { min-width: 0; }
+.database-page .catalog-unit-copy > small { display: none; }
+.workspace-v4.zyon-reimagined .database-page .table-unit > img {
+  width: 38px;
+  height: 38px;
+  flex: 0 0 38px;
+  border-radius: 6px;
+}
+.workspace-v4.zyon-reimagined .database-page .table-unit strong {
+  min-width: 0;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  font-size: 12px;
+  line-height: 1.45;
+  font-weight: 600;
+  color: #edf2fa;
+}
+.workspace-v4.zyon-reimagined .database-page .table-traits {
+  display: grid;
+  justify-items: start;
+  align-content: center;
+  gap: 2px;
+  min-width: 0;
+}
+.workspace-v4.zyon-reimagined .database-page .table-traits button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 19px;
+  max-width: 100%;
+  padding: 1px 4px;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  box-shadow: none;
+  color: #aabbd2;
+  font-size: 11px;
+  font-weight: 450;
+  line-height: 17px;
+  white-space: normal;
+  text-align: left;
+}
+.workspace-v4.zyon-reimagined .database-page .table-traits button:hover,
+.workspace-v4.zyon-reimagined .database-page .table-traits button[aria-pressed="true"] { background: #347aff18; color: #8db6ff; }
+.workspace-v4.zyon-reimagined .database-page .table-traits img { width: 14px; height: 14px; flex: 0 0 14px; }
+.workspace-v4.zyon-reimagined .database-page .table-plan-button {
+  width: 32px;
+  height: 32px;
+  min-height: 32px;
+  padding: 0;
+  margin: auto;
+  border: 1px solid #ffffff10;
+  border-radius: 7px;
+  background: #ffffff05;
+  color: #a5bad9;
+  box-shadow: none;
+}
+.workspace-v4.zyon-reimagined .database-page .table-plan-button:hover { background: #347aff20; border-color: #347aff66; color: #92baff; }
+.workspace-v4.zyon-reimagined .database-page .table-trait-name {
+  width: 100%;
+  padding: 0;
+  min-height: 36px;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  box-shadow: none;
+}
+.workspace-v4.zyon-reimagined .database-page .table-trait-name strong { white-space: normal; line-height: 1.4; font-size: 12px; }
+.workspace-v4.zyon-reimagined .database-page .table-trait-name > img { flex: 0 0 25px; }
+.workspace-v4.zyon-reimagined .database-page .table-trait-name > svg { margin-left: auto; flex-shrink: 0; }
+.workspace-v4.zyon-reimagined .database-page :is(.breakpoints, .table-portraits, .recipe) { flex-wrap: wrap; align-items: center; gap: 5px; }
+.workspace-v4.zyon-reimagined .database-page .table-portraits > img { flex: 0 0 28px; width: 28px; height: 28px; object-fit: contain; }
+.workspace-v4.zyon-reimagined .database-page .recipe > img { flex: 0 0 25px; object-fit: contain; }
+.workspace-v4.zyon-reimagined .database-page .recipe { line-height: 1.5; }
+.workspace-v4.zyon-reimagined .database-page .table-portraits > span { font-size: 11px; }
+.workspace-v4.zyon-reimagined .database-page .database-disclosure { font-size: 10px; color: #7d90ac; line-height: 1.6; }
+.workspace-v4.zyon-reimagined .database-page .database-disclosure > svg { flex-shrink: 0; margin-top: 2px; }
+.workspace-v4.zyon-reimagined .database-page .pivot-augment-list > div { min-width: 0; background: #101925; box-shadow: none; border-radius: 10px; }
+.workspace-v4.zyon-reimagined .database-page .pivot-augment-list > div > span { min-width: 0; }
+.workspace-v4.zyon-reimagined .database-page .pivot-augment-list strong { overflow-wrap: anywhere; }
+@container (max-width: 760px) {
+  .workspace-v4.zyon-reimagined .database-page .database-tabs { gap: 0; }
+  .workspace-v4.zyon-reimagined .database-page .database-tabs button { padding-inline: 10px; font-size: 11px; }
+  .workspace-v4.zyon-reimagined .database-page .database-tabs > span { display: none; }
+  .workspace-v4.zyon-reimagined .database-page .database-filters { grid-template-columns: minmax(0, 1.4fr) minmax(0, .8fr) minmax(0, 1.2fr); gap: 8px; }
+  .workspace-v4.zyon-reimagined .database-page .data-table { min-width: 0; }
+  .database-page .catalog-champions :is(.catalog-col-index, .catalog-col-role),
+  .workspace-v4.zyon-reimagined .database-page .catalog-champions :is(th, td):is(:first-child, :nth-child(5)) { display: none; }
+  .database-page .catalog-champions .catalog-col-name { width: 31%; }
+  .database-page .catalog-champions .catalog-col-cost { width: 44px; }
+  .database-page .catalog-champions .catalog-col-traits { width: 35%; }
+  .database-page .catalog-champions .catalog-col-usage { width: 58px; }
+  .database-page .catalog-champions .catalog-col-action { width: 54px; }
+  .workspace-v4.zyon-reimagined .database-page .catalog-unit-copy > small { display: block; color: #8297b4; font-size: 10px; line-height: 1.4; margin-top: 4px; }
+  .workspace-v4.zyon-reimagined .database-page .data-table :is(th, td) { padding-inline: 8px; }
+  .workspace-v4.zyon-reimagined .database-page .table-unit { gap: 8px; }
+  .workspace-v4.zyon-reimagined .database-page .table-unit > img { width: 34px; height: 34px; flex-basis: 34px; }
+  .database-page .catalog-items .catalog-col-name { width: 34%; }
+  .database-page .catalog-items .catalog-col-category { width: 100px; }
+  .database-page .catalog-items .catalog-col-recipe { width: 18%; }
+}

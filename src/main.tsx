@@ -23,6 +23,7 @@ import "./overlay-controls.css";
 import "./planner-workbench.css";
 import "./duo-requests.css";
 import "./planner-studio.css";
+import "./database-catalog.css";
 createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <App />

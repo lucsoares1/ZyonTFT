@@ -327,7 +327,7 @@ export function Database({
       norm(i.name).includes(norm(query)),
   );
   return (
-    <main className="database-page">
+    <main className="database-page" data-catalog={tab}>
       {focusComp && <div className="database-comp-focus">
         <img src={portrait(focusComp.carry)} alt=""/>
         <div><small>Consulte a partir da sua comp</small><strong>{focusComp.name}</strong></div>
@@ -371,8 +371,10 @@ export function Database({
             placeholder={`Buscar ${tab === "champions" ? "campeão ou característica" : tab === "traits" ? "característica" : tab === "augments" ? "aprimoramento" : "item"}`}
           />
         </label>
+        <div className="database-filters">
         {tab === "champions" && (
           <>
+            <label className="database-filter"><span>Característica</span>
             <select
               aria-label="Filtrar característica"
               value={trait}
@@ -383,6 +385,8 @@ export function Database({
                 <option key={t.id}>{t.name}</option>
               ))}
             </select>
+            </label>
+            <label className="database-filter"><span>Custo</span>
             <select
               aria-label="Filtrar custo"
               value={cost}
@@ -395,8 +399,9 @@ export function Database({
                 </option>
               ))}
             </select>
-            <label className="table-sort">
-              <ArrowDownAZ size={14} />
+            </label>
+            <label className="database-filter table-sort">
+              <span><ArrowDownAZ size={12} /> Ordenação</span>
               <select
                 aria-label="Ordenar campeões"
                 value={sort}
@@ -410,6 +415,7 @@ export function Database({
           </>
         )}
         {tab === "items" && (
+          <label className="database-filter"><span>Categoria</span>
           <select
             aria-label="Tipo de item"
             value={kind}
@@ -420,8 +426,10 @@ export function Database({
               <option key={k}>{k}</option>
             ))}
           </select>
+          </label>
         )}
-        <span className="database-results">
+        </div>
+        <span className="database-results" role="status" aria-live="polite">
           {tab === "champions"
             ? units.length
             : tab === "traits"
@@ -462,7 +470,8 @@ export function Database({
         </section>
       ) : (
         <div className="data-table-wrap">
-          <table className="data-table">
+          <table className={`data-table catalog-${tab}`} aria-label={tab === "champions" ? "Campeões do set" : tab === "traits" ? "Características do set" : "Itens do set"}>
+            <colgroup>{(tab === "champions" ? ["index","name","cost","traits","role","usage","action"] : tab === "traits" ? ["index","name","levels","count","portraits"] : ["index","name","category","recipe","portraits"]).map(name=><col key={name} className={`catalog-col-${name}`}/>)}</colgroup>
             <thead>
               <tr>
                 <th>#</th>
@@ -471,7 +480,7 @@ export function Database({
                     <th>Campeão</th>
                     <th>Custo</th>
                     <th>Características</th>
-                    <th>Posição sugerida</th>
+                    <th>Posição</th>
                     <th>Nos guias</th>
                     <th>Planejar</th>
                   </>
@@ -504,7 +513,7 @@ export function Database({
                             src={portrait(c.id)}
                             alt=""
                           />
-                          <strong>{c.name}</strong>
+                          <span className="catalog-unit-copy"><strong>{c.name}</strong><small>{c.role}</small></span>
                         </div>
                       </td>
                       <td>
@@ -518,6 +527,7 @@ export function Database({
                           {c.traits.map((t) => (
                             <button
                               key={t}
+                              aria-pressed={trait === t}
                               onClick={() => setTrait(t)}
                               title={`Filtrar ${t}`}
                             >
