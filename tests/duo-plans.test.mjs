@@ -18,13 +18,15 @@ test('shared wishes react to requested star goals and OCR copy counts without mo
  const p=sharingPayload(comp,edit,s,catalog);assert.deepEqual(p.wishes.find(w=>w.id===comp.carry),{id:comp.carry,goal:9,owned:1});
  edit=editWorkingPlan(comp,edit,{type:'goal',id:comp.carry,goal:0},catalog);assert.ok(!sharingPayload(comp,edit,s,catalog).wishes.some(w=>w.id===comp.carry));assert.deepEqual(s,before);
 });
-test('send advice expires, rejects another match and disappears immediately when either game ends',()=>{
+test('send advice expires and stops when either game ends; local attachment times do not identify a shared game',()=>{
  const now=Date.now(),session={matchId:'local',startedAt:now,ended:false},payload=sharingPayload(comp,null,{...session,context:{copies:{}}},catalog);
  const social={session:{id:'duo'},partnerPlan:{updated_at:new Date(now).toISOString(),payload}};
  assert.ok(partnerNeeds(social,session,now).length);
  assert.equal(partnerNeeds(social,session,now+45001).length,0);assert.equal(partnerNeeds(social,{...session,ended:true},now).length,0);
  assert.equal(partnerNeeds({...social,partnerPlan:{...social.partnerPlan,payload:{...payload,ended:true}}},session,now).length,0);
- assert.equal(partnerNeeds({...social,partnerPlan:{...social.partnerPlan,payload:{...payload,startedAt:now-200000}}},session,now).length,0);
+ for(const delta of [-14400000,-200000,200000,14400000])assert.ok(partnerNeeds({...social,partnerPlan:{...social.partnerPlan,payload:{...payload,startedAt:now+delta}}},session,now).length,'late launches and persistent clients must not hide fresh partner wishes');
+ assert.equal(partnerNeeds({...social,partnerPlan:{...social.partnerPlan,payload:{...payload,playing:false}}},session,now).length,0);
+ assert.equal(partnerNeeds(social,{...session,matchId:null},now).length,0);
  assert.equal(partnerNeeds({...social,session:null},session,now).length,0);
 });
 test('incoming plans cannot inject unknown units, excessive counts or arbitrary fields',()=>{

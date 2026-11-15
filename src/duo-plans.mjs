@@ -81,8 +81,8 @@ export function partnerNeeds(social,session,now=Date.now()){
   if(!social?.session||!p?.payload||!session?.matchId||session.ended||!p.payload.playing||p.payload.ended)return [];
   const age=now-Date.parse(p.updated_at||'');
   if(!Number.isFinite(age)||age< -60000||age>45000)return [];
-  // Two PCs have different game PIDs. Compare confirmed starts, not process IDs,
-  // so a partner still showing the previous game cannot supply stale wishes.
-  if(!session.startedAt||!p.payload.startedAt||Math.abs(session.startedAt-p.payload.startedAt)>180000)return [];
+  // These timestamps record when each app attached, not a shared match ID.
+  // A late launch, manual reset or persistent TFT process can put them hours
+  // apart. Only live, fresh plans in the currently accepted duo supply advice.
   return (p.payload.shopping||p.payload.wishes).filter(w=>w.goal>w.owned).map(w=>({...w,needed:w.goal-w.owned}));
 }

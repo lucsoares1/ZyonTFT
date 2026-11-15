@@ -56,6 +56,9 @@ shopModule.then(module=>{recognizeShopNames=module.recognizeNames;});
 const purchases = new PurchaseTracker(champions);
 const {MatchEndTracker}=require("./match-end.cjs");
 const matchEnd=new MatchEndTracker();
+const {MatchStartTracker}=require('./match-start.cjs');
+const matchStart=new MatchStartTracker();
+const {freshRoundReading,acceptRound}=require('./round-ocr.cjs');
 const { OverlayGate } = require("./overlay-visibility.cjs");
 const overlayGate = new OverlayGate();
 const overlayPreview = !!(
@@ -92,6 +95,7 @@ let state = {
   gameSession: freshSession(),
   levelReading: freshReading(),
   goldReading: freshGoldReading(),
+  roundReading:freshRoundReading(),
   rect: { x: 0.2295, y: 0.858, width: 0.53, height: 0.139 },
 };
 let lastCapture = 0;
@@ -250,22 +254,25 @@ function positionGuide() {
   }
 }
 function updateGame(action) {
-  if (["reset", "match", "copies", "end", "resume"].includes(action.type)) {
+  if (["reset", "match", "round", "copies", "end", "resume"].includes(action.type)) {
     sessionEpoch++;
     sessionBoundaryAt = Date.now();
     purchases.reset();
   }
-  if (["reset", "match", "end"].includes(action.type)) {
+  if (["reset", "match", "round", "end"].includes(action.type)) {
     purchases.reset();
     state.levelReading = freshReading();
     state.goldReading = freshGoldReading();
     matchEnd.reset();
+    matchStart.reset();
+    state.roundReading=freshRoundReading();
   }
   if (action.type === "reset" || action.type === "level-mode")
     state.levelReading = freshReading();
   state.gameSession = changeSession(state.gameSession, action);
   if(state.gameSession.matchId&&!state.gameSession.ended&&!state.gameSession.startedAt)state.gameSession.startedAt=Date.now();
   if (state.saved) state.saved.gameSession = state.gameSession;
+  mainWindow?.webContents.send('game:update',{gameSession:state.gameSession});
   socialService?.schedulePublish();
   positionGuide();
   save();
@@ -558,6 +565,33 @@ function clearReader(error) {
   broadcast();
   if (error) mainWindow?.webContents.send("reader:data", { error });
 }
+function processRound(data){
+  if(data.capturedAt<sessionBoundaryAt||Date.now()-data.capturedAt>5000)return;
+  if(data.matchId&&data.matchId!==state.gameSession.matchId){
+    updateGame({type:'match',id:data.matchId});return;
+  }
+  state.roundReading=acceptRound(state.roundReading,data.roundText,data.capturedAt);
+  const reading=state.roundReading;
+  if(reading.status==='confirmed'){
+    const prior=state.gameSession.round,early=Number(reading.round[0])<=2;
+    const rolledBack=prior&&reading.round.replace('-','')<prior.replace('-','');
+    if(early&&rolledBack&&(Number(prior[0])>=3||state.gameSession.ended)){
+      // A process may host several games. Two actual top-bar captures are
+      // independent evidence of the new game, even if results were missed.
+      updateGame({type:'round',id:data.matchId});
+      state.roundReading=reading;
+      overlayGate.resumeGame(data.matchId);
+      startupLog(`New round: top bar ${prior||'ended'} -> ${reading.round}; cleared old purchases`);
+    }
+    if(!state.gameSession.ended){
+      if(state.gameSession.round!==reading.round)updateGame({type:'round-reading',round:reading.round});
+      if(!overlayPreview&&overlayGate.confirmRound(data.matchId,reading)&&!overlayEnabled){
+        startupLog(`Auto overlay: round bar ${reading.round}`);setOverlay(true,{automatic:true});
+      }
+    }
+  }
+  syncOverlayVisibility();broadcast();
+}
 async function processLevel(data, process) {
   if (
     !overlayPreview &&
@@ -570,6 +604,7 @@ async function processLevel(data, process) {
     return;
   if (data.capturedAt && data.capturedAt < sessionBoundaryAt) return;
   if (data.idle || data.error) {
+    matchStart.reset();
     state.readerPresence = "waiting";
     purchases.reset();
     state.goldReading = pauseGoldReading(state.goldReading);
@@ -612,6 +647,16 @@ async function processLevel(data, process) {
       matchEpoch !== sessionEpoch
     )
       return;
+    const round=matchStart.observe({session:state.gameSession,matchId:data.matchId,at:data.capturedAt,levelText:text,goldText});
+    if(round.started){
+      updateGame({type:'round',id:data.matchId});
+      startupLog('New round: confirmed early HUD in persistent TFT process; cleared old purchases');
+    }else if(round.pending){
+      // Do not lower the saved level or count purchases against the previous
+      // game while the independent round boundary is still being confirmed.
+      purchases.reset();state.levelReading={...pauseLevelReading(state.levelReading),status:'confirming'};
+      broadcast();return;
+    }
     if(!state.gameSession.ended && matchEnd.observe({matchId:data.matchId,at:data.capturedAt,levelText:text,goldText,endText:data.endText,endChecked:data.endChecked})){
       overlayGate.endGame(data.matchId);
       updateGame({type:"end"});
@@ -816,6 +861,7 @@ function setReader(enabled, { automatic = false } = {}) {
         }
         return;
       }
+      if(data.kind==='round'){processRound(data);return;}
       const epoch = readerEpoch;
       // Serial processing preserves clicks and image order during fallback OCR.
       hudQueue = hudQueue

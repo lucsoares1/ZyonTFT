@@ -55,6 +55,11 @@ class OverlayGate {
     this.startedId = matchId;
     return !this.suppressed;
   }
+  confirmRound(matchId,reading){
+    if(!this.foreground||this.endedId===matchId||matchId!==this.matchId||reading?.status!=='confirmed'||!/^\d-\d$/.test(reading.round||''))return false;
+    this.startedId=matchId;
+    return !this.suppressed;
+  }
   isGuideWindow(data, guideHandle) {
     return Boolean(
       guideHandle && data.foregroundWindow === guideHandle &&

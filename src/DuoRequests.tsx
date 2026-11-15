@@ -30,7 +30,8 @@ export function DuoRequests({compId,edit,copies={}}:{compId:string;edit:any;copi
   const previous=requests.find((w:any)=>w.id===id)||(draft.current?.id===id?draft.current:null);
   if(previous){configure(previous);return;}
   if(requests.length>=28){setError('Você já tem 28 pedidos. Remova um para pedir outro campeão.');return;}
-  configure({id,goal:1,priority:0});void change({type:'request',id,goal:1,priority:0});
+  const nextGoal=[1,3,9].find(n=>n>(copies[id]||0))||9;
+  configure({id,goal:nextGoal,priority:0});void change({type:'request',id,goal:nextGoal,priority:0});
  }
  function adjust(value:{goal?:number;priority?:number}){
   if(!draft.current)return;

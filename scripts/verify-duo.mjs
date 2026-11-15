@@ -15,6 +15,7 @@ const liveShop=process.argv.includes('--live-shop'),requestedName=liveShop?'Alis
 const out=path.resolve(`design/review/${version}/duo`);await fs.mkdir(out,{recursive:true});
 const fixture=path.resolve('design/references/17-game-ocr.png');
 const apps=[],errors=[],checks=[];
+const recordCheck=checks.push.bind(checks);checks.push=(...items)=>{console.log(JSON.stringify({progress:items}));return recordCheck(...items);};
 const pause=ms=>new Promise(r=>setTimeout(r,ms));
 async function waitValue(fn,predicate,label,timeout=25000){const until=Date.now()+timeout;let value;while(Date.now()<until){value=await fn();if(predicate(value))return value;await pause(130);}throw new Error(`Timed out: ${label}`);}
 const social=p=>p.evaluate(()=>window.zyon.getSocial());
@@ -35,6 +36,9 @@ async function capture(app,page,file){
 }
 async function launch(i,reuseProfile){
  const profile=reuseProfile||path.resolve('.runtime',`duo-${i}-${Date.now()}`),env={...process.env,ZYON_USER_DATA:profile,ZYON_OVERLAY_PREVIEW:'1',ZYON_OCR_FIXTURE:fixture};delete env.ELECTRON_RUN_AS_NODE;delete env.ZYON_DEV_URL;
+ if(!reuseProfile&&process.argv.includes('--persistent-rounds')){
+  await fs.mkdir(profile,{recursive:true});await fs.writeFile(path.join(profile,'preferences-v1.json'),JSON.stringify({version:2,comps:[],gameSession:{matchId:'fixture-17',startedAt:Date.now()-(i===0?14400000:3600000),context:{level:7,copies:{}}}}));
+ }
  if(process.argv.includes('--background'))env.ZYON_TEST_BACKGROUND='1';
  const app=await electron.launch({...packaged?{executablePath:path.resolve(process.env.ZYON_TEST_EXE||'release/win-unpacked/Zyon TFT.exe'),args:[]}:{args:['.']},env});apps.push(app);
  if(process.argv.includes('--background'))await app.evaluate(({app,BrowserWindow})=>{const quiet=w=>{w.webContents.setBackgroundThrottling(false);w.setAlwaysOnTop(false);w.setOpacity(0);w.setIgnoreMouseEvents(true);};BrowserWindow.getAllWindows().forEach(quiet);app.on('browser-window-created',(_e,w)=>quiet(w));});
@@ -135,6 +139,10 @@ try{
  const requestedSlot=liveShop?(await state(a.page)).slots.findIndex(s=>s?.id===requestedId):0;assert.ok(requestedSlot>=0);
  const requestedBadge=badges.locator('.native-slot').nth(requestedSlot).locator('.shop-medal[data-kind="send"],.shop-medal[data-kind="shared"]');
  await requestedBadge.waitFor();
+ if(process.argv.includes('--persistent-rounds')){
+  assert.ok(Math.abs((await state(a.page)).gameSession.startedAt-(await state(b.page)).gameSession.startedAt)>180000);
+  checks.push('fresh partner request and send medal work with real server plans whose local attachment times differ by hours');
+ }
  const beforeMinimize=await state(a.page),medals=await badges.locator('.shop-medal').count();
  const expandedControl=await controlPoint(a.app,ga);
  await ga.getByRole('button',{name:'Encolher painel e manter avisos da loja',exact:true}).click();
@@ -203,7 +211,7 @@ try{
   const before=await state(b.page);
   await b.page.getByRole('navigation',{name:'Navegação principal'}).getByRole('button',{name:'Duplas Dinâmicas',exact:true}).click();
   const editor=b.page.getByRole('region',{name:'Seus pedidos à dupla',exact:true});
-  await editor.getByRole('button',{name:'Pedir campeão',exact:true}).click();
+  if(await editor.getByRole('button',{name:'Pedir campeão',exact:true}).count())await editor.getByRole('button',{name:'Pedir campeão',exact:true}).click();
   await editor.getByRole('textbox',{name:'Buscar campeão para pedir à dupla',exact:true}).fill(requestedName);
   await editor.getByRole('button',{name:`Pedir ${requestedName} à dupla`,exact:true}).click();
   await waitValue(()=>social(a.page),s=>s.partnerPlan?.payload?.shopping.some(w=>w.id===requestedId&&w.reason==='request'&&w.goal===1),'marking champion immediately creates the request');
@@ -256,6 +264,28 @@ try{
   assert.ok(layout.scroll<=layout.width+1);if(layout.route)assert.ok(layout.route.left-layout.left<30,'item routes use full content width');
   await capture(b.app,gb,path.join(out,`items-${width}${suffix}.png`));
   await gb.getByRole('tab',{name:'Planejar',exact:true}).click();
+ }
+ if(process.argv.includes('--persistent-rounds')){
+  const rubri='DA_Cinderling18',before=await state(b.page);
+  for(let i=0;i<4;i++)await b.page.evaluate(({id,compId})=>window.zyon.gameAction({type:'copies',id,delta:1,compId}),{id:rubri,compId:before.pinned});
+  const editor=b.page.getByRole('region',{name:'Seus pedidos à dupla',exact:true});
+  await b.page.getByRole('navigation',{name:'Navegação principal'}).getByRole('button',{name:'Duplas Dinâmicas',exact:true}).click();
+  if(await editor.getByRole('button',{name:'Pedir campeão',exact:true}).count())await editor.getByRole('button',{name:'Pedir campeão',exact:true}).click();
+  await editor.getByRole('textbox',{name:'Buscar campeão para pedir à dupla',exact:true}).fill('Rubrivirim');
+  await editor.getByRole('button',{name:'Pedir Rubrivirim à dupla',exact:true}).click();
+  assert.equal(await editor.getByRole('combobox',{name:'Meta de cópias do pedido à dupla',exact:true}).inputValue(),'9','a new request must have an unmet goal, not an already-completed 1-copy default');
+  await waitValue(()=>social(a.page),s=>s.partnerPlan?.payload?.shopping.some(w=>w.id===rubri&&w.goal===9&&w.owned===4),'Rubrivirim request reaches partner despite attachment time offset');
+  const slot=await waitValue(async()=>(await state(a.page)).slots.findIndex(s=>s?.id===rubri),i=>i>=0,'native OCR recognizes Rubrivirim');
+  const rubriBadge=badges.locator('.native-slot').nth(slot).locator('.shop-medal[data-kind="send"],.shop-medal[data-kind="shared"]');await rubriBadge.waitFor();
+  for(let i=0;i<5;i++)await b.page.evaluate(({id,compId})=>window.zyon.gameAction({type:'copies',id,delta:1,compId}),{id:rubri,compId:before.pinned});
+  await waitValue(async()=>rubriBadge.count(),n=>n===0,'completed Rubrivirim request clears the partner shop medal');
+  await editor.getByRole('button',{name:'Cancelar pedido de Rubrivirim',exact:true}).click();
+  const old=await state(a.page);await a.page.evaluate(async()=>{const s=await window.zyon.getState();for(let i=0;i<3;i++)await window.zyon.gameAction({type:'copies',id:'DA_Cinderling18',delta:1,compId:s.pinned});await window.zyon.setReader(false);});
+  await a.app.evaluate((_,file)=>{process.env.ZYON_OCR_FIXTURE=file;},path.resolve('design/references/35-game-level1-gold3.png'));
+  await a.page.evaluate(()=>window.zyon.setReader(true));
+  const fresh=await waitValue(()=>state(a.page),s=>s.gameSession.startedAt>old.gameSession.startedAt&&s.gameSession.context.level<=3&&Object.keys(s.gameSession.context.copies).length===0,'new round in same process clears old purchases after real early HUD OCR');
+  assert.equal(fresh.gameSession.matchId,old.gameSession.matchId);assert.equal(fresh.pinned,old.pinned);assert.deepEqual(fresh.overlayPlans,old.overlayPlans);assert.equal(fresh.social.session.id,old.social.session.id);
+  checks.push('native Rubrivirim OCR and real partner request select an unmet goal, display send/shared medal, clear on completion; sustained early HUD resets stale copies within the same process without changing comp, requests or duo');
  }
  checks.push('shop medal identifies whom to send to; disabled requests and removed champions immediately clear it; restore preserves the published comp');
  for(const x of [a,b]){const ciphertext=await fs.readFile(path.join(x.profile,'online-session.enc'),'utf8');assert.ok(!ciphertext.includes(users[0].password)&&!ciphertext.includes(users[1].password)&&!ciphertext.includes('refresh_token')&&!ciphertext.includes('access_token'));}

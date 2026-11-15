@@ -18,6 +18,7 @@ function freshSession() {
     goldMode: "ocr",
     matchId: null,
     startedAt: 0,
+    round: null,
     ended: false,
     purchases: [],
     tab: "now",
@@ -47,6 +48,7 @@ function normalizeSession(value) {
     matchId:
       typeof value?.matchId === "string" ? value.matchId.slice(0, 100) : null,
     startedAt: Number.isFinite(value?.startedAt) ? value.startedAt : 0,
+    round: /^[1-9]-[1-9]$/.test(value?.round||'') ? value.round : null,
     purchases: Array.isArray(value?.purchases)
       ? value.purchases
           .filter(
@@ -87,9 +89,9 @@ function changeSession(value, action) {
   )
     c.gold = action.value;
   if (
-    action.type === "match" &&
+    (action.type === "match" || action.type === "round") &&
     typeof action.id === "string" &&
-    action.id !== next.matchId
+    (action.type === "round" || action.id !== next.matchId)
   )
     return {
       ...freshSession(),
@@ -136,8 +138,9 @@ function changeSession(value, action) {
   }
   if (action.type === "guide-position") next.guidePosition = action.position;
   if (action.type === "end")
-    return {...freshSession(),matchId:next.matchId,ended:true,side:next.side,collapsed:next.collapsed,shopOnly:next.shopOnly,guidePosition:next.guidePosition,guideControlOffset:next.guideControlOffset};
+    return {...freshSession(),matchId:next.matchId,round:next.round,ended:true,side:next.side,collapsed:next.collapsed,shopOnly:next.shopOnly,guidePosition:next.guidePosition,guideControlOffset:next.guideControlOffset};
   if (action.type === "resume") { next.ended=false;next.startedAt=Date.now(); }
+  if(action.type==='round-reading'&&/^[1-9]-[1-9]$/.test(action.round||''))next.round=action.round;
   if (action.type === "reset")
     return { ...freshSession(), side: next.side, shopOnly:next.shopOnly,guidePosition:next.guidePosition,guideControlOffset:next.guideControlOffset,matchId: next.matchId };
   return normalizeSession(next);

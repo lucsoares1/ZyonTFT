@@ -17,6 +17,16 @@ A versão 0.17.3 mantém o Windows.Media.Ocr já usado pelo app. Não adiciona P
 
 Os pedidos já recebidos ficam no cliente. O reconhecimento local classifica uma carta para comprar, enviar ou ambos sem consultar o servidor por slot. Adicionar/remover pedidos ainda exige a sincronização de rede, sujeita à conexão dos dois PCs. Desconexão, fim de partida ou plano antigo suspendem os avisos de envio.
 
+## Barra de rodada e continuidade (0.17.18)
+
+O leitor reconhece a rodada no topo (1-1, 2-1, 3-3, 4-1 etc.) em um recorte pequeno relativo à área cliente do jogo, aproximadamente a cada 800 ms, após publicar as alterações da loja. Duas capturas reais confirmam a barra e ativam o overlay mesmo sem ouro ou nível legível. Usa o OCR nativo existente; não adiciona dependências nem fixa a detecção em um número específico. Um prefixo neutro “Round” ajuda o detector de linhas do Windows a ler a sequência numérica isolada; somente os dígitos realmente presentes no recorte são aceitos.
+
+Perda temporária da barra, ouro ou nível não oculta o painel já confirmado. Alt+Tab, ocultação manual, fim afirmativo de partida e ausência de conta/comp continuam controlando a exibição. O app não deve aparecer sobre outros programas por ter visto a barra anteriormente.
+
+O cliente TFT pode manter o mesmo processo por várias partidas. O retorno confirmado de uma rodada avançada a uma rodada inicial limpa compras/cópias da partida anterior, preservando comp, pedidos, dupla e posição do guia. Se a barra estiver indisponível, um nível inicial significativamente menor e ouro baixo precisam de quatro capturas e pelo menos 1,6 segundo para confirmar a nova partida. Uma leitura isolada, correção de um nível ou falha de OCR não apaga as cópias. A tela de resultados continua exigindo confirmação própria; seu mesmo número de rodada não reabre o overlay encerrado.
+
+`node scripts/verify-round-overlay.mjs` verifica a barra sem HUD de ouro/nível, a captura 3-3 enviada pelo usuário, perda temporária, Alt+Tab e novo jogo no mesmo processo, com OCR Windows e perfil isolado. `verify-duo.mjs --background --requests --live-shop --persistent-rounds --no-captures` verifica duas contas reais com horários de abertura diferentes, pedido de Rubrivirim, meta acima das cópias atuais e marcação de envio reconhecida nativamente. São testes com capturas e foco simulado, sem alegar validação física no PC do parceiro.
+
 ## Medições e limites
 
 O leitor anterior levou aproximadamente 1,25 s por ciclo numa captura de referência: cerca de 400 ms de trabalho e espera fixa de 850 ms. O fluxo rápido elimina essa espera fixa e as cinco chamadas sequenciais de OCR da loja.

@@ -305,6 +305,7 @@ public class ZyonWindows {
   $lastRead=@(0L,0L,0L,0L,0L)
   $nameMisses=@(0,0,0,0,0)
   $lastHudAt=0L
+  $lastRoundAt=0L
   $lastEndScanAt=0L
   $pendingClicks=@()
   $knownNames=@{}
@@ -461,6 +462,32 @@ public class ZyonWindows {
         }finally{$scaleGraphics.Dispose();$scaled.Dispose()}
       }finally{$graphics.Dispose();$bitmap.Dispose()}
     }
+    }
+    # The round bar is independent of shop/gold visibility. Read a small top
+    # crop at 1.25 Hz, after publishing shop changes, without a large model.
+    if($capturedAt-$lastRoundAt -ge 800){
+      $lastRoundAt=$capturedAt
+      $clientArea=if($ShopFixture){@(0,0,$frame.Width,$frame.Height)}else{[ZyonWindows]::ClientBounds($foregroundWindow)}
+      if($clientArea){
+        $referenceWidth=[Math]::Min($clientArea[2],$clientArea[3]*16.0/9)
+        $rx=[int]($clientArea[0]-$bounds.X+($clientArea[2]-$referenceWidth)/2+$referenceWidth*.32)
+        $ry=[int]($clientArea[1]-$bounds.Y)
+        $rw=[int]($referenceWidth*.14);$rh=[int]($clientArea[3]*.045)
+        if($rx -ge 0 -and $ry -ge 0 -and $rw -gt 10 -and $rh -gt 5 -and $rx+$rw -le $frame.Width -and $ry+$rh -le $frame.Height){
+          $roundCrop=$frame.Clone([System.Drawing.Rectangle]::new($rx,$ry,$rw,$rh),$frame.PixelFormat)
+          $roundScaled=[System.Drawing.Bitmap]::new(($rw*3+194),($rh*3+24));$roundGraphics=[System.Drawing.Graphics]::FromImage($roundScaled)
+          $roundFont=[System.Drawing.Font]::new('Arial',34)
+          try{
+            $roundGraphics.Clear([System.Drawing.Color]::FromArgb(12,18,22))
+            # Windows OCR skips some isolated numeric runs. A neutral prefix
+            # gives its line detector text context; only n-n is accepted later.
+            $roundGraphics.DrawString('Round',$roundFont,[System.Drawing.Brushes]::White,8,10)
+            $roundGraphics.DrawImage($roundCrop,182,12,($rw*3),($rh*3))
+            $roundText=(Read-ZyonBitmap $roundScaled).Text
+            @{kind='round';roundText=$roundText;capturedAt=$capturedAt;matchId=$matchId;idle=$false}|ConvertTo-Json -Compress
+          }finally{$roundFont.Dispose();$roundGraphics.Dispose();$roundScaled.Dispose();$roundCrop.Dispose()}
+        }
+      }
     }
     $levelText=''
     $levelImage=''

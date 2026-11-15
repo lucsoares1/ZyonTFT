@@ -12,6 +12,14 @@ function Avatar({name}:{name:string}){return <span className="duo-avatar">{(name
 function Team({comp}:{comp:any}){return <div className="duo-team-roster">{(comp?.champions||[]).filter((id:string)=>byId[id]).map((id:string)=><span key={id} title={byId[id].name}><img className={`cost-${byId[id].cost}`} src={portrait(id)} alt={byId[id].name}/></span>)}</div>;}
 export function SocialPanel({native=false,gameState,comp,planEdit}:{native?:boolean;gameState?:any;comp?:Comp;planEdit?:any}){
  const remote=useSocial(),social=gameState?.social||remote;
+ const [localCopies,setLocalCopies]=useState<Record<string,number>>({});
+ useEffect(()=>{
+  if(gameState)return;
+  let alive=true,signature='';
+  const accept=(state:any)=>{if(!alive)return;const copies=state?.gameSession?.context?.copies||{},next=JSON.stringify(copies);if(next!==signature){signature=next;setLocalCopies(copies);}};
+  window.zyon?.getState().then(accept);const off=window.zyon?.onGame(accept);
+  return()=>{alive=false;off?.();};
+ },[Boolean(gameState)]);
  const [mode,setMode]=useState<'login'|'signup'>('login'),[email,setEmail]=useState(''),[password,setPassword]=useState(''),[handle,setHandle]=useState(''),[displayName,setDisplayName]=useState('');
  const [code,setCode]=useState(''),[busy,setBusy]=useState(false),[error,setError]=useState(''),[notice,setNotice]=useState(''),[clock,setClock]=useState(Date.now());
  useEffect(()=>{const t=setInterval(()=>setClock(Date.now()),5000);return()=>clearInterval(t);},[]);
@@ -41,7 +49,7 @@ export function SocialPanel({native=false,gameState,comp,planEdit}:{native?:bool
    {social.session ? <section className="duo-live-plan" aria-label="Planos da dupla"><div className="duo-live-heading"><div><span className="duo-online connected">Dupla formada</span><h3>{partner?.display_name||'Seu parceiro'} está com você</h3></div><button onClick={()=>act({type:'leave'})} disabled={busy}>Encerrar dupla</button></div>
     <div className="duo-plan-pair"><article><small>Seu plano</small><h3>{mine?.name||'Escolha uma comp'}</h3><Team comp={mine}/><p>Ajuste as peças na aba Planejar do overlay.</p></article><article><small>Plano de {partner?.display_name||'seu parceiro'}</small><h3>{partnerPlan?.comp?.name||'Aguardando a escolha da comp'}</h3><Team comp={partnerPlan?.comp}/><p className={partnerFresh?'':'duo-offline'}>{partnerFresh?partnerPlan?.ended?'Partida encerrada · pedidos de compra pausados':partnerPlan?.playing?'Acompanhando a partida':'Preparando a próxima partida':'Parceiro sem atualização recente · avisos de envio pausados'}</p></article></div>
     {!!partnerPlan?.traits?.length&&<div className="duo-trait-targets" aria-label="Sinergias procuradas pelo parceiro">{partnerPlan.traits.map((name:string)=><span key={name}><img src={traitIcon(name)} alt=""/>{name}</span>)}</div>}
-    {mine?.id&&<DuoRequests key={mine.id} compId={mine.id} edit={gameState?.overlayPlans?.[gameState.pinned]||planEdit} copies={gameState?.gameSession?.context?.copies||Object.fromEntries((social?.myPlan?.payload?.shopping||[]).map((w:any)=>[w.id,w.owned]))}/>}
+    {mine?.id&&<DuoRequests key={mine.id} compId={mine.id} edit={gameState?.overlayPlans?.[gameState.pinned]||planEdit} copies={gameState?.gameSession?.context?.copies||localCopies}/>}
     <div className="duo-wishlist"><h3><Send size={15}/>O que seu parceiro procura</h3><p>Pedidos urgentes vêm primeiro. Os destaques incluem a comp, sinergias e peças avulsas.</p>{partnerWishes.filter((w:any)=>w.goal>w.owned).map((w:any)=><div key={w.id} className="duo-wish" data-priority={w.priority||0}><img className={`cost-${byId[w.id]?.cost}`} src={portrait(w.id)} alt=""/><span><strong>{byId[w.id]?.name}</strong><small>{w.reason==='request'?'Pedido avulso · ':w.reason==='trait'?'Sinergia · ':w.reason==='transition'?'Transição · ':''}faltam {w.goal-w.owned} {w.goal-w.owned===1?'cópia':'cópias'}</small></span>{w.priority>0&&<em className="duo-priority-tag" data-priority={w.priority}>{requestPriorityNames[w.priority]}</em>}<b>{w.owned}/{w.goal}</b></div>)}{!partnerWishes.some((w:any)=>w.goal>w.owned)&&<p className="duo-empty">Nenhum pedido pendente. A lista muda quando seu parceiro ajustar o plano.</p>}</div>
     <p className="duo-footnote">Envie pelo Canhão no TFT. O OCR acompanha compras na loja; após enviar ou receber pelo Canhão, ajuste as cópias na aba Partida do overlay para atualizar os pedidos da dupla.</p>
    </section> : <div className="duo-no-party"><Users size={22}/><div><h3>Escolha com quem jogar</h3><p>O convite precisa ser aceito pelos dois. Depois, os planos sincronizam.</p></div></div>}

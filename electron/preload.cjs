@@ -30,6 +30,7 @@ contextBridge.exposeInMainWorld("zyon", {
   minimize: () => ipcRenderer.send("window:minimize"),
   close: () => ipcRenderer.send("window:close"),
   onState: (callback) => listen("state:update", callback),
+  onGame: (callback) => listen("game:update", callback),
   onShop: (callback) => listen('shop:update', callback),
   onDetection: (callback) => listen("reader:data", callback),
   onOverlay: (callback) => listen("overlay:status", callback),

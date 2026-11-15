@@ -10,6 +10,17 @@ const game = (id) => ({
   matchId: id,
 });
 const gold = { status: "confirmed", gold: 0 };
+test('a confirmed round bar opens the focused game without gold; transient loss never removes its latch',()=>{
+ const gate=new OverlayGate(),round={status:'confirmed',round:'3-3'};
+ gate.presence(game('one'));assert.equal(gate.confirmRound('one',{...round,status:'confirming'}),false);
+ assert.equal(gate.confirmRound('one',round),true);assert.equal(gate.canShow(true,true),true);
+ assert.equal(gate.confirmGold('one',{status:'unreadable'}),false);assert.equal(gate.confirmRound('one',{status:'unreadable'}),false);assert.equal(gate.canShow(true,true),true);
+ gate.presence({foreground:false,matchId:'one'});assert.equal(gate.canShow(true,true),false);assert.equal(gate.confirmRound('one',round),false);
+ gate.presence(game('one'));assert.equal(gate.canShow(true,true),true);
+ gate.setEnabled(false);assert.equal(gate.confirmRound('one',round),false);assert.equal(gate.canShow(true,true),false);
+ gate.endGame('one');assert.equal(gate.confirmRound('one',round),false);
+ gate.presence(game('two'));assert.equal(gate.confirmRound('one',round),false);assert.equal(gate.confirmRound('two',round),true);
+});
 test("native TFT shipping executable uses the same allowlist in both Windows readers and the gate", () => {
   const names = JSON.parse(fs.readFileSync("electron/game-processes.json", "utf8"));
   assert.ok(names.includes("TFTClient-Win64-Shipping"));
