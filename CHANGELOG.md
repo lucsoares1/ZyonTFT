@@ -1,5 +1,9 @@
 # Zyon TFT
 
+## 0.17.16
+
+Fonte Inter em todo o programa, incluída no instalador para funcionar sem instalar fontes. Controles das composições agrupados no cabeçalho, em cinza translúcido e com seleção mais clara. Corrige os aprimoramentos dinâmicos de cada composição, inclusive após editar o elenco, no app e overlay. Estabiliza a verificação de expiração do marcador do instalador no Windows.
+
 ## 0.17.15
 
 Corrige os aprimoramentos por composição, inclusive após editar o elenco, com recomendações atuais do PivotTFT no app e overlay. Reúne estilo (Fast 9, Slow roll), fixação no overlay e expansão em uma barra no cabeçalho do card, com espaço reservado para o nome e elenco abaixo.
