@@ -73,10 +73,10 @@
 .workspace-v4.zyon-reimagined .sidebar nav button.nav-active{background:#122f5c;border-color:#2455a0;color:#e4efff;}
 .workspace-v4.zyon-reimagined .sidebar nav button.nav-active::before{background:#347aff;}
 .workspace-v4.zyon-reimagined .tier-section-cards .comp-row.row-selected{border-color:#2d6bd0;box-shadow:inset 3px 0 #347aff;}
-.workspace-v4.zyon-reimagined .tier-section-cards .row-controls .row-pin{background:#ffffff14;border-color:transparent;color:#dce1e8;}
-.workspace-v4.zyon-reimagined .tier-section-cards .row-controls .row-pin:hover{background:#ffffff21;border-color:transparent;}
-.workspace-v4.zyon-reimagined .tier-section-cards .row-controls .row-pin.row-pinned{background:#ffffff2b;border-color:transparent;color:#fff;}
-.workspace-v4.zyon-reimagined .tier-section-cards .row-controls .row-pin.row-pinned:hover{background:#ffffff36;border-color:transparent;}
+.workspace-v4.zyon-reimagined .tier-section-cards .row-controls .row-pin{background:#ffffff08;border-color:transparent;color:#dce1e8;}
+.workspace-v4.zyon-reimagined .tier-section-cards .row-controls .row-pin:hover{background:#ffffff0e;border-color:transparent;}
+.workspace-v4.zyon-reimagined .tier-section-cards .row-controls .row-pin.row-pinned{background:#ffffff12;border-color:transparent;color:#fff;}
+.workspace-v4.zyon-reimagined .tier-section-cards .row-controls .row-pin.row-pinned:hover{background:#ffffff1c;border-color:transparent;}
 .workspace-v4.zyon-reimagined .brand .zyon-mark{filter:none;}
 
 .entry-screen .entry-world h1 em{color:#4c8dff;}.entry-world-label>span{background:#347aff;box-shadow:none;}

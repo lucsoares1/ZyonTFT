@@ -256,6 +256,6 @@
 .workspace-v4.zyon-reimagined .comp-row-utilities>.row-style{position:static;display:block;margin:0;max-width:140px;color:#c8cbd1;background:transparent;border:0;padding:0 5px;font:600 10px/1.4 "Inter Variable",sans-serif;border-radius:0;white-space:nowrap;}
 .workspace-v4.zyon-reimagined .tier-section-cards .comp-row-utilities .row-controls{display:flex;flex-direction:row;align-items:center;gap:5px;padding:0 0 0 8px;border-left:1px solid #ffffff14;}
 .workspace-v4.zyon-reimagined .tier-section-cards .comp-row-utilities .row-controls .row-pin{width:34px;height:34px;min-height:34px;border-radius:7px;}
-.workspace-v4.zyon-reimagined .tier-section-cards .comp-row-utilities .row-controls .row-expand{width:34px;height:34px;min-height:34px;border-radius:7px;border:0;background:#ffffff14;color:#c8cbd1;}
-.workspace-v4.zyon-reimagined .tier-section-cards .comp-row-utilities .row-controls .row-expand:hover{background:#ffffff21;color:#fff;}
-.workspace-v4.zyon-reimagined .tier-section-cards .comp-row-utilities .row-controls .row-expand.is-expanded{background:#ffffff2b;color:#fff;}
+.workspace-v4.zyon-reimagined .tier-section-cards .comp-row-utilities .row-controls .row-expand{width:34px;height:34px;min-height:34px;border-radius:7px;border:0;background:#ffffff08;color:#c8cbd1;}
+.workspace-v4.zyon-reimagined .tier-section-cards .comp-row-utilities .row-controls .row-expand:hover{background:#ffffff0e;color:#fff;}
+.workspace-v4.zyon-reimagined .tier-section-cards .comp-row-utilities .row-controls .row-expand.is-expanded{background:#ffffff12;color:#fff;}
