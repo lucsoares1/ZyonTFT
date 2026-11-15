@@ -1,5 +1,9 @@
 # Zyon TFT
 
+## 0.17.8
+
+Troque comp diretamente no overlay pela nova aba Comps ou pelo nome no cabeçalho, com busca por composição ou campeão e preservação de nível, ouro e compras. A aba Dupla aparece apenas com uma dupla formada. O botão de recolher e expandir mantém a mesma posição na tela, inclusive após arrastar o painel pequeno.
+
 ## 0.17.7
 
 Aviso de novas solicitações de amizade e convites fora da aba Duplas, contador de pendências e notificações do Windows. Modo só avisos da loja mantém leitura e medalhas com o painel encolhido. Arraste livremente o cabeçalho; a posição fica salva. O botão de trocar lado foi substituído pelo de encolher. Correção da piscada ao revalidar a mesma carta, preservando remoção rápida de unidades compradas e trocas da loja.
