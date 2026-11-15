@@ -1,5 +1,9 @@
 # Zyon TFT
 
+## 0.17.18
+
+Corrige avisos de envio da dupla quando os apps detectam a partida em horários diferentes. Pedidos novos usam a próxima meta acima das cópias atuais, com contagem local atualizada no app e overlay. A barra superior de rodada (1-1 em diante) confirma o overlay sem depender da leitura de ouro; falhas temporárias não ocultam o painel. Novas partidas no mesmo processo limpam compras antigas preservando comp, pedidos e dupla.
+
 ## 0.17.17
 
 Inter em todo o app, login, overlay e avisos da loja, com a fonte incluída no instalador. Controles das composições agrupados no cabeçalho; fundo neutro translúcido com opacidade discreta (3% normal, 7% ativo). Aprimoramentos dinâmicos corrigidos por composição, inclusive após editar o elenco, no app e overlay. Verificação do marcador do instalador estabilizada no Windows.
