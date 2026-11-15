@@ -4,14 +4,14 @@ O canal estável usa o repositório público https://github.com/lucsoares1/ZyonT
 
 ## Primeira instalação
 
-Distribua `Zyon-TFT-Setup-0.17.0.exe` a partir do release. Cada pessoa instala uma vez. A edição portátil anterior não contém atualizador: ela precisa dessa primeira instalação manual. O instalador é por usuário, mantém `%APPDATA%/zyon-tft`, cria um atalho e abre o app. Comps, configurações e sessão são preservadas. A desinstalação também preserva esses dados.
+Distribua o instalador `Zyon-TFT-Setup-<versão>.exe` do release mais recente. Cada pessoa instala uma vez. A edição portátil anterior não contém atualizador: ela precisa dessa primeira instalação manual. O instalador é por usuário, mantém `%APPDATA%/zyon-tft`, cria um atalho e abre o app. Comps, configurações e sessão são preservadas. A desinstalação também preserva esses dados.
 
 O app consulta versões ao abrir (após 8 segundos), a cada 4 horas enquanto está aberto e pelo botão em Preferências. Uma versão nova mostra aviso, botão de download e progresso; após baixar, o usuário escolhe Reiniciar e atualizar. O download é validado pelo SHA-512 do feed. Fechar o app normalmente não instala uma versão pendente. Durante uma partida, reiniciar exige confirmação adicional. Nenhum update força a interrupção do jogo.
 
 ## Lançar uma versão
 
 1. Termine e teste as alterações e envie os commits para a branch principal.
-2. Na pasta do projeto, execute `npm run release -- 0.17.1 "Descrição das melhorias"`, sempre com uma versão maior.
+2. Na pasta do projeto, execute `npm run release -- 0.17.2 "Descrição das melhorias"`, sempre com uma versão maior.
 3. Acompanhe https://github.com/lucsoares1/ZyonTFT/actions. O workflow testa, compila no Windows, cria um rascunho, envia instalador/blockmap/latest.yml, confere os hashes e somente então publica o release.
 4. Depois da publicação, os apps encontram a versão nova na próxima busca. Não basta enviar código para a branch; a tag de versão ou a execução manual do workflow é que inicia uma publicação.
 
