@@ -153,14 +153,16 @@ function Badge({
   preview = false,
   label = "Na sua comp",
   kind = "core",
+  priority = 0,
 }: {
   matched: boolean;
   preview?: boolean;
   label?: string;
   kind?: "buy" | "reserve" | "core" | "send" | "shared" | "trait";
+  priority?: number;
 }) {
   return matched ? (
-    <ShopMedal label={label} kind={kind} preview={preview} />
+    <ShopMedal label={label} kind={kind} preview={preview} priority={priority} />
   ) : null;
 }
 
@@ -185,9 +187,11 @@ function Overlay() {
   if (!state) return null;
   const priority = livePlan?.search || [];
   const reserve = livePlan?.reserve || [];
-  const send=partnerNeeds(state.social,state.gameSession,clock).map((w:any)=>w.id);
+  const sendNeeds=partnerNeeds(state.social,state.gameSession,clock);
+  const send=sendNeeds.map((w:any)=>w.id);
   const own=ownWishes.map(w=>w.id);
   const traitWishes=new Set(ownWishes.filter(w=>w.reason==='trait').map(w=>w.id));
+  const requestWishes=new Set(ownWishes.filter(w=>w.reason==='request').map(w=>w.id));
   const matches = matchShop(
     state.slots || [],
     [...new Set([...own,...send])],
@@ -197,12 +201,16 @@ function Overlay() {
     <div className="native-overlay" style={{ opacity: state.opacity / 100 }}>
       {matches.map((slot: any) => {
         const card=state.shopCards?.[slot.index] || {x:rect.x+rect.width*slot.index/5+rect.width/5*.025,y:rect.y,width:rect.width/5*.94,height:rect.height};
+        const request=sendNeeds.find((w:any)=>w.id===slot.id);
+        const requestPriority=request?.priority||0;
+        const kind=request?own.includes(slot.id)?'shared':'send':traitWishes.has(slot.id)?'trait':priority.includes(slot.id)||requestWishes.has(slot.id)?'buy':reserve.includes(slot.id)?'reserve':'core';
         return (
         <div
           className="native-slot"
           key={slot.index}
           data-highlighted={slot.highlighted || undefined}
-          data-kind={send.includes(slot.id)?own.includes(slot.id)?'shared':'send':traitWishes.has(slot.id)?'trait':priority.includes(slot.id)?'buy':reserve.includes(slot.id)?'reserve':'core'}
+          data-kind={kind}
+          data-priority={requestPriority}
           style={{
             left: `${card.x * 100}%`,
             top: `${card.y * 100}%`,
@@ -215,9 +223,10 @@ function Overlay() {
           {slot.highlighted && state.shopCards?.[slot.index] && <ShopFrostFrame index={slot.index} jewel={(byId[slot.id]?.cost || 0) > 1} />}
           <Badge
             matched={slot.highlighted}
-            kind={send.includes(slot.id)?own.includes(slot.id)?'shared':'send':traitWishes.has(slot.id)?'trait':priority.includes(slot.id) ? "buy" : reserve.includes(slot.id) ? "reserve" : "core"}
+            priority={requestPriority}
+            kind={kind}
             label={
-              send.includes(slot.id)?`${own.includes(slot.id)?'Você e sua dupla querem':'Enviar para'} ${state.social?.partner?.display_name||'sua dupla'}`:traitWishes.has(slot.id)?`Sinergia: ${(byId[slot.id]?.traits||[]).filter(t=>state.overlayPlans?.[state.pinned]?.traits?.includes(t)).join(', ')}`:priority.includes(slot.id)
+              request?`${own.includes(slot.id)?'Você e sua dupla querem':'Enviar para'} ${state.social?.partner?.display_name||'sua dupla'}${requestPriority===2?' · prioridade urgente':requestPriority===1?' · prioridade alta':''}`:traitWishes.has(slot.id)?`Sinergia: ${(byId[slot.id]?.traits||[]).filter(t=>state.overlayPlans?.[state.pinned]?.traits?.includes(t)).join(', ')}`:priority.includes(slot.id)||requestWishes.has(slot.id)
                 ? "Comprar agora"
                 : reserve.includes(slot.id)
                   ? "Guardar p/ transição"
@@ -1187,7 +1196,7 @@ function Workbench() {
                   </p>
                 </section>
               </div>
-            ) : tab==='account' ? <AccountProfile onDuo={()=>setTab('duo')}/> : tab==='duo' ? <main className="social-page"><SocialPanel comp={pinned}/></main> : tab === "planner" ? (
+            ) : tab==='account' ? <AccountProfile onDuo={()=>setTab('duo')}/> : tab==='duo' ? <main className="social-page"><SocialPanel comp={pinned} planEdit={saved.overlayPlans?.[saved.pinned||'']}/></main> : tab === "planner" ? (
               <Planner
                 key={`${active.id}:${plannerFocus || ""}`}
                 focusId={plannerFocus}

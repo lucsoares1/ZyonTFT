@@ -2,6 +2,10 @@ import {planForLevel} from './level-planner.mjs';
 const known=(catalog,id)=>typeof id==='string'&&Object.hasOwn(catalog,id);
 const unique=(ids,catalog)=>[...new Set(Array.isArray(ids)?ids:[])].filter(id=>known(catalog,id)).slice(0,28);
 const goal=n=>[0,1,3,9].includes(Number(n))?Number(n):3;
+const priority=n=>[0,1,2].includes(Number(n))?Number(n):0;
+export function requestedUnits(value,catalog){
+ return [...new Map((Array.isArray(value)?value:[]).filter(w=>known(catalog,w?.id)).slice(0,28).map(w=>[w.id,{id:w.id,goal:[1,3,9].includes(Number(w.goal))?Number(w.goal):1,priority:priority(w.priority)}])).values()];
+}
 export function selectedTraits(value,catalog){
  const known=new Set(Object.values(catalog).flatMap(c=>c.traits||[]));
  return [...new Set(Array.isArray(value)?value:[])].filter(name=>typeof name==='string'&&known.has(name)).slice(0,64);
@@ -9,7 +13,7 @@ export function selectedTraits(value,catalog){
 export function normalizeWorkingPlan(base,value,catalog){
   if(!base||!value||!Array.isArray(value.champions))return null;
   const champions=unique(value.champions,catalog);
-  return {champions,traits:selectedTraits(value.traits,catalog),excluded:[...new Set(Array.isArray(value.excluded)?value.excluded:[])].filter(id=>known(catalog,id)&&!champions.includes(id)).slice(0,200),goals:Object.fromEntries(champions.map(id=>[id,goal(value.goals?.[id]??(base.stars?.[id]===3?9:3))]))};
+  return {champions,requests:requestedUnits(value.requests,catalog),traits:selectedTraits(value.traits,catalog),excluded:[...new Set(Array.isArray(value.excluded)?value.excluded:[])].filter(id=>known(catalog,id)&&!champions.includes(id)).slice(0,200),goals:Object.fromEntries(champions.map(id=>[id,goal(value.goals?.[id]??(base.stars?.[id]===3?9:3))]))};
 }
 export function effectiveComp(base,value,catalog){
   if(!base)return base;
@@ -25,12 +29,18 @@ export function effectiveComp(base,value,catalog){
 }
 export function editWorkingPlan(base,value,action,catalog){
   if(!base)return null;if(action?.type==='restore')return null;
-  const edit=normalizeWorkingPlan(base,value,catalog)||{champions:[...base.champions],traits:[],excluded:[],goals:Object.fromEntries(base.champions.map(id=>[id,base.stars?.[id]===3?9:3]))};
+  const edit=normalizeWorkingPlan(base,value,catalog)||{champions:[...base.champions],requests:[],traits:[],excluded:[],goals:Object.fromEntries(base.champions.map(id=>[id,base.stars?.[id]===3?9:3]))};
   if(action?.type==='trait'){
    const name=selectedTraits([action.name],catalog)[0];if(!name)return edit;
    edit.traits=edit.traits.includes(name)?edit.traits.filter(t=>t!==name):[...edit.traits,name].slice(0,64);return edit;
   }
   if(!known(catalog,action?.id))return edit;
+  if(action.type==='request'){
+    const requests=edit.requests.filter(w=>w.id!==action.id);
+    if(requests.length<28)edit.requests=[...requests,{id:action.id,goal:[1,3,9].includes(Number(action.goal))?Number(action.goal):1,priority:priority(action.priority)}];
+    return edit;
+  }
+  if(action.type==='removeRequest'){edit.requests=edit.requests.filter(w=>w.id!==action.id);return edit;}
   if(action.type==='toggle'){
     if(edit.champions.includes(action.id)){edit.champions=edit.champions.filter(id=>id!==action.id);edit.excluded=[...new Set([...edit.excluded,action.id])];delete edit.goals[action.id];}
     else if(edit.champions.length<28){edit.champions.push(action.id);edit.excluded=edit.excluded.filter(id=>id!==action.id);edit.goals[action.id]=3;}
@@ -45,7 +55,10 @@ export function shoppingWishes(comp,edit,session,catalog){
  const plan=planForLevel(comp,catalog,session?.context);
  for(const id of [...plan.search,...plan.reserve])if(catalog[id]&&!wanted.has(id)&&!edit?.excluded?.includes(id))wanted.set(id,{id,goal:3,reason:'transition'});
  for(const champion of Object.values(catalog))if(champion.traits?.some(t=>traits.has(t))&&!wanted.has(champion.id)&&!edit?.excluded?.includes(champion.id))wanted.set(champion.id,{id:champion.id,goal:1,reason:'trait'});
- return [...wanted.values()].filter(w=>w.goal>0).map(w=>({...w,owned:Math.max(0,Math.min(9,Number(copies[w.id])||0))}));
+ // Explicit duo requests are independent of the board and can temporarily
+ // promote even a champion excluded from the composition.
+ for(const request of requestedUnits(edit?.requests,catalog))wanted.set(request.id,{...request,reason:'request'});
+ return [...wanted.values()].filter(w=>w.goal>0).map(w=>({...w,priority:priority(w.priority),owned:Math.max(0,Math.min(9,Number(copies[w.id])||0))})).sort((a,b)=>b.priority-a.priority);
 }
 export function sharingPayload(comp,edit,session,catalog){
   const ids=unique(comp?.champions,catalog),copies=session?.context?.copies||{};
@@ -60,7 +73,7 @@ export function normalizeSharedPlan(value,catalog){
   return {comp:value.comp?{id:String(value.comp.id||'').slice(0,100),name:String(value.comp.name||'Comp do parceiro').slice(0,80),carry:known(catalog,value.comp.carry)?value.comp.carry:ids[0],champions:ids}:null,
     wishes:(Array.isArray(value.wishes)?value.wishes:[]).filter(w=>known(catalog,w?.id)).slice(0,28).map(w=>({id:w.id,goal:goal(w.goal),owned:Math.max(0,Math.min(9,Number(w.owned)||0))})),
     traits:selectedTraits(value.traits,catalog),
-    shopping:[...new Map((Array.isArray(value.shopping)?value.shopping:Array.isArray(value.wishes)?value.wishes:[]).filter(w=>known(catalog,w?.id)).slice(0,200).map(w=>[w.id,{id:w.id,goal:goal(w.goal),owned:Math.max(0,Math.min(9,Number(w.owned)||0)),reason:['team','transition','trait'].includes(w.reason)?w.reason:'team'}])).values()],
+    shopping:[...new Map((Array.isArray(value.shopping)?value.shopping:Array.isArray(value.wishes)?value.wishes:[]).filter(w=>known(catalog,w?.id)).slice(0,200).map(w=>[w.id,{id:w.id,goal:goal(w.goal),owned:Math.max(0,Math.min(9,Number(w.owned)||0)),priority:priority(w.priority),reason:['team','transition','trait','request'].includes(w.reason)?w.reason:'team'}])).values()].sort((a,b)=>b.priority-a.priority),
     playing:value.playing===true,ended:value.ended===true,startedAt:Number(value.startedAt)||0};
 }
 export function partnerNeeds(social,session,now=Date.now()){

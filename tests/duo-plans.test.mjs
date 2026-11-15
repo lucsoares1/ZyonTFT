@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
-import {effectiveComp,editWorkingPlan,sharingPayload,normalizeSharedPlan,partnerNeeds,shoppingWishes} from '../src/duo-plans.mjs';
+import {effectiveComp,editWorkingPlan,sharingPayload,normalizeSharedPlan,partnerNeeds,shoppingWishes,normalizeWorkingPlan} from '../src/duo-plans.mjs';
 import {planForLevel} from '../src/level-planner.mjs';
 const catalog=Object.fromEntries(JSON.parse(fs.readFileSync(new URL('../src/generated/catalog.json',import.meta.url))).champions.map(c=>[c.id,c]));
 const comp=JSON.parse(fs.readFileSync(new URL('../src/generated/pivot.json',import.meta.url))).comps[0];
@@ -57,4 +57,34 @@ test('shared shopping includes transition highlights, validates synergies and st
  const all=sharingPayload(comp,edit,session,catalog);assert.ok(Buffer.byteLength(JSON.stringify(all))<32768);assert.ok(all.wishes.length<=28);
  const normalized=normalizeSharedPlan({...all,traits:[...traits,'not-a-trait'],shopping:[...all.shopping,{id:'bogus',goal:9,owned:0},{id:'__proto__',goal:9,owned:0}]},catalog);
  assert.ok(!normalized.traits.includes('not-a-trait'));assert.ok(!normalized.shopping.some(w=>w.id==='bogus'));
+});
+test('urgent off-comp requests reach the partner first without editing the roster or session',()=>{
+ const id=Object.keys(catalog).find(id=>!comp.champions.includes(id)),session={matchId:'match',startedAt:Date.now(),context:{level:10,copies:{}}},before=structuredClone(session);
+ const edit=editWorkingPlan(comp,null,{type:'request',id,goal:3,priority:2},catalog);
+ const working=effectiveComp(comp,edit,catalog);assert.deepEqual(working.champions,comp.champions);assert.deepEqual(working.pivot,comp.pivot);
+ const payload=normalizeSharedPlan(sharingPayload(working,edit,session,catalog),catalog);
+ assert.deepEqual(payload.shopping[0],{id,goal:3,owned:0,priority:2,reason:'request'});
+ const social={session:{id:'duo'},partnerPlan:{updated_at:new Date().toISOString(),payload}};
+ assert.equal(partnerNeeds(social,session)[0].id,id);assert.equal(partnerNeeds(social,session)[0].priority,2);
+ assert.deepEqual(session,before);assert.deepEqual(normalizeWorkingPlan(comp,JSON.parse(JSON.stringify(edit)),catalog).requests,edit.requests);
+ const fulfilled={...session,context:{...session.context,copies:{[id]:3}}};
+ const done={...social,partnerPlan:{...social.partnerPlan,payload:normalizeSharedPlan(sharingPayload(working,edit,fulfilled,catalog),catalog)}};
+ assert.ok(!partnerNeeds(done,session).some(w=>w.id===id));
+ const removed=editWorkingPlan(comp,edit,{type:'removeRequest',id},catalog);assert.equal(removed.requests.length,0);assert.deepEqual(removed.champions,comp.champions);
+});
+test('duo request edits promote existing targets without duplicates and downgrade their priority immediately',()=>{
+ const id=comp.carry;let edit=editWorkingPlan(comp,null,{type:'request',id,goal:9,priority:2},catalog);
+ edit=editWorkingPlan(comp,edit,{type:'request',id,goal:3,priority:0},catalog);
+ const shopping=shoppingWishes(comp,edit,{context:{level:10}},catalog);
+ assert.equal(edit.requests.length,1);assert.equal(shopping.filter(w=>w.id===id).length,1);assert.equal(shopping.find(w=>w.id===id).priority,0);assert.equal(shopping.find(w=>w.id===id).goal,3);
+ const removed=editWorkingPlan(comp,edit,{type:'removeRequest',id},catalog);
+ assert.equal(shoppingWishes(comp,removed,{context:{level:10}},catalog).find(w=>w.id===id).reason,'team');
+});
+test('untrusted duo requests are bounded, catalog checked and cannot inject priorities',()=>{
+ const requests=Object.keys(catalog).map(id=>({id,goal:Infinity,priority:'<script>'}));
+ const edit=normalizeWorkingPlan(comp,{champions:comp.champions,requests:[{id:'__proto__',goal:9,priority:2},...requests]},catalog);
+ assert.equal(edit.requests.length,28);assert.ok(edit.requests.every(w=>w.goal===1&&w.priority===0));
+ const p=normalizeSharedPlan({shopping:[{id:comp.carry,goal:1,owned:0,priority:999,reason:'request'}]},catalog);
+ assert.equal(p.shopping[0].priority,0);assert.equal(p.shopping[0].reason,'request');
+ const old=normalizeSharedPlan({wishes:[{id:comp.carry,goal:1,owned:0}]},catalog);assert.equal(old.shopping[0].priority,0);
 });

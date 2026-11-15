@@ -8,7 +8,7 @@ export function ShopFrostFrame({index=0,jewel=false}:{index?:number;jewel?:boole
   return <svg className="shop-frost-frame" data-jewel={jewel} viewBox="0 0 200 150" preserveAspectRatio="none" fill="none" aria-hidden="true">
     <defs>
       <linearGradient id={`${id}-rim`} x1="-4" y1="-4" x2="204" y2="154" gradientUnits="userSpaceOnUse">
-        <stop stopColor="#d3f2ff"/><stop offset=".19" stopColor="#7399c4"/><stop offset=".42" stopColor="#243d64"/><stop offset=".67" stopColor="var(--shop-accent)"/><stop offset=".85" stopColor="#b2d5ee"/><stop offset="1" stopColor="#40688e"/>
+        <stop stopColor="var(--shop-rim-light)"/><stop offset=".19" stopColor="var(--shop-rim-mid)"/><stop offset=".42" stopColor="var(--shop-rim-dark)"/><stop offset=".67" stopColor="var(--shop-accent)"/><stop offset=".85" stopColor="var(--shop-rim-soft)"/><stop offset="1" stopColor="var(--shop-rim-end)"/>
       </linearGradient>
       <linearGradient id={`${id}-join`} x1="0" y1="0" x2="200" y2="0" gradientUnits="userSpaceOnUse">
         <stop offset=".27" stopColor="white"/><stop offset=".35" stopColor="black"/><stop offset=".65" stopColor="black"/><stop offset=".73" stopColor="white"/>
@@ -22,21 +22,21 @@ export function ShopFrostFrame({index=0,jewel=false}:{index?:number;jewel?:boole
     {/* The entire crystal rim sits OUTSIDE the original card. */}
     <path d={edge} stroke="#07111f" strokeWidth="5"/>
     <path d={edge} stroke={`url(#${id}-rim)`} strokeWidth="3.6"/>
-    <path d={lip} stroke="#afd7f1" strokeOpacity=".8" strokeWidth=".65"/>
-    <path d="M-3 19V-3h29M174-3h29v20M203 131v22h-27M26 153H-3v-20" stroke="#e5f8ff" strokeOpacity=".8" strokeWidth=".8"/>
+    <path d={lip} stroke="var(--shop-rim-soft)" strokeOpacity=".8" strokeWidth=".65"/>
+    <path d="M-3 19V-3h29M174-3h29v20M203 131v22h-27M26 153H-3v-20" stroke="var(--shop-rim-light)" strokeOpacity=".8" strokeWidth=".8"/>
     {/* Short fractures split the material, never the portrait or its text. */}
-    <path d={`M-4.5 ${left}l4 5-3 4M204.5 ${right}l-4 4 3 5M${bottom} 154.5l-5-4-6 3M24-4.5l6 4 5-3`} stroke="#102b4c" strokeWidth="1"/>
-    <path d={`M-4.5 ${left+1}l3 4M204.5 ${right+1}l-3 3M${bottom-1} 154.5l-4-3M25-4.5l5 3`} stroke="#d4f2ff" strokeOpacity=".75" strokeWidth=".5"/>
+    <path d={`M-4.5 ${left}l4 5-3 4M204.5 ${right}l-4 4 3 5M${bottom} 154.5l-5-4-6 3M24-4.5l6 4 5-3`} stroke="var(--shop-rim-dark)" strokeWidth="1"/>
+    <path d={`M-4.5 ${left+1}l3 4M204.5 ${right+1}l-3 3M${bottom-1} 154.5l-4-3M25-4.5l5 3`} stroke="var(--shop-rim-light)" strokeOpacity=".75" strokeWidth=".5"/>
     </g>
   </svg>;
 }
 
-export function ShopMedal({ label, kind = "core", preview = false }: {
-  label: string; kind?: "buy" | "reserve" | "core" | "send" | "shared" | "trait"; preview?: boolean;
+export function ShopMedal({ label, kind = "core", preview = false, priority = 0 }: {
+  label: string; kind?: "buy" | "reserve" | "core" | "send" | "shared" | "trait"; preview?: boolean; priority?: number;
 }) {
   const id = useId().replaceAll(":", "");
   return (
-    <span className={`shop-badge shop-medal ${preview ? "badge-preview" : ""}`} data-kind={kind} role="img" aria-label={`Zyon: ${label}`} title={label}>
+    <span className={`shop-badge shop-medal ${preview ? "badge-preview" : ""}`} data-kind={kind} data-priority={priority} role="img" aria-label={`Zyon: ${label}`} title={label}>
       <svg viewBox="0 0 64 76" fill="none" aria-hidden="true">
         <defs>
           <linearGradient id={`${id}-rim`} x1="12" y1="5" x2="52" y2="62" gradientUnits="userSpaceOnUse">
@@ -58,7 +58,7 @@ export function ShopMedal({ label, kind = "core", preview = false }: {
         <image href="./assets/brand/zyontftlogo.png" x="9" y="9" width="46" height="47"/>
         <path d="m45 8 2 5 5 2-5 2-2 5-2-5-5-2 5-2Z" fill="#dee7f5"/>
       </svg>
-      <span className="shop-medal-caption">{kind==='send'?'Enviar':kind==='shared'?'Ambos':kind==='trait'?'Sinergia':kind === "buy" ? "Comprar" : kind === "reserve" ? "Guardar" : "Comp"}</span>
+      <span className="shop-medal-caption">{kind==='send'?priority===2?'Enviar urgente':priority===1?'Enviar · Alta':'Enviar':kind==='shared'?priority===2?'Ambos · Urgente':priority===1?'Ambos · Alta':'Ambos':kind==='trait'?'Sinergia':kind === "buy" ? "Comprar" : kind === "reserve" ? "Guardar" : "Comp"}</span>
     </span>
   );
 }

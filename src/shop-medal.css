@@ -44,9 +44,28 @@
   pointer-events: none;
   --shop-accent: #6a9eff;
   --shop-edge: #347aff;
+  --shop-rim-light: #d3f2ff;
+  --shop-rim-mid: #7399c4;
+  --shop-rim-dark: #243d64;
+  --shop-rim-soft: #b2d5ee;
+  --shop-rim-end: #40688e;
 }
-.native-overlay .native-slot[data-kind="send"] { --shop-accent: #c4a1ff; --shop-edge: #9f6df2; }
-.native-overlay .native-slot[data-kind="shared"] { --shop-accent: #b9beff; --shop-edge: #8a8aff; }
+.native-overlay .native-slot[data-kind="send"] {
+  --shop-accent: #bd8dff;
+  --shop-edge: #9f6df2;
+  --shop-rim-light: #e2c6ff;
+  --shop-rim-mid: #a574df;
+  --shop-rim-dark: #513273;
+  --shop-rim-soft: #c6a0ee;
+  --shop-rim-end: #8550b8;
+}
+.native-overlay .native-slot[data-kind="shared"] {
+  --shop-accent: #b9beff;
+  --shop-edge: #8a8aff;
+  --shop-rim-dark: #493462;
+  --shop-rim-soft: #c6a0ee;
+  --shop-rim-end: #8550b8;
+}
 .native-overlay .native-slot[data-kind="reserve"] { --shop-accent: #9fc9ef; --shop-edge: #6c9ec9; }
 .native-overlay .shop-frost-frame {
   position: absolute;
