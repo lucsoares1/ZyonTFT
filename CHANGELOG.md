@@ -1,5 +1,9 @@
 # Zyon TFT
 
+## 0.17.4
+
+Destaques da loja com moldura de gelo facetado e texto integrado à medalha. Correção de piscadas causadas por brilho e pelo próprio overlay; posicionamento acompanha a janela e a proporção da tela. Preserva leitura rápida, compras e pedidos da dupla.
+
 ## 0.17.3
 
 Leitura da loja mais rápida com OCR nativo em lote, detecção visual de mudanças e medalhas atualizadas diretamente. Remove avisos antigos antes da leitura, preserva cartas repetidas e avisos de envio à dupla, sem novas dependências.
