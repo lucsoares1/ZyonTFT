@@ -1,5 +1,9 @@
 # Zyon TFT
 
+## 0.17.19
+
+Corrige molduras deslocadas da loja, limita compras de comps pessoais às escolhas do jogador e restaura o overlay na posição anterior ao recolher.
+
 ## 0.17.18
 
 Corrige avisos de envio da dupla quando os apps detectam a partida em horários diferentes. Pedidos novos usam a próxima meta acima das cópias atuais, com contagem local atualizada no app e overlay. A barra superior de rodada (1-1 em diante) confirma o overlay sem depender da leitura de ouro; falhas temporárias não ocultam o painel. Novas partidas no mesmo processo limpam compras antigas preservando comp, pedidos e dupla.
