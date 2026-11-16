@@ -8,7 +8,11 @@ const {
   dialog,
   safeStorage,
   Notification,
+  desktopCapturer,
+  nativeImage,
 } = require("electron");
+const {captureMonitor,automaticShopRect}=require('./calibration-capture.cjs');
+let calibrationCapturing=false;
 if(process.platform==='win32')app.setAppUserModelId('local.zyon.tft');
 const path = require("node:path");
 const fs = require("node:fs");
@@ -785,7 +789,8 @@ function setReader(enabled, { automatic = false } = {}) {
     configPath,
     JSON.stringify({
       rect: state.rect,
-      automaticRect: ['x','y','width','height'].every((k,i)=>Math.abs(state.rect[k]-[.2295,.858,.53,.139][i])<.00001),
+      cardRect: validRect(state.cardRect)?state.cardRect:null,
+      automaticRect: !validRect(state.cardRect)&&['x','y','width','height'].every((k,i)=>Math.abs(state.rect[k]-[.2295,.858,.53,.139][i])<.00001),
       customLevelRect: validLevelRect(state.levelRect),
       goldRect: defaultGoldRect(state.rect),
       levelRect: validLevelRect(state.levelRect)
@@ -1093,12 +1098,14 @@ if (primaryInstance)
         return false;
       next=guardCompositionPublication(state,next);
       const previousRect = JSON.stringify(state.rect);
+      const previousCardRect = JSON.stringify(state.cardRect);
       const previousDisplay = state.displayId;
       const previousLevelRect = JSON.stringify(state.levelRect);
       const overlayPlans=state.overlayPlans,social=state.social;
       state = {
         ...state,
         ...next,
+        cardRect:validRect(next.cardRect)?next.cardRect:null,
         compSelectionRevision:state.compSelectionRevision||0,
         // Live shop detections belong to the native reader. A delayed main
         // renderer publication must never restore a removed/sold champion.
@@ -1139,6 +1146,7 @@ if (primaryInstance)
       if (
         readerProcess &&
         (previousRect !== JSON.stringify(state.rect) ||
+          previousCardRect !== JSON.stringify(state.cardRect) ||
           previousLevelRect !== JSON.stringify(state.levelRect) ||
           previousDisplay !== state.displayId)
       )
@@ -1182,6 +1190,14 @@ if (primaryInstance)
         ? setReader(Boolean(enabled))
         : false,
     );
+    ipcMain.handle('calibration:capture',async event=>{
+      if(!mainSender(event)||!accountReady())return{error:'Abra as Preferências na janela principal.'};
+      if(calibrationCapturing)return{error:'Uma captura já está em andamento.'};
+      calibrationCapturing=true;
+      try{const display=chosenDisplay();const capture=await captureMonitor({display,window:mainWindow,desktopCapturer,nativeImage,fixturePath:process.env.ZYON_USER_DATA?process.env.ZYON_OCR_FIXTURE:null});
+        return{...capture,automaticRect:automaticShopRect(capture.width,capture.height),shopRect:validRect(state.cardRect)?state.cardRect:validRect(state.shopRect)?state.shopRect:automaticShopRect(capture.width,capture.height)};
+      }catch(error){return{error:error.message||'Não foi possível capturar. Tente novamente.'};}finally{calibrationCapturing=false;}
+    });
     ipcMain.handle("displays:get", () =>
       screen
         .getAllDisplays()

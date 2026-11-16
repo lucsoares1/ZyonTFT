@@ -29,6 +29,7 @@ declare global {
       setOverlay: (enabled: boolean) => Promise<boolean>;
       setReader: (enabled: boolean) => Promise<boolean>;
       displays: () => Promise<any[]>;
+      captureCalibration: () => Promise<any>;
       minimize: () => void;
       close: () => void;
       onState: (callback: (state: any) => void) => () => void;

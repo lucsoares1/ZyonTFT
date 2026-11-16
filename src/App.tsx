@@ -65,6 +65,7 @@ import {SocialNotifications} from './SocialNotifications';
 import {AccountGate,AccountProfile} from './AccountGate';
 import {effectiveComp,partnerNeeds,shoppingWishes} from './duo-plans.mjs';
 import {UpdateProvider,UpdatesSettings,UpdateIndicator} from './Updates';
+import {ShopCalibration} from './ShopCalibration';
 
 type Slot = string | null | { id: string | null; confidence: number };
 type Rect = { x: number; y: number; width: number; height: number };
@@ -77,6 +78,7 @@ type Saved = {
   selected: string[];
   opacity: number;
   rect: Rect;
+  cardRect?: Rect | null;
   displayId: number | null;
   source: "demo" | "ocr";
   compact: boolean;
@@ -403,6 +405,7 @@ function Workbench() {
       catalogAugments,
       opacity: saved.opacity,
       rect: saved.rect,
+      cardRect: saved.cardRect,
       levelRect: saved.levelRect,
       displayId: saved.displayId,
       source: saved.source,
@@ -1289,7 +1292,7 @@ function Workbench() {
                     />
                   </label>
                 </section>
-                <section>
+                <section className="shop-reader-settings">
                   <h2>Leitura da loja</h2>
                   <p>
                     OCR local da loja, do nível e do ouro acima dos cards.
@@ -1306,117 +1309,13 @@ function Workbench() {
                       {reader ? "Pausar leitura" : "Iniciar OCR local"}
                     </button>
                   </div>
-                  <h3>Área dos cinco cards</h3>
-                  <p>
-                    A posição padrão acompanha a janela do jogo e a proporção
-                    da tela. Se você mudou a escala da interface do TFT, ajuste
-                    a área abaixo: leitura, moldura e medalha acompanham juntas.
-                  </p>
-                  <div className="calibration-fields">
-                    {(["x", "y", "width", "height"] as const).map((key, i) => (
-                      <label key={key}>
-                        {["Esquerda", "Topo", "Largura", "Altura"][i]}
-                        <div>
-                          <input
-                            aria-label={
-                              ["Esquerda", "Topo", "Largura", "Altura"][i]
-                            }
-                            type="number"
-                            min={
-                              key === "width" ? 20 : key === "height" ? 2 : 0
-                            }
-                            max={100}
-                            step="0.1"
-                            value={Number((saved.rect[key] * 100).toFixed(1))}
-                            onChange={(e) => {
-                              const n = Number(e.target.value) / 100;
-                              if (!Number.isFinite(n)) return;
-                              update({ rect: { ...saved.rect, [key]: n } });
-                            }}
-                          />
-                          <span>%</span>
-                        </div>
-                      </label>
-                    ))}
-                  </div>
-                  <button
-                    className="text-button"
-                    onClick={() => update({ rect: defaults.rect })}
-                  >
-                    Restaurar área padrão
-                  </button>
-                  <details className="level-calibration">
-                    <summary>Ajustar a faixa do nível</summary>
-                    <p>
-                      Por padrão, acompanha a posição da loja. Recorte apenas
-                      “Nv.” e o número, sem a barra de XP. Valores em
-                      porcentagem da tela.
-                    </p>
-                    <div className="calibration-fields">
-                      {(["x", "y", "width", "height"] as const).map(
-                        (key, i) => {
-                          const automatic = {
-                            x: Math.max(0, saved.rect.x - saved.rect.width / 5),
-                            y: Math.max(
-                              0,
-                              saved.rect.y - saved.rect.height * 0.29,
-                            ),
-                            width: (saved.rect.width / 5) * 0.4,
-                            height: saved.rect.height * 0.16,
-                          };
-                          const region = saved.levelRect || automatic;
-                          return (
-                            <label key={key}>
-                              {["Esquerda", "Topo", "Largura", "Altura"][i]}
-                              <div>
-                                <input
-                                  aria-label={`Nível OCR: ${["Esquerda", "Topo", "Largura", "Altura"][i]}`}
-                                  type="number"
-                                  min={
-                                    key === "width"
-                                      ? 2
-                                      : key === "height"
-                                        ? 1
-                                        : 0
-                                  }
-                                  max={
-                                    key === "width"
-                                      ? 25
-                                      : key === "height"
-                                        ? 15
-                                        : 100
-                                  }
-                                  step="0.1"
-                                  value={Number((region[key] * 100).toFixed(2))}
-                                  onChange={(e) => {
-                                    const n = Number(e.target.value) / 100;
-                                    if (Number.isFinite(n))
-                                      update({
-                                        levelRect: { ...region, [key]: n },
-                                      });
-                                  }}
-                                />
-                                <span>%</span>
-                              </div>
-                            </label>
-                          );
-                        },
-                      )}
-                    </div>
-                    <button
-                      className="text-button"
-                      onClick={() => update({ levelRect: null })}
-                    >
-                      Acompanhar posição da loja
-                    </button>
-                  </details>
+                  <ShopCalibration rect={saved.rect} cardRect={saved.cardRect} levelRect={saved.levelRect} onSave={update}/>
                   <div className="reader-warning">
                     <CircleHelp size={16} />
                     <p>
-                      A leitura em partida ainda precisa ser validada na sua
-                      resolução. Em caso de nome incerto ou erro, o badge fica
-                      oculto. O reconhecimento atual não importa automaticamente
-                      o set de TFT.
+                      Depois de salvar, volte ao TFT para conferir a leitura e
+                      as molduras. Se um nome não for reconhecido com segurança,
+                      o aviso desse campeão fica oculto.
                     </p>
                   </div>
                 </section>

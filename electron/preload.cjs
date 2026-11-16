@@ -27,6 +27,7 @@ contextBridge.exposeInMainWorld("zyon", {
   setOverlay: (enabled) => ipcRenderer.invoke("overlay:set", enabled),
   setReader: (enabled) => ipcRenderer.invoke("reader:set", enabled),
   displays: () => ipcRenderer.invoke("displays:get"),
+  captureCalibration: () => ipcRenderer.invoke('calibration:capture'),
   minimize: () => ipcRenderer.send("window:minimize"),
   close: () => ipcRenderer.send("window:close"),
   onState: (callback) => listen("state:update", callback),

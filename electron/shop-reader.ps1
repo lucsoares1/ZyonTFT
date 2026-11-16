@@ -28,6 +28,12 @@ public class ZyonWindows {
     return new double[]{(client[0]-monitor[0]+(client[2]-referenceWidth)/2+referenceWidth*.2295)/monitor[2],
       (client[1]-monitor[1]+client[3]*.858)/monitor[3],referenceWidth*.53/monitor[2],client[3]*.139/monitor[3]};
   }
+  public static double[] ResolveShopFrame(double[] automatic,double[] manual) {
+    if(manual==null||manual.Length!=4)return automatic;
+    foreach(double n in manual)if(double.IsNaN(n)||double.IsInfinity(n))return automatic;
+    if(manual[0]<0||manual[1]<0||manual[2]<.2||manual[3]<.02||manual[0]+manual[2]>1.001||manual[1]+manual[3]>1.001)return automatic;
+    return manual;
+  }
   static double BorderScore(System.Drawing.Bitmap image,bool vertical,int at,int from,int length) {
     double sum=0,square=0,contrast=0;int count=0;
     for(int k=0;k<24;k++) {
@@ -298,13 +304,12 @@ public class ZyonWindows {
   # Text calibration is not card geometry. An older/manual OCR region can
   # include space above the cards; never draw a frame using that rectangle.
   $frameLeft=$left;$frameTop=$cardTop;$frameSlotWidth=$slotWidth;$frameHeight=$cardHeight
-  $frameRect=$rect
-  if($ShopFixture){
+  $manualFrame=if($config.cardRect){@([double]$config.cardRect.x,[double]$config.cardRect.y,[double]$config.cardRect.width,[double]$config.cardRect.height)}else{@()}
     $frameFit=[ZyonWindows]::FitShopRect(@(0,0,$bounds.Width,$bounds.Height),@(0,0,$bounds.Width,$bounds.Height))
+    $frameFit=[ZyonWindows]::ResolveShopFrame($frameFit,$manualFrame)
     $frameRect=@{x=$frameFit[0];y=$frameFit[1];width=$frameFit[2];height=$frameFit[3]}
     $frameLeft=[int]($bounds.Width*$frameFit[0]);$frameTop=[int]($bounds.Height*$frameFit[1])
     $frameSlotWidth=[int]($bounds.Width*$frameFit[2]/5);$frameHeight=[int]($bounds.Height*$frameFit[3])
-  }
   $frameGeometryKey=''
   $geometryKey=''
   $matchProcess=$null
@@ -356,6 +361,7 @@ public class ZyonWindows {
       if($client -and $client[2] -gt 400 -and $client[3] -gt 300){
         $key=$client -join ','
         $fit=[ZyonWindows]::FitShopRect($client,@($bounds.X,$bounds.Y,$bounds.Width,$bounds.Height))
+        $fit=[ZyonWindows]::ResolveShopFrame($fit,$manualFrame)
         $frameRect=@{x=$fit[0];y=$fit[1];width=$fit[2];height=$fit[3]}
         if($key -ne $frameGeometryKey){
           $frameLeft=[int]($bounds.Width*$fit[0]);$frameTop=[int]($bounds.Height*$fit[1])

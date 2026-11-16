@@ -25,6 +25,8 @@ import "./duo-requests.css";
 import "./planner-studio.css";
 import "./database-catalog.css";
 import "./social-lobby.css";
+import "./calibration.css";
+import "./scrollbars.css";
 createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <App />
