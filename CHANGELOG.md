@@ -1,5 +1,9 @@
 # Zyon TFT
 
+## 0.17.25
+
+Planejador com recomendacoes de itens por campeao, alternativas comuns e radiantes correspondentes. Referencias de builds, sugestoes por funcao quando necessario e busca completa preservada.
+
 ## 0.17.24
 
 Tela de duplas reorganizada com cartoes de amigos, convite para dupla explicito, estados de resposta, busca e solicitacoes separadas. Codigo de amigo compacto e remocao de amizade em menu proprio.
