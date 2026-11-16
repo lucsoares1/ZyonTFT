@@ -1,5 +1,9 @@
 # Zyon TFT
 
+## 0.17.26
+
+Calibracao visual da loja com captura local, arraste, alcas e ajuste fino em pixels. Leitura e molduras acompanham a area salva, nivel com ajuste proprio e barras de rolagem estilizadas em todo o programa.
+
 ## 0.17.25
 
 Planejador com recomendacoes de itens por campeao, alternativas comuns e radiantes correspondentes. Referencias de builds, sugestoes por funcao quando necessario e busca completa preservada.
