@@ -1,0 +1,11 @@
+# Itens recomendados no planejador · 0.17.25
+
+Inter; fundo#0d1725, blocos#121f32, borda#293e5b, foco#347aff, texto#e7f0fc e especiais#c3abec. O modal mantém cabeçalho, metas,3slots e rodapé. A área rolável abre em Recomendados, com principais, outras opções comuns e radiantes/artefatos quando existirem referências. Todos os itens permanece como segunda aba; busca e categoria pesquisam o catálogo inteiro.
+
+A seleção principal vem de loadouts publicados para aquele ID exato de campeão no patch atual. A referência da comp tem preferência; as demais opções agregam escolhas por família de build para variantes não multiplicarem votos. Não são estatísticas de desempenho. Emblemas só aparecem como requisito específico de uma referência identificada. Radiantes são correspondências exatas dos itens normais recomendados. Artefatos só são recomendados quando uma build do próprio campeão os indicar.
+
+Para os14 IDs sem loadout nas fontes, o Zyon fornece sugestões por função, explicitamente identificadas: tanques de início, Grompe AP, Ivern de suporte e formas de Lux. Itens colocados pelo usuário não viram recomendações. Fontes normais são os snapshots publicados do PivotTFT e guias já revisados; o índice acompanha o catálogo ativo. As alternativas especiais nunca viram requisito e não são aplicadas automaticamente.
+
+Revisão: manter a recomendação na área rolável evita uma faixa fixa gigante que reduziria o espaço dos itens. Clicar adiciona um item,3slots continuam limite, estrelas/carry/posições e desfazer permanecem independentes. Não mostrar porcentagens ou dizer melhor item por taxa de vitória sem dados que sustentem isso.
+
+Validação:127 testes unitários aprovados, incluindo cobertura dos74campeões e ícones, deduplicação de famílias, referências exatas, atualização/patch, fallback e ausência de contaminação por itens pessoais. verify-planner-items usa conta real/perfil isolado em1536/1050, testa Cascalho, Leona e Ahri, radiantes, pesquisa no catálogo, artefato,3slots, remoção e desfazer. verify-planner-studio completo aprovado com o novo modal. Evidências ignoradas em design/review/0.17.25/item-recommendations; a regressão do studio guarda evidência sob a versão do package executada. Atalho Ver radiantes move o foco ao título da seção sem trocar equipamentos.

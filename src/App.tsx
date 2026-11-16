@@ -1212,6 +1212,7 @@ function Workbench() {
               <Planner
                 key={`${active.id}:${plannerFocus || ""}`}
                 focusId={plannerFocus}
+                itemGuides={catalogStatus.snapshot.comps}
                 comp={active}
                 onChange={editPlan}
                 onPin={pin}
