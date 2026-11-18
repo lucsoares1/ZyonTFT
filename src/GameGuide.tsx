@@ -954,7 +954,7 @@ function LiveGuide({ state }: { state: any }) {
             <button onClick={() => window.zyon?.setReader(!state.readerActive)}>
               {state.readerActive ? "Pausar OCR" : "Ler loja, nível e ouro"}
             </button>
-            <span>Ctrl+Shift+O · ocultar</span>
+            <span>{state.overlayShortcut || "Sem atalho global"} · ocultar</span>
             <p>
               {state.readerError ||
                 (state.readerActive

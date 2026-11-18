@@ -16,6 +16,7 @@ contextBridge.exposeInMainWorld("zyon", {
   onBuild: (callback) => listen("guide:build", callback),
   getState: () => ipcRenderer.invoke("state:get"),
   editPlan: (action) => ipcRenderer.invoke("plan:edit", action),
+  commitPlan: (comp) => ipcRenderer.invoke("plan:commit", comp),
   onPlan: (callback) => listen("plan:changed", callback),
   getSocial: () => ipcRenderer.invoke("social:get"),
   socialAction: (action) => ipcRenderer.invoke("social:action", action),

@@ -48,7 +48,7 @@ const {SocialService}=require('./social-service.cjs');
 const {readBootId,bindSessionEnd}=require('./duo-lifecycle.cjs');
 const {SocialNoticeTracker}=require('./social-notices.cjs');
 const {guideBoundsFor,shopOnlyPlacement}=require('./guide-layout.cjs');
-const {chooseGuideComposition,guardCompositionPublication}=require('./guide-selection.cjs');
+const {chooseGuideComposition,guardCompositionPublication,commitPlannerComposition}=require('./guide-selection.cjs');
 const socialNotices=new SocialNoticeTracker();
 const {UpdateService}=require('./update-service.cjs');
 let planTools,socialService,updateService;
@@ -87,6 +87,7 @@ let mainWindow,
   staleTimer,
   saveTimer;
 let overlayEnabled = false;
+let manualGuideRequested = false;
 let state = {
   slots: [],
   selected: [],
@@ -387,7 +388,10 @@ function syncOverlayVisibility({ raise = false } = {}) {
     startupLog(`Overlay visibility: ${reason}`);
     lastOverlayVisibilityReason=reason;
   }
-  syncOverlayWindows([overlayWindow, guideWindow], visible, { raise });
+  const manualGuide = manualGuideRequested && !quitting && accountReady() && overlayEnabled && Boolean(state.pinned);
+  if (visible) manualGuideRequested = false;
+  syncOverlayWindows([overlayWindow], visible, { raise });
+  syncOverlayWindows([guideWindow], visible || manualGuide, { raise });
 }
 function ensureAutomaticReader() {
   if (
@@ -528,7 +532,16 @@ function stopPresenceWatch() {
 }
 function setOverlay(enabled, { automatic = false } = {}) {
   if(enabled&&!accountReady())return false;
-  if (!automatic) overlayGate.setEnabled(enabled);
+  if (!automatic) {
+    overlayGate.setEnabled(enabled);
+    manualGuideRequested = enabled;
+    if (enabled) {
+      if (!state.pinned) selectGuideComposition(state.saved?.active || state.saved?.comps?.[0]?.id);
+      state.gameSession = {...state.gameSession, collapsed:false, shopOnly:false};
+      if (state.saved) state.saved.gameSession = state.gameSession;
+    }
+  }
+  if (!enabled) manualGuideRequested = false;
   overlayEnabled = enabled;
   if (!enabled) {
     overlayWindow?.hide();
@@ -1092,6 +1105,16 @@ if (primaryInstance)
       if(action?.type==='open'){showMainWindow();mainWindow?.webContents.send('social:open');return {ok:true};}
       return socialService.action(action||{});
     });
+    ipcMain.handle('plan:commit',(event,comp)=>{
+      if(!accountReady()||!mainSender(event))return {error:'Abra o planejador pela janela principal.'};
+      const next=commitPlannerComposition(state,comp,planTools.effectiveComp,championById);
+      if(!next)return {error:'O plano não contém uma composição válida.'};
+      state=next;
+      positionGuide();save();broadcast();socialService.schedulePublish();
+      mainWindow.webContents.send('guide:build',{id:state.pinned,revision:state.compSelectionRevision,comp:state.baseGuideComp});
+      mainWindow.webContents.send('plan:changed',{compId:state.pinned,edit:state.overlayPlans[state.pinned]||null});
+      return {ok:true};
+    });
     ipcMain.handle('plan:edit',(event,action)=>{
       if(!accountReady())return {error:'Entre na sua conta para usar o planejador.'};
       if(!mainSender(event)&&event.sender!==guideWindow?.webContents)return {error:'Janela sem permissão.'};
@@ -1236,9 +1259,11 @@ if (primaryInstance)
       if (mainSender(event)) app.quit();
       else if (event.sender === guideWindow?.webContents) setOverlay(false);
     });
-    globalShortcut.register("CommandOrControl+Shift+O", () =>
-      setOverlay(!overlayEnabled),
-    );
+    const toggleGuide = () => setOverlay(!overlayEnabled);
+    const primaryShortcut = globalShortcut.register("CommandOrControl+Shift+O", toggleGuide);
+    const fallbackShortcut = !primaryShortcut && globalShortcut.register("CommandOrControl+Shift+Y", toggleGuide);
+    state.overlayShortcut = primaryShortcut ? "Ctrl+Shift+O" : fallbackShortcut ? "Ctrl+Shift+Y" : null;
+    if (!primaryShortcut) startupLog(`Overlay shortcut unavailable: Ctrl+Shift+O; fallback ${fallbackShortcut ? 'Ctrl+Shift+Y' : 'unavailable; use the app button'}`);
     globalShortcut.register("CommandOrControl+Shift+Q", () => app.quit());
     globalShortcut.register("CommandOrControl+Shift+G", () => {
       if (overlayEnabled) {if(state.gameSession.shopOnly)void toggleShopOnly();else updateGame({type:'collapse'});}

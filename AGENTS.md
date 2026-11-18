@@ -1,5 +1,13 @@
 # Zyon TFT
 
+## Reabertura e sincronização atuais
+
+Abertura MANUAL do guia deve aparecer no desktop sem exigir OCR/foco; medalhas continuam restritas à partida confirmada em foco. Reabrir expande recolhido/só loja sem resetar cópias. Registro de Ctrl+Shift+O deve conferir retorno e tentar Ctrl+Shift+Y se ocupado. UpdateService reconsulta o feed antes de baixar e instalar, substituindo oferta/instalador antigo; não voltar a bloquear checks apenas porque status é available/downloaded. Planejador principal grava via plan:commit atômico e ativa o plano editado; confirmação inclui comp canônica, revisão protege também saved.comps contra respostas atrasadas. Preservar pedidos/sinergias explícitos. Ver docs/reopen-latest-planner-sync.md e verificações isoladas de dois clientes/atualizador HTTP. Sem publicação implícita.
+
+## Monitor dos testes locais
+
+Lucas usa o monitor principal e proibiu testes nele: usar somente o monitor secundário livre (atualmente DISPLAY2, origem física -1920,0). Descobrir os displays reais antes de abrir QA e falhar se não houver secundário; não assumir coordenadas fixas. Em perfis isolados, direcionar monitor escolhido e janelas para esse display antes de autenticar/abrir overlays. Janelas transparentes de teste precisam permanecer click-through também após show/ready-to-show, porque o guia real reativa mouse após a criação. Nunca deixar uma janela invisível capturando cliques no monitor em uso. Não alterar o monitor/configuração do aplicativo pessoal.
+
 ## Rolagem de Dados
 
 `src/database-refinement.css` é a camada final específica de Dados: limitar a página à altura disponível e manter resultados com flex1/min-height0/overflowauto nas quatro abas. Abas/filtros/fontes não devem crescer junto com toda a tabela. Cabeçalho sticky apenas no thead, não também nos th. Visual das outras abas segue Campeões, com superfícies e linhas unificadas. `scripts/verify-database-scroll.mjs` verifica mouse/teclado/topo/fim em1920/1536/1050; detalhes em `docs/database-scroll.md`. Sem publicação implícita.

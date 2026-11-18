@@ -9,9 +9,10 @@ declare global {
       refreshCatalog: (force?: boolean) => Promise<any>;
       chooseBuild: (id: string) => Promise<boolean>;
       chooseComp: (id: string) => Promise<boolean>;
-      onBuild: (callback: (change: {id:string;revision:number}) => void) => () => void;
+      onBuild: (callback: (change: {id:string;revision:number;comp?:any}) => void) => () => void;
       getState: () => Promise<any>;
       editPlan: (action: any) => Promise<any>;
+      commitPlan: (comp: any) => Promise<any>;
       onPlan: (callback: (change: any) => void) => () => void;
       getSocial: () => Promise<any>;
       socialAction: (action: any) => Promise<any>;

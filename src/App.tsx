@@ -331,7 +331,7 @@ function Workbench() {
   }, [hydrated]);
   useEffect(
     () =>
-      window.zyon?.onBuild(({id,revision}) => {
+      window.zyon?.onBuild(({id,revision,comp:canonical}) => {
         setCompSelectionRevision(revision);
         followBuild.current = true;
         setLibraryScope("all");
@@ -340,9 +340,9 @@ function Workbench() {
         setStyleFilter("Todas");
         setExpanded(true);
         setSaved((prev) => {
-          const build = prev.comps.find((c) => c.id === id);
+          const build = canonical || prev.comps.find((c) => c.id === id);
           if (!build) return prev;
-          return { ...prev, pinned: id, active: id, selected: effectiveComp(build,prev.overlayPlans?.[id],byId).champions };
+          return { ...prev, comps:canonical?prev.comps.map(value=>value.id===id?canonical:value):prev.comps, pinned: id, active: id, selected: effectiveComp(build,prev.overlayPlans?.[id],byId).champions };
         });
       }),
     [],
@@ -456,7 +456,7 @@ function Workbench() {
     setOverlay(enabled);
     if (enabled)
       notify(
-        "Overlay pronto. Aparece no jogo após ler o ouro; Alt+Tab o esconde.",
+        "Guia aberto. As marcações da loja aparecem quando a partida estiver em foco e confirmada pelo OCR.",
       );
   }
   useEffect(
@@ -552,12 +552,13 @@ function Workbench() {
     setTab("planner");
   }
   function editPlan(next: Comp) {
-    if(saved.overlayPlans?.[next.id])void window.zyon?.editPlan({type:'restore',compId:next.id});
     next = personalizePlan(next) as Comp;
+    if(window.zyon)void window.zyon.commitPlan(next).then(result=>{if(result?.error)notify(result.error);});
     setSaved((prev) => ({
       ...prev,
+      pinned: next.id,
       comps: prev.comps.map((c) => (c.id === next.id ? next : c)),
-      selected: prev.pinned === next.id ? next.champions : prev.selected,
+      selected: next.champions,
     }));
   }
   function openPlanner(id?: string) {
@@ -1188,8 +1189,8 @@ function Workbench() {
                     <p>
                       Ative o overlay e a leitura para acompanhar nível, ouro e
                       compras. Consulte Equipe, Itens e Partida sem sair do
-                      jogo. Ctrl+Shift+G recolhe o guia; Ctrl+Shift+O oculta
-                      tudo. Ctrl+Shift+Q encerra o app. A leitura da loja pode
+                      jogo. Ctrl+Shift+G recolhe o guia; Ctrl+Shift+O abre ou oculta
+                      tudo (Ctrl+Shift+Y se o atalho principal estiver ocupado). Ctrl+Shift+Q encerra o app. A leitura da loja pode
                       ser iniciada no próprio guia; calibre em Preferências.
                     </p>
                   </div>
