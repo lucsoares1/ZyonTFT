@@ -9,7 +9,6 @@ public class ZyonForeground {
   [DllImport("user32.dll")] public static extern uint GetWindowThreadProcessId(IntPtr window, out uint id);
 }
 '@
-$previousPid = -1
 $gameProcess = $null
 $matchId = $null
 $lastKey = ''
@@ -20,22 +19,20 @@ while ($true) {
   $null = [ZyonForeground]::GetWindowThreadProcessId($foregroundWindow, [ref]$foregroundId)
   $ended = $null
   if ($gameProcess -and $gameProcess.HasExited) {
-    $ended = $matchId; $gameProcess.Dispose(); $gameProcess = $null; $matchId = $null; $previousPid = -1
+    $ended = $matchId; $gameProcess.Dispose(); $gameProcess = $null; $matchId = $null
   }
-  if ($foregroundId -ne $previousPid) {
-    $previousPid = $foregroundId
-    $foregroundGame = $false
-    $gameName = ''
-    try {
-      $candidate = [System.Diagnostics.Process]::GetProcessById([int]$foregroundId)
-      if (Test-ZyonGameProcess $candidate.ProcessName) {
-        $candidateId = "$foregroundId-$($candidate.StartTime.ToUniversalTime().Ticks)"
-        if ($gameProcess) { $gameProcess.Dispose() }
-        $gameProcess = $candidate; $matchId = $candidateId
-        $foregroundGame = $true; $gameName = $candidate.ProcessName
-      } else { $candidate.Dispose() }
-    } catch { $foregroundGame = $false; $gameName = '' }
-  }
+  $foregroundGame = $false
+  $gameName = ''
+  $candidate = $null
+  try {
+    $candidate = [System.Diagnostics.Process]::GetProcessById([int]$foregroundId)
+    if (Test-ZyonGameProcess $candidate.ProcessName) {
+      $candidateId = "$foregroundId-$($candidate.StartTime.ToUniversalTime().Ticks)"
+      if ($gameProcess) { $gameProcess.Dispose() }
+      $gameProcess = $candidate; $matchId = $candidateId
+      $foregroundGame = $true; $gameName = $candidate.ProcessName
+    } else { $candidate.Dispose() }
+  } catch { if ($candidate -and $candidate -ne $gameProcess) { $candidate.Dispose() }; $foregroundGame = $false; $gameName = '' }
   $presenceRecord = @{foreground=$foregroundGame;foregroundWindow=$foregroundWindow.ToInt64().ToString();processName=$gameName;matchId=$matchId;endedMatchId=$ended}
   $key = $presenceRecord | ConvertTo-Json -Compress
   if ($key -ne $lastKey -or ([DateTime]::UtcNow - $lastSent).TotalMilliseconds -ge 1000) {

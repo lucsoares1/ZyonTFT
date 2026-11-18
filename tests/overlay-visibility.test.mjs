@@ -10,6 +10,21 @@ const game = (id) => ({
   matchId: id,
 });
 const gold = { status: "confirmed", gold: 0 };
+test('Windows presence retries a transient lookup failure even when the foreground PID does not change', { skip: process.platform !== 'win32' }, () => {
+  let script = fs.readFileSync('electron/game-presence.ps1', 'utf8');
+  script = script.replace(". (Join-Path $PSScriptRoot 'game-process.ps1')", "function Test-ZyonGameProcess($name) { return $name -eq 'League of Legends' }");
+  script = script.replace('while ($true)', 'for ($sample=0; $sample -lt 3; $sample++)');
+  script = script.replace('$foregroundWindow = [ZyonForeground]::GetForegroundWindow()', '$foregroundWindow = [IntPtr]42');
+  script = script.replace('$null = [ZyonForeground]::GetWindowThreadProcessId($foregroundWindow, [ref]$foregroundId)', '$foregroundId = [uint32]123');
+  script = script.replace('[System.Diagnostics.Process]::GetProcessById([int]$foregroundId)', '(Get-ZyonTestCandidate)');
+  script = script.replace('Start-Sleep -Milliseconds 100', '$lastKey = ""');
+  const setup = `$script:attempt=0; function Get-ZyonTestCandidate { $script:attempt++; if($script:attempt -eq 1){throw 'Transient process lookup failure'}; $candidate=[pscustomobject]@{ProcessName='League of Legends';StartTime=[datetime]'2026-01-01';HasExited=$false};$candidate|Add-Member -MemberType ScriptMethod -Name Dispose -Value {};return $candidate };`;
+  const encoded = Buffer.from(setup + script, 'utf16le').toString('base64');
+  const output = execFileSync('powershell.exe', ['-NoProfile', '-NonInteractive', '-EncodedCommand', encoded], { windowsHide: true, timeout: 15000, encoding: 'utf8' });
+  const records = output.trim().split(/\r?\n/).map(line => JSON.parse(line));
+  assert.deepEqual(records.map(record => record.foreground), [false, true, true]);
+  assert.equal(records[1].matchId, records[2].matchId);
+});
 test('a confirmed round bar opens the focused game without gold; transient loss never removes its latch',()=>{
  const gate=new OverlayGate(),round={status:'confirmed',round:'3-3'};
  gate.presence(game('one'));assert.equal(gate.confirmRound('one',{...round,status:'confirming'}),false);

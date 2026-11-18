@@ -64,12 +64,13 @@ const {MatchStartTracker}=require('./match-start.cjs');
 const matchStart=new MatchStartTracker();
 const {freshRoundReading,acceptRound}=require('./round-ocr.cjs');
 const { OverlayGate } = require("./overlay-visibility.cjs");
+const { syncOverlayWindows } = require("./overlay-window.cjs");
 const overlayGate = new OverlayGate();
 const overlayPreview = !!(
   process.env.ZYON_USER_DATA && process.env.ZYON_OVERLAY_PREVIEW === "1"
 );
 const backgroundTest=!!(process.env.ZYON_USER_DATA&&process.env.ZYON_TEST_BACKGROUND==='1');
-let presenceProcess, presenceTimer, presenceWatchdog;
+let presenceProcess, presenceTimer, presenceWatchdog, presenceRestartTimer;
 let lastPresence = 0,
   focusBoundaryAt = 0;
 let readerSuppressed = false;
@@ -335,7 +336,7 @@ function showGuide() {
     },
   });
   guideWindow.setAlwaysOnTop(true, "screen-saver");
-  guideWindow.setContentProtection(true);
+  guideWindow.setContentProtection(false);
   guideWindow.setIgnoreMouseEvents(false);
   expectedGuideBounds=guideWindow.getBounds();
   guideWindow.on('resize',()=>{
@@ -369,7 +370,7 @@ function showGuide() {
   loadWindow(guideWindow, "guide");
 }
 function accountReady(){return Boolean(state.social?.user&&state.social?.profile);}
-function syncOverlayVisibility() {
+function syncOverlayVisibility({ raise = false } = {}) {
   state.gameForeground = overlayGate.foreground;
   // Missing OCR is not evidence that the game ended. Keep an attached guide
   // visible through carousel/augment screens and unreadable HUD frames.
@@ -386,11 +387,7 @@ function syncOverlayVisibility() {
     startupLog(`Overlay visibility: ${reason}`);
     lastOverlayVisibilityReason=reason;
   }
-  for (const window of [overlayWindow, guideWindow]) {
-    if (!window || window.isDestroyed()) continue;
-    if (visible && !window.isVisible()) window.showInactive();
-    else if (!visible && window.isVisible()) window.hide();
-  }
+  syncOverlayWindows([overlayWindow, guideWindow], visible, { raise });
 }
 function ensureAutomaticReader() {
   if (
@@ -440,11 +437,14 @@ function acceptPresence(data) {
     mainWindow?.webContents.send("reader:data", { slots: [], idle: true });
     broadcast();
   }
-  syncOverlayVisibility();
+  syncOverlayVisibility({ raise: !previousFocus && overlayGate.foreground });
   ensureAutomaticReader();
 }
 function startPresenceWatch() {
   if (overlayPreview || process.platform !== "win32") return;
+  clearTimeout(presenceRestartTimer);
+  clearInterval(presenceWatchdog);
+  lastPresence = Date.now();
   if (process.env.ZYON_USER_DATA && process.env.ZYON_PRESENCE_FIXTURE) {
     const read = () => {
       try {
@@ -482,15 +482,29 @@ function startPresenceWatch() {
     ],
     { windowsHide: true, stdio: ["ignore", "pipe", "pipe"] },
   );
-  const lines = readline.createInterface({ input: presenceProcess.stdout });
+  const worker = presenceProcess;
+  const lines = readline.createInterface({ input: worker.stdout });
   lines.on("line", (line) => {
+    if (presenceProcess !== worker) return;
     try {
-      acceptPresence(JSON.parse(line));
+      const record = JSON.parse(line);
+      if (!record || typeof record !== "object") return;
+      lastPresence = Date.now();
+      acceptPresence(record);
     } catch {}
   });
   const lost = () => {
+    if (presenceProcess !== worker) return;
+    presenceProcess = null;
+    lines.close();
+    worker.kill();
+    clearInterval(presenceWatchdog);
     overlayGate.away();
     syncOverlayVisibility();
+    if (!quitting) {
+      startupLog("Foreground watcher interrupted; restarting");
+      presenceRestartTimer = setTimeout(startPresenceWatch, 1000);
+    }
   };
   presenceProcess.on("error", lost);
   presenceProcess.on("exit", lost);
@@ -501,10 +515,12 @@ function startPresenceWatch() {
     if (Date.now() - lastPresence > 2500) {
       overlayGate.away();
       syncOverlayVisibility();
+      if (Date.now() - lastPresence > 5000) lost();
     }
   }, 500);
 }
 function stopPresenceWatch() {
+  clearTimeout(presenceRestartTimer);
   clearInterval(presenceTimer);
   clearInterval(presenceWatchdog);
   presenceProcess?.kill();
@@ -543,9 +559,7 @@ function setOverlay(enabled, { automatic = false } = {}) {
       },
     });
     overlayWindow.setIgnoreMouseEvents(true, { forward: true });
-    // Windows excludes this window from screen captures, so neither OCR nor
-    // original-card detection can latch onto our own medal/crystal outline.
-    overlayWindow.setContentProtection(true);
+    overlayWindow.setContentProtection(false);
     overlayWindow.setAlwaysOnTop(true, "screen-saver");
     overlayWindow.once("ready-to-show", () => {
       if (!quitting && overlayEnabled) {
