@@ -1,5 +1,9 @@
 # Zyon TFT
 
+## Rolagem de Dados
+
+`src/database-refinement.css` é a camada final específica de Dados: limitar a página à altura disponível e manter resultados com flex1/min-height0/overflowauto nas quatro abas. Abas/filtros/fontes não devem crescer junto com toda a tabela. Cabeçalho sticky apenas no thead, não também nos th. Visual das outras abas segue Campeões, com superfícies e linhas unificadas. `scripts/verify-database-scroll.mjs` verifica mouse/teclado/topo/fim em1920/1536/1050; detalhes em `docs/database-scroll.md`. Sem publicação implícita.
+
 ## Captura e retorno de foco atuais
 
 Pedido atual: overlay e marcações precisam aparecer em compartilhamento de monitor e se recuperar após Alt+Tab. `electron/overlay-window.cjs` restaura ambas as janelas e sua ordem/topmost sem chamar focus; `game-presence.ps1` não pode guardar falha de consulta até mudar PID. Observador reinicia após saída/travamento, com heartbeat mesmo sem login. `setContentProtection(false)` nas duas janelas supera a proteção histórica da0.17.20. Não reativar exclusão de captura sem tratar o requisito de compartilhamento. OCR e detecção visual foram verificados com medalhas/molduras realmente renderizadas sobre fixture, não partida real. Consulte `docs/overlay-capture-recovery.md`; não alegar teste de TeamSpeak/segundo PC ou publicação de instalador.

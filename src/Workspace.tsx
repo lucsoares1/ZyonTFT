@@ -446,7 +446,7 @@ export function Database({
         </span>
       </div>
       {tab === "augments" ? (
-        <section className="pivot-augments">
+        <section className="pivot-augments" tabIndex={0} aria-label="Lista de aprimoramentos">
           <p>
             Tiers editoriais do PivotTFT para o patch {dataset.patch}. A escolha
             depende da sua composição.
@@ -474,7 +474,7 @@ export function Database({
           {!augmentRows.length && <p className="catalog-empty">{focusOnly?"Esta comp não tem aprimoramentos que correspondam à busca. Desative o filtro para explorar o set.":"Nenhum aprimoramento encontrado."}</p>}
         </section>
       ) : tab === "champions" ? <ChampionTable units={units} statistics={statistics} onPlanner={onPlanner}/> : (
-        <div className="data-table-wrap">
+        <div className="data-table-wrap" key={tab} tabIndex={0} role="region" aria-label={tab === "traits" ? "Lista de características" : "Lista de itens"}>
           <table className={`data-table catalog-${tab}`} aria-label={tab === "traits" ? "Características do set" : "Itens do set"}>
             <colgroup>{(tab === "traits" ? ["index","name","levels","count","portraits"] : ["index","name","category","recipe","portraits"]).map(name=><col key={name} className={`catalog-col-${name}`}/>)}</colgroup>
             <thead>

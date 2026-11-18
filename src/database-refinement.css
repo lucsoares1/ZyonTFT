@@ -1,0 +1,89 @@
+.workspace-v4.zyon-reimagined .workspace-content:has(>.database-page) {
+  display: flex;
+  flex-direction: column;
+}
+.workspace-v4.zyon-reimagined .database-page {
+  flex: 1;
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+}
+.workspace-v4.zyon-reimagined .database-page>:is(.database-comp-focus,.database-tabs,.database-toolbar,.database-disclosure,.champion-stat-source) {
+  flex: none;
+}
+.workspace-v4.zyon-reimagined .database-page :is(.champion-performance-wrap,.data-table-wrap,.pivot-augments) {
+  flex: 1;
+  min-height: 0;
+  max-height: none;
+  overflow: auto;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
+  border: 1px solid var(--product-line);
+  border-radius: 12px;
+  background: var(--product-panel);
+}
+.workspace-v4.zyon-reimagined .database-page :is(.champion-performance-wrap,.data-table-wrap,.pivot-augments):focus-visible {
+  outline: 2px solid var(--product-focus);
+  outline-offset: -2px;
+}
+.workspace-v4.zyon-reimagined .database-page :is(.champion-performance-table,.data-table) {
+  margin: 0;
+  overflow: visible;
+  border-radius: 0;
+  background: transparent;
+}
+.workspace-v4.zyon-reimagined .database-page :is(.champion-performance-table,.data-table) th {
+  position: static;
+  height: 40px;
+  padding-block: 12px;
+  background: var(--product-raised);
+  color: var(--product-muted);
+  border-bottom: 1px solid var(--product-line);
+  font-size: 11px;
+  font-weight: 550;
+}
+.workspace-v4.zyon-reimagined .database-page :is(.champion-performance-table,.data-table) thead {
+  position: sticky;
+  top: 0;
+  z-index: 3;
+}
+.workspace-v4.zyon-reimagined .database-page :is(.champion-performance-table,.data-table) td {
+  height: 64px;
+  padding-block: 10px;
+  border-bottom: 1px solid var(--product-line);
+  color: #c3cede;
+  font-size: 12px;
+}
+.workspace-v4.zyon-reimagined .database-page :is(.champion-performance-table,.data-table) tr:last-child td { border-bottom: 0; }
+.workspace-v4.zyon-reimagined .database-page :is(.champion-performance-table,.data-table) tbody tr:hover td { background: #182130; }
+.workspace-v4.zyon-reimagined .database-page .pivot-augments { display: block; padding: 0; }
+.workspace-v4.zyon-reimagined .database-page .pivot-augments>p:first-child {
+  max-width: none;
+  width: 100%;
+  margin: 0;
+  padding: 12px 16px;
+  background: var(--product-raised);
+  color: var(--product-muted);
+  border-bottom: 1px solid var(--product-line);
+  font-size: 11px;
+}
+.workspace-v4.zyon-reimagined .database-page .pivot-augment-list { display: block; padding: 0; }
+.workspace-v4.zyon-reimagined .database-page .pivot-augment-list>div {
+  display: grid;
+  grid-template-columns: 38px minmax(0,1fr) 40px;
+  align-items: center;
+  gap: 16px;
+  min-height: 72px;
+  margin: 0;
+  padding: 12px 16px;
+  border: 0;
+  border-bottom: 1px solid var(--product-line);
+  border-radius: 0;
+  background: transparent;
+}
+.workspace-v4.zyon-reimagined .database-page .pivot-augment-list>div:last-child { border-bottom: 0; }
+.workspace-v4.zyon-reimagined .database-page .pivot-augment-list>div:hover { background: #182130; }
+.workspace-v4.zyon-reimagined .database-page .pivot-augment-list>div>img { width: 36px; height: 36px; object-fit: contain; }
+.workspace-v4.zyon-reimagined .database-page .pivot-augment-list strong { color: var(--product-ink); font-size: 13px; }
+.workspace-v4.zyon-reimagined .database-page .pivot-augment-list small { color: var(--product-muted); font-size: 11px; }
+.workspace-v4.zyon-reimagined .database-page :is(.database-disclosure,.champion-stat-source) { margin: 10px 0 0; color: var(--product-muted); font-size: 10px; }
