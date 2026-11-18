@@ -18,7 +18,7 @@
 .game-guide .plan-workbench .plan-unit { position: relative; padding: 0; border: 1px solid #27364d; border-radius: 8px; background: #111c2c; min-width: 0; overflow: hidden; }
 .game-guide .plan-workbench .plan-unit.is-focused { background: #11284b; border-color: #347aff; }
 .game-guide .plan-workbench .plan-unit { border-color: #27364d !important; }
-.game-guide .plan-workbench .plan-unit.is-focused { border-color: #347aff !important; }
+.game-guide .plan-workbench .plan-unit.is-focused { border-color: var(--control-accent) !important; }
 .game-guide .plan-workbench .plan-unit-select { display: flex; align-items: center; justify-content: flex-start; gap: 9px; width: 100%; min-height: 69px; padding: 9px 22px 9px 9px; border: 0; border-radius: 0; background: transparent; text-align: left; }
 .game-guide .plan-workbench .plan-unit-select>img { flex: 0 0 39px; width: 39px; height: 43px; object-fit: cover; border: 0; border-bottom: 2px solid var(--cost-color); border-radius: 5px; }
 .plan-unit-select>span { flex: 1; min-width: 0; }

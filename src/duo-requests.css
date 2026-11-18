@@ -45,5 +45,4 @@
 .duo-priority-tag[data-priority="2"]{background:#553265;color:#f6d2ff;}
 .duo-own-request[data-priority="2"],.duo-wish[data-priority="2"]{border-color:#77518f;}
 .social-native .duo-requests{padding:16px;}
-.native-overlay .shop-medal[data-kind="send"][data-priority="2"] .shop-medal-caption{background:#4d285f;border-color:#d6adff;color:#fff0ff;}
 @media(max-width:700px){.duo-requests{padding:15px;}.duo-requests>header{align-items:flex-start;}.duo-requests h3{font-size:13px;}.duo-requests header p{max-width:25ch;font-size:10px;}.social-panel .duo-requests>header button{font-size:10px;padding:7px 9px;}}

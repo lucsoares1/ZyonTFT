@@ -12,7 +12,7 @@ import {
 import { byId, portrait, type Comp } from "./data";
 import { BoardPanel, Items } from "./TftPanels";
 import {LevelRail} from "./LevelRail";
-import { boardPositions } from "./planning.mjs";
+import { plannedBoard } from "./board-preview.mjs";
 import {
   planForLevel,
   shopRules,
@@ -75,41 +75,7 @@ export function LevelGuide({
   const { context, strategy, team, decision } = plan;
   const update = (change: Partial<LevelContext>) =>
     onChange({ ...context, ...change });
-  const preview = useMemo(() => {
-    const catalog = Object.fromEntries(
-      Object.entries(byId).map(([id, c]) => [
-        id,
-        {
-          ...c,
-          role: shopRules.units[id]?.frontline
-            ? "Linha de frente"
-            : "Retaguarda",
-        },
-      ]),
-    );
-    const base = {
-      ...comp,
-      champions: team.ids,
-      carry: team.carry || comp.carry,
-      items: plan.equipment,
-      stars: Object.fromEntries(
-        team.ids.map((id) => [
-          id,
-          context.copies[id] >= 9
-            ? 3
-            : context.copies[id] >= 3
-              ? 2
-              : context.copies[id] > 0
-                ? 1
-                : 0,
-        ]),
-      ),
-    };
-    return {
-      ...base,
-      positions: boardPositions(base, catalog) as Record<string, number>,
-    };
-  }, [comp, team, plan.equipment, context.copies]);
+  const preview = useMemo(() => plannedBoard(comp, byId, plan, context.copies), [comp, plan, context.copies]);
   const editable = [
     ...new Set([...strategy.targets, ...strategy.ids, ...team.temporary]),
   ];
@@ -173,7 +139,7 @@ export function LevelGuide({
           <div className="level-section-title">
             <h4>Equipe sugerida no nível {context.level}</h4>
             <span>
-              {team.slots}/{context.level} espaços
+              {team.slots}/{team.capacity} espaços{team.capacity>context.level?` · +${team.capacity-context.level} da característica`:''}
             </span>
           </div>
           <div className="guide-board level-board">

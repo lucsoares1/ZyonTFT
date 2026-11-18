@@ -8,7 +8,7 @@ export const requiredPackagedFiles=[
  'electron/shop-reader.ps1','electron/game-presence.ps1','electron/cloud-config.json','electron/match-start.cjs','electron/round-ocr.cjs',
  'electron/ocr/eng.traineddata','dist/index.html','src/shop.mjs','src/duo-plans.mjs',
  'src/generated/catalog.json','src/generated/pivot.json','src/generated/pivot-registry.json',
- 'src/pivot-catalog.mjs','src/comp-catalog.mjs'
+ 'src/pivot-catalog.mjs','src/pivot-stats.mjs','src/comp-catalog.mjs'
 ];
 export const bootstrapRequiredFiles=['electron/bootstrap.cjs','electron/startup-guard.cjs','src/level-planner.mjs','src/generated/level-rules.json'];
 export function verifyPackagedFiles(archive,{requireBootstrap=true,builtDirectory=null}={}){

@@ -1,0 +1,992 @@
+{
+  "DA_Component_RecurveBow": {
+    "desc": "+10% de Velocidade de Ataque",
+    "stats": []
+  },
+  "DA_WarmogsArmor": {
+    "desc": "Recebe 18% de Vida máxima.",
+    "stats": [
+      "+500 Vida"
+    ]
+  },
+  "DA_Component_NeedlesslyLargeRod": {
+    "desc": "+10 de Poder de Habilidade",
+    "stats": []
+  },
+  "DA_ArchangelsStaff": {
+    "desc": "Início do combate: recebe 20% de Poder de Habilidade a cada 5s em combate.",
+    "stats": [
+      "+30 PdH",
+      "+1 Mana/s"
+    ]
+  },
+  "DA_VoidStaff": {
+    "desc": "O dano de ataques e habilidades causa 30% de Fragmentação ao alvo por 5s. Esse efeito não acumula.\nFragmentação: reduz a Resistência Mágica",
+    "stats": [
+      "+35 PdH",
+      "+15% Vel. Ataque",
+      "+1 Mana/s"
+    ]
+  },
+  "DA_TacticiansCape": {
+    "desc": "Sua equipe recebe +1 de tamanho máximo.\n10% de chance de conceder 1 de ouro após 10s de combate.\n\"... e um pouquinho de Sorte.\"",
+    "stats": []
+  },
+  "DA_SunfireCape": {
+    "desc": "Recebe 8% de Vida máxima.\nA cada 2s, causa 1% de Queimadura e 33% de Ferimento a um inimigo em um raio de 2 casas por 10s.\nQueimadura: Causa uma porcentagem da Vida máxima do alvo como Dano Verdadeiro a cada segundo.\nFerimento: Reduz a cura recebida.",
+    "stats": [
+      "+150 Vida",
+      "+20 Armadura"
+    ]
+  },
+  "DA_Component_NegatronCloak": {
+    "desc": "+20 de Resistência Mágica",
+    "stats": []
+  },
+  "DA_RabadonsDeathcap": {
+    "desc": "Esse humilde chapéu pode te ajudar a fazer (ou desfazer) o próprio mundo.",
+    "stats": [
+      "+55 PdH"
+    ]
+  },
+  "DA_IonicSpark": {
+    "desc": "Causa 30% de Fragmentação aos inimigos em até 2 casas adjacentes. Quando conjuram uma Habilidade, os inimigos sofrem Dano Mágico equivalente a 150% do Mana gasto.\nFragmentação: reduz a Resistência Mágica.",
+    "stats": [
+      "+15 PdH",
+      "+250 Vida",
+      "+35 Resist. Mágica"
+    ]
+  },
+  "DA_Component_GiantsBelt": {
+    "desc": "+150 de Vida",
+    "stats": []
+  },
+  "DA_BrambleVest": {
+    "desc": "Recebe 6% de Vida máxima.\nSofre 5% de dano reduzido de ataques. Ao ser atingido por qualquer ataque, causa 100 de Dano Mágico a todos os inimigos próximos.\nTempo de Recarga: 2s",
+    "stats": [
+      "+50 Armadura"
+    ]
+  },
+  "DA_SteadfastHeart": {
+    "desc": "Recebe 5% de Durabilidade. Enquanto estiver com mais de 50% de Vida, recebe 15% de Durabilidade.",
+    "stats": [
+      "+250 Vida",
+      "+20 Armadura",
+      "+20% Crítico"
+    ]
+  },
+  "DA_TacticiansCrown": {
+    "desc": "Sua equipe recebe +1 de tamanho máximo.\n10% de chance de conceder 1 de ouro ao vencer um combate.\n\"... o Coração de um herói...\"",
+    "stats": []
+  },
+  "DA_Component_ChainVest": {
+    "desc": "+20 de Armadura",
+    "stats": []
+  },
+  "DA_NashorsTooth": {
+    "desc": "Ataques concedem 2 de Mana adicional, aumentado para 4 em caso de Acerto Crítico.",
+    "stats": [
+      "+15 PdH",
+      "+10% Vel. Ataque",
+      "+150 Vida",
+      "+20% Crítico"
+    ]
+  },
+  "DA_TitansResolve": {
+    "desc": "Recebe 2% de Dano de Ataque e 2% de Poder de Habilidade ao atacar ou sofrer dano, acumulando até 25 vezes.\nCom o máximo de acúmulos, recebe 10% de Amplificação de Dano e imunidade a Controle de Grupo.",
+    "stats": [
+      "+10% Vel. Ataque",
+      "+20 Armadura"
+    ]
+  },
+  "DA_BlueBuff": {
+    "desc": "Recebe de Mana após conjurar.\nQuando o usuário consegue uma eliminação, causa % a mais de dano por 3s.\n[Único – apenas um por Campeão]",
+    "stats": [
+      "+10 PdH",
+      "+40 Mana"
+    ]
+  },
+  "DA_RedBuff": {
+    "desc": "Ataques e Habilidades causam 1% de Queimadura e 33% de Ferimento a inimigos por 5s.\nQueimadura: causa dano equivalente a uma porcentagem da Vida máxima do alvo como Dano Verdadeiro a cada segundo.\nFerimento: reduz a cura recebida.",
+    "stats": [
+      "+45% Vel. Ataque"
+    ]
+  },
+  "DA_AdaptiveHelm": {
+    "desc": "Recebe mais 15% de Mana de todas as origens. O usuário recebe um efeito adicional com base na Função:\nTanques e Lutadores: recebem 30 de Armadura e Resistência Mágica.\nOutras Funções: recebem 10% de Dano de Ataque e de Poder de Habilidade.",
+    "stats": [
+      "+20 Resist. Mágica",
+      "+3 Mana/s"
+    ]
+  },
+  "DA_18_EmblemHunter": {
+    "desc": "O usuário recebe a característica Caçador.",
+    "stats": []
+  },
+  "DA_18_EmblemExecutioner": {
+    "desc": "O usuário ganha a característica Carrasco.\nAtaques e Habilidades que causam Acerto Crítico causam 20% de Dano Verdadeiro adicional ao longo de 3s.",
+    "stats": [
+      "+20% Crítico"
+    ]
+  },
+  "DA_18_EmblemSlayer": {
+    "desc": "O usuário recebe a característica Devastador.",
+    "stats": []
+  },
+  "DA_18_EmblemInvoker": {
+    "desc": "O usuário ganha a característica Emanador. Ao conjurar, recebe Poder de Habilidade equivalente a 10% do Mana gasto.",
+    "stats": [
+      "+3 Mana/s"
+    ]
+  },
+  "DA_18_EmblemSpellweaver": {
+    "desc": "O usuário recebe a característica Enfeitiçador.",
+    "stats": []
+  },
+  "DA_18_EmblemBlackthorn": {
+    "desc": "O usuário recebe a característica Espinhos Negros.",
+    "stats": []
+  },
+  "DA_18_EmblemFae": {
+    "desc": "O usuário recebe a característica Feérico.",
+    "stats": []
+  },
+  "DA_18_EmblemBlossom": {
+    "desc": "O usuário recebe a característica Florescer.",
+    "stats": []
+  },
+  "DA_18_EmblemRapidfire": {
+    "desc": "O usuário ganha a característica Fumegante e 2 de alcance.",
+    "stats": [
+      "+10% Vel. Ataque"
+    ]
+  },
+  "DA_18_EmblemInferno": {
+    "desc": "O usuário recebe a característica Inferno.",
+    "stats": []
+  },
+  "DA_18_EmblemLunar": {
+    "desc": "O usuário recebe a característica Lunar.",
+    "stats": []
+  },
+  "DA_18_EmblemBrawler": {
+    "desc": "O usuário ganha a característica Lutador. Ataques causam 3% da Vida máxima do usuário como Dano Mágico.",
+    "stats": [
+      "+250 Vida"
+    ]
+  },
+  "DA_18_EmblemPrimal": {
+    "desc": "O usuário recebe a característica Primitiva.",
+    "stats": []
+  },
+  "DA_18_EmblemElderwood": {
+    "desc": "O usuário recebe a característica Sabugueiro.",
+    "stats": []
+  },
+  "DA_18_EmblemVanguard": {
+    "desc": "O usuário ganha a característica Vanguarda.\nO usuário recebe 150 de Vida máxima sempre que recebe um Escudo.",
+    "stats": [
+      "+150 Vida"
+    ]
+  },
+  "DA_18_EmblemSprykin": {
+    "desc": "O usuário recebe a característica Vivaz.",
+    "stats": []
+  },
+  "DA_TacticiansShield": {
+    "desc": "Sua equipe recebe +1 de tamanho máximo.\n10% de chance de conceder 1 de ouro quando o usuário morrer.\n\"Imbuído da sabedoria de um filósofo...\"",
+    "stats": []
+  },
+  "DA_Component_BFSword": {
+    "desc": "+1500% de Dano de Ataque",
+    "stats": []
+  },
+  "DA_Component_Spatula": {
+    "desc": "Isso deve fazer alguma coisa...",
+    "stats": []
+  },
+  "DA_Component_FryingPan": {
+    "desc": "... por que mais estaria aqui?",
+    "stats": []
+  },
+  "DA_KrakensFury": {
+    "desc": "Ataques concedem 3,5% de Dano de Ataque cumulativo, até 15 acúmulos. Depois de 15 ataques, recebe 15% de Velocidade de Ataque.",
+    "stats": [
+      "+10% DdA",
+      "+10% Vel. Ataque",
+      "+20 Resist. Mágica"
+    ]
+  },
+  "DA_DragonsClaw": {
+    "desc": "Recebe 6% de Vida máxima.\nCura 2,5% da Vida máxima a cada 2s.",
+    "stats": [
+      "+60 Resist. Mágica"
+    ]
+  },
+  "DA_InfinityEdge": {
+    "desc": "Recebe Precisão.\n{{TFT_Keyword_Precision}}",
+    "stats": [
+      "+35% DdA",
+      "+35% Crítico"
+    ]
+  },
+  "DA_ProtectorsVow": {
+    "desc": "Início do combate: Recebe 20 de Mana.\nCom 40% de Vida, recebe 15 de Mana e um Escudo igual a 20% da Vida máxima.",
+    "stats": [
+      "+25 Armadura",
+      "+25 Resist. Mágica",
+      "+1 Mana/s"
+    ]
+  },
+  "DA_Component_TearOfTheGoddess": {
+    "desc": "+1 de Regeneração de Mana",
+    "stats": []
+  },
+  "DA_GuinsoosRageblade": {
+    "desc": "Recebe 7% de Velocidade de Ataque cumulativa por segundo.",
+    "stats": [
+      "+10 PdH",
+      "+10% Vel. Ataque"
+    ]
+  },
+  "DA_Deathblade": {
+    "desc": "Paz e calma absolutas para o portador... e todos que o enfrentarem.",
+    "stats": [
+      "+30% DdA"
+    ]
+  },
+  "DA_SpearOfShojin": {
+    "desc": "Ataques concedem 5 de Mana adicional.",
+    "stats": [
+      "+15% DdA",
+      "+15 PdH",
+      "+1 Mana/s"
+    ]
+  },
+  "DA_EdgeOfNight": {
+    "desc": "Ao ficar com 60% de Vida, torna-se brevemente inalvejável, livra-se de efeitos negativos e cura 20% da Vida perdida.",
+    "stats": [
+      "+10% DdA",
+      "+10 PdH",
+      "+15% Vel. Ataque",
+      "+20 Armadura"
+    ]
+  },
+  "DA_ThiefsGloves": {
+    "desc": "A cada rodada: equipa 2 itens aleatórios.\n[Consome 3 espaços de item.]",
+    "stats": [
+      "+150 Vida",
+      "+20% Crítico"
+    ]
+  },
+  "DA_Component_SparringGloves": {
+    "desc": "+20 de Chance de Acerto Crítico",
+    "stats": []
+  },
+  "DA_StrikersFlail": {
+    "desc": "Acertos Críticos concedem 5% de Amplificação de Dano por 5s, acumulando até 4x.",
+    "stats": [
+      "+10% Vel. Ataque",
+      "+150 Vida",
+      "+20% Crítico"
+    ]
+  },
+  "DA_JeweledGauntlet": {
+    "desc": "Recebe Precisão.\n{{TFT_Keyword_Precision}}",
+    "stats": [
+      "+35 PdH",
+      "+35% Crítico"
+    ]
+  },
+  "DA_HandOfJustice": {
+    "desc": "Recebe 2 efeitos:15% de Dano de Ataque e 15% de Poder de Habilidade.12% de Vampirismo Universal.\nEnquanto estiver com mais de 50% de Vida, terá o dobro de Dano de Ataque e Poder de Habilidade. Enquanto estiver com menos de 50% de Vida, dobrará o Vampirismo Universal.",
+    "stats": [
+      "+1 Mana/s",
+      "+20% Crítico"
+    ]
+  },
+  "DA_GiantSlayer": {
+    "desc": "Recebe 15% de Amplificação de Dano adicional contra Tanques.",
+    "stats": [
+      "+15% DdA",
+      "+15 PdH",
+      "+15% Vel. Ataque"
+    ]
+  },
+  "DA_Quicksilver": {
+    "desc": "Início do combate: Recebe imunidade a Controle de Grupo por 18s.\nRecebe 3% de Velocidade de Ataque cumulativa por segundo.",
+    "stats": [
+      "+15% Vel. Ataque",
+      "+20 Resist. Mágica",
+      "+20% Crítico"
+    ]
+  },
+  "DA_Morellonomicon": {
+    "desc": "Ataques e Habilidades causam 1% de Queimadura e 33% de Ferimento aos inimigos por 10s.\nQueimadura: causa uma porcentagem da Vida máxima do alvo como Dano Verdadeiro a cada segundo.\nFerimento: reduz a cura recebida.",
+    "stats": [
+      "+20 PdH",
+      "+150 Vida",
+      "+1 Mana/s"
+    ]
+  },
+  "DA_HextechGunblade": {
+    "desc": "Cura o aliado com a menor porcentagem de Vida em 20% do dano causado.\nCura de aliado:",
+    "stats": [
+      "+20% DdA",
+      "+20 PdH",
+      "+1 Mana/s"
+    ]
+  },
+  "DA_GargoyleStoneplate": {
+    "desc": "Recebe 10 de Armadura e 10 de Resistência Mágica para cada inimigo que tiver o usuário como alvo.",
+    "stats": [
+      "+100 Vida",
+      "+25 Armadura",
+      "+25 Resist. Mágica"
+    ]
+  },
+  "DA_Evenshroud": {
+    "desc": "Causa 30% de Fatiamento aos inimigos em até 2 casas adjacentes. Recebe 15 de Armadura e Resistência Mágica nos primeiros 15s de combate.\nFatiamento: reduz a Armadura.",
+    "stats": [
+      "+250 Vida",
+      "+20 Resist. Mágica"
+    ]
+  },
+  "DA_Bloodthirster": {
+    "desc": "Uma vez por combate, ao ficar com 40% de Vida, recebe um Escudo de 25% da Vida máxima que dura até 5s.",
+    "stats": [
+      "+15% DdA",
+      "+15 PdH",
+      "+20 Resist. Mágica"
+    ]
+  },
+  "DA_SpiritVisage": {
+    "desc": "Regenera 2% da Vida perdida a cada segundo.",
+    "stats": [
+      "+300 Vida",
+      "+2 Mana/s"
+    ]
+  },
+  "DA_SteraksGage": {
+    "desc": "Quando está com 60% de Vida, o usuário recebe um escudo equivalente a 40% da própria Vida máxima que decai rapidamente por 4s.",
+    "stats": [
+      "+45% DdA",
+      "+300 Vida"
+    ]
+  },
+  "DA_Crownguard": {
+    "desc": "Início do combate: recebe um Escudo equivalente a 25% da Vida máxima por 8s.\nQuando o Escudo expira, recebe 25% de Poder de Habilidade.",
+    "stats": [
+      "+20 PdH",
+      "+100 Vida",
+      "+20 Armadura"
+    ]
+  },
+  "DA_LastWhisper": {
+    "desc": "O dano de ataques e habilidades causa 30% de Fatiamento ao alvo por 3s. Esse efeito não acumula.\nFatiamento: reduz a Armadura",
+    "stats": [
+      "+15% DdA",
+      "+20% Vel. Ataque",
+      "+20% Crítico"
+    ]
+  },
+  "DA_18_EmblemDefender": {
+    "desc": "O usuário ganha a característica Defendente.\nInício do combate: recebe 35% a mais de Armadura OU Resistência Mágica de todas as origens, dependendo de qual for maior.",
+    "stats": [
+      "+30 Armadura",
+      "+30 Resist. Mágica"
+    ]
+  },
+  "DA_Artifact_Dawncore": {
+    "desc": "Reduz o Mana máximo do usuário em 10. Conjurações subsequentes reduzem o Mana máximo em 10%, até um mínimo de 10.",
+    "stats": [
+      "+15% DdA",
+      "+15 PdH",
+      "+2 Mana/s"
+    ]
+  },
+  "DA_Artifact_LudensTempest": {
+    "desc": "100% do dano excedente mais 100 é causado como Dano Mágico aos dois inimigos mais próximos ao alvo.",
+    "stats": [
+      "+60% DdA",
+      "+60 PdH"
+    ]
+  },
+  "DA_AdaptiveHelm_Radiant": {
+    "desc": "Recebem mais 30% de Mana de todas as origens. O usuário recebe um efeito adicional com base na Função:\nTanques/Lutadores: recebem 80 de Armadura e Resistência Mágica.\nAtiradores/Conjuradores: recebem 40% de Dano de Ataque e de Poder de Habilidade.",
+    "stats": [
+      "+40 Resist. Mágica",
+      "+7 Mana/s"
+    ]
+  },
+  "DA_BlueBuffRadiant": {
+    "desc": "Recebe mais 20% de Dano de Ataque e de Poder de Habilidade de todas as origens.",
+    "stats": [
+      "+30% DdA",
+      "+30 PdH",
+      "+10 Mana/s"
+    ]
+  },
+  "DA_GiantSlayer_Radiant": {
+    "desc": "Recebe 30% de Amplificação de Dano adicional contra Tanques.",
+    "stats": [
+      "+30% DdA",
+      "+30 PdH",
+      "+30% Vel. Ataque"
+    ]
+  },
+  "DA_RabadonsDeathcap_Radiant": {
+    "desc": "Ele testemunhou e desencadeou milagres e calamidades.",
+    "stats": [
+      "+100 PdH"
+    ]
+  },
+  "DA_SteraksGageRadiant": {
+    "desc": "Quando está com 60% de Vida, o usuário recebe um escudo equivalente a 80% da própria Vida máxima que decai rapidamente por 6s.",
+    "stats": [
+      "+90% DdA",
+      "+600 Vida"
+    ]
+  },
+  "DA_ThiefsGlovesRadiant": {
+    "desc": "A cada rodada: equipa 2 itens Radiantes aleatórios.\n[Consome 3 espaços de item.]",
+    "stats": [
+      "+150 Vida",
+      "+20% Crítico"
+    ]
+  },
+  "DA_Artifact_SilvermereDawn": {
+    "desc": "Concede imunidade a Atordoamentos e os ataques do usuário Atordoam o alvo por 0,8s.\nA Velocidade de Ataque do usuário é limitada a 0,5.",
+    "stats": [
+      "+140% DdA",
+      "+80 Armadura",
+      "+80 Resist. Mágica"
+    ]
+  },
+  "DA_Artifact_WitsEnd": {
+    "desc": "Ataques causam de Dano Mágico adicional.\nCura o usuário em 30% de todo o Dano Mágico causado.\nO dano aumenta com base no Estágio.",
+    "stats": [
+      "+25% Vel. Ataque",
+      "+400 Vida",
+      "+20 Armadura",
+      "+20 Resist. Mágica"
+    ]
+  },
+  "DA_Artifact_EternalPact": {
+    "desc": "Início do combate: forma um pacto com o Campeão aliado com mais Vida. Se ele morre, recebe 10 de Regeneração de Mana e 40% de Poder de Habilidade.\nQuando o aliado usa a habilidade, recebe 15 de Mana. A cada 6s, dá ao aliado um Escudo com 200% do Poder de Habilidade do usuário.",
+    "stats": [
+      "+40 PdH",
+      "+1 Mana/s"
+    ]
+  },
+  "DA_18_EmblemFloraFatalisAugment": {
+    "desc": "O usuário recebe a característica Flora Fatalis.",
+    "stats": []
+  },
+  "DA_Artifact_HellfireHatchet": {
+    "desc": "Ataques causam 3% da Vida máxima do usuário como Dano Físico adicional. Para cada 1% da Vida perdida, recebe 1% de Velocidade de Ataque.",
+    "stats": [
+      "+20% DdA",
+      "+150 Vida"
+    ]
+  },
+  "DA_Artifact_HorizonFocus": {
+    "desc": "Atordoar um inimigo faz com que ele seja atingido por um relâmpago, causando 30% da Vida máxima dele como Dano Mágico.",
+    "stats": [
+      "+250 Vida",
+      "+20 Armadura",
+      "+20 Resist. Mágica",
+      "+2 Mana/s"
+    ]
+  },
+  "DA_18_EmblemJuggernaut": {
+    "desc": "O usuário ganha a característica Colosso.\nEnquanto estiver com mais de 50% de Vida, receberá 30% de Velocidade de Ataque.",
+    "stats": [
+      "+20 Resist. Mágica"
+    ]
+  },
+  "DA_Artifact_LichBane": {
+    "desc": "O primeiro ataque do usuário após cada conjuração de Habilidade causa de Dano Mágico adicional.\nO dano aumenta com base no Estágio.",
+    "stats": [
+      "+55 PdH",
+      "+10% Vel. Ataque"
+    ]
+  },
+  "DA_Artifact_LightshieldCrest": {
+    "desc": "A cada 3s, concede ao aliado com menor porcentagem de Vida um Escudo igual a 70% da Armadura e Resistência Mágica do usuário combinadas por 5s.\nAo morrer, concede esse Escudo a todos os aliados.",
+    "stats": [
+      "+55 Armadura",
+      "+55 Resist. Mágica"
+    ]
+  },
+  "DA_Artifact_Manazane": {
+    "desc": "Depois de conjurar uma habilidade pela primeira vez em combate, recebe 100 de Mana ao longo de 5s.\n[Único – apenas um por Campeão]",
+    "stats": [
+      "+15% DdA",
+      "+10 PdH",
+      "+15% Vel. Ataque",
+      "+1 Mana/s"
+    ]
+  },
+  "DA_BloodthirsterRadiant": {
+    "desc": "Uma vez por combate: ao ficar com 40% de Vida, recebe um Escudo de 50% da Vida máxima que dura até 5s.",
+    "stats": [
+      "+30% DdA",
+      "+30 PdH",
+      "+40 Resist. Mágica"
+    ]
+  },
+  "DA_BrambleVestRadiant": {
+    "desc": "Recebe 12% de Vida máxima.\nSofre 10% de dano reduzido de ataques. Ao ser atingido por qualquer ataque, causa 200 de Dano Mágico a todos os inimigos próximos.\nTempo de Recarga: 2s",
+    "stats": [
+      "+100 Armadura"
+    ]
+  },
+  "DA_EdgeOfNightRadiant": {
+    "desc": "Ao ficar com 60% de Vida, torna-se brevemente inalvejável e livra-se de efeitos negativos, curando toda a Vida perdida.",
+    "stats": [
+      "+30% DdA",
+      "+30 PdH",
+      "+30% Vel. Ataque",
+      "+40 Armadura"
+    ]
+  },
+  "DA_GuinsoosRagebladeRadiant": {
+    "desc": "Recebe 16% de Velocidade de Ataque cumulativa por segundo.",
+    "stats": [
+      "+20 PdH",
+      "+25% Vel. Ataque"
+    ]
+  },
+  "DA_InfinityEdgeRadiant": {
+    "desc": "Recebe Precisão.\n{{TFT_Keyword_Precision}}",
+    "stats": [
+      "+75% DdA",
+      "+75% Crítico"
+    ]
+  },
+  "DA_JeweledGauntletRadiant": {
+    "desc": "Recebe Precisão.\n{{TFT_Keyword_Precision}}",
+    "stats": [
+      "+75 PdH",
+      "+75% Crítico"
+    ]
+  },
+  "DA_LastWhisperRadiant": {
+    "desc": "O dano de ataques e habilidades causa 30% de Fatiamento ao alvo pelo resto do combate. Esse efeito não acumula.\nFatiamento: reduz a Armadura",
+    "stats": [
+      "+45% DdA",
+      "+40% Vel. Ataque",
+      "+40% Crítico"
+    ]
+  },
+  "DA_NashorsToothRadiant": {
+    "desc": "Ataques concedem 4 de Mana adicional, aumentado para 6 em caso de Acerto Crítico.",
+    "stats": [
+      "+30 PdH",
+      "+20% Vel. Ataque",
+      "+300 Vida",
+      "+40% Crítico"
+    ]
+  },
+  "DA_StrikersFlailRadiant": {
+    "desc": "Acertos Críticos concedem 10% de Amplificação de Dano por 5s, acumulando até 4x.",
+    "stats": [
+      "+20% Vel. Ataque",
+      "+300 Vida",
+      "+40% Crítico"
+    ]
+  },
+  "DA_TitansResolve_Radiant": {
+    "desc": "Recebe 4% de Dano de Ataque e 4% de Poder de Habilidade ao atacar ou sofrer dano, acumulando até 25 vezes.\nCom o máximo de acúmulos, recebe 20% de Amplificação de Dano e imunidade a Controle de Grupo.",
+    "stats": [
+      "+20% Vel. Ataque",
+      "+40 Armadura"
+    ]
+  },
+  "DA_Item_Artifact_TalismanOfAscension": {
+    "desc": "Depois de 22s, recebe 100% de Vida máxima e 120% de amplificação de dano pelo resto do combate.",
+    "stats": [
+      "+20% DdA",
+      "+20 PdH",
+      "+450 Vida"
+    ]
+  },
+  "DA_Artifact_AegisOfDusk": {
+    "desc": "A cada 2,5s, rouba 3 de Resistência Mágica de inimigos a até 1 casa de distância e causa % da Resistência Mágica do usuário como Dano Mágico.\nSe também estiver com Égide da Alvorada, aciona o efeito deste item a cada 1,25s em vez disso.\nO dano aumenta com base no Estágio.",
+    "stats": [
+      "+400 Vida",
+      "+70 Resist. Mágica"
+    ]
+  },
+  "DA_Artifact_BlightingJewel": {
+    "desc": "Causar Dano Mágico reduz a Resistência Mágica do alvo em 6. Se a Resistência Mágica do alvo for 0, em vez disso concede ao usuário 2 de Mana.\nO dano de habilidade aciona em um inimigo apenas uma vez a cada 0,5s.",
+    "stats": [
+      "+60 PdH",
+      "+2 Mana/s"
+    ]
+  },
+  "DA_Artifact_NavoriFlickerblade": {
+    "desc": "Ataques concedem 5% de Velocidade de Ataque cumulativa. A cada 3 ataques, concede 2% de Dano de Ataque e 2% de Poder de Habilidade.",
+    "stats": [
+      "+10 PdH",
+      "+20% Vel. Ataque"
+    ]
+  },
+  "DA_Artifact_GoldCollector": {
+    "desc": "Ataques e habilidades executam inimigos com menos de 12% de Vida máxima. Execuções têm 33% de chance de conceder 1 de ouro.\nOuro coletado: de ouro\n[Único – apenas um por Campeão]",
+    "stats": [
+      "+35% DdA",
+      "+20% Crítico"
+    ]
+  },
+  "DA_Artifact_InfinityForce": {
+    "desc": "Um montão de TUDO!",
+    "stats": [
+      "+30% DdA",
+      "+30 PdH",
+      "+30% Vel. Ataque",
+      "+300 Vida",
+      "+30 Armadura",
+      "+30 Resist. Mágica"
+    ]
+  },
+  "TFT_Item_Artifact_InnervatingLocket": {
+    "desc": "O usuário recebe 1% de seu Mana total sempre que é atingido por um ataque.\nCada conjuração restaura 20% da Vida máxima do usuário ao longo de 3s.",
+    "stats": [
+      "+150 Vida",
+      "+2 Mana/s"
+    ]
+  },
+  "TFT_Item_Artifact_MendingEchoes": {
+    "desc": "Aumenta a cura ao usuário em 25%. Quando o usuário concede ou recebe cura, também concede 40% do valor de todas as curas ao aliado com a Vida mais baixa.",
+    "stats": [
+      "+200 Vida",
+      "+2 Mana/s"
+    ]
+  },
+  "DA_Artifact_Mittens": {
+    "desc": "Encolhe o usuário, concedendo Velocidade de Movimento aumentada e imunidade a Lentidão, Queimadura e Ferimento.\n{{TFT_Keyword_Chill}}\n{{TFT_Keyword_Burn}}\n{{TFT_Keyword_Wound}}",
+    "stats": [
+      "+65% Vel. Ataque"
+    ]
+  },
+  "TFT_Item_Artifact_ProwlersClaw": {
+    "desc": "Após abater um alvo, livra-se de efeitos negativos e avança até o alvo mais distante em até 4 casas. Os próximos 2 Acertos Críticos causam 50% de Dano de Acerto Crítico adicional.",
+    "stats": [
+      "+35% DdA",
+      "+300 Vida",
+      "+45% Crítico"
+    ]
+  },
+  "DA_DragonsClawRadiant": {
+    "desc": "Recebe 28% de Vida máxima.\nCura 5% da Vida máxima a cada 2s.",
+    "stats": [
+      "+120 Resist. Mágica"
+    ]
+  },
+  "DA_EvenshroudRadiant": {
+    "desc": "Causa 30% de Fatiamento aos inimigos em até 3 casas adjacentes. Recebe 50 de Armadura e Resistência Mágica nos primeiros 20s de combate.\nFatiamento: reduz a Armadura.",
+    "stats": [
+      "+500 Vida",
+      "+40 Resist. Mágica"
+    ]
+  },
+  "DA_HandOfJusticeRadiant": {
+    "desc": "Recebe 2 efeitos:30% de Dano de Ataque e 30% de Poder de Habilidade.24% de Vampirismo Universal.\nEnquanto estiver com mais de 50% de Vida, terá o dobro de Dano de Ataque e Poder de Habilidade. Enquanto estiver com menos de 50% de Vida, dobrará o Vampirismo Universal.",
+    "stats": [
+      "+2 Mana/s",
+      "+40% Crítico"
+    ]
+  },
+  "DA_IonicSparkRadiant": {
+    "desc": "Causa 30% de Fragmentação aos inimigos em até 2 casas adjacentes. Quando conjuram uma Habilidade, os inimigos sofrem Dano Mágico equivalente a 300% do Mana gasto.\n[Item de dano direto]\nFragmentação: reduz a Resistência Mágica",
+    "stats": [
+      "+30 PdH",
+      "+500 Vida",
+      "+70 Resist. Mágica"
+    ]
+  },
+  "DA_KrakensFury_Radiant": {
+    "desc": "Ataques concedem 7% de Dano de Ataque cumulativo, até 15 acúmulos. Depois de 15 ataques, recebe 30% de Velocidade de Ataque.",
+    "stats": [
+      "+20% DdA",
+      "+20% Vel. Ataque",
+      "+40 Resist. Mágica"
+    ]
+  },
+  "DA_MorellonomiconRadiant": {
+    "desc": "Ataques e Habilidades causam 2% de Queimadura e 33% de Ferimento aos inimigos por 10s.\nQueimadura: Causa uma porcentagem da Vida máxima do alvo como Dano Verdadeiro a cada segundo.\nFerimento: Reduz a cura recebida.",
+    "stats": [
+      "+35 PdH",
+      "+300 Vida",
+      "+2 Mana/s"
+    ]
+  },
+  "DA_ProtectorsVowRadiant": {
+    "desc": "Início do combate: Recebe 40 de Mana.\nCom 40% de Vida, recebe 30 de Mana e um Escudo igual a 50% da Vida máxima.",
+    "stats": [
+      "+50 Armadura",
+      "+50 Resist. Mágica",
+      "+2 Mana/s"
+    ]
+  },
+  "DA_QuicksilverRadiant": {
+    "desc": "Início do combate: recebe imunidade a Controle de Grupo por 45s.\nRecebe 6% de Velocidade de Ataque cumulativa por segundo.",
+    "stats": [
+      "+40% Vel. Ataque",
+      "+40 Resist. Mágica",
+      "+40% Crítico"
+    ]
+  },
+  "DA_RedBuffRadiant": {
+    "desc": "Os ataques e Habilidades causam 2% de Queimadura e 33% de Ferimentos aos inimigos por 5s.\nQueimadura: causa dano equivalente a uma porcentagem da Vida máxima do alvo como Dano Verdadeiro a cada segundo.\nFerimento: reduz a cura recebida.",
+    "stats": [
+      "+80% Vel. Ataque"
+    ]
+  },
+  "DA_SunfireCape_Radiant": {
+    "desc": "Recebe 16% de Vida máxima.\nA cada 2s, causa 2% de Queimadura e 33% de Ferimento a um inimigo em até 2 casas adjacentes por 10s.\nQueimadura: Causa dano equivalente a uma porcentagem da Vida máxima do alvo como Dano Verdadeiro a cada segundo.\nFerimento: reduz a cura recebida.",
+    "stats": [
+      "+300 Vida",
+      "+40 Armadura"
+    ]
+  },
+  "DA_WarmogsArmorRadiant": {
+    "desc": "Recebe 36% de Vida máxima.",
+    "stats": [
+      "+1200 Vida"
+    ]
+  },
+  "DA_Artifact_RapidFireCannon": {
+    "desc": "Recebe +1 de Alcance de Ataque, aumentado em 1 sempre que o usuário abater um inimigo.",
+    "stats": [
+      "+65% Vel. Ataque"
+    ]
+  },
+  "DA_Artifact_SeekersArmguard": {
+    "desc": "Eliminações aumentam a Armadura, a Resistência Mágica e o Poder de Habilidade do usuário em 20.",
+    "stats": [
+      "+25 PdH",
+      "+10 Armadura",
+      "+10 Resist. Mágica"
+    ]
+  },
+  "TFT_Item_Artifact_SpectralCutlass": {
+    "desc": "Início do combate: teleporta o usuário para a mesma casa em que estiver, porém no lado inimigo do tabuleiro. Depois de 8s, o usuário retorna à casa original.",
+    "stats": [
+      "+40% DdA",
+      "+300 Vida",
+      "+20% Crítico"
+    ]
+  },
+  "DA_Artifact_StatikkShiv": {
+    "desc": "Todo terceiro ataque causa 30 + 50% do Poder de Habilidade do usuário como Dano Mágico adicional a 4 inimigos.",
+    "stats": [
+      "+15 PdH",
+      "+50% Vel. Ataque"
+    ]
+  },
+  "DA_Artifact_TheIndomitable": {
+    "desc": "A Velocidade de Movimento do usuário é drasticamente reduzida.\nRecebe imunidade a Atordoamento e 15% de Vida máxima, além de puxar o alvo para dentro do alcance corpo a corpo.",
+    "stats": [
+      "+500 Vida",
+      "+20 Armadura",
+      "+20 Resist. Mágica"
+    ]
+  },
+  "DA_Artifact_TitanicHydra": {
+    "desc": "Ataques causam 4% da Vida máxima e 6% do Dano de Ataque do usuário como Dano Físico adicional ao alvo e a inimigos adjacentes.",
+    "stats": [
+      "+20% DdA",
+      "+20% Vel. Ataque",
+      "+300 Vida"
+    ]
+  },
+  "TFT_Item_Artifact_UnendingDespair": {
+    "desc": "Sempre que um Escudo do usuário for quebrado, 150% do valor inicial desse Escudo é causado como Dano Mágico ao inimigo mais próximo.",
+    "stats": [
+      "+350 Vida",
+      "+40 Armadura"
+    ]
+  },
+  "DA_Artifact_VoidGauntlet": {
+    "desc": "Início do combate: armazena 30% da Vida máxima e mais 2,5% por segundo. Ao morrer, libera a Vida armazenada como Dano Mágico, que é dividido igualmente entre os inimigos em um raio de 4 casas.\n[Único – apenas um por Campeão]",
+    "stats": [
+      "+300 Vida"
+    ]
+  },
+  "DA_Artifact_ZhonyasParadox": {
+    "desc": "Uma vez por combate, ao ficar com 40% de Vida, torna-se invulnerável e inalvejável por 3s.\n[Único – apenas um por Campeão]",
+    "stats": [
+      "+25 PdH",
+      "+25 Armadura",
+      "+25 Resist. Mágica"
+    ]
+  },
+  "DA_Artifact_AegisOfDawn": {
+    "desc": "A cada 2,5s, rouba 3 de Armadura de inimigos a até 1 casa de distância e cura % da Armadura do usuário.\nSe também estiver com Égide do Crepúsculo, aciona o efeito deste item a cada 1,25s em vez disso.\nA cura aumenta com base no Estágio.",
+    "stats": [
+      "+400 Vida",
+      "+50 Armadura"
+    ]
+  },
+  "TFT_Item_Artifact_CappaJuice": {
+    "desc": "O usuário coloca um Chapéu a cada eliminação. O usuário recebe 1% de Dano de Ataque e Poder de Habilidade por Chapéu. Ao morrer, perde 20% de todos os Chapéus.&nbsp;(Chapéus:&nbsp;)",
+    "stats": [
+      "+25% DdA",
+      "+25 PdH",
+      "+25% Vel. Ataque"
+    ]
+  },
+  "TFT_Item_Artifact_CursedVampiricScepter": {
+    "desc": "Ataques causam 60% de Dano de Ataque adicional como Dano Físico e curam o usuário com base no dano causado.\nO usuário não pode conjurar sua Habilidade nem receber Mana.",
+    "stats": [
+      "+60% Vel. Ataque"
+    ]
+  },
+  "DA_18_EmblemCoven": {
+    "desc": "O usuário recebe a característica Congregação das Bruxas.",
+    "stats": []
+  },
+  "DA_Artifact_Fishbones": {
+    "desc": "Os ataques alvejam inimigos aleatórios.",
+    "stats": [
+      "+50% DdA",
+      "+50% Vel. Ataque"
+    ]
+  },
+  "DA_Artifact_ForbiddenIdol": {
+    "desc": "Escudos têm 50% do valor convertido em Vida máxima.",
+    "stats": [
+      "+200 Vida",
+      "+25 Armadura",
+      "+25 Resist. Mágica"
+    ]
+  },
+  "DA_Artifact_GamblersBlade": {
+    "desc": "Concede 1,5% de Velocidade de Ataque adicional por de ouro em seu banco (até 60 de ouro).\nCada ataque tem 7% de chance de conceder 1 de ouro.\nOuro gerado nesta partida:",
+    "stats": [
+      "+15 PdH",
+      "+15% Vel. Ataque"
+    ]
+  },
+  "DA_Artifact_Hullcrusher": {
+    "desc": "Início do combate: se não houver aliados adjacentes, recebe 400 de Vida, 10% de Dano de Ataque e 10% de Poder de Habilidade.",
+    "stats": [
+      "+60 Armadura",
+      "+60 Resist. Mágica"
+    ]
+  },
+  "TFT_Item_Artifact_LesserMirroredPersona": {
+    "desc": "Compartilha 15% do Dano de Ataque, Poder de Habilidade, Velocidade de Ataque, Armadura, Resistência Mágica e Vida adicionais do usuário com outros usuários de Persona Espelhada.\nNão é possível Reforjar\nÚnico: um por Campeão",
+    "stats": [
+      "+10% DdA",
+      "+10 PdH",
+      "+10% Vel. Ataque",
+      "+100 Vida",
+      "+10 Armadura",
+      "+10 Resist. Mágica"
+    ]
+  },
+  "TFT_Item_Artifact_MirroredPersona": {
+    "desc": "A cada 6 combates contra jogador, recebe uma cópia inferior de Persona Espelhada&nbsp;(/6).\nCompartilha 15% do Dano de Ataque, Poder de Habilidade, Velocidade de Ataque, Armadura, Resistência Mágica e Vida adicionais do usuário com outros usuários de Persona Espelhada.\nNão é possível Reforjar; cópias inferiores não produzem cópias\nÚnico: um por Campeão",
+    "stats": [
+      "+10% DdA",
+      "+10 PdH",
+      "+10% Vel. Ataque",
+      "+100 Vida",
+      "+10 Armadura",
+      "+10 Resist. Mágica"
+    ]
+  },
+  "DA_Artifact_MogulsMail": {
+    "desc": "Concede 1 de Armadura, 1 de Resistência Mágica e 10 de Vida ao sofrer dano, acumulando até 35 vezes.\nCom o máximo de acúmulos, concede 2 de ouro.\nOuro gerado nesta partida:",
+    "stats": [
+      "+350 Vida"
+    ]
+  },
+  "DA_ArchangelsStaffRadiant": {
+    "desc": "Início do combate: recebe 40% de Poder de Habilidade a cada 5s em combate.",
+    "stats": [
+      "+60 PdH",
+      "+2 Mana/s"
+    ]
+  },
+  "DA_CrownguardRadiant": {
+    "desc": "Início do combate: recebe um Escudo equivalente a 50% da Vida máxima por 8s.\nQuando o Escudo expira, recebe 50% de Poder de Habilidade.",
+    "stats": [
+      "+40 PdH",
+      "+200 Vida",
+      "+40 Armadura"
+    ]
+  },
+  "DA_DeathbladeRadiant": {
+    "desc": "Brilha na presença de inimigos. Ou de amigos. Ou de qualquer coisa viva, na verdade.",
+    "stats": [
+      "+100% DdA"
+    ]
+  },
+  "DA_GargoyleStoneplate_Radiant": {
+    "desc": "Recebe 20 de Armadura e 20 de Resistência Mágica para cada inimigo que tiver o usuário como alvo.",
+    "stats": [
+      "+300 Vida",
+      "+50 Armadura",
+      "+50 Resist. Mágica"
+    ]
+  },
+  "DA_HextechGunbladeRadiant": {
+    "desc": "Cura o aliado com a menor porcentagem de Vida em 40% do dano causado.\nCura de aliado:",
+    "stats": [
+      "+40% DdA",
+      "+40 PdH",
+      "+2 Mana/s"
+    ]
+  },
+  "DA_SpearOfShojinRadiant": {
+    "desc": "Ataques concedem 10 de Mana adicional.",
+    "stats": [
+      "+30% DdA",
+      "+30 PdH",
+      "+2 Mana/s"
+    ]
+  },
+  "DA_SpiritVisage_Radiant": {
+    "desc": "Regenera 4% da Vida perdida a cada segundo.",
+    "stats": [
+      "+700 Vida",
+      "+4 Mana/s"
+    ]
+  },
+  "DA_SteadfastHeartRadiant": {
+    "desc": "Recebe 10% de Durabilidade. Enquanto estiver com mais de 50% de Vida, recebe 30% de Durabilidade.",
+    "stats": [
+      "+600 Vida",
+      "+40 Armadura",
+      "+40% Crítico"
+    ]
+  },
+  "DA_VoidStaffRadiant": {
+    "desc": "O dano de ataques e habilidades causa 30% de Fragmentação ao alvo pelo resto do combate. Esse efeito não acumula.\nFragmentação: reduz a Resistência Mágica",
+    "stats": [
+      "+75 PdH",
+      "+30% Vel. Ataque",
+      "+2 Mana/s"
+    ]
+  },
+  "TFT_Item_Artifact_ShadowPuppet": {
+    "desc": "Faz surgir um clone que copia os itens do usuário. O clone tem 60% da Vida máxima e causa 40% do dano.\n[Único – apenas um por Campeão]",
+    "stats": [
+      "+10% Vel. Ataque",
+      "+10 Armadura",
+      "+10 Resist. Mágica"
+    ]
+  },
+  "TFT_Item_Artifact_SuspiciousTrenchCoat": {
+    "desc": "Uma vez por combate, ao ficar com 60% de Vida, o usuário se divide em 3 cópias de si, cada uma com 33% da Vida máxima.\n[Único – apenas um por Campeão]",
+    "stats": [
+      "+15% Vel. Ataque",
+      "+100 Vida"
+    ]
+  }
+}

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
 import {
   Activity,
   CircleDot,
@@ -20,16 +20,17 @@ import {
   Minus,
   Plus,
   RotateCcw,
+  X,
 } from "lucide-react";
 import { byId, portrait, splash, type Comp } from "./data";
-import { BoardPanel } from "./TftPanels";
+import { BoardPanel, UnitStrip } from "./TftPanels";
 import { OverlayRoster } from "./OverlayRoster";
 import { currentGold, currentLevel } from "./hud-reading.mjs";
 import {BrandMark} from "./Brand";
-import {LevelRail} from "./LevelRail";
 import {OverlayPlanner} from './OverlayPlanner';
 import {SocialPanel} from './SocialPanel';
 import {OverlayComps} from './OverlayComps';
+import {PerformanceSource,CarryBuildStats} from './CompPerformance';
 import { CompTierBadge } from "./CompTier";
 import { ItemRecipe } from "./CompGuide";
 import {
@@ -42,7 +43,7 @@ import {
 } from "./PivotGuide";
 import { pivotSnapshot } from "./data";
 import {augmentCatalog} from './comp-augments.mjs';
-import { boardPositions } from "./planning.mjs";
+import { plannedBoard } from "./board-preview.mjs";
 import {
   costOdds,
   planForLevel,
@@ -93,22 +94,6 @@ function GuideTabIcon({ tab }: { tab: Tab }) {
   return <Icon size={15} aria-hidden="true" />;
 }
 const names = (ids: string[]) => ids.map((id) => byId[id]?.name).join(", ");
-
-function plannedBoard(comp: Comp, plan: ReturnType<typeof planForLevel>, copies: LevelContext["copies"]) {
-  const catalog = Object.fromEntries(Object.entries(byId).map(([id, c]) => [id, {
-    ...c, role: shopRules.units[id]?.frontline ? "Linha de frente" : "Retaguarda",
-  }]));
-  const base = {
-    ...comp,
-    champions: plan.team.ids,
-    carry: plan.team.carry || comp.carry,
-    items: plan.equipment,
-    stars: Object.fromEntries(plan.team.ids.map((id: string) => [id,
-      copies[id] >= 9 ? 3 : copies[id] >= 3 ? 2 : copies[id] ? 1 : 0,
-    ])),
-  };
-  return {...base, positions: boardPositions(base, catalog) as Record<string, number>};
-}
 
 function Faces({
   ids,
@@ -169,12 +154,14 @@ export default function GameGuide() {
 function LiveGuide({ state }: { state: any }) {
   const session = state.gameSession as Session;
   const comp = state.guideComp as Comp | null;
+  const publishedComp=(comp?.pivot?comp:state.baseGuideComp?.pivot?state.baseGuideComp:null) as Comp|null;
   const { context, collapsed } = session;
   const duoConnected=Boolean(state.social?.session&&state.social?.partner);
   const tab=session.tab==='duo'&&!duoConnected?'now':session.tab;
   const visibleTabs=duoConnected?tabs:tabs.filter(([id])=>id!=='duo');
   const lastPurchase = session.purchases?.at(-1);
   const [clock, setClock] = useState(Date.now);
+  const [showRoster, setShowRoster] = useState(false);
   useEffect(() => {
     const timer = window.setInterval(() => setClock(Date.now()), 500);
     return () => window.clearInterval(timer);
@@ -212,7 +199,7 @@ function LiveGuide({ state }: { state: any }) {
     setConfirmReset(false);
     setCorrectCopies(false);
   }, [tab, comp?.id]);
-  useEffect(() => setTeamLevel(null), [comp?.id]);
+  useEffect(() => {setTeamLevel(null);setShowRoster(false);}, [comp?.id]);
   const plan = useMemo(
     () => (comp ? planForLevel(comp, byId, context) : null),
     [comp, context],
@@ -224,13 +211,13 @@ function LiveGuide({ state }: { state: any }) {
         : null,
     [comp, context],
   );
-  const levelPreview = useMemo(() => comp && plan ? plannedBoard(comp, plan, context.copies) : null,
+  const levelPreview = useMemo(() => comp && plan ? plannedBoard(comp, byId, plan, context.copies) : null,
     [comp, plan, context.copies]);
   const teamPlan = useMemo(() => comp ? teamLevel === null ? plan :
     planForLevel(comp, byId, {...context, level: viewedLevel}) : null,
     [comp, plan, context, teamLevel, viewedLevel]);
   const preview = useMemo(() => finalTeam ? comp : comp && teamPlan ?
-    plannedBoard(comp, teamPlan, context.copies) : null,
+    plannedBoard(comp, byId, teamPlan, context.copies) : null,
     [comp, finalTeam, teamPlan, context.copies]);
   const phase =
     context.level <= 4
@@ -260,40 +247,17 @@ function LiveGuide({ state }: { state: any }) {
   </section>;
   return (
     <section
-      className={`game-guide game-wide ${collapsed ? "game-collapsed" : ""}`}
+      className={`game-guide game-wide zy-native-reference ${collapsed ? "game-collapsed" : ""}`}
       style={{ opacity: Math.max(0.75, state.opacity / 100) }}
       aria-label="Guia da partida"
     >
-      <header
-        className="game-heading"
-        style={
-          comp
-            ? {
-                backgroundImage: `linear-gradient(90deg, #0a0f1888, #0a0f18e8 210px, #0a0f18 300px), url(${splash(comp.carry)})`,
-              }
-            : undefined
-        }
-      >
-        <div className="game-heading-identity">
+      <header className="game-heading">
+        <div className="zy-overlay-windowbar">
           <span className="guide-drag-grip" title="Arraste pelo cabeçalho para mover o painel"><GripVertical size={15}/></span>
-          <span className="game-wordmark">
-            <BrandMark/>{" "}
-            <small>
-              {state.overlayPreview ? "Prévia do overlay" : "Seu plano de jogo"}
-            </small>
-          </span>
-          <div className="game-heading-title">
-            {comp && <CompTierBadge comp={comp} />}
-            <button className="game-comp-trigger" aria-label="Trocar composição no overlay" title="Trocar composição" onClick={()=>{void send({type:'tab',value:'comps'});if(collapsed)void send({type:'collapse'});}}><h1 title={comp?.name}>{comp?.name || "Escolher comp"}</h1><ChevronDown size={13}/></button>
-          </div>
-          <span className="game-heading-style">
-            {plan?.strategy.reroll
-              ? `Reroll no nível ${plan.strategy.targetLevel}`
-              : comp?.style || "Fixe uma comp no aplicativo"}
-          </span>
-        </div>
-        {comp && <OverlayRoster comp={comp} />}
+          <span className="zy-overlay-product"><BrandMark/><strong>Zyon TFT</strong></span>
+          <span className="zy-overlay-reader" data-active={state.readerActive&&!state.readerError} data-error={Boolean(state.readerError)}>{state.readerError?'Erro de leitura':state.readerActive?'OCR ligado':'OCR pausado'}</span>
         <div className="game-heading-controls">
+          {!collapsed&&<button title={state.gameSession?.guideExpanded?'Voltar ao painel':'Ampliar overlay'} aria-label={state.gameSession?.guideExpanded?'Voltar ao painel':'Ampliar overlay'} onClick={()=>send({type:'guide-expand'})}><Maximize2 size={16}/></button>}
           <button
             data-guide-shop-toggle
             title="Só avisos da loja"
@@ -309,7 +273,19 @@ function LiveGuide({ state }: { state: any }) {
           >
             {collapsed ? <ChevronDown size={18} /> : <ChevronUp size={18} />}
           </button>
+          <button title="Ocultar overlay" aria-label="Ocultar overlay" onClick={()=>window.zyon?.close()}><X size={17}/></button>
         </div>
+        </div>
+        <div className="zy-overlay-plan">
+          {comp&&!collapsed&&<img className="zy-overlay-portrait" src={portrait(comp.carry)} alt="" draggable={false}/>}
+          <div className="zy-overlay-identity">
+            <button className="game-comp-trigger" aria-label="Trocar composição no overlay" title="Trocar composição" onClick={()=>{void send({type:'tab',value:'comps'});if(collapsed)void send({type:'collapse'});}}><h1 title={comp?.name}>{comp?.name || "Escolher composição"}</h1><ChevronDown size={14}/></button>
+            <div className="zy-overlay-plan-meta">{comp&&<CompTierBadge comp={comp}/>}<span>{plan?.strategy.reroll?`Reroll no nível ${plan.strategy.targetLevel}`:comp?.style||'Escolha seu plano para começar'}</span></div>
+          </div>
+          {comp&&collapsed&&<div className="zy-overlay-mini-roster" aria-label="Equipe completa no modo compacto" style={{'--mini-count':comp.champions.length} as CSSProperties}><UnitStrip comp={comp}/></div>}
+          {comp&&!collapsed&&<button className="zy-overlay-roster-toggle" aria-expanded={showRoster} aria-controls="zy-overlay-roster" onClick={()=>setShowRoster(value=>!value)}><Users size={15}/>{showRoster?'Ocultar equipe':'Ver equipe'}{showRoster?<ChevronUp size={13}/>:<ChevronDown size={13}/>}</button>}
+        </div>
+        {comp&&showRoster&&!collapsed&&<div className="zy-overlay-roster" id="zy-overlay-roster"><OverlayRoster comp={comp}/></div>}
       </header>
       {collapsed ? (
         <button
@@ -321,7 +297,7 @@ function LiveGuide({ state }: { state: any }) {
             <Coins size={12} />
             {goldValue}
           </span>
-          <span>{!hudKnown && comp ? "Atualizando dados do jogo…" : plan?.decision.title || "Fixe uma comp no app"}</span>
+          <span>{!state.readerActive?'OCR pausado':!hudKnown && comp ? "Atualizando dados do jogo…" : plan?.decision.title || "Fixe uma comp no app"}</span>
           <ChevronDown size={14} />
         </button>
       ) : (
@@ -351,7 +327,7 @@ function LiveGuide({ state }: { state: any }) {
                 Automático
               </span>
             </div>
-            <p className="game-level-status">
+            <div className="zy-overlay-reading-context"><p className="game-level-status">
               {!state.readerActive
                   ? "Inicie o OCR abaixo para acompanhar o nível do jogo."
                   : levelKnown
@@ -379,14 +355,23 @@ function LiveGuide({ state }: { state: any }) {
                 </span>
               )}
             </div>
+            </div>
           </div>
-          <nav className="game-tabs" aria-label="Guia no jogo" role="tablist" style={{'--guide-tab-count':visibleTabs.length} as React.CSSProperties}>
+          <div className="zy-overlay-workspace">
+          <nav className="game-tabs" aria-label="Guia no jogo" role="tablist" aria-orientation="vertical" onKeyDown={event=>{
+            if(!['ArrowUp','ArrowDown','Home','End'].includes(event.key))return;
+            event.preventDefault();
+            const current=visibleTabs.findIndex(([id])=>`game-tab-${id}`===(event.target as HTMLElement).closest('button')?.id);
+            const index=event.key==='Home'?0:event.key==='End'?visibleTabs.length-1:(current+(event.key==='ArrowDown'?1:-1)+visibleTabs.length)%visibleTabs.length;
+            const nextTab=visibleTabs[index][0];void send({type:'tab',value:nextTab});document.getElementById(`game-tab-${nextTab}`)?.focus();
+          }}>
             {visibleTabs.map(([id, label]) => (
               <button
                 role="tab"
                 id={`game-tab-${id}`}
                 aria-controls="game-content"
                 aria-selected={id === tab}
+                tabIndex={id===tab?0:-1}
                 key={id}
                 onClick={() => send({ type: "tab", value: id })}
               >
@@ -399,6 +384,7 @@ function LiveGuide({ state }: { state: any }) {
             className={`game-content game-tab-${tab}`}
             id="game-content"
             role="tabpanel"
+            tabIndex={0}
             aria-labelledby={`game-tab-${tab}`}
             ref={scroller}
           >
@@ -406,13 +392,14 @@ function LiveGuide({ state }: { state: any }) {
               <div className="game-empty">
                 <h2>Escolha seu plano</h2>
                 <p>
-                  No app, abra uma composição e clique em “Fixar comp”. O passo
-                  a passo aparece aqui desde o nível 1.
+                  Abra Comps na lateral, consulte uma composição e escolha seu plano para o overlay.
                 </p>
+                <button onClick={()=>send({type:'tab',value:'comps'})}>Escolher composição<ArrowRight size={14}/></button>
               </div>
             ) : (
               <>
                 {tab==='planner'&&<OverlayPlanner state={state}/>}
+                {publishedComp&&!comp.pivot&&['now','team'].includes(tab)&&<div className="zy-path-reference">Seu plano tem ajustes de elenco. Esta equipe acompanha esses ajustes.<button className="zy-source-restore" onClick={()=>void window.zyon?.editPlan({type:'restore',compId:comp.id})}>Restaurar plano do guia</button></div>}
                 {tab === "route" && (
                   <>
                     <BuildSwitch
@@ -423,13 +410,17 @@ function LiveGuide({ state }: { state: any }) {
                       )}
                       onBuild={(id) => window.zyon?.chooseBuild(id)}
                     />
-                    {comp.pivot ? (
+                    {publishedComp ? (
+                     <>
+                      {publishedComp!==comp&&<p className="game-caption">Roteiro original do guia PivotTFT. Seu plano ajustado continua em Agora e Equipe.</p>}
                       <PivotGuide
-                        comp={comp}
+                        comp={publishedComp}
                         level={context.level}
+                        context={context}
                         compact
                         wide
                       />
+                     </>
                     ) : (
                       <p>
                         Esta comp usa o roteiro adaptativo. Veja as peças e
@@ -438,7 +429,7 @@ function LiveGuide({ state }: { state: any }) {
                     )}
                   </>
                 )}
-                {tab === "augments" && <AugmentGuide comp={comp} />}
+                {tab === "augments" && <><header className="overlay-page-heading"><h2>Aprimoramentos</h2></header><AugmentGuide comp={comp} /></>}
                 {tab === "now" && (
                   <div className="game-now-layout">
                     <div className="game-now-main">
@@ -561,7 +552,7 @@ function LiveGuide({ state }: { state: any }) {
                       <div className="game-board-caption">
                         <strong>Seu tabuleiro no nível {context.level}</strong>
                         <span>
-                          {plan.team.slots}/{context.level} espaços · sugestão
+                          {plan.team.slots}/{plan.team.capacity} espaços{plan.team.capacity>context.level?` · +${plan.team.capacity-context.level} da característica`:''} · sugestão
                           do plano
                         </span>
                       </div>
@@ -622,14 +613,16 @@ function LiveGuide({ state }: { state: any }) {
                 )}
                 {tab === "team" && teamPlan && (
                   <div className="game-team-layout">
+                    <div className="overlay-team-heading"><h2>Equipe</h2><select aria-label="Consultar equipe por nível" value={teamLevel===null?'now':teamLevel} onChange={event=>setTeamLevel(event.target.value==='now'?null:event.target.value==='final'?'final':Number(event.target.value))}><option value="now">Equipe agora</option>{[1,2,3,4,5,6,7,8,9,10].map(level=><option value={level} key={level}>Nível {level}</option>)}<option value="final">Equipe final</option></select></div>
                     <div className="game-team-board">
                       <div className="game-subtabs">
                         <button
                           aria-pressed={teamLevel === null}
                           onClick={() => setTeamLevel(null)}
                         >
-                          Agora · Nv. {levelValue}
+                          Agora
                         </button>
+                        <button aria-pressed={teamLevel===teamPlan.strategy.targetLevel} onClick={()=>setTeamLevel(teamPlan.strategy.targetLevel)}>Nv. {teamPlan.strategy.targetLevel}</button>
                         <button
                           aria-pressed={finalTeam}
                           onClick={() => setTeamLevel("final")}
@@ -637,15 +630,12 @@ function LiveGuide({ state }: { state: any }) {
                           Equipe final
                         </button>
                       </div>
-                      <LevelRail levels={[1,2,3,4,5,6,7,8,9,10]} value={finalTeam?null:viewedLevel}
-                        live={liveLevel} target={teamPlan.strategy.targetLevel} onChange={setTeamLevel}
-                        trackClass="game-team-levels" label="Consultar equipe por nível" buttonLabel={level=>`Consultar nível ${level}`}/>
                       <p className="game-caption">
                         {finalTeam
                           ? "Referência do plano completo; não é a equipe para comprar agora."
-                          : `Nível ${viewedLevel} · ${teamPlan.team.slots}/${viewedLevel} espaços. ${teamLevel === null ? "Equipe sugerida para agora." : "Consulta do plano; o nível no jogo continua automático."}`}
+                          : `Nível ${viewedLevel} · ${teamPlan.team.slots}/${teamPlan.team.capacity} espaços${teamPlan.team.capacity>viewedLevel?` · +${teamPlan.team.capacity-viewedLevel} da característica`:''}. ${teamLevel === null ? "Equipe sugerida para agora." : "Consulta do plano; o nível no jogo continua automático."}`}
                       </p>
-                      {preview && <BoardPanel comp={preview} native />}
+                      {preview && <BoardPanel comp={preview} native traitProgress />}
                     </div>
                     <div className="game-team-info">
                       <section className="game-section">
@@ -716,6 +706,8 @@ function LiveGuide({ state }: { state: any }) {
                 )}
                 {tab === "items" && (
                   <>
+                    <header className="overlay-page-heading"><h2>Itens</h2><PerformanceSource comp={comp}/></header>
+                    <CarryBuildStats comp={comp}/>
                     <ItemOrder comp={comp} />
                     <section className="game-section">
                       <h2>Equipe agora, transfira depois</h2>
@@ -956,6 +948,7 @@ function LiveGuide({ state }: { state: any }) {
                 )}
               </>
             )}
+          </div>
           </div>
           <footer className="game-footer">
             <button onClick={() => window.zyon?.setReader(!state.readerActive)}>

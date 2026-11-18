@@ -1,3 +1,5 @@
+import { CompFace } from "./ZyonPieces";
+import {SettingsLayout} from './SettingsLayout';
 import { useEffect, useMemo, useRef, useState } from "react";
 import { version as appVersion } from "../package.json";
 import {
@@ -45,7 +47,7 @@ import { TierBadge, CompTierBadge } from "./CompTier";
 import { buildCompSections, tierSections, compTier } from "./comp-tiers.mjs";
 import { matchShop, recognizeNames, mergeOverlaySnapshot, mergeShopUpdate } from "./shop.mjs";
 import ScreenshotProof from "./ScreenshotProof";
-import { Planner, Database, PlanAside, TraitStrip } from "./Workspace";
+import { Planner, Database, PlanAside, PreparationAside, TraitStrip } from "./Workspace";
 import { moveUnit, boardPositions, personalizePlan } from "./planning.mjs";
 import { BoardPanel, UnitStrip, Items, equipmentFor } from "./TftPanels";
 import { CompGuide, guideTabs, type GuideTab } from "./CompGuide";
@@ -58,7 +60,9 @@ import {
 import GameGuide from "./GameGuide";
 import { ShopMedal, ShopFrostFrame } from "./ShopMedal";
 import { BrandMark } from "./Brand";
-import { CompSpotlight } from "./CompSpotlight";
+import {PlanNavigation} from "./PlanNavigation";
+import {SourcesPanel} from "./SourcesPanel";
+import {CompPerformance,CompactAugments} from './CompPerformance';
 import {SidebarComp} from "./SidebarComp";
 import {SocialPanel,useSocial} from './SocialPanel';
 import {SocialNotifications} from './SocialNotifications';
@@ -482,13 +486,18 @@ function Workbench() {
       setStatus("Leitura pausada");
     }
   }
-  function pin() {
-    if (saved.pinned === active.id) {
+  function pin(target: Comp = active) {
+    if (saved.pinned === target.id) {
       update({ pinned: null });
       notify("Comp desafixada. Os destaques da loja foram limpos.");
     } else {
-      update({ pinned: active.id, selected: active.champions });
-      notify(`${active.name} fixada no overlay.`);
+      const resolved = effectiveComp(
+        target,
+        saved.overlayPlans?.[target.id],
+        byId,
+      ) as Comp;
+      update({ pinned: target.id, selected: resolved.champions });
+      notify(`${target.name} fixada no overlay.`);
     }
   }
   function toggleChampion(id: string) {
@@ -577,6 +586,8 @@ function Workbench() {
     duo: "Duplas Dinâmicas",
     account: "Minha conta",
     help: "Como funciona",
+    sources: "Fontes e dados",
+    preparation: "Preparação",
   };
   const matching = saved.comps.filter(
     (c) =>
@@ -601,6 +612,7 @@ function Workbench() {
     setGuideTab(section);setEditor(false);setExpanded(true);
     requestAnimationFrame(()=>document.querySelector(`.comp-row[data-comp-id="${comp.id}"]`)?.scrollIntoView({block:"start",behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"}));
   }
+  const planAsideProps={comp:pinned?{...pinned,champions:saved.selected}:undefined,owned:pinned?saved.checklists?.[pinned.id]||[]:[],onOwnedChange:(owned:string[])=>{if(pinned)setSaved(prev=>({...prev,checklists:{...prev.checklists,[pinned.id]:owned}}))},overlay,reader,hits,onPlanner:()=>{if(pinned)update({active:pinned.id});setTab('planner')},onOverlay:toggleOverlay,onUnpin:()=>update({pinned:null}),onSettings:()=>setTab('overlay'),onGuide:(section:GuideTab)=>{if(pinned)exploreComp(pinned,section)}};
   return (
     <PivotTiersContext.Provider value={catalogStatus.snapshot.tiers}>
     <PivotAugmentContext.Provider value={catalogAugments}>
@@ -609,7 +621,7 @@ function Workbench() {
           <div className="brand" title="Zyon TFT">
             <BrandMark />
             <div>
-              zyon<span>Seu próximo tabuleiro.</span>
+              Zyon TFT<span>Teamfight Tactics</span>
             </div>
           </div>
           <div className="sidebar-set">
@@ -622,7 +634,7 @@ function Workbench() {
             </div>
           </div>
           <nav aria-label="Navegação principal">
-            <span className="nav-group-label">Jogar TFT</span>
+
             {[
               ["comps", "Composições", Layers3],
               ["planner", "Planejador", LayoutGrid],
@@ -640,7 +652,7 @@ function Workbench() {
                   aria-description={id==='duo'&&social?.notices?.length?`${social.notices.length} pedidos pendentes`:undefined}
                 >
                   <NavIcon size={19} />
-                  <span>{name as string}</span>
+                  <span>{({comps:"Composições",planner:"Planejador",champions:"Dados",duo:"Dupla"} as Record<string,string>)[id as string]}</span>
                   {id==='duo'&&!!social?.notices?.length&&<b className="social-unread-count" aria-label={`${social.notices.length} pedidos pendentes`}>{social.notices.length}</b>}
                   {tab === id && (
                     <ChevronDown className="nav-current" size={12} />
@@ -650,8 +662,9 @@ function Workbench() {
             })}
           </nav>
           <SidebarComp comp={pinned} onTeam={()=>{if(pinned)exploreComp(pinned,"units");}}
-            onRoute={()=>{if(pinned)exploreComp(pinned,"progression");}} onOverlay={()=>setTab("overlay")}/>
+            onRoute={()=>{if(pinned)exploreComp(pinned,"progression");}} onOverlay={()=>setTab("overlay")} onOpen={section=>{if(pinned)exploreComp(pinned,section)}} onPreparation={()=>setTab('preparation')}/>
           <div className="sidebar-bottom">
+            <button onClick={()=>setTab('sources')} aria-label="Fontes e dados" title="Fontes e dados"><ShieldCheck size={18}/><span>Fontes e dados</span></button>
             <button onClick={() => setTab("help")} title="Como funciona">
               <CircleHelp size={18} />
               <span>Como funciona</span>
@@ -672,6 +685,7 @@ function Workbench() {
           </div>
         </aside>
         <div className="main-shell">
+          <img className="zy-shell-art" src={splash(active.carry)} alt="" draggable={false} fetchPriority="high"/>
           <header className="topbar">
             <div className="app-wordmark">
               ZYON <span>TFT</span>
@@ -729,22 +743,15 @@ function Workbench() {
               </button>
             </div>
           </div>
-          {(tab === "comps" || tab === "planner") && <nav className="preparation-flow" aria-label="Fluxo da composição">
-            <button aria-current={tab==="comps"&&!expanded?"step":undefined} onClick={()=>{setTab("comps");setExpanded(false);requestAnimationFrame(()=>document.querySelector(".comp-feed")?.scrollTo({top:0,behavior:"auto"}));}}><Layers3 size={15}/><span>Escolha sua comp</span></button>
-            <ChevronDown size={13}/>
-            <button aria-current={tab==="planner"||tab==="comps"&&expanded?"step":undefined} onClick={()=>exploreComp(pinned||active)}><LayoutGrid size={15}/><span>Prepare o plano</span></button>
-            <span className="flow-note">{pinned ? <><BrandMark/>{pinned.name}</> : "Escolha uma comp para começar"}</span>
-          </nav>}
-          <div className={`workspace-content ${tab==='planner'?'planner-content':''}`}>
+          <div className={`workspace-content ${tab==='planner'?'planner-content':''} ${tab==='comps'?'has-context':''}`}>
             {tab === "comps" ? (
               <div className="composition-layout">
                 <section
                   className="comp-feed"
                   aria-label="Biblioteca de composições"
+                  tabIndex={0}
                 >
-                  <CompSpotlight key={active.id} comp={active} selected={saved.pinned===active.id}
-                    onOpen={()=>exploreComp(active)}
-                    onSelect={()=>{update({pinned:active.id,selected:active.champions});notify(`${active.name} escolhida para o overlay.`);}}/>
+
                   <div className="library-tabs">
                     <button
                       className={libraryScope === "all" ? "active" : ""}
@@ -805,12 +812,19 @@ function Workbench() {
                         ))}
                     </select>
                     <button
-                      className="icon-button"
-                      aria-label="Criar composição"
-                      onClick={createComp}
+                      className="icon-button library-options-trigger"
+                      aria-label="Opções da biblioteca"
+                      title="Opções da biblioteca"
+                      popoverTarget="zy-library-options"
                     >
-                      <Plus size={18} />
+                      <SlidersHorizontal size={18} />
                     </button>
+                    <div id="zy-library-options" popover="auto" className="zy-library-options">
+                      <h3>Filtros da biblioteca</h3>
+                      <label>Estilo de jogo<select aria-label="Estilo de jogo" value={styleFilter} onChange={event=>setStyleFilter(event.target.value)}><option value="Todas">Todos os estilos</option>{[...new Set(saved.comps.map(comp=>comp.style))].map(style=><option key={style}>{style}</option>)}</select></label>
+                      <label>Classificação<select aria-label="Classificação" value={tierFilter} onChange={event=>setTierFilter(event.target.value)}><option value="Todas">Todos os tiers</option>{tierSections.filter(section=>saved.comps.some(comp=>compTier(comp)===section.id)).map(section=><option key={section.id} value={section.id}>{section.title}</option>)}</select></label>
+                      <button onClick={()=>{setQuery('');setStyleFilter('Todas');setTierFilter('Todas');document.getElementById('zy-library-options')?.hidePopover();}}><RotateCw size={14}/>Limpar busca e filtros</button>
+                    </div>
                   </div>
                   <div className="feed-caption">
                     <span>
@@ -819,59 +833,7 @@ function Workbench() {
                     </span>
                     <span>Tiers PivotTFT · Patch {dataset.patch}</span>
                   </div>
-                  <details className="catalog-sources">
-                    <summary>Fontes e atualização da base</summary>
-                    <p>
-                      {catalogStatus.snapshot.comps.length} builds do PivotTFT e
-                      18 planos da base anterior. Patch {dataset.patch}.
-                      Atualização automática ao abrir, com intervalo de 6 horas
-                      e cópia local para jogar sem internet.
-                    </p>
-                    <p>
-                      <a
-                        href="https://mobalytics.gg/tft/guides/best-tft-comps"
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        Mobalytics: guias e meta
-                      </a>
-                      <a
-                        href="https://www.metatft.com/comps"
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        MetaTFT: estatísticas
-                      </a>
-                      <a
-                        href="https://www.pivottft.com/comps/"
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        PivotTFT: fonte das builds e rotas por nível
-                      </a>
-                    </p>
-                    <small>
-                      Última consulta:{" "}
-                      {new Date(
-                        catalogStatus.snapshot.fetchedAt,
-                      ).toLocaleString("pt-BR")}
-                      . Campeões, itens e ícones: Riot Games.
-                    </small>
-                    {catalogStatus.error && (
-                      <p role="status">
-                        {catalogStatus.error} O último catálogo válido foi
-                        mantido.
-                      </p>
-                    )}
-                    <button
-                      onClick={() => refreshCatalog(true)}
-                      disabled={catalogBusy || !window.zyon}
-                    >
-                      {catalogBusy
-                        ? "Consultando PivotTFT…"
-                        : "Atualizar agora"}
-                    </button>
-                  </details>
+
                   <div className="comp-list">
                     {sections.map((section) => (
                       <section
@@ -898,151 +860,21 @@ function Workbench() {
                         <div className="tier-section-cards">
                           {section.comps.map((c: Comp) => (
                             <article
-                              className={`comp-row ${c.id === active.id ? "row-selected" : ""} ${c.id === active.id && expanded ? "row-expanded" : ""}`}
+                              className={`comp-row ${c.id === active.id ? "row-selected" : ""} ${c.id === saved.pinned ? "row-pinned" : ""} ${c.id === active.id && expanded ? "row-expanded" : ""}`}
                               key={c.id}
                               data-comp-id={c.id}
                               data-tier={compTier(c)}
+                              data-pinned={c.id === saved.pinned || undefined}
                             >
                               <div className="comp-row-summary">
-                                <div
-                                  className="row-splash"
-                                  style={{
-                                    backgroundImage: `url(${splash(c.carry)})`,
-                                  }}
-                                />
-                                <button
-                                  className="comp-option"
-                                  onClick={() => {
-                                    if (c.id !== active.id) {
-                                      update({ active: c.id });
-                                      setExpanded(true);
-                                      setEditor(false);
-                                      setGuideTab("overview");
-                                    } else setExpanded(!expanded);
-                                  }}
-                                  aria-expanded={c.id === active.id && expanded}
-                                >
-                                  <div className="comp-row-title">
-                                    <span className="rank-marker">
-                                      <CompTierBadge comp={c} />
-                                    </span>
-                                    <div className="comp-heading-copy">
-                                      <strong>{c.name}</strong>
-                                      <TraitStrip comp={c} />
-                                    </div>
-                                  </div>
-                                  <div className="ranked-body">
-                                    <div className="ranked-lineup">
-                                      <div className="ranked-core">
-                                        <span className="roster-label">
-                                          Núcleo
-                                        </span>
-                                        <UnitStrip
-                                          comp={c}
-                                          showStars={c.champions.some(
-                                            (id) => c.stars?.[id] === 3,
-                                          )}
-                                        />
-                                      </div>
-                                      {!!c.pivot?.upgrades.filter(
-                                        (id) => !c.champions.includes(id),
-                                      ).length && (
-                                        <div className="ranked-flex">
-                                          <span className="roster-label">
-                                            Flex
-                                          </span>
-                                          <UnitStrip
-                                            showStars={c.champions.some(
-                                              (id) => c.stars?.[id] === 3,
-                                            )}
-                                            comp={{ ...c, items: {} }}
-                                            ids={c.pivot.upgrades.filter(
-                                              (id) => !c.champions.includes(id),
-                                            )}
-                                          />
-                                        </div>
-                                      )}
-                                    </div>
-                                    <div className="comp-playstyle">
-                                      <span>
-                                        Nível final
-                                        <b>
-                                          {c.pivot?.finalLevel ||
-                                            c.style.match(/\d+/)?.[0] ||
-                                            "Livre"}
-                                        </b>
-                                      </span>
-                                      <span>
-                                        Carry<b>{byId[c.carry]?.name}</b>
-                                      </span>
-                                      <span>
-                                        {c.pivot ? "Variações" : "Origem"}
-                                        <b>
-                                          {c.pivot
-                                            ? saved.comps.filter(
-                                                (other) =>
-                                                  other.pivot?.family ===
-                                                  c.pivot?.family,
-                                              ).length
-                                            : c.source?.name || "Pessoal"}
-                                        </b>
-                                      </span>
-                                    </div>
-                                  </div>
-                                  <small className="comp-rank-source">
-                                    {c.pivot && c.source
-                                      ? `Tier ${c.tier} no PivotTFT · Patch ${c.source.patch}`
-                                      : c.source
-                                        ? "Guia da base anterior"
-                                        : "Seu plano personalizado"}
-                                  </small>
-                                </button>
-                                <div className="comp-row-utilities">
-                                <span className="row-style">{c.style}</span>
-                                <div className="row-controls">
-                                  <button
-                                    className={`row-pin ${saved.pinned === c.id ? "row-pinned" : ""}`}
-                                    aria-pressed={saved.pinned === c.id}
-                                    aria-label={
-                                      saved.pinned === c.id
-                                        ? `Desafixar ${c.name}`
-                                        : `Fixar ${c.name}`
-                                    }
-                                    title={
-                                      saved.pinned === c.id
-                                        ? "Comp fixada"
-                                        : "Fixar no overlay"
-                                    }
-                                    onClick={() =>
-                                      update({
-                                        pinned:
-                                          saved.pinned === c.id ? null : c.id,
-                                        selected: c.champions,
-                                      })
-                                    }
-                                  >
-                                    <BrandMark />
-                                  </button>
-                                  <button
-                                    className={`row-expand ${c.id === active.id && expanded ? "is-expanded" : ""}`}
-                                    aria-label={
-                                      c.id === active.id && expanded
-                                        ? `Recolher ${c.name}`
-                                        : `Expandir ${c.name}`
-                                    }
-                                    onClick={() => {
-                                      update({ active: c.id });
-                                      setExpanded(
-                                        c.id === active.id ? !expanded : true,
-                                      );
-                                      setEditor(false);
-                                      setGuideTab("overview");
-                                    }}
-                                  >
-                                    <ChevronDown size={18} />
-                                  </button>
+                                <CompFace comp={c} expanded={c.id === active.id && expanded} pinned={saved.pinned === c.id}
+                                  onOpen={() => { update({active:c.id}); setExpanded(c.id === active.id ? !expanded : true); setEditor(false); setGuideTab('overview'); }}
+                                  onPin={() => pin(c)}
+                                  onAugments={() => { update({active:c.id}); setExpanded(true); setEditor(false); setGuideTab('augments'); }}>
+                                <div className="comp-row-decision">
+                                <CompPerformance comp={c}/>
                                 </div>
-                                </div>
+                                </CompFace>
                               </div>
                               {c.id === active.id && expanded && (
                                 <div className="comp-expanded">
@@ -1082,6 +914,9 @@ function Workbench() {
                                       Editar comp
                                     </button>
                                   </div>
+                                  <button className="detail-pin" aria-pressed={saved.pinned===c.id} onClick={()=>pin(c)}>
+                                    <BrandMark/>{saved.pinned===c.id?'Remover do overlay':'Escolher para o overlay'}
+                                  </button>
                                   <button
                                     className="detail-planner"
                                     onClick={() => openPlanner()}
@@ -1149,6 +984,8 @@ function Workbench() {
                                     <CompGuide
                                       key={active.id}
                                       comp={active}
+                                      referenceComp={activeBase}
+                                      onRestore={window.zyon&&saved.overlayPlans?.[active.id]?()=>{void window.zyon?.editPlan({type:'restore',compId:active.id});}:undefined}
                                       builds={saved.comps.filter(
                                         (c) =>
                                           c.pivot &&
@@ -1211,7 +1048,7 @@ function Workbench() {
                   </p>
                 </section>
               </div>
-            ) : tab==='account' ? <AccountProfile onDuo={()=>setTab('duo')}/> : tab==='duo' ? <main className="social-page"><SocialPanel comp={pinned} planEdit={saved.overlayPlans?.[saved.pinned||'']}/></main> : tab === "planner" ? (
+            ) : tab==='sources' ? <SourcesPanel status={catalogStatus} busy={catalogBusy} onRefresh={()=>refreshCatalog(true)}/> : tab==='preparation' ? <PreparationAside {...planAsideProps}/> : tab==='account' ? <AccountProfile onDuo={()=>setTab('duo')}/> : tab==='duo' ? <main className="social-page"><SocialPanel comp={pinned} planEdit={saved.overlayPlans?.[saved.pinned||'']}/></main> : tab === "planner" ? (
               <Planner
                 key={`${active.id}:${plannerFocus || ""}`}
                 focusId={plannerFocus}
@@ -1223,9 +1060,9 @@ function Workbench() {
                 onNotify={notify}
               />
             ) : tab === "champions" ? (
-              <Database comps={saved.comps} focusComp={pinned||active} onPlanner={openPlanner} />
+              <Database statistics={(catalogStatus.snapshot as any).championStatistics||{}} comps={saved.comps} focusComp={pinned||active} onPlanner={openPlanner} />
             ) : tab === "overlay" ? (
-              <main className="settings-panel">
+              <SettingsLayout>
                 <UpdatesSettings/>
                 <section>
                   <h2>Janela do overlay</h2>
@@ -1319,7 +1156,7 @@ function Workbench() {
                     </p>
                   </div>
                 </section>
-              </main>
+              </SettingsLayout>
             ) : (
               <main className="help-panel">
                 <h2>Você escolhe. O Zyon lembra.</h2>
@@ -1366,30 +1203,7 @@ function Workbench() {
                 </div>
               </main>
             )}
-            {tab!=='planner'&&<PlanAside
-              comp={
-                pinned ? { ...pinned, champions: saved.selected } : undefined
-              }
-              owned={pinned ? saved.checklists?.[pinned.id] || [] : []}
-              onOwnedChange={(owned) => {
-                if (pinned)
-                  setSaved((prev) => ({
-                    ...prev,
-                    checklists: { ...prev.checklists, [pinned.id]: owned },
-                  }));
-              }}
-              overlay={overlay}
-              reader={reader}
-              hits={hits}
-              onPlanner={() => {
-                if (pinned) update({ active: pinned.id });
-                setTab("planner");
-              }}
-              onOverlay={toggleOverlay}
-              onUnpin={() => update({ pinned: null })}
-              onSettings={() => setTab("overlay")}
-              onGuide={(section)=>{if(pinned)exploreComp(pinned,section);}}
-            />}
+            {tab==='comps'&&<PlanAside {...planAsideProps}/>}
           </div>
           <footer className="statusbar">
             <span>

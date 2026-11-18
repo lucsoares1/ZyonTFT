@@ -64,6 +64,16 @@ export function normalizeLevelContext(value = {}) {
 export const unitSlots = (id) => rules.units[id]?.slots || 1;
 export const teamSlots = (ids) =>
   ids.reduce((sum, id) => sum + unitSlots(id), 0);
+export function traitCounts(ids,catalog) {
+ const counts={};
+ for(const id of new Set(ids))for(const trait of catalog[id]?.traits||[])
+  counts[trait]=(counts[trait]||0)+(rules.units[id]?.traitContributions?.[trait]||1);
+ return counts;
+}
+export function teamCapacity(ids,catalog,level) {
+ const counts=traitCounts(ids,catalog);
+ return level+(rules.capacityTraits||[]).reduce((sum,rule)=>sum+((counts[rule.trait]||0)>=rule.minUnits?rule.slots:0),0);
+}
 const family = (id) => rules.units[id]?.family || id;
 const front = (id, catalog) =>
   rules.units[id]?.frontline ?? catalog[id]?.role === "Linha de frente";
@@ -170,7 +180,7 @@ export function teamAtLevel(comp, catalog, level, context = {}, previous = []) {
   const state = normalizeLevelContext({ ...context, level });
   const strategy = strategyFor(comp, catalog, context);
   if (!strategy.ids.length)
-    return { ids: [], carry: null, temporary: [], slots: 0 };
+    return { ids: [], carry: null, temporary: [], slots: 0, capacity: level };
   const allowed = (id) =>
     catalog[id] &&
     !comp.excludedChampions?.includes(id) &&
@@ -213,11 +223,22 @@ export function teamAtLevel(comp, catalog, level, context = {}, previous = []) {
   const fits = (id) =>
     !selected.includes(id) &&
     !selected.some((x) => family(x) === family(id)) &&
-    teamSlots(selected) + unitSlots(id) <= level;
+    teamSlots(selected) + unitSlots(id) <= teamCapacity(selected,catalog,level);
   // Never rotate an explicitly completed reroll target out for an expensive filler.
   for (const id of strategy.allTargets.filter((id) => state.copies[id] >= 9))
     if (fits(id)) selected.push(id);
   if (activeCarry && fits(activeCarry)) selected.push(activeCarry);
+  // Activate a capacity trait using the current spaces before adding support.
+  // The bonus cannot justify placing its own final required unit over capacity.
+  for(const rule of rules.capacityTraits||[]) {
+    const core=[...selected];
+    for(const id of strategy.ids.filter(allowed)) {
+      if((traitCounts(core,catalog)[rule.trait]||0)>=rule.minUnits)break;
+      if(catalog[id].traits.includes(rule.trait)&&!core.some(x=>family(x)===family(id)))core.push(id);
+    }
+    if((traitCounts(core,catalog)[rule.trait]||0)<rule.minUnits||teamSlots(core)>teamCapacity(selected,catalog,level))continue;
+    for(const id of core)if(fits(id))selected.push(id);
+  }
   const sourceStep = routeAtLevel(comp, catalog, state);
   if (sourceStep) {
     // Follow the published route, but don't chase scarce costs early or exceed
@@ -273,6 +294,7 @@ export function teamAtLevel(comp, catalog, level, context = {}, previous = []) {
       : selected.find((id) => !front(id, catalog)) || selected[0],
     temporary: selected.filter((id) => !strategy.ids.includes(id)),
     slots: teamSlots(selected),
+    capacity: teamCapacity(selected,catalog,level),
   };
 }
 
@@ -561,9 +583,10 @@ export function planForLevel(comp, catalog, value = {}) {
       ...(comp.style !== "Personalizada" ? comp.conditions || [] : []),
       ...(strategy.ids.some((id) => unitSlots(id) > 1)
         ? [
-            "Dragão Ancião ocupa 2 espaços. O plano respeita o limite de equipe do nível.",
+            "Dragão Ancião ocupa 2 espaços e conta como 2 Feras do Rift.",
           ]
         : []),
+      ...(team.capacity>context.level?[`Bônus de característica: +${team.capacity-context.level} espaços (${team.capacity} no nível ${context.level}).`]:[]),
       ...(strategy.reroll && catalog[strategy.carry]?.cost > strategy.cost
         ? [
             `${catalog[strategy.carry].name} custa ${catalog[strategy.carry].cost}: é uma melhoria do time, não o alvo de 3★ deste reroll.`,

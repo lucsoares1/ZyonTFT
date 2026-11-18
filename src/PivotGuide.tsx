@@ -12,8 +12,8 @@ import {
 } from "./data";
 import { summarizePlan } from "./plan-summary.mjs";
 import { BoardPanel, Items, UnitStrip } from "./TftPanels";
-import { boardPositions } from "./planning.mjs";
-import { costOdds, teamSlots } from "./level-planner.mjs";
+import { publishedBoard } from "./board-preview.mjs";
+import { costOdds, teamSlots, type LevelContext } from "./level-planner.mjs";
 import { CompTierBadge } from "./CompTier";
 import {augmentCatalog,compAugments} from './comp-augments.mjs';
 import "./pivot-guide.css";
@@ -230,11 +230,13 @@ export function PivotGuide({
   level = 3,
   compact = false,
   wide = false,
+  context,
 }: {
   comp: Comp;
   level?: number;
   compact?: boolean;
   wide?: boolean;
+  context?: Partial<LevelContext>;
 }) {
   const [selected, setSelected] = useState<number | "final">(
     compact ? Math.max(3, level) : "final",
@@ -252,22 +254,7 @@ export function PivotGuide({
   const previous = step
     ? guide.levels.filter((s) => s.level < step.level).at(-1)
     : undefined;
-  const preview = step
-    ? {
-        ...comp,
-        name: `${comp.name} · nível ${step.level}`,
-        champions: step.units,
-        carry: step.units.includes(comp.carry)
-          ? comp.carry
-          : step.units.find((id) => byId[id].role === "Retaguarda") ||
-            step.units[0],
-        items: {},
-        positions: undefined,
-        stars: {},
-      }
-    : comp;
-  if (step)
-    preview.positions = boardPositions(preview, byId) as Record<string, number>;
+  const preview = step ? publishedBoard(comp, byId, {level:step.level,units:step.units,context}) : comp;
   const needsEmblem = [
     ...new Set(
       Object.values(comp.items || {})

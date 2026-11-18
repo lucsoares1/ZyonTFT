@@ -1,0 +1,350 @@
+:root {
+  --product-ground: #080a0e;
+  --product-panel: #11161f;
+  --product-raised: #1b222e;
+  --product-line: #293342;
+  --product-ink: #edf0f5;
+  --product-muted: #aab1bf;
+  --product-accent: #2497ff;
+  --product-focus: #65b9ff;
+  --arena-ground: var(--product-ground);
+  --arena-panel: var(--product-panel);
+  --arena-raised: var(--product-raised);
+  --arena-line: var(--product-line);
+  --arena-ink: var(--product-ink);
+  --arena-muted: var(--product-muted);
+  --arena-accent: var(--product-accent);
+  --arena-sea: #86caff;
+  --zy-panel: #11161f;
+  --zy-edge: #293342;
+  --zy-focus: var(--product-focus);
+}
+:is(.workspace-v4.zyon-reimagined,.entry-screen,.game-guide,.studio-dialog) {
+  --brand-blue: #2497ff;
+  --brand-hover: #60b5ff;
+  --brand-active: #1479d9;
+  --accent: #2497ff;
+  --control-accent: #2497ff;
+  --control-face: #111722;
+  --control-edge: #303b4e;
+  --control-text: #e5eaf3;
+  --control-muted: #aab1bf;
+  color: var(--product-ink);
+  caret-color: var(--product-accent);
+  font-variant-numeric: tabular-nums;
+}
+::selection { background: #1e66ac; color: #fff; }
+.workspace-v4.zyon-reimagined { background: var(--product-ground); }
+.workspace-v4.zyon-reimagined .sidebar { background: linear-gradient(100deg,#10131b,#0c0f16); border-color: #242a34; }
+.workspace-v4.zyon-reimagined .sidebar nav[aria-label="Navegação principal"]>button.nav-active { background: #12325280; color: #edf4ff; border-color: #28557c; }
+.workspace-v4.zyon-reimagined .sidebar nav[aria-label="Navegação principal"]>button.nav-active>svg { color: #329dff; }
+.workspace-v4.zyon-reimagined .sidebar :is(.sidebar-set,.profile-avatar) { background: #111722; border-color: #293342; }
+.workspace-v4.zyon-reimagined .main-shell { background: none; }
+.workspace-v4.zyon-reimagined .main-shell>.zy-shell-art { display: none; }
+.workspace-v4.zyon-reimagined .topbar { background: #090c11; border-color: #242a34; }
+.workspace-v4.zyon-reimagined .workspace-heading { background: linear-gradient(132deg,transparent 43%,#14192366 43%,#14192366 51%,transparent 51%,transparent 77%,#151c2666 77%,#151c2666 84%,transparent 84%); }
+.workspace-v4.zyon-reimagined .workspace-heading>div:first-child::before { background: #2497ff; width: 9px; height: 38px; top: 5px; border-radius: 0; }
+.workspace-v4.zyon-reimagined .workspace-heading>div:first-child { padding-left: 38px; }
+.workspace-v4.zyon-reimagined :is(.workspace-heading p,.muted,.game-caption) { color: #aab1bf; }
+.workspace-v4.zyon-reimagined .workspace-actions { align-self: center; margin-bottom: 0; }
+.workspace-v4.zyon-reimagined .workspace-actions .new-comp { background: #111722; border-color: #354154; }
+.workspace-v4.zyon-reimagined :is(.feed-toolbar .search-field,.feed-toolbar select,.library-options,.data-label,.zy-plan-menu,.settings-layout>nav) { background: #111722; border-color: #303b4e; }
+.workspace-v4.zyon-reimagined .tier-section-heading { background: linear-gradient(90deg,#151b25,transparent); border-color: #293342; }
+.workspace-v4.zyon-reimagined .tier-section-cards .comp-row { background: linear-gradient(120deg,#151922,#0d1118); border-color: #2b3543; }
+.workspace-v4.zyon-reimagined .tier-section-cards .comp-row:hover { background: linear-gradient(120deg,#1a2230,#101721); border-color: #3d5470; }
+.workspace-v4.zyon-reimagined .tier-section-cards .comp-row.row-pinned { border-color: #2497ff80; }
+.workspace-v4.zyon-reimagined .zy-comp-select[aria-pressed=true] { background: #133252; border-color: #2497ff; }
+.workspace-v4.zyon-reimagined .zy-comp-select[aria-pressed=true]>.zyon-mark { opacity: 1; }
+.workspace-v4.zyon-reimagined :is(.settings-category>section,.settings-card,.studio-canvas,.studio-roster,.data-table,.champion-performance-table,.database-comp-focus,.carry-build-group,.zy-plan-explorer,.zy-plan-priority,.zy-route-equipment,.plan-popover) { background: #10151e; border-color: #293342; }
+.workspace-v4.zyon-reimagined :is(.studio-canvas-top,.studio-instructions,.carry-build-group h4,.champion-performance-table thead) { background: #1a212c; border-color: #293342; }
+.workspace-v4.zyon-reimagined :is(.performance-numbers [data-metric=average] dd,.carry-build-result td:nth-child(2)) { color: #329dff; }
+.workspace-v4.zyon-reimagined :is(.search-field,input,select,textarea) { color: #e5eaf3; border-color: #303b4e; }
+.workspace-v4.zyon-reimagined :is(input,select,textarea) { background-color: #111722; }
+.workspace-v4.zyon-reimagined :is(input::placeholder,textarea::placeholder) { color: #9daabe; }
+.workspace-v4.zyon-reimagined .search-field:focus-within { background: #141e2b; border-color: #2497ff; box-shadow: none; }
+.workspace-v4.zyon-reimagined .search-field>svg { color: #79c0ff; background: none; }
+.workspace-v4.zyon-reimagined :is(.pivot-levels,.pivot-builds button,.pivot-item-order li) { background: #111722; border-color: #303b4e; }
+:is(.workspace-v4.zyon-reimagined,.game-guide.zy-native-reference) .row-augment-preview button { background: transparent; border-color: transparent; }
+:is(.workspace-v4.zyon-reimagined,.game-guide.zy-native-reference) .row-augment-preview button:hover { background: #2497ff1a; border-color: #2497ff40; }
+:is(.workspace-v4.zyon-reimagined,.game-guide.zy-native-reference) .pivot-augment-list img { background: transparent; border-color: transparent; }
+:is(.workspace-v4.zyon-reimagined,.game-guide.zy-native-reference) .zy-plan-explorer .zy-plan-priority { padding: 14px 16px 16px; border: 1px solid #263345; border-radius: 12px; background: linear-gradient(155deg,#131b28,#0d121b); }
+:is(.workspace-v4.zyon-reimagined,.game-guide.zy-native-reference) .zy-plan-priority ol { display: grid; grid-template-columns: repeat(auto-fit,minmax(88px,1fr)); align-items: stretch; gap: 10px; padding: 2px 0 0; }
+:is(.workspace-v4.zyon-reimagined,.game-guide.zy-native-reference) .zy-plan-priority li { width: auto; min-width: 0; padding: 16px 10px 12px; gap: 10px; justify-content: flex-start; border: 1px solid #263345; border-radius: 10px; background: linear-gradient(180deg,#162030,#0f1520); transition: border-color 140ms ease,background 140ms ease; }
+:is(.workspace-v4.zyon-reimagined,.game-guide.zy-native-reference) .zy-plan-priority li:hover { border-color: #3f5f86; background: linear-gradient(180deg,#1b283c,#121a28); }
+:is(.workspace-v4.zyon-reimagined,.game-guide.zy-native-reference) .zy-plan-priority li:first-child { border-color: #2497ff66; background: linear-gradient(180deg,#152842,#0f1623); }
+:is(.workspace-v4.zyon-reimagined,.game-guide.zy-native-reference) .zy-plan-priority .equipment img { width: 44px; height: 44px; border: 1px solid #3f526c; border-radius: 8px; box-shadow: 0 4px 12px #0007; }
+:is(.workspace-v4.zyon-reimagined,.game-guide.zy-native-reference) .zy-plan-priority li:first-child .equipment img { border-color: #54a8ff99; }
+:is(.workspace-v4.zyon-reimagined,.game-guide.zy-native-reference) .zy-plan-priority .zy-priority-number { top: 8px; left: 8px; min-width: 20px; height: 20px; padding: 0 5px; border-radius: 6px; background: #13253b; border-color: #2c4e74; color: #8acaff; font-size: 10px; font-weight: 750; }
+:is(.workspace-v4.zyon-reimagined,.game-guide.zy-native-reference) .zy-plan-priority li:first-child .zy-priority-number { background: #2497ff; border-color: #65b9ff; color: #07111e; }
+:is(.workspace-v4.zyon-reimagined,.game-guide.zy-native-reference) .zy-plan-priority .zy-priority-name { color: #dce6f5; font-size: 10.5px; font-weight: 500; line-height: 1.32; }
+.workspace-v4.zyon-reimagined :is(.pivot-levels button,.pivot-builds button,.settings-layout>nav>button)[aria-pressed=true] { background: #133252; color: #8acaff; border-color: #2497ff; box-shadow: none; }
+.workspace-v4.zyon-reimagined .pivot-item-order li>b { background: #142b43; color: #79c0ff; border-color: #305b84; }
+.workspace-v4.zyon-reimagined .zy-comp-disclosure>.zyon-mark,
+.game-guide.zy-native-reference .zy-comp-disclosure>.zyon-mark,
+.entry-screen .zyon-mark,
+.social-panel .zyon-mark { filter: brightness(0) saturate(100%) invert(47%) sepia(96%) saturate(2511%) hue-rotate(191deg) brightness(106%); }
+.workspace-v4.zyon-reimagined :is(button,a,input,select,textarea,summary):focus-visible,
+.social-panel :is(button,a,input,select,summary):focus-visible,
+.entry-screen :is(button,a,input,select):focus-visible { outline: 2px solid #65b9ff; outline-offset: 2px; }
+.workspace-v4.zyon-reimagined .main-footer { background: #0b0e15; border-color: #242a34; }
+.social-panel .social-heading { align-items: center; padding-bottom: 18px; margin-bottom: 22px; border-color: #293342; }
+.social-panel .social-emblem { background: #14243a; border-color: #2b496a; color: #60b5ff; border-radius: 10px; }
+.social-panel .social-heading p { color: #aab1bf; }
+.workspace-v4.zyon-reimagined .social-panel .duo-identity,
+.game-guide.zy-native-reference .social-panel .duo-identity { display: grid; grid-template-columns: minmax(0,1fr) minmax(250px,.8fr); gap: 24px; padding: 20px 24px; margin-bottom: 28px; border: 1px solid #293342; border-radius: 12px; background: #10151e; }
+.social-panel .duo-avatar { clip-path: none; width: 42px; height: 42px; border-radius: 9px; background: #14243a; border: 1px solid #305174; color: #8acaff; }
+.workspace-v4.zyon-reimagined .social-panel .duo-avatar,
+.game-guide.zy-native-reference .social-panel .duo-avatar { clip-path: none; border-radius: 9px; background: #14243a; }
+.social-panel .duo-account .duo-avatar { width: 42px; height: 42px; }
+.social-panel .duo-account :is(strong,small),
+.social-panel .duo-friend-code :is(strong,small) { line-height: 1.5; }
+.social-panel .duo-friend-code strong { color: #edf0f5; letter-spacing: .08em; }
+.social-panel :is(.duo-account small,.duo-friend-code small,.duo-friends-heading p,.duo-friend-state,.duo-footnote,.duo-live-plan p,.duo-request-heading p) { color: #aab1bf; }
+.social-panel :is(.duo-add-toggle,.duo-friend-code>button,.duo-live-heading>button,.duo-icon-action,.duo-response-actions>button,.duo-invite-button,.duo-friend-menu>button) { color: #dce4f0; background: #151c27; border-color: #354154; border-radius: 8px; box-shadow: none; }
+.social-panel :is(.duo-add-toggle,.duo-friend-code>button,.duo-live-heading>button,.duo-response-actions>button,.duo-invite-button):hover:not(:disabled) { background: #1d2b3f; border-color: #537295; }
+.social-panel :is(.duo-add-friend,.duo-auth,.duo-invites,.duo-friend-requests,.duo-plan-pair article,.duo-request-editor,.duo-requests-panel,.duo-friend-card,.duo-notice) { color: #edf0f5; background: #111722; border-color: #293342; border-radius: 12px; box-shadow: none; }
+.social-panel .duo-friend-card[data-invite=connected] { background: #122336; border-color: #305b84; }
+.social-panel .duo-friend-card-heading { align-items: center; }
+.social-panel :is(.duo-friend-search,.duo-auth input,.duo-add-friend input,.duo-request-editor input,.duo-request-editor select) { background: #0d121b; border-color: #303b4e; color: #e5eaf3; border-radius: 8px; }
+.social-panel .duo-friend-search { min-height: 42px; }
+.social-panel .duo-friend-search input { background: transparent; }
+.social-panel :is(.duo-friend-card-heading h4,.duo-plan-pair h3) { color: #edf0f5; }
+.social-panel :is(.duo-team-roster,.duo-trait-targets) { gap: 6px; }
+.social-panel .duo-team-roster img { width: 40px; height: 40px; border-radius: 6px; }
+.social-panel :is(.duo-person,.duo-wish,.duo-request-row) { border-color: #293342; }
+.social-panel .duo-wish>b { background: #172438; border-color: #305174; color: #b5d9ff; }
+.social-panel .duo-request-priority button[aria-pressed=true],
+.social-panel .duo-auth-tabs button[aria-pressed=true] { background: #133252; color: #8acaff; border-color: #2497ff; box-shadow: none; }
+.workspace-v4.zyon-reimagined .social-panel .duo-friends-empty,
+.game-guide.zy-native-reference .social-panel .duo-friends-empty { display: grid; grid-template-columns: 52px minmax(0,1fr) auto; grid-template-rows: auto auto; align-items: center; gap: 8px 24px; min-height: 160px; padding: 28px; border: 1px solid #293342; border-radius: 12px; background: #10151e; text-align: left; }
+.social-panel .duo-friends-empty>svg { grid-column: 1; grid-row: 1 / 3; width: 36px; height: 36px; margin: 0; color: #60b5ff; }
+.social-panel .duo-friends-empty>h4 { grid-column: 2; grid-row: 1; align-self: end; margin: 0; font-size: 18px; color: #edf0f5; }
+.social-panel .duo-friends-empty>p { grid-column: 2; grid-row: 2; align-self: start; margin: 0; color: #aab1bf; line-height: 1.6; }
+.social-panel .duo-friends-empty>button { grid-column: 3; grid-row: 1 / 3; margin: 0; }
+.social-panel .duo-plan-pair article { padding: 20px; }
+.social-panel .duo-live-heading h3 { font-size: 21px; }
+.social-panel .duo-plan-pair h3 { font-size: 18px; }
+.social-panel .duo-request-pool button { background: #111722; border-color: #303b4e; }
+.social-panel .duo-request-pool button[aria-pressed=true] { background: #133252; border-color: #2497ff; }
+.social-panel .duo-person .duo-invite-button,
+.social-panel .duo-friend-card .duo-invite-button { min-height: 36px; }
+.social-panel .duo-online.connected { color: #9ed6bd; }
+.social-panel .duo-online.connected::before { background: #67d3a4; }
+.workspace-v4.zyon-reimagined .social-panel .duo-primary,
+.game-guide.zy-native-reference .social-panel .duo-primary { background: #2497ff; border-color: #57aeff; color: #07111e; box-shadow: none; }
+.workspace-v4.zyon-reimagined .social-panel .duo-primary:hover:not(:disabled),
+.game-guide.zy-native-reference .social-panel .duo-primary:hover:not(:disabled) { background: #60b5ff; color: #07111e; }
+.game-guide.zy-native-reference .social-native .social-heading h2 { font-size: 25px; }
+.game-guide.zy-native-reference .social-native .duo-plan-pair article { padding: 14px; }
+.game-guide.zy-native-reference .social-native .duo-team-roster img { width: 36px; height: 36px; }
+.entry-screen { background: #080a0e; }
+.entry-screen::before { background: linear-gradient(132deg,transparent 65%,#14192366 65%,#14192366 72%,transparent 72%); }
+.entry-screen .entry-access { background: #11161f; border-color: #293342; border-radius: 16px; box-shadow: none; }
+.entry-screen :is(.entry-mode,.entry-input,.entry-name-field,.entry-account-mark,.entry-board-caption) { background: #111722; border-color: #303b4e; box-shadow: none; }
+.entry-screen :is(.entry-world h1 em,.entry-features svg) { color: #60b5ff; }
+.entry-screen .entry-art { opacity: .12; }
+.entry-screen .entry-mode button[aria-pressed=true] { background: #133252; color: #8acaff; }
+.entry-screen .entry-submit { background: #2497ff; border-color: #57aeff; color: #07111e; box-shadow: none; }
+.entry-screen .entry-submit:hover:not(:disabled) { background: #60b5ff; color: #07111e; }
+.studio-dialog { background: #11161f; border-color: #303b4e; }
+.workspace-v4.zyon-reimagined :is(.sources-panel>section,.help-panel,.help-step,.account-profile,.account-card,.profile-section) { background: #10151e; border-color: #293342; }
+.workspace-v4.zyon-reimagined .studio-pin,
+.workspace-v4.zyon-reimagined .studio-pin.is-pinned { background: #133252; border-color: #305b84; color: #8acaff; }
+.workspace-v4.zyon-reimagined .studio-board .empty-hex { background-color: #29313e; }
+.workspace-v4.zyon-reimagined .studio-board .empty-hex::after { background-color: #101620; }
+.workspace-v4.zyon-reimagined .account-profile-card { background: #11161f; border-color: #293342; box-shadow: none; }
+.workspace-v4.zyon-reimagined .account-profile-state { background: #14243a; border-color: #305174; color: #b5d9ff; }
+.social-panel :is(.duo-request-search,.duo-own-request,.duo-request-selection) { background: #111722; border-color: #303b4e; }
+.social-panel .duo-request-catalog>button { background: #151c27; border-color: #303b4e; }
+.social-panel .duo-request-catalog>button[data-focused=true],
+.social-panel .duo-request-catalog>button[aria-pressed=true] { background: #133252; border-color: #2497ff; }
+.social-panel .duo-request-priority input:checked+span { background: #133252; color: #8acaff; border-color: #2497ff; }
+.studio-dialog :is(.studio-dialog-settings,.studio-dialog-tools,.studio-dialog-footer) { background: #111722; border-color: #293342; }
+.studio-dialog :is(.studio-catalog-unit,.studio-item-choice) { background: #151c27; border-color: #303b4e; }
+.studio-dialog :is(.studio-stars>button[aria-pressed=true],.studio-dialog-footer .studio-done) { background: #2497ff; color: #07111e; border-color: #57aeff; }
+@container (max-width:700px) {
+  .workspace-v4.zyon-reimagined .social-panel .duo-identity,
+  .game-guide.zy-native-reference .social-panel .duo-identity { grid-template-columns: minmax(0,1fr); gap: 16px; padding: 16px; }
+  .workspace-v4.zyon-reimagined .social-panel .duo-friends-empty,
+  .game-guide.zy-native-reference .social-panel .duo-friends-empty { grid-template-columns: 36px minmax(0,1fr); gap: 8px 16px; padding: 20px; }
+  .social-panel .duo-friends-empty>button { grid-column: 2; grid-row: 3; justify-self: start; margin-top: 8px; }
+  .social-panel .duo-friends-empty>h4 { font-size: 16px; }
+  .social-panel .duo-friends-heading { align-items: start; gap: 12px; }
+}
+@media (max-width:1100px) {
+  .workspace-v4.zyon-reimagined .workspace-heading>div:first-child { padding-left: 28px; }
+  .workspace-v4.zyon-reimagined .workspace-heading>div:first-child::before { left: 2px; width: 7px; height: 30px; }
+}
+@media (prefers-reduced-motion:reduce) {
+  :is(.workspace-v4.zyon-reimagined,.social-panel,.entry-screen) * { scroll-behavior: auto; transition: none; animation: none; }
+}
+
+/* Stylized arched 3-star crown: middle star elevated, outer two lower and nestled together. */
+.unit-stars.gold-stars {
+  display: inline-flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 0;
+  color: #ffd561;
+  filter: drop-shadow(0 1px 1.5px #000e);
+}
+.unit-stars.gold-stars > svg {
+  margin-inline: -1.5px;
+  stroke: #5a3c05;
+  stroke-width: 1.6;
+}
+.unit-stars.gold-stars > svg:nth-child(1) {
+  transform: translate(1px, 1.5px) scale(0.88);
+}
+.unit-stars.gold-stars > svg:nth-child(2) {
+  position: relative;
+  z-index: 2;
+  transform: translateY(-3px) scale(1.18);
+  color: #ffe382;
+}
+.unit-stars.gold-stars > svg:nth-child(3) {
+  transform: translate(-1px, 1.5px) scale(0.88);
+}
+
+/* Item hover feedback + floating item info & craft popup. */
+.equipment > img {
+  transition: transform 110ms ease, border-color 110ms ease;
+}
+.equipment > img:hover {
+  border-color: #65b9ff;
+  transform: scale(1.12);
+  position: relative;
+  z-index: 3;
+}
+.zy-item-tooltip {
+  position: fixed;
+  z-index: 9999;
+  transform: translateX(-50%);
+  pointer-events: none;
+  width: max-content;
+  min-width: 224px;
+  max-width: 304px;
+  padding: 12px 14px;
+  border: 1px solid #30445e;
+  border-radius: 10px;
+  background: linear-gradient(155deg, #131b28f8, #090d14fa);
+  box-shadow: 0 14px 36px #000c, 0 0 0 1px #2497ff26;
+  color: #edf2fa;
+  font: 400 12px/1.45 "Inter Variable", sans-serif;
+  text-align: left;
+}
+.zy-item-tooltip::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  width: 10px;
+  height: 10px;
+  background: #0c111b;
+  border-right: 1px solid #30445e;
+  border-bottom: 1px solid #30445e;
+}
+.zy-item-tooltip.is-above::after {
+  bottom: -6px;
+  transform: translateX(-50%) rotate(45deg);
+}
+.zy-item-tooltip.is-below::after {
+  top: -6px;
+  background: #131b28;
+  transform: translateX(-50%) rotate(-135deg);
+}
+.zy-item-tooltip-head {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+.zy-item-tooltip-icon {
+  width: 44px;
+  height: 44px;
+  flex: none;
+  border-radius: 7px;
+  border: 1px solid #485e7b;
+  object-fit: cover;
+  box-shadow: 0 4px 12px #0008;
+}
+.zy-item-tooltip-meta {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.zy-item-tooltip-meta > strong {
+  font-size: 13.5px;
+  font-weight: 720;
+  line-height: 1.25;
+  color: #f3f7fe;
+  letter-spacing: -0.01em;
+}
+.zy-item-tooltip-craft {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.zy-craft-slot {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  padding: 2px;
+  border: 1px solid #36475f;
+  border-radius: 6px;
+  background: #0b1019;
+}
+.zy-craft-slot > img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  border-radius: 4px;
+  object-fit: cover;
+}
+.zy-craft-plus {
+  font-size: 13px;
+  font-weight: 700;
+  color: #93a7c4;
+}
+.zy-item-tooltip-cat {
+  width: max-content;
+  padding: 2px 7px;
+  border: 1px solid #2b4464;
+  border-radius: 5px;
+  background: #122238;
+  color: #8acaff;
+  font-size: 10px;
+  font-weight: 600;
+}
+.zy-item-tooltip-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 10px;
+}
+.zy-item-tooltip-stats > span {
+  padding: 2px 7px;
+  border: 1px solid #263d5c;
+  border-radius: 5px;
+  background: #101d30;
+  color: #8acaff;
+  font-size: 10.5px;
+  font-weight: 600;
+}
+.zy-item-tooltip-desc {
+  margin-top: 9px;
+  padding-top: 9px;
+  border-top: 1px solid #222e40;
+  color: #c6d1e2;
+  font-size: 11.5px;
+  line-height: 1.48;
+  display: grid;
+  gap: 5px;
+}
+.zy-item-tooltip-desc > p {
+  margin: 0;
+}
+.zy-item-tooltip-desc b {
+  color: #f6f9ff;
+  font-weight: 700;
+}

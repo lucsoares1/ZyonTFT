@@ -253,6 +253,7 @@ let expectedGuideBounds,guideMoveTimer;
 function positionGuide() {
   if (guideWindow && !guideWindow.isDestroyed()) {
     expectedGuideBounds=guideBounds();
+    guideWindow.setResizable(Boolean(state.gameSession.guideExpanded&&!state.gameSession.collapsed&&!state.gameSession.shopOnly));
     const current=guideWindow.getBounds();
     if(['x','y','width','height'].some(key=>current[key]!==expectedGuideBounds[key]))guideWindow.setBounds(expectedGuideBounds);
   }
@@ -337,6 +338,16 @@ function showGuide() {
   guideWindow.setContentProtection(true);
   guideWindow.setIgnoreMouseEvents(false);
   expectedGuideBounds=guideWindow.getBounds();
+  guideWindow.on('resize',()=>{
+    if(!state.gameSession.guideExpanded||state.gameSession.collapsed||state.gameSession.shopOnly)return;
+    const bounds=guideWindow.getBounds();
+    if(bounds.width===expectedGuideBounds?.width&&bounds.height===expectedGuideBounds?.height)return;
+    state.gameSession=changeSession(state.gameSession,{type:'guide-size',size:{width:bounds.width,height:bounds.height}});
+    if(state.saved)state.saved.gameSession=state.gameSession;
+    expectedGuideBounds=bounds;
+    clearTimeout(guideMoveTimer);
+    guideMoveTimer=setTimeout(()=>{positionGuide();save();broadcast();},120);
+  });
   guideWindow.on('move',()=>{
     const bounds=guideWindow.getBounds();
     if(bounds.x===expectedGuideBounds?.x&&bounds.y===expectedGuideBounds?.y)return;
@@ -1177,6 +1188,7 @@ if (primaryInstance)
           "tab",
           "side",
           "collapse",
+          "guide-expand",
           "shop-only",
           "reset",
           "level-mode",
@@ -1208,6 +1220,7 @@ if (primaryInstance)
     });
     ipcMain.on("window:close", (event) => {
       if (mainSender(event)) app.quit();
+      else if (event.sender === guideWindow?.webContents) setOverlay(false);
     });
     globalShortcut.register("CommandOrControl+Shift+O", () =>
       setOverlay(!overlayEnabled),

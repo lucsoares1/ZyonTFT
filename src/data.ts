@@ -3,7 +3,9 @@ import guides from "./generated/comps.json";
 import workspace from "./generated/workspace.json";
 import pivot from "./generated/pivot.json";
 import registry from "./generated/pivot-registry.json";
+import itemDetailsData from "./generated/item-details.json";
 import { catalogRevision } from "./comp-catalog.mjs";
+import { championRole } from "./planning.mjs";
 export type Champion = {
   id: string;
   name: string;
@@ -17,6 +19,8 @@ export type Champion = {
 export type Comp = {
   augmentSource?: string;
   pivot?: {
+    carries?: string[];
+    statistics?: PivotStatistics;
     family: string;
     build: string;
     difficulty: string;
@@ -63,6 +67,8 @@ export type Comp = {
     set: number;
   };
 };
+export type Performance = {games:number;average:number;top4:number;winRate:number;pickRate?:number};
+export type PivotStatistics = {set:number;patch:string;ranks:string;region:string;made:number;since?:number;until?:number;performance:Performance|null;itemBuilds:(Performance & {championId:string;items:string[]})[]};
 export type PivotLevel = {
   level: number;
   units: string[];
@@ -83,7 +89,7 @@ export const dataset = {
     .join("/"),
   revision: catalogRevision([...pivot.comps, ...guides]),
 };
-export const champions: Champion[] = catalog.champions;
+export const champions: Champion[] = catalog.champions.map(c=>({...c,role:championRole(c.id,c.role)}));
 export const byId: Record<string, Champion> = Object.fromEntries(
   champions.map((c) => [c.id, c]),
 );
@@ -93,6 +99,28 @@ export const itemNames: Record<string, string> = {
   ...Object.fromEntries(registry.items.map((i) => [i.id, i.name])),
 };
 export const allItems = registry.items;
+export type ItemDetail = {
+  id: string;
+  name: string;
+  recipe: string[];
+  category: string;
+  desc: string;
+  stats: string[];
+};
+const itemDetailsMap = itemDetailsData as Record<
+  string,
+  { desc: string; stats: string[] }
+>;
+export const itemById: Record<string, ItemDetail> = Object.fromEntries(
+  registry.items.map((item) => [
+    item.id,
+    {
+      ...item,
+      desc: itemDetailsMap[item.id]?.desc || "",
+      stats: itemDetailsMap[item.id]?.stats || [],
+    },
+  ]),
+);
 export const allAugments: Record<
   string,
   { id: string; name: string; icon: boolean; unresolved?: boolean }

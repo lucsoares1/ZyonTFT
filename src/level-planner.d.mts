@@ -12,6 +12,7 @@ export type LevelTeam = {
   carry: string | null;
   temporary: string[];
   slots: number;
+  capacity: number;
 };
 export type LevelStrategy = {
   ids: string[];
@@ -58,7 +59,7 @@ export const shopRules: {
   odds: Record<number, number[]>;
   units: Record<
     string,
-    { frontline: boolean; slots: number; family: string; damage: string }
+    { frontline: boolean; slots: number; family: string; damage: string; traitContributions?:Record<string,number> }
   >;
 };
 export function normalizeLevelContext(
@@ -66,6 +67,8 @@ export function normalizeLevelContext(
 ): LevelContext;
 export function unitSlots(id: string): number;
 export function teamSlots(ids: string[]): number;
+export function traitCounts(ids:string[],catalog:Record<string,Champion>):Record<string,number>;
+export function teamCapacity(ids:string[],catalog:Record<string,Champion>,level:number):number;
 export function costOdds(level: number, cost: number): number;
 export function strategyFor(
   comp: Comp,

@@ -135,6 +135,7 @@ export function normalizePivot(
           rerollStages: stages,
         },
         pivot: {
+          carries: c.units.filter(u=>u.isCarry).map(u=>unit(u.championId)),
           family: c.family || c.id,
           build: c.tab || c.name,
           difficulty: c.difficulty,

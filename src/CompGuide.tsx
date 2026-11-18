@@ -1,3 +1,4 @@
+import { TacticalOverview } from "./TacticalOverview";
 import { LevelGuide } from "./LevelGuide";
 import type { LevelContext } from "./level-planner.mjs";
 import { ArrowRight, Coins, ExternalLink } from "lucide-react";
@@ -5,6 +6,7 @@ import { allItems, byId, itemNames, portrait, type Comp } from "./data";
 import { Items, equipmentFor } from "./TftPanels";
 import { summarizePlan } from "./plan-summary.mjs";
 import { PivotGuide, BuildSwitch, ItemOrder, AugmentGuide } from "./PivotGuide";
+import {CarryBuildStats} from './CompPerformance';
 
 export type GuideTab =
   "overview" | "items" | "units" | "progression" | "augments";
@@ -58,6 +60,8 @@ export function ItemRecipe({ id }: { id: string }) {
 
 export function CompGuide({
   comp,
+  referenceComp,
+  onRestore,
   tab,
   onPlanner,
   levelContext,
@@ -66,6 +70,8 @@ export function CompGuide({
   onBuild = () => {},
 }: {
   comp: Comp;
+  referenceComp?: Comp;
+  onRestore?:()=>void;
   builds?: Comp[];
   onBuild?: (id: string) => void;
   tab: GuideTab;
@@ -74,6 +80,8 @@ export function CompGuide({
   onLevelContext: (value: LevelContext) => void;
 }) {
   const summary = summarizePlan(comp, byId, allItems);
+  const published=comp.pivot?comp:referenceComp?.pivot?referenceComp:undefined;
+  const source=comp.source||published?.source;
   return (
     <div
       key={tab}
@@ -82,16 +90,11 @@ export function CompGuide({
       aria-label={guideTabs.find((t) => t.id === tab)?.label}
     >
       <BuildSwitch comp={comp} builds={builds} onBuild={onBuild} />
-      {tab === "overview" && comp.pivot && <PivotGuide comp={comp} />}
-      {tab === "overview" && !comp.pivot && (
-        <LevelGuide
-          comp={comp}
-          value={levelContext}
-          onChange={onLevelContext}
-        />
-      )}
+      {tab!=='overview'&&published&&published!==comp&&<div className="zy-path-reference">Seu plano tem ajustes de elenco. As recomendações desta aba acompanham esses ajustes.{onRestore&&<button className="zy-source-restore" onClick={onRestore}>Restaurar plano do guia</button>}</div>}
+      {tab === "overview" && <><TacticalOverview comp={comp} referenceComp={published} onRestore={onRestore} context={levelContext}/>{published&&<details className="zy-route-disclosure"><summary>Consultar roteiro por nível e transições{published!==comp?' do guia original':''}</summary><PivotGuide comp={published} context={levelContext}/></details>}</>}
       {tab === "items" && (
         <div className="guide-items-view">
+          <CarryBuildStats comp={comp}/>
           <ItemOrder comp={comp} />
           <div className="guide-section-intro">
             <div>
@@ -200,14 +203,14 @@ export function CompGuide({
       {tab === "augments" && <AugmentGuide comp={comp} />}
       <footer className="guide-source">
         <span>
-          {comp.pivot
+          {published
             ? "Equipes, trocas e posições finais: PivotTFT. Adaptação e posições intermediárias: Zyon."
             : "Roteiro e posições sugeridos pelo Zyon."}
         </span>
-        {comp.source ? (
-          <a href={comp.source.url} target="_blank" rel="noreferrer">
-            {comp.source.name} · Patch {comp.source.patch} · Conferida em{" "}
-            {comp.source.checkedAt.split("-").reverse().join("/")}{" "}
+        {source ? (
+          <a href={source.url} target="_blank" rel="noreferrer">
+            {published!==comp&&comp.style==='Personalizada'?'Guia original · ':''}{source.name} · Patch {source.patch} · Conferida em{" "}
+            {source.checkedAt.split("-").reverse().join("/")}{" "}
             <ExternalLink size={12} />
           </a>
         ) : (

@@ -10,7 +10,7 @@ import {
   mergePivot,
 } from "../src/pivot-catalog.mjs";
 import { validateComps, catalogRevision } from "../src/comp-catalog.mjs";
-import { planForLevel, teamSlots, costOdds } from "../src/level-planner.mjs";
+import { planForLevel, teamSlots, teamCapacity, costOdds } from "../src/level-planner.mjs";
 import { migrateSaved } from "../src/preferences.mjs";
 const read = (p) => JSON.parse(fs.readFileSync(p));
 const pivot = read("src/generated/pivot.json"),
@@ -135,7 +135,7 @@ test("every imported route has an attainable adaptive team and no premature lege
         hp: 80,
         copies: {},
       });
-      assert.ok(teamSlots(p.team.ids) <= level, `${comp.name} level ${level}`);
+      assert.ok(teamSlots(p.team.ids) <= teamCapacity(p.team.ids,byId,level), `${comp.name} level ${level}`);
       for (const id of p.search) {
         assert.ok(
           byId[id].cost < 4 || level >= (byId[id].cost === 5 ? 9 : 8),

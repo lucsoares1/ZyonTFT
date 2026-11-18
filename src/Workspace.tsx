@@ -1,3 +1,4 @@
+import {ChampionTable} from './ChampionTable';
 import { useState, useContext } from "react";
 import { PivotTiersContext, PivotAugmentContext } from "./PivotGuide";
 import {compAugments} from './comp-augments.mjs';
@@ -38,23 +39,21 @@ import { Items, UnitStrip } from "./TftPanels";
 import { ComponentNeeds, type GuideTab } from "./CompGuide";
 import {BrandMark} from "./Brand";
 import { summarizePlan } from "./plan-summary.mjs";
+import {traitCounts} from './level-planner.mjs';
 const norm = (s: string) =>
   s
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")
     .toLowerCase();
 export function TraitStrip({ comp }: { comp: Comp }) {
-  const counts: Record<string, number> = {};
-  for (const id of comp.champions)
-    for (const trait of byId[id]?.traits || [])
-      counts[trait] = (counts[trait] || 0) + 1;
+  const counts=traitCounts(comp.champions,byId);
   return (
-    <div className="comp-traits" aria-label="Contagem base de características">
+    <div className="comp-traits" aria-label="Características da equipe, sem emblemas">
       {Object.entries(counts)
         .sort((a, b) => b[1] - a[1])
         .slice(0, 5)
         .map(([name, count]) => (
-          <span key={name} title={`${name} · ${count} unidades, sem bônus`}>
+          <span key={name} title={`${name} · ${count} pontos, sem emblemas`}>
             <img src={traitIcon(name)} alt="" />
             <b>{count}</b>
             <span>{name}</span>
@@ -63,7 +62,11 @@ export function TraitStrip({ comp }: { comp: Comp }) {
     </div>
   );
 }
-export function PlanAside({
+export function PlanAside(props:Parameters<typeof PreparationAside>[0]) {
+ const {comp,overlay,reader,onGuide,onPlanner,onOverlay,onSettings}=props;
+ return <aside className="plan-aside context-aside" aria-label="Plano fixado e overlay"><div className="aside-title"><h2>Plano escolhido</h2><span className="context-plan-state">{comp?'Pronto':'Nenhum'}</span></div>{comp?<><div className="context-plan-identity"><img src={portrait(comp.carry)} alt=""/><div><strong>{comp.name}</strong><span>{comp.style} · {comp.champions.length} campeões</span></div></div><button className="context-open-plan" onClick={()=>onGuide('overview')}>Abrir plano<ArrowRight size={15}/></button><button className="context-edit-plan" onClick={onPlanner}><Layers3 size={15}/>Editar no planejador</button></>:<p className="context-empty">Escolha uma composição para preparar sua partida.</p>}<div className="context-overlay-state"><Monitor size={16}/><div><strong>{overlay?'Overlay ativado':'Overlay desativado'}</strong><span>{reader?'Leitura da loja ativa':'Pronto para acompanhar o TFT'}</span></div><i data-active={overlay||undefined}/></div><button className="context-configure" onClick={onSettings}>Configurar leitura<ChevronRight size={14}/></button>{!overlay&&<button className="context-configure" onClick={onOverlay}>Ativar overlay<ArrowRight size={14}/></button>}</aside>;
+}
+export function PreparationAside({
   comp,
   owned,
   onOwnedChange,
@@ -93,8 +96,8 @@ export function PlanAside({
   const openers = comp?.pivot?.openers || [];
   const holders = comp ? [...new Set([comp.carry,...Object.keys(comp.items||{})])].filter(id=>comp.items?.[id]?.length).slice(0,3) : [];
   return (
-    <aside
-      className="plan-aside shopping-aside"
+    <div
+      className="preparation-legacy"
       aria-label="Plano fixado e overlay"
     >
       <div className="aside-title">
@@ -154,7 +157,7 @@ export function PlanAside({
           <img src={portrait(id)} alt="" className={`cost-${byId[id]?.cost}`}/><span><strong>{byId[id]?.name}</strong><small>{i===0?"Carry principal":"Portador do plano"}</small><Items ids={comp.items?.[id]||[]}/></span><ChevronRight size={12}/>
         </button>)}</div>}
       </section>}
-      <details className="preparation-checklist">
+      <details className="preparation-checklist" open>
       <summary>Checklist de preparação<ChevronDown size={14}/></summary>
       <section className="pinned-plan shopping-plan">
         <div className="shopping-plan-header">
@@ -262,7 +265,7 @@ export function PlanAside({
           <ComponentNeeds comp={comp} />
         </section>
       )}
-    </aside>
+    </div>
   );
 }
 export {Planner} from "./PlannerStudio";
@@ -270,9 +273,11 @@ export function Database({
   comps,
   onPlanner,
   focusComp,
+  statistics = {},
 }: {
   comps: Comp[];
   focusComp?: Comp;
+  statistics?: Record<string,any>;
   onPlanner: (id?: string) => void;
 }) {
   const tiers = useContext(PivotTiersContext);
@@ -285,7 +290,7 @@ export function Database({
     [cost, setCost] = useState("Todas"),
     [trait, setTrait] = useState("Todas"),
     [kind, setKind] = useState("Todos"),
-    [sort, setSort] = useState("cost");
+    [sort, setSort] = useState("pick");
   const [focusOnly,setFocusOnly]=useState(false);
   const focusItems=new Set(Object.values(focusComp?.items||{}).flat());
   const focusTraits=new Set(focusComp?.champions.flatMap(id=>byId[id]?.traits||[])||[]);
@@ -313,7 +318,7 @@ export function Database({
         norm(`${c.name} ${c.traits.join(" ")}`).includes(norm(query)),
     )
     .sort((a, b) =>
-      sort === "name"
+      sort === "pick" ? (statistics[b.id]?.performance?.pickRate??-1)-(statistics[a.id]?.performance?.pickRate??-1) : sort === "average" ? (statistics[a.id]?.performance?.average??99)-(statistics[b.id]?.performance?.average??99) : sort === "name"
         ? a.name.localeCompare(b.name, "pt-BR")
         : sort === "guides"
           ? usages(b.id).length - usages(a.id).length
@@ -407,7 +412,7 @@ export function Database({
                 value={sort}
                 onChange={(e) => setSort(e.target.value)}
               >
-                <option value="cost">Por custo</option>
+                <option value="pick">Mais escolhidos</option><option value="average">Melhor média</option><option value="cost">Por custo</option>
                 <option value="name">Por nome</option>
                 <option value="guides">Por presença nos guias</option>
               </select>
@@ -468,23 +473,14 @@ export function Database({
           </div>
           {!augmentRows.length && <p className="catalog-empty">{focusOnly?"Esta comp não tem aprimoramentos que correspondam à busca. Desative o filtro para explorar o set.":"Nenhum aprimoramento encontrado."}</p>}
         </section>
-      ) : (
+      ) : tab === "champions" ? <ChampionTable units={units} statistics={statistics} onPlanner={onPlanner}/> : (
         <div className="data-table-wrap">
-          <table className={`data-table catalog-${tab}`} aria-label={tab === "champions" ? "Campeões do set" : tab === "traits" ? "Características do set" : "Itens do set"}>
-            <colgroup>{(tab === "champions" ? ["index","name","cost","traits","role","usage","action"] : tab === "traits" ? ["index","name","levels","count","portraits"] : ["index","name","category","recipe","portraits"]).map(name=><col key={name} className={`catalog-col-${name}`}/>)}</colgroup>
+          <table className={`data-table catalog-${tab}`} aria-label={tab === "traits" ? "Características do set" : "Itens do set"}>
+            <colgroup>{(tab === "traits" ? ["index","name","levels","count","portraits"] : ["index","name","category","recipe","portraits"]).map(name=><col key={name} className={`catalog-col-${name}`}/>)}</colgroup>
             <thead>
               <tr>
                 <th>#</th>
-                {tab === "champions" ? (
-                  <>
-                    <th>Campeão</th>
-                    <th>Custo</th>
-                    <th>Características</th>
-                    <th>Posição</th>
-                    <th>Nos guias</th>
-                    <th>Planejar</th>
-                  </>
-                ) : tab === "traits" ? (
+                {tab === "traits" ? (
                   <>
                     <th>Característica</th>
                     <th>Patamares</th>
@@ -502,63 +498,7 @@ export function Database({
               </tr>
             </thead>
             <tbody>
-              {tab === "champions"
-                ? units.map((c, i) => (
-                    <tr key={c.id}>
-                      <td>{i + 1}</td>
-                      <td>
-                        <div className="table-unit">
-                          <img
-                            className={`cost-${c.cost}`}
-                            src={portrait(c.id)}
-                            alt=""
-                          />
-                          <span className="catalog-unit-copy"><strong>{c.name}</strong><small>{c.role}</small></span>
-                        </div>
-                      </td>
-                      <td>
-                        <span className={`cost-pill cost-${c.cost}`}>
-                          <span className="coin-dot" />
-                          {c.cost}
-                        </span>
-                      </td>
-                      <td>
-                        <div className="table-traits">
-                          {c.traits.map((t) => (
-                            <button
-                              key={t}
-                              aria-pressed={trait === t}
-                              onClick={() => setTrait(t)}
-                              title={`Filtrar ${t}`}
-                            >
-                              <img src={traitIcon(t)} alt="" />
-                              {t}
-                            </button>
-                          ))}
-                        </div>
-                      </td>
-                      <td className="muted-cell">{c.role}</td>
-                      <td>
-                        <span
-                          className="usage-count"
-                          title={`Presença em ${guides.length} guias curados`}
-                        >
-                          {usages(c.id).length}
-                          <small>/{guides.length}</small>
-                        </span>
-                      </td>
-                      <td>
-                        <button
-                          className="table-plan-button"
-                          onClick={() => onPlanner(c.id)}
-                          aria-label={`Planejar com ${c.name}`}
-                        >
-                          <Plus size={15} />
-                        </button>
-                      </td>
-                    </tr>
-                  ))
-                : tab === "traits"
+              {tab === "traits"
                   ? traits.map((t, i) => {
                       const roster = champions.filter((c) =>
                         c.traits.includes(t.name),
@@ -673,9 +613,7 @@ export function Database({
                     })}
             </tbody>
           </table>
-          {!(tab === "champions"
-            ? units.length
-            : tab === "traits"
+          {!(tab === "traits"
               ? traits.length
               : items.length) && (
             <div className="catalog-empty">

@@ -1,4 +1,5 @@
 import fs from "node:fs/promises";
+import {enrichPivotStats} from '../src/pivot-stats.mjs';
 import {
   extractPivot,
   normalizePivot,
@@ -80,7 +81,7 @@ for (const id of augmentIds) {
   augments[id] = { id, name: c.name, icon: true };
 }
 const registry = { itemSlugs, items, augments };
-const snapshot = normalizePivot(data, registry, catalog.champions);
+const snapshot = await enrichPivotStats(normalizePivot(data, registry, catalog.champions),registry,{champions:catalog.champions});
 await fs.mkdir("public/assets/augments", { recursive: true });
 const jobs = [];
 for (const id of [...ids, ...augmentIds]) {

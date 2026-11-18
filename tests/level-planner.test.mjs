@@ -6,6 +6,7 @@ import {
   strategyFor,
   costOdds,
   teamSlots,
+  teamCapacity,
   shopRules,
   normalizeLevelContext,
 } from "../src/level-planner.mjs";
@@ -100,7 +101,7 @@ test("all catalogue comps have valid capacity-limited teams and consistent trans
   for (const comp of comps)
     for (let level = 1; level <= 10; level++) {
       const p = planForLevel(comp, catalog, { level });
-      assert.ok(p.team.slots <= level, `${comp.name} ${level}`);
+      assert.ok(p.team.slots <= teamCapacity(p.team.ids,catalog,level), `${comp.name} ${level}`);
       assert.equal(p.team.slots, teamSlots(p.team.ids));
       assert.equal(new Set(p.team.ids).size, p.team.ids.length);
       assert.equal(

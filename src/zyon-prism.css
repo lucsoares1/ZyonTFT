@@ -1,0 +1,621 @@
+:root {
+  --arena-ground: #080a0e;
+  --arena-panel: #11161f;
+  --arena-raised: #1b222e;
+  --arena-line: #293342;
+  --arena-ink: #f1f4f8;
+  --arena-muted: #aab1bf;
+  --arena-accent: #2497ff;
+  --arena-sea: #86caff;
+  --zy-panel: linear-gradient(125deg, #1e2835e6, #101820ed);
+  --zy-edge: #6e829b42;
+}
+:is(.workspace-v4.zyon-reimagined, .game-guide, .entry-screen) {
+  --brand-blue: #2497ff;
+  --brand-hover: #60b5ff;
+  --brand-active: #1479d9;
+  --accent: #2497ff;
+  --control-face: #17212d;
+  --control-edge: #45566c;
+  --control-accent: #2497ff;
+  --control-text: #edf5f8;
+  --control-muted: #acbcd0;
+}
+::selection { background: #2497ff4d; color: #ffffff; }
+.workspace-v4.zyon-reimagined {
+  grid-template-columns: 192px minmax(0, 1fr);
+  height: 100dvh;
+  min-height: 0;
+  overflow: hidden;
+  background: #080a0e;
+}
+.workspace-v4.zyon-reimagined .sidebar {
+  width: 192px;
+  align-items: stretch;
+  padding: 24px 8px 16px;
+  gap: 0;
+  background: linear-gradient(145deg, #15212b73, #0c141de6 38%, #101a24);
+  border-right: 1px solid #57677b38;
+}
+.workspace-v4.zyon-reimagined .brand {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  min-height: 110px;
+  padding: 0 12px 20px;
+  margin: 0 10px 18px;
+  border-bottom: 1px solid #71839b1f;
+}
+.workspace-v4.zyon-reimagined .brand>.zyon-mark {
+  display: block;
+  width: 44px;
+  height: 44px;
+  filter: brightness(0) saturate(100%) invert(47%) sepia(96%) saturate(2511%) hue-rotate(191deg) brightness(106%);
+}
+.workspace-v4.zyon-reimagined .brand>div {
+  display: block;
+  text-align: center;
+  font-size: 20px;
+  line-height: 1.15;
+  font-weight: 700;
+  letter-spacing: -.02em;
+}
+.workspace-v4.zyon-reimagined .brand>div>span {
+  display: block;
+  margin-top: 4px;
+  color: #b4c0cf;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+.workspace-v4.zyon-reimagined .sidebar nav[aria-label="Navegação principal"] { gap: 6px; }
+.workspace-v4.zyon-reimagined .sidebar nav[aria-label="Navegação principal"]>button {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  min-height: 46px;
+  height: 46px;
+  padding: 12px 18px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  color: #c4d0df;
+  font-size: 14px;
+  font-weight: 500;
+}
+.workspace-v4.zyon-reimagined .sidebar nav[aria-label="Navegação principal"]>button>span { display: block; font-size: 14px; line-height: 1.3; }
+.workspace-v4.zyon-reimagined .sidebar nav[aria-label="Navegação principal"]>button>svg { width: 21px; height: 21px; }
+.workspace-v4.zyon-reimagined .sidebar nav[aria-label="Navegação principal"]>button.nav-active {
+  background: #2497ff26;
+  border-color: #2497ff3d;
+  color: #ecfffd;
+}
+.workspace-v4.zyon-reimagined .sidebar nav[aria-label="Navegação principal"]>button.nav-active>svg { color: #60b5ff; }
+.workspace-v4.zyon-reimagined .sidebar .nav-current { display: none; }
+.workspace-v4.zyon-reimagined .sidebar-set {
+  display: flex;
+  order: 4;
+  padding: 12px 14px;
+  margin: 22px 10px 0;
+  border: 1px solid #67788e4d;
+  border-radius: 8px;
+  background: #23303d3d;
+}
+.workspace-v4.zyon-reimagined .sidebar-set>img { display: none; }
+.workspace-v4.zyon-reimagined .sidebar-set strong { font-size: 11px; color: #b7c4d5; font-weight: 500; }
+.workspace-v4.zyon-reimagined .sidebar-set span { margin-top: 5px; color: #e1e8f1; font-size: 12px; }
+.workspace-v4.zyon-reimagined .sidebar .zy-plan-dock { order: 3; padding: 8px 0 0; border: 0; margin: 0; }
+.workspace-v4.zyon-reimagined .zy-plan-dock-trigger {
+  flex-direction: row;
+  justify-content: flex-start;
+  gap: 14px;
+  width: 100%;
+  min-height: 46px;
+  padding: 12px 19px;
+  background: transparent;
+  color: #c4d0df;
+}
+.workspace-v4.zyon-reimagined .sidebar .zy-plan-dock-trigger>span { display: block; font-size: 14px; }
+.workspace-v4.zyon-reimagined .sidebar-bottom {
+  order: 5;
+  align-self: stretch;
+  width: 100%;
+  margin-top: auto;
+  padding: 16px 0 0;
+  border-top: 1px solid #71839b1f;
+  gap: 4px;
+}
+.workspace-v4.zyon-reimagined .sidebar .sidebar-bottom>button {
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+  min-height: 38px;
+  padding: 9px 18px;
+  gap: 12px;
+  color: #bfcbd9;
+  font-size: 12px;
+}
+.workspace-v4.zyon-reimagined .sidebar .sidebar-bottom>button>span { display: block; }
+.workspace-v4.zyon-reimagined .sidebar-profile { margin-top: 8px; }
+.workspace-v4.zyon-reimagined .sidebar .sidebar-bottom>button.sidebar-profile { display: flex; width: 100%; height: auto; min-height: 54px; padding: 10px 8px; gap: 10px; justify-content: flex-start; }
+.workspace-v4.zyon-reimagined .sidebar button.sidebar-profile>div:nth-child(2) { display: block; text-align: left; }
+.workspace-v4.zyon-reimagined .sidebar-profile>svg { display: none; }
+.workspace-v4.zyon-reimagined .profile-avatar { border-radius: 7px; width: 29px; height: 29px; background: #2497ff12; border-color: #2497ff4d; color: #8acaff; }
+.workspace-v4.zyon-reimagined .main-shell {
+  position: relative;
+  isolation: isolate;
+  min-height: 0;
+  background: radial-gradient(ellipse at 70% 0, #25304430, transparent 65%);
+}
+.workspace-v4.zyon-reimagined .main-shell>.zy-shell-art {
+  position: absolute;
+  z-index: -1;
+  top: -10px;
+  right: 150px;
+  width: 1100px;
+  max-width: 88%;
+  height: 320px;
+  object-fit: cover;
+  object-position: center 20%;
+  opacity: .46;
+  pointer-events: none;
+  mask-image: linear-gradient(90deg, transparent, #000 24%, #000 75%, transparent), linear-gradient(180deg, #000 40%, transparent 95%);
+  mask-composite: intersect;
+}
+.workspace-v4.zyon-reimagined .topbar {
+  height: 50px;
+  padding: 0 38px;
+  background: #0c131b38;
+  border-bottom: 1px solid #64748929;
+}
+.workspace-v4.zyon-reimagined .topbar-section { font-size: 13px; color: #c0cddd; }
+.workspace-v4.zyon-reimagined .data-label {
+  padding: 6px 14px;
+  border: 1px solid #8290a53d;
+  border-radius: 18px;
+  background: #0c141b59;
+  color: #dbe5ef;
+  font-size: 11px;
+}
+.workspace-v4.zyon-reimagined .tiny-dot { width: 7px; height: 7px; background: #64dcaa; }
+.workspace-v4.zyon-reimagined .window-actions button { width: 30px; height: 30px; }
+.workspace-v4.zyon-reimagined .workspace-heading,
+.workspace-v4.zyon-reimagined .main-shell:has(.workspace-content.has-context)>.workspace-heading {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  min-height: 116px;
+  padding: 22px 24px 20px 38px;
+  align-items: center;
+}
+.workspace-v4.zyon-reimagined .workspace-heading>div:first-child { position: relative; padding-left: 50px; min-width: 0; }
+.workspace-v4.zyon-reimagined .workspace-heading>div:first-child::before {
+  content: "";
+  position: absolute;
+  left: 8px;
+  top: 5px;
+  width: 14px;
+  height: 50px;
+  border-radius: 2px;
+  background: linear-gradient(180deg, #2497ff, #1479d933, transparent);
+  transform: skewX(-16deg);
+}
+.workspace-v4.zyon-reimagined .workspace-heading h1 { margin: 0; font-size: 40px; font-weight: 760; line-height: 1.15; letter-spacing: -.025em; }
+.workspace-v4.zyon-reimagined .workspace-heading p { margin-top: 8px; color: #d0d9e7; font-size: 14px; line-height: 1.5; }
+.workspace-v4.zyon-reimagined .workspace-actions { gap: 14px; flex: none; align-self: flex-end; margin-bottom: -12px; }
+.workspace-v4.zyon-reimagined .workspace-actions .new-comp { min-width: 150px; justify-content: center; }
+.workspace-v4.zyon-reimagined .workspace-actions .overlay-toggle { min-width: 188px; justify-content: center; }
+.workspace-v4.zyon-reimagined .workspace-actions button { min-height: 44px; padding: 10px 18px; border-radius: 8px; font-size: 14px; }
+.workspace-v4.zyon-reimagined .workspace-actions .new-comp { background: #1a23315c; border-color: #8f9caf8c; color: #f0f5fb; }
+.workspace-v4.zyon-reimagined :is(.workspace-actions .overlay-toggle, .workspace-actions .overlay-toggle.is-on, .primary-action, .settings-panel .primary-button, .detail-toolbar>.detail-planner, .social-panel .duo-primary, .studio-dialog .studio-primary, .shop-calibration .calibration-launch, .account-duo-action),
+.entry-screen .entry-submit {
+  background: #2497ff;
+  border-color: #57aeff;
+  color: #07111e;
+}
+.workspace-v4.zyon-reimagined :is(.workspace-actions .overlay-toggle, .workspace-actions .overlay-toggle.is-on, .primary-action, .settings-panel .primary-button, .detail-toolbar>.detail-planner, .social-panel .duo-primary, .shop-calibration .calibration-launch, .account-duo-action):hover:not(:disabled),
+.entry-screen .entry-submit:hover:not(:disabled) { background: #60b5ff; border-color: #91ccff; color: #07111e; }
+.workspace-v4.zyon-reimagined .workspace-content { padding: 0 10px 22px 38px; }
+.workspace-v4.zyon-reimagined .workspace-content.has-context .comp-feed { max-width: none; margin: 0; padding: 0 4px 12px 0; }
+.workspace-v4.zyon-reimagined .library-tabs { min-height: 46px; margin: 0 0 14px; gap: 26px; border-color: #70829a40; }
+.workspace-v4.zyon-reimagined .library-tabs button { padding: 10px 12px 12px; font-size: 14px; font-weight: 500; color: #b7c6d8; }
+.workspace-v4.zyon-reimagined .library-tabs button:first-child { padding-left: 12px; }
+.workspace-v4.zyon-reimagined .library-tabs button.active { color: #f4f8fc; font-weight: 700; }
+.workspace-v4.zyon-reimagined .library-tabs button.active::after { background: #2497ff; height: 2px; }
+.workspace-v4.zyon-reimagined .library-tabs button>span { background: #4b88954d; color: #eefbff; padding: 3px 7px; border-radius: 5px; font-size: 12px; }
+.workspace-v4.zyon-reimagined .feed-toolbar { gap: 16px; align-items: stretch; }
+.workspace-v4.zyon-reimagined .feed-toolbar .search-field { min-height: 44px; background: #27313e73; border: 1px solid #78889e8c; border-radius: 8px; padding: 0 14px; }
+.workspace-v4.zyon-reimagined .search-field>svg { background: transparent; color: #acbdcf; padding: 0; width: 19px; height: 19px; }
+.workspace-v4.zyon-reimagined .feed-toolbar input { font-size: 14px; }
+.workspace-v4.zyon-reimagined .feed-toolbar .library-options-trigger { anchor-name: --zy-library-filter; display: grid; place-items: center; width: 44px; min-width: 44px; height: 44px; border: 1px solid #7b8da066; border-radius: 8px; background: #24303b66; color: #cad7e7; }
+.zy-library-options { position: fixed; position-anchor: --zy-library-filter; inset: auto; top: anchor(bottom); left: anchor(right); translate: -100% 8px; width: 280px; margin: 0; padding: 18px; border: 1px solid #637e94; border-radius: 10px; background: #152430; color: #edf5f8; }
+.zy-library-options h3 { margin: 0 0 16px; font-size: 14px; }
+.zy-library-options label { display: grid; gap: 7px; margin-top: 12px; color: #bed0df; font-size: 12px; }
+.workspace-v4.zyon-reimagined .zy-library-options label select { width: 100%; min-width: 0; }
+.workspace-v4.zyon-reimagined .zy-library-options>button { display: flex; align-items: center; gap: 8px; margin-top: 18px; padding: 9px; border: 1px solid #2497ff52; border-radius: 6px; color: #8acaff; background: #2497ff12; font-size: 12px; }
+.workspace-v4.zyon-reimagined :is(.feed-toolbar select, .database-filters select) { min-height: 44px; min-width: 172px; padding-inline: 14px 32px; font-size: 13px; background: #24303b66; border-color: #7b8da066; color: #dce5ef; border-radius: 8px; }
+.workspace-v4.zyon-reimagined .feed-caption { margin: 4px 0 10px; font-size: 12px; color: #bac7d7; line-height: 1.4; }
+.workspace-v4.zyon-reimagined .tier-section { margin-bottom: 26px; }
+.workspace-v4.zyon-reimagined .tier-section-heading {
+  display: flex;
+  align-items: center;
+  min-height: 42px;
+  padding: 0 14px 0 10px;
+  gap: 16px;
+  margin: 0 0 16px;
+  border: 0;
+  border-bottom: 1px solid #74849b29;
+  border-radius: 12px 0 0;
+  background: linear-gradient(100deg, #7c6a3f59, #2933437a 40%, transparent 80%);
+}
+.workspace-v4.zyon-reimagined .tier-section[data-tier="A"] .tier-section-heading { background: linear-gradient(100deg, #246c6b59, #2933437a 40%, transparent 80%); }
+.workspace-v4.zyon-reimagined .tier-section[data-tier="B"] .tier-section-heading { background: linear-gradient(100deg, #4f586f59, #2933437a 40%, transparent 80%); }
+.workspace-v4.zyon-reimagined .tier-section-heading>.comp-tier-badge { width: 42px; height: 46px; margin-block: -3px; }
+.workspace-v4.zyon-reimagined .tier-section-heading>div { display: flex; align-items: center; gap: 22px; min-width: 0; }
+.workspace-v4.zyon-reimagined .tier-section-heading h2 { color: #f4f5f8; font-size: 22px; font-weight: 720; white-space: nowrap; }
+.workspace-v4.zyon-reimagined .tier-section-heading p { display: block; color: #d0d8e2; font-size: 13px; margin: 0; }
+.workspace-v4.zyon-reimagined .tier-section-heading>span:last-child { font-size: 10px; color: #b4c2d4; }
+.workspace-v4.zyon-reimagined .tier-section-cards { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+.workspace-v4.zyon-reimagined .tier-section-cards .comp-row,
+.game-guide.game-wide .overlay-comp-option {
+  background: linear-gradient(115deg, #202a36e0, #111820ed);
+  border: 1px solid #62748c61;
+  border-radius: 12px;
+  box-shadow: none;
+  overflow: hidden;
+}
+.workspace-v4.zyon-reimagined .tier-section-cards .comp-row.row-selected,
+.game-guide.game-wide .overlay-comp-option[data-current] { background: linear-gradient(115deg, #25313ee6, #131c27ed); border-color: #7490a67a; box-shadow: none; }
+.workspace-v4.zyon-reimagined .tier-section-cards .comp-row:hover,
+.game-guide.game-wide .overlay-comp-option:hover { border-color: #7b9baa9c; }
+:is(.workspace-v4.zyon-reimagined, .game-guide) .zy-comp-face.zy-compact-face.zy-reference-face {
+  display: grid;
+  grid-template-columns: 132px 266px minmax(0, 1fr) 346px;
+  gap: 0;
+  padding: 0;
+  align-items: center;
+  min-height: 128px;
+  container-type: inline-size;
+  cursor: pointer;
+}
+.zy-reference-art { position: relative; align-self: stretch; min-height: 128px; overflow: hidden; }
+.zy-reference-art { mask-image: linear-gradient(90deg, #000 74%, transparent); }
+.zy-reference-art>img { position: absolute; left: 50%; top: 50%; width: auto; max-width: none; min-width: 100%; height: max(210px, 195%); min-height: 100%; object-fit: cover; transform: translate(calc(-1 * var(--art-x, 49%)), calc(-1 * var(--art-y, 31%))); }
+.zy-reference-art[data-carry="DA_18_ElderDragon"] { --art-x: 75%; --art-y: 45%; }
+.zy-reference-art[data-carry="DA_18_Alune"] { --art-x: 75%; --art-y: 30%; }
+.zy-reference-art[data-carry="DA_Draven18"] { --art-x: 49%; --art-y: 31%; }
+.zy-reference-art[data-carry="DA_18_Teemo"] { --art-x: 73%; --art-y: 44%; }
+.zy-reference-art[data-carry="DA_CrimsonRaptor18"] { --art-x: 73%; --art-y: 46%; }
+.zy-reference-art[data-carry="DA_18_Sentry"] { --art-x: 72%; --art-y: 44%; }
+.zy-reference-art[data-carry="DA_18_Zyra"] { --art-x: 52%; --art-y: 38%; }
+.zy-reference-art[data-carry="DA_18_Veigar"] { --art-x: 50%; --art-y: 38%; }
+.zy-reference-art[data-carry="DA_18_Warwick"] { --art-x: 53%; --art-y: 36%; }
+.zy-reference-art[data-carry="DA_18_Akali_AD"] { --art-x: 53%; --art-y: 33%; }
+.zy-reference-art[data-carry="DA_KogMaw18_AD"] { --art-x: 51%; --art-y: 38%; }
+.zy-reference-art[data-carry="DA_18_KhaZix"] { --art-x: 48%; --art-y: 36%; }
+.zy-reference-identity { min-width: 0; padding: 8px 16px 8px 10px; }
+:is(.workspace-v4.zyon-reimagined, .game-guide) .zy-reference-face .zy-comp-title { display: flex; align-items: center; justify-content: flex-start; min-height: 0; width: 100%; margin: 0 0 7px; padding: 0; border: 0; background: transparent; color: #f4f7fc; gap: 4px; text-align: left; font-family: inherit; cursor: pointer; }
+:is(.workspace-v4.zyon-reimagined, .game-guide) .zy-reference-face .zy-comp-title:hover { background: transparent; border-color: transparent; }
+:is(.workspace-v4.zyon-reimagined, .game-guide) .zy-reference-face .zy-comp-title strong { font-size: 19px; line-height: 1.2; font-weight: 720; letter-spacing: -.02em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.zy-reference-face .zy-comp-title>svg { display: none; }
+.zy-reference-meta { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; min-height: 22px; margin-bottom: 8px; }
+.zy-style-tag { padding: 3px 10px; border: 1px solid #2497ffb3; border-radius: 14px; color: #8acaff; background: #2497ff12; font-size: 11px; line-height: 1.2; white-space: nowrap; }
+.zy-level-tag { display: inline-flex; align-items: center; gap: 4px; padding: 3px 6px; border: 1px solid #b9cbe410; border-radius: 12px; font-size: 10px; color: #d5e0ee; background: #93a9c00a; }
+.zy-reference-meta .row-augment-preview { display: inline-flex; gap: 3px; }
+:is(.workspace-v4.zyon-reimagined, .game-guide) .zy-reference-meta .row-augment-preview button { display: grid; place-items: center; width: 22px; height: 22px; min-height: 22px; padding: 1px; background: transparent; border: 0; border-radius: 5px; }
+:is(.workspace-v4.zyon-reimagined, .game-guide) .zy-reference-meta .row-augment-preview button:hover { background: #2497ff1a; }
+.zy-reference-meta .row-augment-preview img { width: 20px; height: 20px; object-fit: contain; }
+.zy-reference-identity .zy-traits { gap: 9px; flex-wrap: nowrap; }
+.zy-reference-identity .zy-traits>span { padding: 0; background: transparent; color: #e2e9f3; font-size: 11px; gap: 3px; }
+.zy-reference-identity .zy-traits img { width: 18px; height: 18px; }
+.zy-reference-roster { min-width: 0; border-left: 1px solid #7e91ab3d; padding: 12px 16px 18px 18px; container-type: inline-size; }
+.zy-reference-face .zy-compact-roster {
+  --roster-gap: 6px;
+  --flex-gap: 14px;
+  --roster-slots: max(11, var(--total-units, 11));
+  --zy-unit-size: clamp(24px, calc((100cqw - (var(--roster-slots) - 2) * var(--roster-gap) - var(--flex-gap) - 2px) / var(--roster-slots)), 56px);
+  --item-px: calc((var(--zy-unit-size) - 2px) / 3);
+  min-width: 0;
+  gap: var(--flex-gap);
+  align-items: start;
+  flex-wrap: nowrap;
+}
+.zy-reference-face .zy-core-group { flex: 0 0 auto; min-width: 0; }
+.zy-reference-face .zy-flex-group { border: 0; padding-left: 0; flex: 0 0 auto; max-width: none; }
+.zy-reference-face .zy-roster-label { font-size: 11px; color: #b4c3d4; margin-bottom: 12px; line-height: 13px; white-space: nowrap; }
+:is(.workspace-v4.zyon-reimagined, .game-guide) .zy-reference-face .zy-compact-roster .lineup-strip { display: flex; flex-wrap: nowrap; gap: var(--roster-gap); }
+:is(.workspace-v4.zyon-reimagined, .game-guide) .zy-reference-face .zy-compact-roster .lineup-unit { --portrait-size: var(--zy-unit-size); width: var(--portrait-size); min-width: 0; flex: 0 0 var(--portrait-size); padding: 0; }
+:is(.workspace-v4.zyon-reimagined, .game-guide) .zy-reference-face .zy-compact-roster .portrait-frame { width: var(--portrait-size); height: var(--portrait-size); margin: 0; padding: 1px; border-radius: 7px; }
+:is(.workspace-v4.zyon-reimagined, .game-guide) .zy-reference-face .zy-compact-roster .lineup-stars { top: -10px; height: 15px; }
+:is(.workspace-v4.zyon-reimagined, .game-guide) .zy-reference-face .zy-compact-roster .lineup-stars svg { width: clamp(9px, calc(var(--portrait-size) * 0.23), 13px); height: clamp(9px, calc(var(--portrait-size) * 0.23), 13px); }
+:is(.workspace-v4.zyon-reimagined, .game-guide) .zy-reference-face .zy-compact-roster .mini-equipment { top: calc(var(--portrait-size) - var(--item-px) * 0.54); height: var(--item-px); }
+:is(.workspace-v4.zyon-reimagined, .game-guide) .zy-reference-face .zy-compact-roster .mini-equipment .equipment { gap: 1px; }
+:is(.workspace-v4.zyon-reimagined, .game-guide) .zy-reference-face .zy-compact-roster .mini-equipment .equipment img { width: var(--item-px); height: var(--item-px); border-radius: 3px; }
+:is(.workspace-v4.zyon-reimagined, .game-guide) .zy-reference-face .zy-compact-roster .lineup-unit>span { display: none; }
+.zy-reference-decision { display: grid; grid-template-columns: minmax(0, 1fr) 34px; gap: 16px; align-items: center; min-width: 0; padding: 0 16px 0 20px; border-left: 1px solid #7e91ab3d; }
+.workspace-v4.zyon-reimagined .comp-row .zy-reference-face .comp-row-decision,
+.game-guide .zy-reference-face .zy-compact-decision {
+  display: block;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  background: transparent;
+}
+:is(.workspace-v4.zyon-reimagined, .game-guide) .zy-reference-face .comp-performance { display: block; min-width: 0; padding: 0; margin: 0; border: 0; background: transparent; }
+:is(.workspace-v4.zyon-reimagined, .game-guide) .zy-reference-face .performance-numbers { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin: 0; padding: 0; width: 100%; }
+:is(.workspace-v4.zyon-reimagined, .game-guide) .zy-reference-face .performance-numbers dt { font-size: 11px; color: #b8c7db; white-space: nowrap; }
+:is(.workspace-v4.zyon-reimagined, .game-guide) .zy-reference-face .performance-numbers dd { margin-top: 5px; font-size: 17px; font-weight: 720; color: #f0f4fa; white-space: nowrap; }
+:is(.workspace-v4.zyon-reimagined, .game-guide) .performance-numbers [data-metric=average] dd { color: #329dff; text-shadow: none; }
+:is(.workspace-v4.zyon-reimagined, .game-guide) .performance-numbers [data-metric=top4] dd { color: #f0f4fa; }
+.zy-reference-face .performance-sample { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.workspace-v4.zyon-reimagined .comp-row .zy-reference-face .row-controls,
+.game-guide .zy-reference-face .overlay-comp-actions { display: flex; flex-direction: column; width: 34px; gap: 5px; padding: 0; margin: 0; border: 0; background: transparent; }
+.workspace-v4.zyon-reimagined .comp-row .zy-reference-face .row-controls button,
+.game-guide .zy-reference-face .overlay-comp-actions button { display: grid; place-items: center; width: 34px; height: 34px; min-height: 34px; padding: 6px; border: 1px solid #6b7e975c; border-radius: 8px; color: #bfccdd; background: #15212c66; }
+.workspace-v4.zyon-reimagined .comp-row .zy-reference-face .row-pin.row-pinned,
+.game-guide .zy-reference-face .overlay-comp-pick:disabled { background: #2497ff14; color: #60b5ff; border-color: #2497ff59; opacity: 1; }
+.workspace-v4.zyon-reimagined .comp-row .zy-reference-face .row-controls button>span { display: none; }
+.workspace-v4.zyon-reimagined .comp-row .zy-reference-face .row-expand,
+.game-guide .zy-reference-face .overlay-comp-detail-open { display: none; }
+:is(.workspace-v4.zyon-reimagined, .game-guide) .zy-comp-disclosure { display: grid; place-items: center; width: 34px; height: 38px; min-height: 38px; padding: 5px; border: 1px solid transparent; border-radius: 8px; background: transparent; cursor: pointer; }
+:is(.workspace-v4.zyon-reimagined, .game-guide) .zy-comp-disclosure>.zyon-mark { width: 25px; height: 25px; opacity: .42; filter: brightness(0) saturate(100%) invert(88%) sepia(18%) saturate(412%) hue-rotate(136deg); transition: opacity 120ms ease-out; }
+:is(.workspace-v4.zyon-reimagined, .game-guide) .zy-comp-disclosure:hover, :is(.workspace-v4.zyon-reimagined, .game-guide) .zy-comp-disclosure:is([aria-expanded=true],[aria-pressed=true]) { background: #2497ff18; border-color: #2497ff5c; }
+:is(.workspace-v4.zyon-reimagined, .game-guide) .zy-comp-disclosure:is(:hover,:focus-visible,[aria-expanded=true],[aria-pressed=true])>.zyon-mark { opacity: .98; }
+.workspace-v4.zyon-reimagined .detail-pin { display: flex; gap: 7px; align-items: center; padding: 8px 10px; font-size: 11px; white-space: nowrap; color: #c5e7e5; background: #2497ff0d; border: 1px solid #2497ff38; border-radius: 7px; }
+.workspace-v4.zyon-reimagined .detail-pin>.zyon-mark { width: 18px; height: 18px; opacity: .7; }
+.game-guide .overlay-comp-detail-close { float: right; margin-top: -36px; }
+.workspace-v4.zyon-reimagined .comp-expanded { background: #111b26e8; border-top: 1px solid #788ca238; }
+.workspace-v4.zyon-reimagined :is(.detail-toolbar, .database-tabs, .planner-studio-toolbar) { background: #15212c66; border-color: var(--zy-edge); }
+.workspace-v4.zyon-reimagined .detail-tabs button.tab-active { color: #8acaff; background: #2497ff17; }
+.workspace-v4.zyon-reimagined :is(.search-field, select, input) { background-color: #17222f; border-color: #51617870; }
+.workspace-v4.zyon-reimagined :is(.search-field:focus-within, input:focus-visible, select:focus-visible) { border-color: #2497ff; background-color: #1d2e3b; }
+.workspace-v4.zyon-reimagined :is(.planner-studio, .champion-performance-wrap, .friend-card, .shop-calibration, .settings-layout .settings-category>section, .sources-panel section) { background: var(--zy-panel); border-color: var(--zy-edge); }
+.workspace-v4.zyon-reimagined .studio-pin, .workspace-v4.zyon-reimagined .studio-pin.is-pinned { background: #2497ff12; border-color: #2497ff5c; color: #8acaff; }
+.workspace-v4.zyon-reimagined .settings-layout>nav>button[aria-pressed=true] { color: #b5ddff; background: #2497ff14; }
+.workspace-v4.zyon-reimagined .champion-performance-table th { background: #22303e; }
+.workspace-v4.zyon-reimagined .champion-performance-table td { border-color: #6e829b26; }
+.workspace-v4.zyon-reimagined .champion-profile-dialog, .studio-dialog { background: #131f2b; border-color: #657d98; }
+.workspace-v4.zyon-reimagined .studio-header, .studio-dialog .studio-dialog-header { background: var(--zy-panel); border-color: var(--zy-edge); }
+.workspace-v4.zyon-reimagined .studio-canvas, .workspace-v4.zyon-reimagined .studio-roster { background: #101b25d9; border-color: #6e829b30; }
+.workspace-v4.zyon-reimagined .studio-canvas-top, .workspace-v4.zyon-reimagined .studio-instructions { background: #27374638; border-color: var(--zy-edge); }
+.workspace-v4.zyon-reimagined .social-panel :is(.duo-identity, .duo-friend-card, .duo-friends-empty),
+.workspace-v4.zyon-reimagined .settings-layout>nav { background: var(--zy-panel); border-color: var(--zy-edge); }
+.workspace-v4.zyon-reimagined .social-panel .duo-friend-invite { background: #2497ff; color: #07111e; border-color: #60b5ff; }
+.zy-plan-menu { background: #182632; border-color: #678297; }
+.workspace-v4.zyon-reimagined .zy-plan-menu .zy-plan-open { background: #2497ff1a; color: #8acaff; border-color: #2497ff4d; }
+.game-guide.game-wide { background: #0c151ef7; border-color: #758ba461; border-radius: 12px; }
+.game-guide.game-wide .game-heading { position: relative; isolation: isolate; overflow: hidden; background: #172532d9; border-color: var(--zy-edge); padding: 10px 12px 12px; }
+.game-guide.game-wide .game-heading>.zy-guide-art { position: absolute; top: 0; right: 0; width: 80%; height: 170px; z-index: 0; pointer-events: none; object-fit: cover; object-position: center 30%; opacity: .47; mask-image: linear-gradient(90deg, transparent, #000 70%), linear-gradient(180deg, #000 15%, transparent); mask-composite: intersect; }
+.game-guide.game-wide .game-heading>:not(.zy-guide-art) { position: relative; z-index: 1; }
+.game-guide.game-wide .game-heading-identity { min-height: 32px; }
+.game-guide.game-wide .game-heading-controls button { background: #273b4c73; border-color: #7c9ab238; color: #dcecf7; border-radius: 6px; }
+.game-guide.game-wide .zy-overlay-team { background: #0b17234d; border: 1px solid #7891aa26; border-radius: 8px; padding: 8px; gap: 12px; }
+.game-guide .zy-overlay-context { background: transparent; border: 0; border-radius: 0; padding: 0; align-self: center; }
+.game-guide .zy-overlay-context .performance-numbers dd { font-size: 13px; }
+.game-guide.game-wide .game-telemetry { background: #131f2b; border-color: var(--zy-edge); }
+.game-guide.game-wide .game-tabs { margin: 0; padding: 0 8px; border: 0; border-bottom: 1px solid #2497ff26; border-radius: 0; background: #162330; overflow: hidden; }
+.game-guide.game-wide .game-tabs button { padding-block: 10px; color: #b6c9d9; }
+.game-guide.game-wide .game-tabs button[aria-selected=true] { background: #2497ff12; color: #b5ddff; }
+.game-guide.game-wide .game-tabs button[aria-selected=true]>svg { color: #60b5ff; }
+.game-guide.game-wide .game-tabs button:hover:not([aria-selected=true]) { background: #2497ff0a; color: #dbe6f5; }
+.game-guide.game-wide .game-tabs button[aria-selected=true]::after { height: 2px; bottom: 0; background: #2497ff; }
+.game-guide.game-wide .game-content { padding: 14px; background: #0c151e; }
+.game-guide.game-wide .overlay-comp-search, .game-guide.game-wide .overlay-library-tools>select { background: #1d2c3a; border-color: #6d819761; }
+.game-guide .overlay-comp-detail-top { position: sticky; top: 0; z-index: 5; padding: 6px 8px; min-height: 44px; background: #1a2a38f5; backdrop-filter: blur(8px); border-color: var(--zy-edge); }
+.game-guide .overlay-comp-detail-top>img { width: 28px; height: 30px; }
+.game-guide .overlay-comp-detail-top>div { min-width: 0; flex: 1; }
+.game-guide .overlay-comp-detail-top h2 { font-size: 11px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 2px; }
+.game-guide .overlay-comp-detail-top p { font-size: 9px; }
+.game-guide .overlay-comp-detail-top>button { padding: 6px 8px; font-size: 10px; }
+.game-guide .game-content:has(.overlay-comp-detail-top) { scroll-padding-top: 62px; }
+.game-guide .overview-augment-callout { background: var(--zy-panel); border-color: var(--zy-edge); }
+.game-guide .overlay-comp-detail-tabs { display: flex; width: max-content; max-width: 100%; padding: 3px; gap: 3px; background: #27394959; border: 1px solid #7e9aaf3d; border-radius: 8px; }
+.game-guide .overlay-comp-detail-tabs button { border: 1px solid transparent; padding: 7px 12px; border-radius: 5px; }
+.game-guide .overlay-comp-detail-tabs button[aria-selected=true] { background: #2497ff21; border-color: #2497ff61; color: #b5ddff; }
+.game-guide .zy-current-detail-source h2 { color: #e5edff; }
+:is(.workspace-v4.zyon-reimagined, .game-guide) .carry-build-group { background: var(--zy-panel); border-color: var(--zy-edge); border-radius: 8px; }
+:is(.workspace-v4.zyon-reimagined, .game-guide) .carry-build-group h4 { background: #2739499e; }
+.game-guide.game-wide .overlay-comp-grid { gap: 10px; }
+.game-guide.game-wide .game-subtabs { padding: 3px; border: 1px solid #6e829b42; border-radius: 7px; background: #152634; }
+.game-guide.game-wide .game-subtabs button { padding-block: 9px; border: 1px solid transparent; border-radius: 5px; background: transparent; }
+.game-guide.game-wide .game-subtabs button[aria-pressed=true] { background: #2497ff21; color: #b5ddff; border-color: #2497ff42; }
+:is(.workspace-v4.zyon-reimagined, .game-guide.game-wide) .level-navigator { background: #17273599; border: 1px solid #6e829b42; border-radius: 9px; padding: 10px; margin-block: 12px; }
+:is(.workspace-v4.zyon-reimagined, .game-guide.game-wide) .level-navigator .level-rail-track { background: #0e1d2a; border-radius: 6px; }
+:is(.workspace-v4.zyon-reimagined, .game-guide.game-wide) .level-navigator .level-rail-track::before { background: #305b8438; }
+:is(.workspace-v4.zyon-reimagined, .game-guide.game-wide) .level-navigator .level-rail-track::after { border: 1px solid #8acaff; border-radius: 5px; background: #2497ff; box-shadow: none; }
+:is(.workspace-v4.zyon-reimagined, .game-guide.game-wide) .level-navigator .level-rail-track button[aria-pressed=true] { color: #07111e; }
+:is(.workspace-v4.zyon-reimagined, .game-guide.game-wide) .level-navigator .level-rail-track button b { background: transparent; }
+:is(.workspace-v4.zyon-reimagined, .game-guide.game-wide) .level-rail-arrows button { background: #283d4e; border-color: #819caf4d; border-radius: 6px; }
+.game-guide.game-wide .native-board-panel { background: #101e2b99; border-color: #6e829b42; }
+.game-guide.game-wide .game-section { background: #182b3766; border-color: var(--zy-edge); }
+:is(.workspace-v4.zyon-reimagined, .game-guide, .entry-screen) :is(button, a, input, select, summary):focus-visible { outline: 2px solid #65b9ff; outline-offset: 3px; }
+:is(.workspace-v4.zyon-reimagined, .game-guide) input::selection { background: #2497ff4d; }
+.workspace-v4.zyon-reimagined .sidebar nav>button:hover:not(.nav-active), .workspace-v4.zyon-reimagined .sidebar-bottom>button:hover { background: #2497ff0d; color: #f1fbfc; }
+.workspace-v4.zyon-reimagined ::-webkit-scrollbar-thumb, .game-guide ::-webkit-scrollbar-thumb { background: #35445c80; }
+@container (max-width: 1350px) {
+  :is(.workspace-v4.zyon-reimagined, .game-guide) .zy-reference-face .zy-reference-identity { padding-right: 12px; }
+  :is(.workspace-v4.zyon-reimagined, .game-guide) .zy-reference-face .zy-comp-title strong { font-size: 17px; }
+}
+@media (max-width: 1600px) {
+  .workspace-v4.zyon-reimagined .workspace-heading h1 { font-size: 34px; }
+  :is(.workspace-v4.zyon-reimagined, .game-guide) .zy-comp-face.zy-compact-face.zy-reference-face { grid-template-columns: 100px 220px minmax(0, 1fr) 288px; min-height: 118px; }
+  .zy-reference-art { min-height: 118px; }
+  .zy-reference-roster { padding: 10px 12px 16px 14px; }
+  :is(.workspace-v4.zyon-reimagined, .game-guide) .zy-reference-face .zy-compact-roster { --roster-gap: 5px; --flex-gap: 12px; }
+  .zy-reference-decision { padding-inline: 12px 12px; gap: 10px; }
+  :is(.workspace-v4.zyon-reimagined, .game-guide) .zy-reference-face .performance-numbers { gap: 10px; }
+  :is(.workspace-v4.zyon-reimagined, .game-guide) .zy-reference-face .performance-numbers dd { font-size: 14.5px; }
+}
+@media (max-width: 1250px) {
+  .workspace-v4.zyon-reimagined .main-shell>.zy-shell-art { right: -120px; opacity: .34; }
+  .workspace-v4.zyon-reimagined .workspace-heading { padding-inline: 24px; }
+  .workspace-v4.zyon-reimagined .workspace-heading h1 { font-size: 30px; }
+  .workspace-v4.zyon-reimagined .workspace-heading>div:first-child { padding-left: 30px; }
+  .workspace-v4.zyon-reimagined .workspace-heading>div:first-child::before { left: 2px; width: 9px; height: 42px; }
+  .workspace-v4.zyon-reimagined .workspace-heading p { font-size: 12px; }
+  .workspace-v4.zyon-reimagined .workspace-actions button { padding-inline: 12px; font-size: 12px; }
+  .workspace-v4.zyon-reimagined .workspace-content { padding-left: 24px; padding-right: 12px; }
+  .workspace-v4.zyon-reimagined .feed-toolbar select { min-width: 135px; }
+  .workspace-v4.zyon-reimagined .tier-section-heading p { font-size: 11px; }
+  .workspace-v4.zyon-reimagined .tier-section-heading h2 { font-size: 18px; }
+}
+@media (max-width: 1120px) {
+  :is(.workspace-v4.zyon-reimagined, .game-guide) .zy-comp-face.zy-compact-face.zy-reference-face {
+    grid-template-columns: 88px minmax(0, 1fr) 285px;
+    grid-template-rows: auto auto;
+    padding: 0;
+    min-height: 132px;
+  }
+  .zy-reference-art { grid-column: 1; grid-row: 1 / 3; min-height: 132px; }
+  .zy-reference-identity { grid-column: 2; grid-row: 1; padding: 10px 12px 6px; }
+  .zy-reference-decision { grid-column: 3; grid-row: 1; margin: 10px 0 0; }
+  .zy-reference-roster { grid-column: 2 / -1; grid-row: 2; border: 0; padding: 0 12px 14px; }
+  .zy-reference-face .zy-roster-label { font-size: 10px; margin-bottom: 8px; }
+  .zy-reference-identity .zy-traits { gap: 6px; }
+  .workspace-v4.zyon-reimagined .zy-comp-face.zy-compact-face.zy-reference-face {
+    grid-template-columns: 80px 198px minmax(0, 1fr) 198px;
+    grid-template-rows: none;
+    grid-template-areas: "art identity roster decision";
+    min-height: 128px;
+    padding: 0;
+    align-items: center;
+  }
+  .workspace-v4.zyon-reimagined .zy-reference-face>.zy-reference-art { grid-area: art; min-height: 128px; height: 100%; }
+  .workspace-v4.zyon-reimagined .zy-reference-face>.zy-reference-identity { grid-area: identity; padding: 10px 12px; }
+  .workspace-v4.zyon-reimagined .zy-reference-face>.zy-reference-roster { grid-area: roster; padding: 10px 10px 14px; border-left: 1px solid #7e91ab3d; }
+  .workspace-v4.zyon-reimagined .zy-reference-face>.zy-reference-decision { grid-area: decision; padding: 0 12px; margin: 0; gap: 10px; }
+  .workspace-v4.zyon-reimagined .zy-reference-face .zy-comp-title strong { font-size: 16px; }
+  .workspace-v4.zyon-reimagined .zy-reference-face .zy-compact-roster { --roster-gap: 3px; --flex-gap: 8px; }
+  .workspace-v4.zyon-reimagined .zy-reference-face .performance-numbers { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 8px; }
+  .workspace-v4.zyon-reimagined .zy-reference-face .performance-numbers dt { font-size: 10px; }
+  .workspace-v4.zyon-reimagined .zy-reference-face .performance-numbers dd { margin-top: 2px; font-size: 16px; }
+}
+@media (max-width: 760px) {
+  .game-guide .zy-comp-face.zy-compact-face.zy-reference-face { grid-template-columns: 80px minmax(0, 1fr); }
+  .game-guide .zy-reference-art { grid-column: 1; grid-row: 1; min-height: 88px; }
+  .game-guide .zy-reference-identity { grid-column: 2; grid-row: 1; }
+  .game-guide .zy-reference-roster { grid-column: 1 / -1; grid-row: 2; padding: 4px 12px 14px; }
+  .game-guide .zy-reference-decision { grid-column: 1 / -1; grid-row: 3; margin: 0; padding: 10px 12px; border: 0; border-top: 1px solid #6e829b26; }
+  .game-guide.game-wide .zy-overlay-team { padding: 8px; }
+  .game-guide .zy-reference-face .performance-numbers dd { font-size: 17px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .workspace-v4.zyon-reimagined .zy-shell-art { transition: none; }
+}
+
+/* One guide workspace: explore the published route beside its read-only board. */
+:is(.workspace-v4.zyon-reimagined,.game-guide) .zy-tactical-overview.zy-plan-explorer { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1.2fr); align-items: start; gap: 24px; padding: 0; margin-block: 16px; border: 0; border-radius: 0; overflow: visible; background: transparent; }
+.zy-plan-explorer>.zy-plan-path { min-width: 0; padding: 0; }
+.zy-plan-explorer>.zy-plan-field { min-width: 0; padding: 0; border-left: 0; }
+:is(.workspace-v4.zyon-reimagined,.game-guide) .zy-plan-explorer section { padding: 0; border: 0; border-radius: 0; background: transparent; box-shadow: none; }
+.zy-plan-explorer h3 { color: #e6efff; font-size: 12px; font-weight: 600; }
+.zy-plan-explorer :is(section,.zy-path-team)>header { display: flex; align-items: center; justify-content: space-between; gap: 8px; border: 0; padding: 0; margin: 0 0 12px; }
+.zy-plan-explorer header>span { color: #b4c5dc; font-size: 10px; }
+.zy-path-modes { display: flex; gap: 16px; padding: 0; background: transparent; border-bottom: 1px solid var(--zy-edge); border-radius: 0; margin-bottom: 16px; }
+:is(.workspace-v4.zyon-reimagined,.game-guide) .zy-path-modes button { flex: none; min-width: 0; padding: 8px 0; border: 0; border-bottom: 2px solid transparent; border-radius: 0; background: transparent; color: var(--arena-muted); font-size: 11px; }
+:is(.workspace-v4.zyon-reimagined,.game-guide) .zy-path-modes button[aria-pressed=true] { color: #dce9ff; background: transparent; border-color: var(--arena-accent); }
+.zy-path-levels { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 4px; margin-bottom: 14px; }
+:is(.workspace-v4.zyon-reimagined,.game-guide) .zy-path-levels button { display: flex; align-items: baseline; justify-content: center; gap: 5px; min-width: 0; min-height: 30px; padding: 6px 4px; background: #9cb9e309; border: 1px solid transparent; border-radius: 4px; color: #b6c8e2; }
+.zy-path-levels button strong { font-size: 10px; font-weight: 600; white-space: nowrap; }
+.zy-path-levels button span { font-size: 9px; color: #b4c5dc; }
+:is(.workspace-v4.zyon-reimagined,.game-guide) .zy-path-levels button[aria-pressed=true] { color: #edf4ff; border-color: #2497ff80; background: #2497ff26; }
+:is(.workspace-v4.zyon-reimagined,.game-guide) .zy-plan-explorer button:hover { background-color: #2497ff1f; }
+.zy-plan-explorer button:focus-visible,.zy-plan-explorer summary:focus-visible { outline: 2px solid #65b9ff; outline-offset: 2px; }
+.zy-path-content { min-width: 0; }
+.zy-path-content>h3 { margin: 14px 0 12px; }
+.zy-plan-explorer .lineup-strip { flex-wrap: wrap; gap: 7px; }
+.zy-plan-explorer .lineup-unit { flex: 0 0 38px; width: 38px; min-width: 0; }
+.zy-plan-explorer .portrait-frame { width: 38px; height: 38px; }
+.zy-plan-path .lineup-unit:not(.has-equipment) .mini-equipment { display: none; }
+.zy-plan-explorer .lineup-unit>span { width: 100%; font-size: 9px; }
+/* Shrink short rosters as one row; balance larger ones instead of orphaning a unit. */
+.zy-plan-explorer :is(.zy-path-team,.zy-path-continuation) .lineup-strip { display: grid; grid-template-columns: repeat(var(--zy-roster-columns),minmax(0,1fr)); gap: 8px 4px; }
+.zy-plan-explorer .zy-path-team .lineup-unit { width: 100%; max-width: 38px; }
+.zy-plan-explorer .zy-path-team .portrait-frame { width: 100%; height: auto; aspect-ratio: 1; }
+.zy-plan-explorer .zy-path-team .mini-equipment .equipment { width: 100%; gap: 1px; justify-content: center; }
+.zy-plan-explorer .zy-path-team .mini-equipment img { width: calc((100% - 2px)/3); max-width: 12px; height: auto; aspect-ratio: 1; }
+.zy-path-note,.zy-path-economy { color: #b4c5dc; font-size: 10px; line-height: 1.6; margin: 12px 0 0; }
+.zy-path-options { display: grid; gap: 5px; margin-top: 14px; }
+:is(.workspace-v4.zyon-reimagined,.game-guide) .zy-path-option { display: flex; align-items: center; justify-content: space-between; gap: 8px; width: 100%; min-height: 34px; padding: 7px 8px; border: 1px solid transparent; border-radius: 5px; background: #a5bee309; color: #d0def0; text-align: left; font-size: 10px; }
+:is(.workspace-v4.zyon-reimagined,.game-guide) .zy-path-option[aria-pressed=true] { border-color: #2497ff5c; background: #2497ff19; }
+.zy-path-option>span:last-child { flex: none; color: #b4c5dc; font-size: 9px; }
+.zy-path-option>span:first-child { min-width: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+.zy-swap { display: flex; align-items: center; gap: 5px; }
+.zy-swap img { width: 25px; height: 25px; border: 1px solid #8a9cc24d; border-radius: 4px; }
+.zy-swap b { font-weight: 500; }
+.zy-path-transitions { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; padding-top: 14px; margin-top: 14px; border-top: 1px solid #7d9aad30; }
+.zy-path-transitions>div>span { display: block; color: #c6d7ed; font-size: 10px; margin-bottom: 8px; }
+.zy-path-transitions>p { grid-column: 1/-1; color: #b4c5dc; font-size: 10px; line-height: 1.6; margin: 0; }
+.zy-path-continuation { margin-top: 16px; }
+.zy-path-continuation h3 { margin: 0 0 10px; }
+:is(.workspace-v4.zyon-reimagined,.game-guide) .zy-path-continuation>button { display: block; width: 100%; min-width: 0; padding: 10px 8px; margin-top: 5px; background: #a5bee309; border: 1px solid transparent; border-radius: 5px; text-align: left; color: #cbdcf4; }
+.zy-path-continuation>button>span { display: flex; align-items: center; gap: 7px; margin-bottom: 9px; font-size: 10px; }
+.zy-path-continuation>button>span>span { color: #b4c5dc; font-size: 9px; }
+.zy-path-continuation>button>span>svg { margin-left: auto; }
+.zy-plan-explorer .zy-path-continuation .lineup-unit { width: 100%; max-width: 30px; }
+.zy-plan-explorer .zy-path-continuation .portrait-frame { width: 100%; height: auto; aspect-ratio: 1; }
+.zy-plan-explorer .zy-path-continuation .lineup-unit>span { display: none; }
+.zy-path-description { margin-top: 15px; padding-top: 12px; border-top: 1px solid #7d9aad30; }
+.zy-path-description summary { cursor: pointer; color: #cbdcf4; font-size: 11px; }
+.zy-path-description p { color: #b4c5dc; font-size: 11px; line-height: 1.65; }
+.zy-flex-options { margin-top: 16px; }
+.zy-flex-options>h3 { margin-bottom: 12px; }
+.zy-plan-board .tft-board-panel { padding: 0; border: 0; background: transparent; }
+.zy-plan-board .tft-board-panel :is(.board-panel-heading,.board-panel-footer,.trait-stack) { display: none; }
+.zy-plan-board .tft-board-panel .tft-board-content { display: block; padding: 4px 0; }
+.zy-plan-board .empty-hex { background: #708ca242; }
+.zy-plan-board .empty-hex::after { background: #172b38; }
+.zy-plan-board .zy-path-note { margin-top: 8px; }
+.zy-plan-loadouts { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 16px; padding-top: 14px; margin-top: 14px; border-top: 1px solid #7d9aad30; }
+.zy-plan-loadouts>:only-child { grid-column: 1/-1; }
+:is(.workspace-v4.zyon-reimagined,.game-guide) .zy-plan-explorer .zy-plan-priority { padding: 14px; border: 1px solid #718da64d; border-radius: 9px; background: linear-gradient(120deg,#203643b3,#17232e99); }
+.zy-plan-priority ol { list-style: none; display: flex; flex-wrap: wrap; align-items: start; gap: 14px; margin: 0; padding: 2px 0; }
+.zy-plan-priority li { position: relative; min-width: 0; width: 68px; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.zy-plan-priority .equipment img { width: 38px; height: 38px; border: 1px solid #829cb378; border-radius: 6px; }
+.zy-plan-priority .zy-priority-number { position: absolute; top: -5px; left: 8px; z-index: 1; display: grid; place-items: center; min-width: 18px; height: 18px; padding: 2px; border: 1px solid #305b84; border-radius: 5px; background: #142b43; color: #b5ddff; font-size: 10px; font-weight: 700; }
+.zy-plan-priority .zy-priority-name { position: static; width: 100%; height: auto; overflow: visible; clip-path: none; white-space: normal; color: #c4d5e3; font-size: 10px; line-height: 1.35; text-align: center; overflow-wrap: anywhere; }
+:is(.workspace-v4.zyon-reimagined,.game-guide) .zy-plan-explorer[data-has-path=false] { grid-template-columns: minmax(0,1fr); }
+.zy-plan-explorer[data-has-path=false]>.zy-plan-field { border-left: 0; }
+@media(max-width:760px) {
+ :is(.workspace-v4.zyon-reimagined,.game-guide) .zy-tactical-overview.zy-plan-explorer { grid-template-columns: minmax(0,1fr); }
+ .zy-plan-explorer>.zy-plan-field { border-left: 0; border-top: 1px solid var(--zy-edge); padding-top: 16px; }
+ .zy-path-levels { grid-template-columns: repeat(4,minmax(0,1fr)); }
+ .zy-plan-explorer header>span { display: block; }
+}
+
+/* Keep one bounded scroller; a content-sized feed cannot receive wheel scrolling. */
+.workspace-v4.zyon-reimagined:has(.workspace-content.has-context) { height: 100dvh; min-height: 0; overflow: hidden; }
+.workspace-v4.zyon-reimagined .main-shell { min-height: 0; }
+.workspace-v4.zyon-reimagined .workspace-content.has-context { display: flex; flex-direction: column; align-items: stretch; min-height: 0; overflow: hidden; }
+.workspace-v4.zyon-reimagined .workspace-content.has-context>.composition-layout { display: flex; flex: 1; width: 100%; min-width: 0; min-height: 0; overflow: hidden; }
+.workspace-v4.zyon-reimagined .workspace-content.has-context .comp-feed { flex: 1; height: auto; min-height: 0; overflow-x: hidden; overflow-y: auto; overscroll-behavior-y: contain; scrollbar-gutter: stable; }
+.workspace-v4.zyon-reimagined .workspace-content.has-context .comp-list { flex: none; overflow: visible; }
+
+/* First contact: a factual summary, with the final board beside it. */
+.zy-comp-summary>h3 { margin: 16px 0 12px; }
+.zy-comp-summary dl { display: grid; gap: 12px; margin: 0; }
+.zy-comp-summary dl>div { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.zy-comp-summary dt { color: #b4c5dc; font-size: 11px; }
+.zy-comp-summary dd { margin: 0; color: #e6efff; font-size: 11px; text-align: right; }
+.zy-summary-carry { display: flex; align-items: center; gap: 7px; }
+.zy-summary-carry img { width: 27px; height: 27px; object-fit: cover; border-radius: 4px; }
+.zy-comp-summary h4 { color: #d3e0f3; font-size: 11px; font-weight: 600; margin: 0 0 10px; }
+.zy-summary-goals,.zy-summary-start { margin-top: 16px; padding-top: 14px; border-top: 1px solid #7d9aad30; }
+.zy-comp-summary>.zy-path-option { margin-top: 16px; }
+.zy-summary-roster,.zy-comp-summary>.zy-summary-equipment { margin-top: 16px; padding-top: 14px; border-top: 1px solid #7d9aad30; }
+.zy-plan-explorer .zy-summary-equipment>header { margin-bottom: 10px; }
+.zy-summary-equipment-group+.zy-summary-equipment-group { margin-top: 14px; }
+.zy-summary-equipment h4 { color: #b4c5dc; font-size: 10px; font-weight: 500; margin: 0 0 8px; }
+.zy-summary-holder-list { display: grid; grid-template-columns: repeat(auto-fit,minmax(min(100%,190px),1fr)); gap: 10px 14px; }
+.zy-summary-holder { display: grid; grid-template-columns: 34px minmax(0,1fr); column-gap: 9px; align-items: center; min-width: 0; }
+.zy-summary-holder-portrait { grid-row: span 2; width: 34px; height: 34px; object-fit: cover; border: 1px solid #8a9cc24d; border-radius: 4px; }
+.zy-summary-holder>strong { color: #e6efff; font-size: 11px; font-weight: 600; overflow-wrap: anywhere; }
+.zy-summary-holder>.equipment { gap: 3px; margin-top: 4px; flex-wrap: wrap; }
+.zy-summary-holder>.equipment img { width: 23px; height: 23px; border: 1px solid #8a9cc24d; border-radius: 3px; }
+.zy-summary-holder>.zy-path-note { margin: 3px 0 0; }
+.zy-path-reference { color: #b4c5dc; font-size: 10px; line-height: 1.6; margin: 0 0 12px; }
+:is(.workspace-v4.zyon-reimagined,.game-guide) .zy-source-restore { display: flex; align-items: center; width: max-content; max-width: 100%; min-height: 30px; margin-top: 7px; padding: 6px 9px; color: #d0def0; font-size: 10px; border: 1px solid #2497ff5c; border-radius: 5px; background: #2497ff19; }
+.zy-source-restore:focus-visible { outline: 2px solid #65b9ff; outline-offset: 2px; }

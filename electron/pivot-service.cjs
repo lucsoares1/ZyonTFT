@@ -14,7 +14,10 @@ function createPivotService(folder, { fetcher = fetch } = {}) {
     try {
       const cached = JSON.parse(fs.readFileSync(file, "utf8"));
       const { validateComps } = await import("../src/comp-catalog.mjs");
+      const {validStatistics}=await import('../src/pivot-stats.mjs');
       validateComps(cached.comps, catalog.champions, registry.items);
+      if(cached.comps.some(c=>c.pivot?.statistics&&!validStatistics(c.pivot.statistics,c,registry)))throw Error('Estatísticas em cache inválidas');
+      if(Object.entries(cached.championStatistics||{}).some(([id,s])=>!catalog.champions.some(c=>c.id===id)||!validStatistics(s,{champions:[id]},registry)))throw Error('Estatísticas de campeão inválidas');
       if (
         cached.edition.setNumber !== 18 ||
         cached.edition.patch !== "18.6" ||
@@ -66,7 +69,7 @@ function createPivotService(folder, { fetcher = fetch } = {}) {
         if (!response.ok) throw Error(`PivotTFT respondeu ${response.status}.`);
         if (Number(response.headers.get("content-length")) > 5000000)
           throw Error("Página maior que o esperado.");
-        const next = normalizePivot(
+        let next = normalizePivot(
           extractPivot(await response.text()),
           registry,
           catalog.champions,
@@ -75,6 +78,8 @@ function createPivotService(folder, { fetcher = fetch } = {}) {
           throw Error("Resposta anterior ao catálogo salvo.");
         if (next.comps.length < snapshot.comps.length * 0.8)
           throw Error("Resposta incompleta. Mantido o catálogo anterior.");
+        const {enrichPivotStats}=await import('../src/pivot-stats.mjs');
+        next=await enrichPivotStats(next,registry,{fetcher,previous:snapshot,champions:catalog.champions});
         const temp = file + ".tmp";
         fs.mkdirSync(folder, { recursive: true });
         fs.writeFileSync(temp, JSON.stringify(next));

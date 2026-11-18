@@ -25,6 +25,8 @@ function freshSession() {
     side: "left",
     collapsed: false,
     shopOnly: false,
+    guideExpanded: false,
+    guideSize: null,
     guidePosition: null,
     guideControlOffset: null,
     guideRestore: null,
@@ -39,6 +41,9 @@ function normalizeSession(value) {
     side: value?.side === "right" ? "right" : "left",
     collapsed: value?.collapsed === true,
     shopOnly: value?.shopOnly === true,
+    guideExpanded: value?.guideExpanded === true,
+    guideSize: Number.isFinite(value?.guideSize?.width)&&Number.isFinite(value?.guideSize?.height)
+      ? {width:clamp(value.guideSize.width,480,3840,840),height:clamp(value.guideSize.height,320,2160,800)} : null,
     guidePosition: Number.isFinite(value?.guidePosition?.x) && Number.isFinite(value?.guidePosition?.y)
       ? {x:clamp(value.guidePosition.x,0,32768,0),y:clamp(value.guidePosition.y,0,32768,0)} : null,
     guideControlOffset: Number.isFinite(value?.guideControlOffset?.x) && Number.isFinite(value?.guideControlOffset?.y)
@@ -103,6 +108,8 @@ function changeSession(value, action) {
       side: next.side,
       collapsed: next.collapsed,
       shopOnly: next.shopOnly,
+      guideExpanded: next.guideExpanded,
+      guideSize: next.guideSize,
       guidePosition: next.guidePosition,
       guideControlOffset: next.guideControlOffset,
       guideRestore: next.guideRestore,
@@ -136,17 +143,19 @@ function changeSession(value, action) {
   if (action.type === "side")
     next.side = next.side === "left" ? "right" : "left";
   if (action.type === "collapse") next.collapsed = !next.collapsed;
+  if (action.type === "guide-expand") next.guideExpanded = !next.guideExpanded;
+  if (action.type === "guide-size") next.guideSize = action.size;
   if (action.type === "shop-only") {
     next.shopOnly = !next.shopOnly;
     if(action.placement){next.guidePosition=action.placement.guidePosition;next.guideControlOffset=action.placement.guideControlOffset;next.guideRestore=action.placement.guideRestore;}
   }
   if (action.type === "guide-position") next.guidePosition = action.position;
   if (action.type === "end")
-    return {...freshSession(),matchId:next.matchId,round:next.round,ended:true,side:next.side,collapsed:next.collapsed,shopOnly:next.shopOnly,guidePosition:next.guidePosition,guideControlOffset:next.guideControlOffset,guideRestore:next.guideRestore};
+    return {...freshSession(),matchId:next.matchId,round:next.round,ended:true,side:next.side,collapsed:next.collapsed,shopOnly:next.shopOnly,guideExpanded:next.guideExpanded,guideSize:next.guideSize,guidePosition:next.guidePosition,guideControlOffset:next.guideControlOffset,guideRestore:next.guideRestore};
   if (action.type === "resume") { next.ended=false;next.startedAt=Date.now(); }
   if(action.type==='round-reading'&&/^[1-9]-[1-9]$/.test(action.round||''))next.round=action.round;
   if (action.type === "reset")
-    return { ...freshSession(), side: next.side, shopOnly:next.shopOnly,guidePosition:next.guidePosition,guideControlOffset:next.guideControlOffset,guideRestore:next.guideRestore,matchId: next.matchId };
+    return { ...freshSession(), side: next.side, shopOnly:next.shopOnly,guideExpanded:next.guideExpanded,guideSize:next.guideSize,guidePosition:next.guidePosition,guideControlOffset:next.guideControlOffset,guideRestore:next.guideRestore,matchId: next.matchId };
   return normalizeSession(next);
 }
 module.exports = { freshSession, normalizeSession, changeSession };

@@ -50,6 +50,7 @@
       "src/generated/pivot.json",
       "src/generated/pivot-registry.json",
       "src/pivot-catalog.mjs",
+      "src/pivot-stats.mjs",
       "src/comp-catalog.mjs",
       "package.json"
     ],

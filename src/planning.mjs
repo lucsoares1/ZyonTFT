@@ -1,11 +1,18 @@
 import {augmentOrigin} from './comp-augments.mjs';
+import rules from './generated/level-rules.json' with {type:'json'};
+export function championRole(id, fallback = 'Retaguarda') {
+  return typeof rules.units[id]?.frontline === 'boolean'
+    ? rules.units[id].frontline ? 'Linha de frente' : 'Retaguarda'
+    : fallback;
+}
 export function personalizePlan(comp) {
   return { ...comp, augmentSource:augmentOrigin(comp), style: "Personalizada", source: undefined, pivot: undefined };
 }
 export function boardPositions(comp, catalog) {
   const positions = {};
   const used = new Set();
-  for (const id of comp.champions) {
+  const ids = [...new Set(comp.champions)].sort();
+  for (const id of ids) {
     const pos = comp.positions?.[id];
     if (Number.isInteger(pos) && pos >= 0 && pos < 28 && !used.has(pos)) {
       positions[id] = pos;
@@ -14,9 +21,10 @@ export function boardPositions(comp, catalog) {
   }
   const front = [1, 3, 5, 0, 6, 2, 4, 8, 10, 12, 7, 9, 11, 13];
   const back = [21, 27, 23, 25, 22, 26, 24, 15, 17, 19, 14, 16, 18, 20];
-  for (const id of comp.champions) {
+  for (const id of ids) {
     if (id in positions) continue;
-    const preferred = catalog[id]?.role === "Retaguarda" ? back : front;
+    const frontline = championRole(id, catalog[id]?.role) !== "Retaguarda";
+    const preferred = frontline ? front : back;
     const pos = [...preferred, ...Array.from({ length: 28 }, (_, i) => i)].find(
       (p) => !used.has(p),
     );

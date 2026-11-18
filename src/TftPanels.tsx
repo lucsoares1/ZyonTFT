@@ -1,15 +1,97 @@
 import { Crosshair, Plus, Star, Target } from "lucide-react";
-import {useRef, useState, type CSSProperties} from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { createPortal } from "react-dom";
 import {
   byId,
   portrait,
+  itemById,
   itemNames,
   traitThresholds,
   traitIcon,
   type Comp,
 } from "./data";
 import { boardPositions } from "./planning.mjs";
+import {traitCounts} from './level-planner.mjs';
 export { itemNames } from "./data";
+
+function renderHighlightedText(text: string) {
+  const parts = text.split(/(\+?\d+(?:,\d+)?%?(?:s\b)?)/g);
+  return parts.map((part, idx) =>
+    idx % 2 === 1 ? <b key={idx}>{part}</b> : part,
+  );
+}
+
+function ItemTooltip({
+  id,
+  x,
+  y,
+  above,
+}: {
+  id: string;
+  x: number;
+  y: number;
+  above: boolean;
+}) {
+  const info = itemById[id];
+  if (!info) return null;
+  const clampedX = Math.max(156, Math.min(window.innerWidth - 156, x));
+  const style: CSSProperties = above
+    ? { left: clampedX, bottom: window.innerHeight - y + 10 }
+    : { left: clampedX, top: y + 10 };
+  return createPortal(
+    <div
+      className={`zy-item-tooltip ${above ? "is-above" : "is-below"}`}
+      style={style}
+      role="tooltip"
+    >
+      <div className="zy-item-tooltip-head">
+        <img
+          className="zy-item-tooltip-icon"
+          src={`./assets/items/${id}.png`}
+          alt=""
+        />
+        <div className="zy-item-tooltip-meta">
+          <strong>{info.name}</strong>
+          {info.recipe.length === 2 ? (
+            <div className="zy-item-tooltip-craft" aria-label="Receita">
+              <span className="zy-craft-slot">
+                <img
+                  src={`./assets/items/${info.recipe[0]}.png`}
+                  alt={itemNames[info.recipe[0]] || ""}
+                />
+              </span>
+              <span className="zy-craft-plus">+</span>
+              <span className="zy-craft-slot">
+                <img
+                  src={`./assets/items/${info.recipe[1]}.png`}
+                  alt={itemNames[info.recipe[1]] || ""}
+                />
+              </span>
+            </div>
+          ) : (
+            <span className="zy-item-tooltip-cat">{info.category}</span>
+          )}
+        </div>
+      </div>
+      {info.stats.length > 0 && (
+        <div className="zy-item-tooltip-stats">
+          {info.stats.map((stat, i) => (
+            <span key={i}>{stat}</span>
+          ))}
+        </div>
+      )}
+      {info.desc && (
+        <div className="zy-item-tooltip-desc">
+          {info.desc.split("\n").map((line, i) => (
+            <p key={i}>{renderHighlightedText(line)}</p>
+          ))}
+        </div>
+      )}
+    </div>,
+    document.body,
+  );
+}
+
 export function Items({
   ids,
   className = "",
@@ -17,6 +99,22 @@ export function Items({
   ids: string[];
   className?: string;
 }) {
+  const [tip, setTip] = useState<{
+    id: string;
+    x: number;
+    y: number;
+    above: boolean;
+  } | null>(null);
+  useEffect(() => {
+    if (!tip) return;
+    const hide = () => setTip(null);
+    window.addEventListener("scroll", hide, true);
+    window.addEventListener("blur", hide);
+    return () => {
+      window.removeEventListener("scroll", hide, true);
+      window.removeEventListener("blur", hide);
+    };
+  }, [tip]);
   return (
     <span className={`equipment ${className}`}>
       {ids.map((id, index) => (
@@ -24,9 +122,22 @@ export function Items({
           key={`${id}-${index}`}
           src={`./assets/items/${id}.png`}
           alt={itemNames[id]}
-          title={itemNames[id]}
+          title={itemById[id] ? undefined : itemNames[id]}
+          onMouseEnter={(e) => {
+            if (!itemById[id]) return;
+            const r = e.currentTarget.getBoundingClientRect();
+            const above = r.top > 180;
+            setTip({
+              id,
+              x: r.left + r.width / 2,
+              y: above ? r.top : r.bottom,
+              above,
+            });
+          }}
+          onMouseLeave={() => setTip(null)}
         />
       ))}
+      {tip && <ItemTooltip {...tip} />}
     </span>
   );
 }
@@ -85,6 +196,7 @@ export function BoardPanel({
   selectedCell,
   pinned = false,
   pointerEditing = false,
+  traitProgress = false,
 }: {
   comp: Comp;
   native?: boolean;
@@ -93,18 +205,13 @@ export function BoardPanel({
   selectedCell?: number;
   pinned?: boolean;
   pointerEditing?: boolean;
+  traitProgress?: boolean;
 }) {
   const board = useRef<HTMLElement>(null);
   const gesture = useRef<{id:string;x:number;y:number;active:boolean;target:number|null}|null>(null);
   const suppressClick = useRef(false);
   const [drag, setDrag] = useState<{id:string;target:number|null}|null>(null);
-  const traits = Object.entries(
-    comp.champions.reduce<Record<string, number>>((map, id) => {
-      for (const trait of byId[id]?.traits || [])
-        map[trait] = (map[trait] || 0) + 1;
-      return map;
-    }, {}),
-  ).sort((a, b) => b[1] - a[1]);
+  const traits = Object.entries(traitCounts(comp.champions,byId)).sort((a,b)=>b[1]-a[1]);
   const positions = new Map<number, string>(
     Object.entries(boardPositions(comp, byId)).map(([id, pos]) => [
       pos as number,
@@ -135,7 +242,7 @@ export function BoardPanel({
                 <span className="trait-emblem">
                   <img src={traitIcon(trait)} alt="" />
                 </span>
-                <b>{count}</b>
+                  <b>{traitProgress?`${count} / ${traitThresholds[trait]?.find(threshold=>threshold>count)??traitThresholds[trait]?.at(-1)??count}`:count}</b>
                 <span>{trait}</span>
               </div>
             );

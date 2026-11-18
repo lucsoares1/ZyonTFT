@@ -2,6 +2,31 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {guideBoundsFor,shopOnlyPlacement} from '../electron/guide-layout.cjs';
 import {freshSession,changeSession,normalizeSession} from '../electron/game-session.cjs';
+
+test('expanded overlay restores through both compact modes without changing match data',()=>{
+  const display={x:-1920,y:0,width:1920,height:1080};
+  const original=freshSession();
+  const expanded=changeSession(original,{type:'guide-expand'});
+  assert.deepEqual(expanded.context,original.context);
+  assert.equal(guideBoundsFor(display,expanded).width,1672);
+  assert.equal(guideBoundsFor(display,expanded).height,941);
+  const compact=changeSession(expanded,{type:'collapse'});
+  assert.equal(guideBoundsFor(display,compact).height,160);
+  assert.equal(changeSession(compact,{type:'collapse'}).guideExpanded,true);
+  const shop=changeSession(expanded,{type:'shop-only'});
+  assert.equal(guideBoundsFor(display,shop).width,116);
+  assert.equal(guideBoundsFor(display,shop).height,44);
+  assert.equal(changeSession(shop,{type:'shop-only'}).guideExpanded,true);
+  for(const action of [{type:'match',id:'new'},{type:'end'},{type:'reset'}])assert.equal(changeSession(expanded,action).guideExpanded,true);
+  const small=guideBoundsFor({x:0,y:0,width:1280,height:720},expanded);
+  assert.ok(small.x>=0&&small.y>=0&&small.x+small.width<=1280&&small.y+small.height<=720);
+  assert.equal(normalizeSession({guideExpanded:'true'}).guideExpanded,false);
+  const resized=changeSession(expanded,{type:'guide-size',size:{width:1122,height:1402}});
+  assert.deepEqual(normalizeSession(resized).guideSize,{width:1122,height:1402});
+  assert.deepEqual(changeSession(resized,{type:'reset'}).guideSize,resized.guideSize);
+  assert.deepEqual(changeSession(resized,{type:'end'}).guideSize,resized.guideSize);
+  assert.equal(normalizeSession({guideSize:{width:Infinity,height:3}}).guideSize,null);
+});
 test('shop-only mode and dragged position survive match boundaries without changing copies',()=>{
   let s=changeSession(freshSession(),{type:'guide-position',position:{x:360,y:190}});
   s=changeSession(s,{type:'shop-only'});

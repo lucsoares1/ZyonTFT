@@ -1,0 +1,572 @@
+/* Zyon Arena. Shared pieces and surfaces for the desktop and the in-game guide. */
+:root {
+  --arena-ground: #0d141f;
+  --arena-panel: #182332;
+  --arena-raised: #223147;
+  --arena-line: #34465f;
+  --arena-ink: #eaf2ff;
+  --arena-muted: #a8bad2;
+  --arena-accent: #6fa8ff;
+  --arena-sea: #7ddac4;
+  --arena-hex: polygon(50% 0, 97% 25%, 97% 75%, 50% 100%, 3% 75%, 3% 25%);
+}
+::selection { background: #6fa8ff40; color: #eff5ff; }
+:is(.workspace-v4.zyon-reimagined,.game-guide) { color: var(--arena-ink); caret-color: var(--arena-accent); }
+:is(.workspace-v4.zyon-reimagined,.game-guide) :is(button,a,input,select,summary):focus-visible { outline: 2px solid var(--arena-accent); outline-offset: 3px; }
+
+/* The unit is a game piece, with cost, stars and equipment on a single anchor. */
+.zy-hex-roster { display: grid; grid-template-columns: repeat(auto-fit,minmax(47px,1fr)); gap: 5px 3px; align-items: start; width: 100%; }
+.zy-piece { width: 100%; max-width: 66px; min-width: 0; position: relative; margin: auto; padding-bottom: 13px; }
+.zy-piece-frame { width: 100%; aspect-ratio: .866; position: relative; clip-path: var(--arena-hex); background: var(--piece-rarity); padding: 3px; }
+.zy-piece-frame>img { display: block; width: 100%; height: 100%; object-fit: cover; clip-path: var(--arena-hex); }
+.zy-piece-frame::after { content: ''; position: absolute; inset: 3px; clip-path: var(--arena-hex); background: linear-gradient(0deg,#0a0e16d9 0%,transparent 58%); pointer-events: none; }
+.zy-piece-name { position: absolute; z-index: 1; left: 5px; right: 5px; bottom: 20%; text-align: center; font-size: 10px; font-weight: 650; line-height: 1.3; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #fff; text-shadow: 0 1px 3px #000; }
+.zy-piece .zy-piece-items { position: absolute; bottom: 7px; left: 50%; transform: translateX(-50%); display: flex; gap: 1px; --item-size: 15px; width: max-content; z-index: 2; }
+.zy-piece .zy-piece-items img { width: 15px; height: 15px; border: 1px solid #9a8f6d; border-radius: 3px; object-fit: contain; }
+.zy-piece-stars { display: flex; justify-content: center; gap: 0; color: #ffda77; position: absolute; top: -2px; left: 0; right: 0; z-index: 2; filter: drop-shadow(0 1px 1px #000); }
+.zy-traits { display: flex; flex-wrap: wrap; gap: 5px; }
+.zy-traits>span { display: flex; align-items: center; gap: 4px; background: #2c4059; color: #d7e7fc; padding: 3px 6px; border-radius: 3px; font-size: 11px; }
+.zy-traits img { width: 17px; height: 17px; object-fit: contain; }
+.zy-traits b { font-weight: 600; }
+
+/* A portrait panel has an explicit boundary; the artwork never fades into a black void. */
+.zy-comp-artwork { position: relative; isolation: isolate; min-width: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 10px; padding: 30px 10px 18px; overflow: hidden; background: #1a2436; }
+.zy-comp-scene { position: absolute; z-index: -2; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 55% center; opacity: .58; }
+.zy-comp-artwork::after { content: ''; position: absolute; z-index: -1; inset: 0; background: linear-gradient(180deg,#16233320,#171f2bb0); }
+.zy-comp-emblem { width: 94px; aspect-ratio: .866; clip-path: var(--arena-hex); padding: 5px; background: var(--arena-accent); }
+.zy-comp-emblem>img { width: 100%; height: 100%; display: block; object-fit: cover; clip-path: var(--arena-hex); }
+.zy-comp-art-caption { text-align: center; display: grid; gap: 7px; position: relative; }
+.zy-comp-art-caption strong { color: #f0f5ff; font-size: 15px; font-weight: 750; }
+.zy-comp-art-caption span { color: #afcdff; font-size: 11px; font-weight: 650; line-height: 1.4; }
+.zy-comp-artwork>.comp-tier-badge { position: absolute; left: 10px; top: 10px; width: 25px; height: 28px; }
+.zy-comp-artwork { overflow: visible; background: transparent; }
+.zy-comp-artwork::after { display: none; }
+.zy-comp-scene { z-index: 0; width: calc(100% + 86px); max-width: none; opacity: .62; mask-image: linear-gradient(90deg,#000 42%,transparent 100%),linear-gradient(180deg,#000 30%,#000b 67%,transparent 100%); mask-composite: intersect; }
+.zy-comp-emblem,.zy-comp-art-caption,.zy-comp-artwork>.comp-tier-badge { z-index: 1; position: relative; }
+.zy-comp-artwork>.comp-tier-badge { position: absolute; }
+.zy-comp-lineup { position: relative; z-index: 1; }
+.zy-comp-face { display: grid; grid-template-columns: 138px minmax(0,1fr); align-items: stretch; width: 100%; min-width: 0; }
+.zy-comp-lineup { padding: 14px 16px 12px; min-width: 0; display: flex; flex-direction: column; align-items: stretch; gap: 8px; }
+:is(.workspace-v4.zyon-reimagined,.game-guide) .zy-comp-title { padding: 0; margin: 0; background: none; border: 0; display: flex; flex-direction: row; align-items: flex-start; justify-content: space-between; gap: 8px; color: var(--arena-ink); text-align: left; width: 100%; min-height: 25px; }
+:is(.workspace-v4.zyon-reimagined,.game-guide) .zy-comp-title strong { font-size: 16px; line-height: 1.4; font-weight: 720; letter-spacing: -.02em; white-space: normal; }
+.zy-comp-title>svg { flex: none; margin-top: 3px; color: #a7b4bc; }
+.zy-comp-title:hover strong { color: #b8d5ff; }
+.zy-team-label { display: flex; justify-content: space-between; align-items: center; color: var(--arena-muted); font-size: 10px; margin-top: 2px; }
+.zy-team-label>span:first-child { color: #d2d7d6; font-weight: 550; }
+.zy-comp-lineup>.zy-hex-roster { grid-template-columns: repeat(5,minmax(0,1fr)); }
+.zy-comp-lineup>.zy-hex-roster .zy-piece { max-width: 56px; }
+.zy-comp-support { display: flex; justify-content: space-between; align-items: end; gap: 12px; border-top: 1px solid #ffffff0c; padding-top: 9px; margin-top: auto; }
+.zy-flex,.zy-augments { display: flex; align-items: center; gap: 9px; min-width: 0; }
+.zy-flex>span,.zy-augments>span:first-child { color: var(--arena-muted); font-size: 10px; }
+.zy-flex .zy-hex-roster { display: flex; width: auto; gap: 4px; flex-wrap: wrap; }
+.zy-flex .zy-piece { width: 35px; padding: 0; }
+.zy-flex .zy-piece-name { display: none; }
+.zy-augments { flex-direction: column; align-items: flex-end; gap: 5px; margin-left: auto; }
+:is(.workspace-v4.zyon-reimagined,.game-guide) .zy-augments .row-augment-preview { display: flex; gap: 8px; }
+:is(.workspace-v4.zyon-reimagined,.game-guide) .zy-augments .row-augment-preview button { width: 30px; height: 30px; min-height: 30px; padding: 2px; border: 0; background: transparent; border-radius: 4px; }
+:is(.workspace-v4.zyon-reimagined,.game-guide) .zy-augments .row-augment-preview button:hover { background: #ffffff10; }
+.zy-augments .row-augment-preview img { width: 27px; height: 27px; object-fit: contain; }
+
+/* Desktop: library shelf instead of a stack of empty banners. */
+.workspace-v4.zyon-reimagined { grid-template-columns: 202px minmax(0,1fr); background: var(--arena-ground); }
+.workspace-v4.zyon-reimagined .sidebar { background: #101a28; border-right: 1px solid #30393c; padding: 24px 12px 12px; gap: 21px; }
+.workspace-v4.zyon-reimagined .brand { padding: 0 9px 20px; border-bottom: 1px solid #344044; }
+.workspace-v4.zyon-reimagined .brand>svg { color: var(--arena-accent); }
+.workspace-v4.zyon-reimagined .brand strong { font-size: 29px; letter-spacing: -.04em; color: var(--arena-ink); }
+.workspace-v4.zyon-reimagined .brand small { color: #afb8b8; font-size: 10px; }
+.workspace-v4.zyon-reimagined .sidebar :is(nav,.sidebar-bottom)>button { border-radius: 6px; font-size: 12px; min-height: 41px; color: #bac4c7; }
+.workspace-v4.zyon-reimagined .sidebar nav>button.active { background: #6fa8ff15; color: #c5dbff; }
+.workspace-v4.zyon-reimagined .sidebar nav>button.active svg { color: var(--arena-accent); }
+.workspace-v4.zyon-reimagined .sidebar .nav-group-label { color: #8f9d9f; font-size: 10px; }
+.workspace-v4.zyon-reimagined .sidebar-plan-chip { border: 1px solid #4168a1; background: #172b44; border-radius: 8px; }
+.workspace-v4.zyon-reimagined .sidebar-plan-chip img { clip-path: var(--arena-hex); border: 0; border-radius: 0; width: 40px; height: 46px; }
+.workspace-v4.zyon-reimagined .topbar { background: #12181b; border-bottom-color: #2c363b; }
+.workspace-v4.zyon-reimagined .workspace-heading { padding: 23px 28px 20px; }
+.workspace-v4.zyon-reimagined .workspace-heading h1 { font-size: 28px; color: #eaf2ff; font-weight: 700; }
+.workspace-v4.zyon-reimagined .workspace-heading p { color: #aeb9bd; font-size: 12px; }
+.workspace-v4.zyon-reimagined .workspace-content.has-context { display: block; }
+.workspace-v4.zyon-reimagined .context-aside { display: none; }
+.workspace-v4.zyon-reimagined .workspace-content { padding: 0 28px 24px; }
+.workspace-v4.zyon-reimagined .comp-feed { padding: 0; }
+.workspace-v4.zyon-reimagined .library-header { margin-bottom: 14px; }
+.workspace-v4.zyon-reimagined .library-toolbar { padding: 0; }
+.workspace-v4.zyon-reimagined .feed-caption { margin: 13px 0 18px; color: #a3b1b6; }
+.workspace-v4.zyon-reimagined .tier-section-cards { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 16px; align-items: start; }
+.workspace-v4.zyon-reimagined .tier-section-heading { margin: 23px 0 12px; border: 0; }
+.workspace-v4.zyon-reimagined .tier-section-heading h2 { font-size: 14px; color: #c7dcff; }
+.workspace-v4.zyon-reimagined .comp-row { border: 1px solid #394348; border-radius: 12px; background: var(--arena-panel); overflow: hidden; box-shadow: none; }
+.workspace-v4.zyon-reimagined .comp-row.row-selected { border-color: #5278ad; box-shadow: none; }
+.workspace-v4.zyon-reimagined .tier-section-cards .comp-row.row-selected { border-color: #5278ad; box-shadow: none; }
+.workspace-v4.zyon-reimagined .comp-row.row-expanded { grid-column: 1/-1; }
+.workspace-v4.zyon-reimagined .comp-row-summary { display: block; padding: 0; margin: 0; border: 0; min-height: 0; background: none; overflow: visible; }
+.workspace-v4.zyon-reimagined .comp-row-summary::before,.workspace-v4.zyon-reimagined .comp-row-summary::after { display: none; }
+.workspace-v4.zyon-reimagined .comp-row-summary .zy-comp-title { padding: 0; min-height: 25px; }
+.workspace-v4.zyon-reimagined .comp-row-decision { display: flex; flex-direction: column; align-items: stretch; gap: 13px; position: static; margin: 0; padding: 14px 16px 13px; border-top: 1px solid #3a4244; background: #111c2ad9; }
+.workspace-v4.zyon-reimagined .comp-row-decision .comp-performance { display: grid; grid-template-columns: 1fr auto; gap: 12px; width: 100%; padding: 0; margin: 0; }
+.workspace-v4.zyon-reimagined .comp-row-decision .performance-numbers { order: 0; display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 10px; width: 100%; }
+:is(.workspace-v4.zyon-reimagined,.game-guide) .performance-numbers dt { font-size: 10px; color: #a8b5bb; font-weight: 500; }
+:is(.workspace-v4.zyon-reimagined,.game-guide) .performance-numbers dd { font-size: 17px; font-weight: 700; color: #eaece6; margin: 4px 0 0; font-variant-numeric: tabular-nums; }
+:is(.workspace-v4.zyon-reimagined,.game-guide) .performance-numbers [data-metric=average] dd { color: #8be0c9; text-shadow: 0 0 14px #7ddac426; }
+:is(.workspace-v4.zyon-reimagined,.game-guide) .performance-numbers [data-metric=top4] dd { color: #b2ceff; text-shadow: none; }
+.workspace-v4.zyon-reimagined .comp-row-decision .performance-sample { order: 1; align-self: center; border: 0; padding: 0; color: #97a4a9; font-size: 9px; line-height: 1.7; }
+.workspace-v4.zyon-reimagined .comp-row-decision .performance-sample b { display: block; color: #b3bec2; font-size: 9px; }
+.workspace-v4.zyon-reimagined .comp-row-decision .row-controls { width: 100%; display: flex; justify-content: flex-end; gap: 7px; }
+.workspace-v4.zyon-reimagined .row-controls button { position: static; padding: 7px 12px; height: 32px; width: auto; min-height: 32px; border: 1px solid #4b5559; border-radius: 6px; color: #deded4; background: #ffffff04; font-size: 11px; }
+.workspace-v4.zyon-reimagined .row-controls .row-pin { margin-right: auto; }
+.workspace-v4.zyon-reimagined .row-controls .row-pin.row-pinned { border-color: #4a6d9e; background: #6fa8ff0d; color: #b4d1ff; }
+.workspace-v4.zyon-reimagined .row-controls button:hover { background: #ffffff0e; border-color: #719bd4; }
+.workspace-v4.zyon-reimagined .row-expanded .zy-comp-face { grid-template-columns: 180px minmax(0,1fr); }
+.workspace-v4.zyon-reimagined .row-expanded .zy-comp-lineup { display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 10px 16px; }
+.workspace-v4.zyon-reimagined .row-expanded .zy-comp-lineup>.zy-hex-roster { grid-template-columns: repeat(11,minmax(0,1fr)); grid-column: 1/-1; }
+.workspace-v4.zyon-reimagined .row-expanded .zy-team-label { display: none; }
+.workspace-v4.zyon-reimagined .row-expanded .zy-comp-support { grid-column: 1/-1; }
+.workspace-v4.zyon-reimagined .row-expanded .zy-comp-support { justify-content: flex-start; }
+.workspace-v4.zyon-reimagined .row-expanded .zy-augments { flex-direction: row; margin-left: 22px; }
+.workspace-v4.zyon-reimagined .row-expanded .comp-row-decision { flex-direction: row; align-items: center; }
+.workspace-v4.zyon-reimagined .row-expanded .comp-row-decision .comp-performance { max-width: 600px; }
+.workspace-v4.zyon-reimagined .row-expanded .row-controls { width: auto; margin-left: auto; }
+
+/* In-game: same composition card and game pieces, reflowed for the guide width. */
+.game-guide.game-wide { background: #101a28f7; border-color: #526063; border-radius: 12px; }
+.game-guide.game-wide .game-heading { display: grid; grid-template-columns: minmax(0,1fr) 68px; grid-template-rows: 30px auto; height: auto; min-height: 0; padding: 8px 12px 11px; gap: 8px; background: #1a283a; border-bottom: 1px solid #3e526d; }
+.game-guide.game-wide .game-heading-identity { grid-column: 1; grid-row: 1; gap: 8px; }
+.game-guide.game-wide .game-wordmark { color: var(--arena-accent); }
+.game-guide.game-wide .game-heading-title h1 { font-size: 15px; color: #e7f1ff; }
+.game-guide.game-wide .game-heading-style { display: none; }
+.game-guide.game-wide .game-heading-title>.comp-tier-badge { display: none; }
+.game-guide.game-wide .game-heading-controls { grid-column: 2; grid-row: 1; justify-content: end; }
+.game-guide.game-wide .game-heading-controls button { background: #ffffff05; color: #d5d9d5; border-color: #ffffff10; border-radius: 5px; }
+.game-guide.game-wide .zy-overlay-team { grid-row: 2; grid-column: 1/-1; display: grid; grid-template-columns: 116px minmax(0,1fr) 115px; gap: 14px; width: 100%; align-items: stretch; padding: 0; overflow: visible; }
+.zy-overlay-team .zy-comp-artwork { padding: 12px 8px 10px; border-radius: 6px; gap: 6px; }
+.zy-overlay-team .zy-comp-emblem { width: 62px; padding: 3px; }
+.zy-overlay-team .zy-comp-art-caption strong { display: none; }
+.zy-overlay-team .zy-comp-art-caption span { font-size: 10px; }
+.zy-overlay-team .zy-comp-artwork>.comp-tier-badge { top: 5px; left: 5px; width: 20px; height: 23px; }
+.zy-overlay-core { min-width: 0; display: flex; flex-direction: column; gap: 9px; justify-content: center; }
+.zy-overlay-core>.zy-hex-roster { grid-template-columns: repeat(10,minmax(0,1fr)); gap: 4px; }
+.zy-overlay-core .zy-piece-name { font-size: 9px; }
+.zy-overlay-core .zy-piece .zy-piece-items { --item-size: 12px; bottom: 8px; }
+.zy-overlay-core .zy-piece .zy-piece-items img { width: 12px; height: 12px; }
+.zy-overlay-context { padding-left: 12px; border-left: 1px solid #424d50; display: flex; flex-direction: column; justify-content: center; gap: 8px; min-width: 0; }
+.zy-overlay-context .comp-performance { display: block; padding: 0; margin: 0; border: 0; }
+.zy-overlay-context .performance-numbers { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.game-guide .zy-overlay-context .performance-numbers dd { font-size: 13px; margin-top: 2px; }
+.zy-overlay-context .performance-numbers dt { font-size: 9px; }
+.zy-overlay-context .performance-sample { display: none; }
+.zy-overlay-context .zy-flex .zy-piece { width: 24px; }
+.game-wide.game-collapsed .zy-overlay-team { display: none; }
+.game-guide.game-wide .game-telemetry { background: #142032; border-color: #344044; min-height: 43px; }
+.game-guide.game-wide .game-tabs { background: #1b2a3f; border-color: #3b474d; padding: 0 8px; }
+.game-guide.game-wide .game-tabs button { color: #b9c5cb; font-size: 11px; padding: 13px 3px; }
+.game-guide.game-wide .game-tabs button[aria-selected=true] { color: #bfd7ff; background: #6fa8ff0b; }
+.game-guide.game-wide .game-tabs button[aria-selected=true]::after { background: var(--arena-accent); }
+.game-guide.game-wide .game-content { padding: 17px; background: var(--arena-ground); }
+.game-guide.game-wide .overlay-comp-library { display: grid; grid-template-columns: 1fr auto; gap: 8px; }
+.game-guide.game-wide .overlay-comp-library>header { grid-column: 1/-1; margin: 0; }
+.game-guide.game-wide .overlay-comp-library>header p { display: none; }
+.game-guide .overlay-library-tools,.game-guide .overlay-comp-grid,.game-guide .overlay-comp-empty,.game-guide .overlay-comp-library>.duo-error { grid-column: 1/-1; }
+.game-guide .overlay-library-tools { margin-top: 0; }
+.game-guide .overlay-library-tools .overlay-comp-search { min-height: 34px; height: 34px; }
+.game-guide.game-wide .overlay-comp-library>header h2 { font-size: 21px; color: #eaf2ff; }
+.game-guide.game-wide .overlay-comp-library>header>svg { display: none; }
+.game-guide.game-wide .overlay-comp-search,.game-guide.game-wide .overlay-library-tools>select { background: #20292e; border-color: #3b494f; color: #d8e0e2; border-radius: 6px; }
+.game-guide.game-wide .overlay-library-scopes { margin: 0; align-self: center; }
+.game-guide.game-wide .overlay-library-scopes button { padding-block: 5px; }
+.game-guide.game-wide .overlay-library-scopes button[aria-pressed=true] { color: #efd09e; border-color: #4d75a7; background: #6fa8ff0a; }
+.game-guide.game-wide .overlay-comp-results { margin: 0; color: #aab7bd; align-self: center; font-size: 10px; }
+.game-guide.game-wide .overlay-comp-grid { display: grid; grid-template-columns: 1fr; gap: 15px; }
+.game-guide.game-wide .overlay-comp-option { display: grid; grid-template-columns: 1fr auto; gap: 0; padding: 0; border: 1px solid #3b474d; background: var(--arena-panel); border-radius: 12px; overflow: hidden; box-shadow: none; }
+.game-guide.game-wide .overlay-comp-option[data-current] { border-color: #527db5; box-shadow: none; }
+.overlay-comp-option>.zy-comp-face { grid-column: 1/-1; }
+.overlay-comp-option .zy-comp-face { grid-template-columns: 132px minmax(0,1fr); }
+.overlay-comp-option .zy-comp-lineup { gap: 8px; }
+.overlay-comp-option .zy-comp-lineup>.zy-hex-roster { grid-template-columns: repeat(10,minmax(0,1fr)); }
+.overlay-comp-option .zy-comp-support { padding-top: 7px; }
+.overlay-comp-option .zy-augments { flex-direction: row; align-items: center; }
+.game-guide .overlay-comp-option>.comp-performance { grid-column: 1; display: flex; flex-direction: column; align-items: stretch; gap: 8px; margin: 0; padding: 12px 16px; border-top: 1px solid #3a464a; background: #111c2a; }
+.game-guide .overlay-comp-option .performance-numbers { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 14px; }
+.game-guide .overlay-comp-option .performance-numbers dd { font-size: 16px; }
+.game-guide .overlay-comp-option .performance-sample { color: #a4b2b8; font-size: 9px; margin: 0; }
+.game-guide .overlay-comp-option>.performance-missing { padding: 14px 16px; }
+.game-guide .overlay-comp-actions { grid-column: 2; border-top: 1px solid #3a464a; padding: 12px; margin: 0; display: flex; flex-direction: column; justify-content: center; gap: 5px; background: #111c2a; }
+.game-guide .overlay-comp-actions button { font-size: 11px; min-height: 30px; padding: 5px 10px; border-radius: 5px; }
+.game-guide .overlay-comp-actions .overlay-comp-pick { color: #bfdaff; border-color: #44618a; background: #6fa8ff0a; }
+.game-guide .overlay-comp-actions .overlay-comp-pick:disabled { opacity: 1; color: #b2c6dc; background: transparent; border-color: #3e536e; }
+.game-guide .overlay-comp-actions .overlay-comp-detail-open { color: #c2cdd2; border: 0; }
+
+/* Shared tactical view. The real 28-cell board geometry remains in tft-visuals.css. */
+.zy-tactical-overview { display: grid; grid-template-columns: minmax(0,1.65fr) minmax(220px,1fr); gap: 16px; margin: 16px 0; }
+.zy-tactical-overview section { background: #162337; border: 1px solid #39474d; border-radius: 12px; padding: 16px; min-width: 0; }
+.zy-tactical-overview section>header { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 15px; }
+.zy-tactical-overview h3 { display: flex; align-items: center; gap: 7px; margin: 0; font-size: 13px; color: #c4dcff; }
+.zy-tactical-overview header>span { font-size: 10px; color: #a3b5bd; }
+.zy-tactical-overview .zy-positioning { align-self: start; }
+.zy-positioning>p { font-size: 10px; color: #a5b6bc; margin: 15px 0 0; }
+.zy-positioning .tft-board-panel { background: transparent; border: 0; border-radius: 0; padding: 0; }
+.zy-positioning .tft-board-panel :is(.board-panel-heading,.board-panel-footer,.trait-stack) { display: none; }
+.zy-positioning .tft-board-panel .tft-board-content { display: block; padding: 8px 0; }
+.zy-tactical-preparation { display: flex; flex-direction: column; gap: 13px; min-width: 0; }
+.zy-tactical-preparation .zy-hex-roster { grid-template-columns: repeat(auto-fit,minmax(38px,1fr)); }
+.zy-tactical-preparation .zy-piece { max-width: 56px; }
+.zy-item-priority ol { list-style: none; display: flex; flex-wrap: wrap; gap: 12px; margin: 0; padding: 0; }
+.zy-item-priority li { display: flex; align-items: center; gap: 8px; }
+.zy-item-priority li>span:not(.equipment) { display: none; }
+.zy-item-priority .equipment img { width: 33px; height: 33px; border-radius: 5px; border: 1px solid #7d765c; }
+.zy-item-priority li>svg { color: #9facae; }
+.zy-carry-equipment>div { display: flex; align-items: center; gap: 11px; margin-top: 6px; }
+.zy-carry-equipment>div>.zy-hex-roster { width: 49px; flex: none; }
+.zy-carry-equipment>div>div:last-child { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.zy-carry-equipment strong { font-size: 12px; }
+.zy-carry-equipment .equipment img { width: 25px; height: 25px; border-radius: 4px; }
+.zy-route-disclosure { border-top: 1px solid #3c484d; margin-top: 20px; padding-top: 16px; }
+.zy-route-disclosure>summary { color: #c0d7ff; font-size: 13px; cursor: pointer; }
+.game-guide .zy-tactical-overview { grid-template-columns: minmax(0,1.5fr) minmax(195px,1fr); gap: 10px; }
+.game-guide .zy-tactical-overview section { padding: 12px; }
+.game-guide .zy-tactical-overview h3 { font-size: 12px; }
+.game-guide .zy-tactical-overview section>header>span { display: none; }
+
+/* Shared application chrome: native controls with the same muted metal palette. */
+.workspace-v4.zyon-reimagined :is(.search-field,select,input) { background-color: #1c262c; border-color: #3a4b54; color: #d9e1e3; }
+.workspace-v4.zyon-reimagined .workspace-actions .primary { background: #6fa8ff; border-color: #6fa8ff; color: #0e1d32; }
+.workspace-v4.zyon-reimagined :is(.detail-toolbar,.database-tabs,.planner-studio-toolbar) { background: #192739; border-color: #3b494f; }
+.workspace-v4.zyon-reimagined :is(.detail-tabs,.database-tabs) button[aria-selected=true],.workspace-v4.zyon-reimagined .library-tabs button[aria-selected=true] { color: #c3dcff; border-bottom-color: #6fa8ff; }
+.workspace-v4.zyon-reimagined :is(.planner-studio,.champion-performance-wrap,.friend-card,.shop-calibration) { background: #172331; border-color: #40505a; }
+.workspace-v4.zyon-reimagined .champion-performance-table th { background: #223147; color: #c0ced3; font-size: 11px; }
+.workspace-v4.zyon-reimagined .champion-performance-table td { height: 64px; border-bottom-color: #35444c; }
+.workspace-v4.zyon-reimagined .champion-profile-open>img { clip-path: var(--arena-hex); width: 42px; height: 48px; border: 0; border-radius: 0; }
+.workspace-v4.zyon-reimagined .champion-profile-open strong { color: #eee9de; font-size: 14px; }
+.workspace-v4.zyon-reimagined .champion-metric b { font-size: 14px; color: #cdd8dd; }
+.workspace-v4.zyon-reimagined .champion-profile-dialog { background: #172331; border-color: #6d7b7e; }
+.workspace-v4.zyon-reimagined .settings-layout .settings-category>section,.workspace-v4.zyon-reimagined .sources-panel section { background: #172331; border-color: #3c4c54; }
+.workspace-v4.zyon-reimagined .sidebar nav>button.nav-active { background: #6fa8ff13; color: #bad4ff; }
+.workspace-v4.zyon-reimagined .sidebar nav>button.nav-active svg { color: #6fa8ff; }
+.workspace-v4.zyon-reimagined .brand .zyon-mark { color: #6fa8ff; }
+.workspace-v4.zyon-reimagined .sidebar .sidebar-plan-chip button>img { clip-path: var(--arena-hex); border-radius: 0; border: 0; }
+.workspace-v4.zyon-reimagined .workspace-actions .overlay-toggle,
+.workspace-v4.zyon-reimagined .detail-toolbar>.detail-planner,
+.workspace-v4.zyon-reimagined .social-panel .duo-primary,
+.workspace-v4.zyon-reimagined .shop-reader-settings .reader-status button,
+.workspace-v4.zyon-reimagined .calibration-launch { background: #376fe0; border-color: #4d8bfb; color: #ffffff; box-shadow: none; }
+.workspace-v4.zyon-reimagined .detail-tabs button[aria-selected=true],
+.workspace-v4.zyon-reimagined .pivot-builds button[aria-pressed=true] { color: #bad7ff; background: #6fa8ff12; border-color: #486e9f; }
+.workspace-v4.zyon-reimagined .planner-studio { background: transparent; --studio-surface:#18283a; --studio-line:#3f5058; }
+.workspace-v4.zyon-reimagined .studio-eyebrow { display: none; }
+.workspace-v4.zyon-reimagined .studio-name { color: #dfebff; }
+.workspace-v4.zyon-reimagined .studio-header { padding: 15px 18px; background: #1b2d42; border: 1px solid #42515a; border-radius: 10px; margin-bottom: 16px; }
+.workspace-v4.zyon-reimagined .studio-pin,.workspace-v4.zyon-reimagined .studio-pin.is-pinned { background: #6fa8ff0b; color: #bad4ff; border-color: #486e9f; }
+.workspace-v4.zyon-reimagined .studio-canvas { background: #182228; border-color: #42535c; }
+.workspace-v4.zyon-reimagined .studio-canvas-top,.workspace-v4.zyon-reimagined .studio-instructions { background: #1d3046; border-color: #42535c; }
+.workspace-v4.zyon-reimagined .studio-board .empty-hex { background: #3b4e58; }
+.workspace-v4.zyon-reimagined .studio-board .empty-hex::after { background: #202e35; }
+.workspace-v4.zyon-reimagined .studio-board .tft-hex:hover .empty-hex::after { background: #293e58; }
+.workspace-v4.zyon-reimagined .studio-roster { background: #182537; border: 1px solid #3b4d55; border-radius: 12px; padding: 16px 12px; }
+.workspace-v4.zyon-reimagined .studio-roster-list>button>img { clip-path: var(--arena-hex); border: 0; border-radius: 0; }
+.studio-dialog { background: #182639; border-color: #657477; }
+.studio-dialog .studio-dialog-header { background: #23364d; }
+.studio-dialog .studio-dialog-header>div>img { clip-path: var(--arena-hex); border: 0; border-radius: 0; }
+.studio-dialog .studio-star-choice input:checked+span { border-color: #4d8bfb; background: #6fa8ff13; color: #c3ddff; }
+.studio-dialog .studio-star-choice input:checked+span svg { color: #6fa8ff; }
+.studio-dialog .studio-footer-primary { background: #376fe0; color: #ffffff; border-color: #4d8bfb; }
+.workspace-v4.zyon-reimagined .social-panel .duo-identity { padding: 18px; border: 1px solid #46545b; border-radius: 10px; background: #202b31; }
+.workspace-v4.zyon-reimagined .social-panel .social-emblem { color: #6fa8ff; border-color: #45638d; background: #6fa8ff0b; }
+.workspace-v4.zyon-reimagined .social-panel .duo-avatar { clip-path: var(--arena-hex); width: 44px; height: 50px; background: #354950; border: 0; border-radius: 0; color: #c4d8ff; }
+.workspace-v4.zyon-reimagined .social-panel .duo-friend-card { border-color: #41535c; background: #192b3d; }
+.workspace-v4.zyon-reimagined .social-panel .duo-friend-card .duo-invite-button { background: #6fa8ff0c; border-color: #4f78b0; color: #b9d5ff; }
+.workspace-v4.zyon-reimagined .social-panel .duo-friends-empty { border-color: #4b5a5f; background: #182537; }
+.workspace-v4.zyon-reimagined .settings-layout>nav { background: #19293a; border-color: #3b4c54; }
+.workspace-v4.zyon-reimagined .settings-layout>nav button[aria-pressed=true] { color: #bed7ff; background: #6fa8ff0b; }
+.game-guide .overlay-comp-detail-top { background: #202c32; border-color: #526169; border-radius: 8px; }
+.game-guide .overlay-comp-detail-top>img { clip-path: var(--arena-hex); width: 48px; height: 55px; border: 0; border-radius: 0; }
+.game-guide .overlay-comp-detail-tabs button[aria-selected=true] { border-color: #5b82bb; color: #c1d8ff; background: #6fa8ff0c; }
+.game-guide .overview-augment-callout { background: #18283a; border-color: #3f4e56; }
+:is(.workspace-v4.zyon-reimagined,.game-guide) .carry-build-group { background: #172331; border-color: #3f4e56; }
+:is(.workspace-v4.zyon-reimagined,.game-guide) .carry-build-group h4 { background: #223147; }
+:is(.workspace-v4.zyon-reimagined,.game-guide) .carry-build-group h4>img { clip-path: var(--arena-hex); border-radius: 0; }
+@media(min-width:1650px) {
+  .workspace-v4.zyon-reimagined .zy-comp-face { grid-template-columns: 160px minmax(0,1fr); }
+  .workspace-v4.zyon-reimagined .zy-comp-lineup>.zy-hex-roster { grid-template-columns: repeat(6,minmax(0,1fr)); }
+}
+@media(max-width:1200px) {
+  .workspace-v4.zyon-reimagined { grid-template-columns: 72px minmax(0,1fr); }
+  .workspace-v4.zyon-reimagined .sidebar { padding: 20px 10px 12px; }
+  .workspace-v4.zyon-reimagined .brand { padding: 0 0 15px; }
+  .workspace-v4.zyon-reimagined .sidebar-plan-chip { padding: 3px; border-color: #796b50; }
+  .workspace-v4.zyon-reimagined .zy-comp-face { grid-template-columns: 110px minmax(0,1fr); }
+  .workspace-v4.zyon-reimagined .zy-comp-lineup { padding: 13px 11px 10px; }
+  .workspace-v4.zyon-reimagined .zy-comp-title strong { font-size: 14px; }
+  .workspace-v4.zyon-reimagined .zy-comp-emblem { width: 78px; }
+  .workspace-v4.zyon-reimagined .comp-row-decision .comp-performance { display: flex; flex-direction: column; gap: 8px; align-items: stretch; }
+  .workspace-v4.zyon-reimagined .performance-sample { display: flex; gap: 6px; }
+}
+@media(max-width:760px) {
+  .game-guide.game-wide .zy-overlay-team { grid-template-columns: 87px minmax(0,1fr) 94px; gap: 10px; }
+  .zy-overlay-core>.zy-hex-roster { grid-template-columns: repeat(5,minmax(0,1fr)); max-width: 330px; margin: auto; gap: 0 5px; }
+  .zy-overlay-core .zy-piece { max-width: 41px; padding-bottom: 9px; }
+  .zy-overlay-core .zy-piece .zy-piece-items { bottom: 4px; }
+  .zy-overlay-core .zy-traits>span { padding: 2px 4px; font-size: 10px; }
+  .zy-overlay-core .zy-traits img { width: 14px; height: 14px; }
+  .zy-overlay-context { padding-left: 8px; }
+  .game-guide .zy-overlay-context .performance-numbers dd { font-size: 12px; }
+  .overlay-comp-option .zy-comp-face { grid-template-columns: 116px minmax(0,1fr); }
+  .overlay-comp-option .zy-comp-lineup>.zy-hex-roster { grid-template-columns: repeat(6,minmax(0,1fr)); }
+  .overlay-comp-option .zy-comp-lineup .zy-piece { max-width: 48px; }
+  .game-guide .zy-tactical-overview { grid-template-columns: 1fr; }
+  .game-guide .zy-tactical-preparation { display: grid; grid-template-columns: 1fr 1fr; }
+  .workspace-v4.zyon-reimagined .tier-section-cards { grid-template-columns: 1fr; }
+}
+@media(prefers-reduced-motion:no-preference) {
+  :is(.workspace-v4.zyon-reimagined,.game-guide) .zy-comp-title strong { transition: color 160ms ease-out; }
+  :is(.workspace-v4.zyon-reimagined,.game-guide) .zy-augments button { transition: background-color 160ms ease-out; }
+}
+
+/* Zyon's compact dock. Secondary plan categories live in one anchored flyout. */
+.workspace-v4.zyon-reimagined { grid-template-columns: 86px minmax(0,1fr); }
+.workspace-v4.zyon-reimagined .sidebar { width: 86px; padding: 20px 9px 12px; gap: 16px; background: #111d2b; border-right: 1px solid #2c405b; overflow: visible; }
+.workspace-v4.zyon-reimagined .brand { height: auto; min-height: 0; padding: 0 0 18px; margin: 0; border-bottom: 1px solid #2c405b; display: flex; flex-direction: column; gap: 6px; }
+.workspace-v4.zyon-reimagined .brand>.zyon-mark { width: 39px; height: 39px; filter: none; }
+.workspace-v4.zyon-reimagined .brand>div { display: block; font-size: 16px; letter-spacing: -.04em; color: #eaf3ff; line-height: 1; }
+.workspace-v4.zyon-reimagined .brand>div>span { display: none; }
+.workspace-v4.zyon-reimagined .sidebar nav[aria-label="Navegação principal"] { display: flex; flex-direction: column; gap: 7px; }
+.workspace-v4.zyon-reimagined .sidebar nav[aria-label="Navegação principal"]>button { display: flex; flex-direction: column; gap: 7px; justify-content: center; align-items: center; height: 64px; min-height: 64px; padding: 7px 2px; border-radius: 8px; background: transparent; color: #9fb5d3; font-weight: 500; }
+.workspace-v4.zyon-reimagined .sidebar nav[aria-label="Navegação principal"]>button>span { display: block; font-size: 10px; line-height: 1.2; }
+.workspace-v4.zyon-reimagined .sidebar nav[aria-label="Navegação principal"]>button.nav-active { background: #2b66c12c; color: #d4e6ff; }
+.workspace-v4.zyon-reimagined .sidebar nav[aria-label="Navegação principal"]>button.nav-active svg { color: #73abff; }
+.workspace-v4.zyon-reimagined .sidebar .nav-current { display: none; }
+.workspace-v4.zyon-reimagined .sidebar-bottom { margin-top: auto; padding-top: 13px; border-color: #2c405b; gap: 8px; }
+.workspace-v4.zyon-reimagined .sidebar-bottom>button { width: 100%; min-height: 36px; padding: 8px; justify-content: center; }
+.workspace-v4.zyon-reimagined .sidebar-bottom>button>span,.workspace-v4.zyon-reimagined .sidebar-profile>div:not(.profile-avatar),.workspace-v4.zyon-reimagined .sidebar-profile>svg { display: none; }
+.workspace-v4.zyon-reimagined .sidebar-profile { margin-top: 9px; border: 0; padding: 0; }
+.workspace-v4.zyon-reimagined .profile-avatar { border-radius: 50%; width: 29px; height: 29px; border-color: #59769d; }
+.workspace-v4.zyon-reimagined .zy-plan-dock { border-top: 1px solid #2c405b; padding-top: 13px; }
+.workspace-v4.zyon-reimagined .zy-plan-dock-trigger { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; width: 100%; border: 0; background: transparent; border-radius: 6px; padding: 4px 0; color: #b9d1f0; }
+.zy-plan-dock-trigger>img { width: 41px; height: 48px; clip-path: var(--arena-hex); object-fit: cover; }
+.zy-plan-dock-trigger>span { display: block; font-size: 10px; }
+.zy-plan-dock-trigger:hover { background: #74adff12; }
+.zy-plan-dock-trigger:disabled { opacity: .4; cursor: default; }
+.zy-plan-menu { position: fixed; inset: auto; margin: 0; width: 286px; padding: 15px; background: #1b2a40; color: #e8f1ff; border: 1px solid #4d6b93; border-radius: 12px; box-shadow: none; max-height: calc(100vh - 32px); overflow: auto; }
+.zy-plan-menu>header { display: flex; align-items: center; gap: 12px; margin-bottom: 15px; }
+.zy-plan-menu>header>img { width: 45px; height: 52px; clip-path: var(--arena-hex); object-fit: cover; }
+.zy-plan-menu>header strong { display: block; font-size: 13px; line-height: 1.45; color: #eaf2ff; }
+.zy-plan-menu>header span { display: block; font-size: 10px; color: #a7bfe1; margin-top: 4px; }
+.workspace-v4.zyon-reimagined .zy-plan-menu .zy-plan-open { display: flex; align-items: center; justify-content: space-between; width: 100%; padding: 10px; background: #3466a633; border: 1px solid #4c6e9a; border-radius: 5px; color: #d7e9ff; font-size: 12px; margin-bottom: 10px; }
+.workspace-v4.zyon-reimagined .zy-plan-menu .plan-navigation { gap: 3px; }
+.workspace-v4.zyon-reimagined .zy-plan-menu .plan-navigation .nav-group-label { display: none; }
+.workspace-v4.zyon-reimagined .zy-plan-menu .plan-navigation>button { display: flex; flex-direction: row; justify-content: flex-start; gap: 10px; width: 100%; height: 38px; min-height: 38px; padding: 9px; font-size: 12px; }
+.workspace-v4.zyon-reimagined .zy-plan-menu .plan-navigation>button>span { display: block; }
+.workspace-v4.zyon-reimagined .zy-plan-menu .plan-navigation>button:hover { background: #669ef31a; color: #e2efff; }
+
+/* Compact composition header: the roster is the identity, not a hero illustration. */
+.workspace-v4.zyon-reimagined .tier-section-cards { grid-template-columns: minmax(0,1fr); gap: 12px; }
+:is(.workspace-v4.zyon-reimagined,.game-guide) .zy-comp-face.zy-compact-face { display: block; position: relative; isolation: isolate; container-type: inline-size; padding: 13px 15px 12px; }
+.zy-compact-art { position: absolute; z-index: -1; inset: 0 0 0 auto; width: 45%; height: 100%; object-fit: cover; object-position: center 35%; opacity: .24; pointer-events: none; mask-image: linear-gradient(90deg,transparent,#000 65%),linear-gradient(180deg,#000,transparent); mask-composite: intersect; }
+.zy-compact-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 10px; }
+.zy-compact-identity { display: flex; align-items: flex-start; gap: 11px; min-width: 0; }
+.zy-compact-identity>.comp-tier-badge { flex: none; width: 28px; height: 32px; margin-top: 1px; }
+.zy-compact-identity>div { min-width: 0; }
+:is(.workspace-v4.zyon-reimagined,.game-guide) .zy-compact-face .zy-comp-title { width: auto; min-height: 23px; gap: 12px; margin-bottom: 5px; }
+:is(.workspace-v4.zyon-reimagined,.game-guide) .zy-compact-face .zy-comp-title strong { font-size: 15px; color: #e9f2ff; line-height: 1.35; }
+.zy-compact-face .zy-comp-title>svg { opacity: 0; }
+.zy-compact-face .zy-comp-title:hover>svg,.zy-compact-face .zy-comp-title:focus-visible>svg { opacity: 1; }
+.zy-compact-face .zy-traits { gap: 6px; }
+.zy-compact-face .zy-traits>span { padding: 0; background: none; font-size: 10px; }
+.zy-compact-face .zy-traits img { width: 18px; height: 18px; }
+.zy-compact-tools { display: flex; align-items: center; gap: 9px; flex: none; }
+.zy-compact-tools>span:first-child { padding: 4px 6px; border-radius: 4px; color: #bfd6f5; font-size: 11px; background: #a1bce51a; }
+:is(.workspace-v4.zyon-reimagined,.game-guide) .zy-compact-tools .row-augment-preview { display: flex; gap: 4px; }
+:is(.workspace-v4.zyon-reimagined,.game-guide) .zy-compact-tools .row-augment-preview button { display: grid; place-items: center; width: 30px; height: 30px; min-height: 30px; padding: 1px; border: 0; background: transparent; border-radius: 4px; }
+.zy-compact-tools .row-augment-preview img { width: 27px; height: 27px; object-fit: contain; }
+.zy-compact-tools .row-augment-preview button:hover { background: #bfd6f51a; }
+.zy-compact-bottom { display: grid; grid-template-columns: minmax(0,1fr) 270px; gap: 20px; align-items: end; }
+.zy-compact-roster { display: flex; gap: 15px; align-items: start; min-width: 0; }
+.zy-core-group { min-width: 0; }
+.zy-flex-group { border-left: 1px solid #a8c4eb24; padding-left: 14px; flex: none; max-width: 160px; }
+.zy-roster-label { display: block; font-size: 10px; color: #9fb6d2; line-height: 12px; margin-bottom: 4px; }
+:is(.workspace-v4.zyon-reimagined,.game-guide) .zy-compact-roster .lineup-strip { gap: 7px 5px; display: flex; flex-wrap: wrap; align-items: start; }
+:is(.workspace-v4.zyon-reimagined,.game-guide) .zy-compact-roster .lineup-unit { --portrait-size: 44px; position: relative; display: block; width: 44px; padding: 0; grid-template-rows: none; }
+:is(.workspace-v4.zyon-reimagined,.game-guide) .zy-compact-roster .portrait-frame { width: var(--portrait-size); height: var(--portrait-size); border-radius: 5px; padding: 1px; margin: 0; }
+:is(.workspace-v4.zyon-reimagined,.game-guide) .zy-compact-roster .portrait-frame>img { display: block; width: 100%; height: 100%; object-fit: cover; }
+:is(.workspace-v4.zyon-reimagined,.game-guide) .zy-compact-roster .lineup-stars { position: absolute; top: -7px; height: 11px; left: 0; right: 0; z-index: 2; pointer-events: none; }
+.zy-compact-roster .lineup-stars svg { width: 11px; height: 11px; filter: drop-shadow(0 1px 1px #000); }
+:is(.workspace-v4.zyon-reimagined,.game-guide) .zy-compact-roster .mini-equipment { display: flex; position: absolute; top: 36px; height: 13px; left: 0; right: 0; margin: 0; align-items: center; z-index: 1; }
+:is(.workspace-v4.zyon-reimagined,.game-guide) .zy-compact-roster .mini-equipment .equipment { --item-size: 13px; gap: 1px; }
+:is(.workspace-v4.zyon-reimagined,.game-guide) .zy-compact-roster .mini-equipment .equipment img { width: 13px; height: 13px; }
+:is(.workspace-v4.zyon-reimagined,.game-guide) .zy-compact-roster .lineup-unit>span { display: block; margin-top: 7px; height: 13px; line-height: 13px; font-size: 9px; color: #bccce1; }
+.workspace-v4.zyon-reimagined .zy-compact-bottom .comp-row-decision,.game-guide .zy-compact-decision { display: flex; flex-direction: column; align-items: stretch; gap: 9px; padding: 0; border: 0; margin: 0; background: transparent; min-width: 0; }
+:is(.workspace-v4.zyon-reimagined,.game-guide) .zy-compact-face .comp-performance { display: flex; flex-direction: column; gap: 6px; width: 100%; max-width: none; align-items: stretch; padding: 0; margin: 0; border: 0; }
+:is(.workspace-v4.zyon-reimagined,.game-guide) .zy-compact-face .performance-numbers { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; margin: 0; padding: 0; width: 100%; }
+:is(.workspace-v4.zyon-reimagined,.game-guide) .zy-compact-face .performance-numbers dd { font-size: 16px; margin-top: 2px; }
+:is(.workspace-v4.zyon-reimagined,.game-guide) .zy-compact-face .performance-sample { display: flex; justify-content: flex-end; gap: 5px; font-size: 9px; color: #9db3cd; padding: 0; margin: 0; border: 0; align-self: auto; }
+:is(.workspace-v4.zyon-reimagined,.game-guide) .zy-compact-face .performance-sample b { display: inline; font-size: inherit; font-weight: 400; }
+.workspace-v4.zyon-reimagined .zy-compact-face .row-controls,.game-guide .zy-compact-face .overlay-comp-actions { display: flex; flex-direction: row; justify-content: flex-end; align-items: center; gap: 6px; width: 100%; margin: 0; padding: 0; background: none; border: 0; }
+.workspace-v4.zyon-reimagined .zy-compact-face .row-controls .row-pin { margin: 0; }
+.workspace-v4.zyon-reimagined .zy-compact-face .row-controls button,.game-guide .zy-compact-face .overlay-comp-actions button { min-height: 28px; height: 28px; padding: 4px 9px; font-size: 10px; border-color: #a7c8f326; background: #b0c8eb09; color: #bed3ed; }
+.game-guide.game-wide .overlay-comp-option { display: block; }
+.game-guide.game-wide .zy-overlay-team { grid-template-columns: minmax(0,1fr) 180px; gap: 18px; align-items: end; }
+.zy-overlay-team .zy-overlay-core { display: flex; flex-direction: column; gap: 7px; }
+.zy-overlay-team .zy-overlay-context { display: block; padding: 0; border: 0; }
+.game-guide .zy-overlay-context .performance-numbers { display: grid; grid-template-columns: repeat(4,1fr); gap: 7px; }
+.game-guide .zy-overlay-context .performance-numbers dd { font-size: 13px; }
+.game-guide .zy-overlay-context .performance-sample { display: none; }
+.game-guide .zy-overlay-team .zy-traits>span { background: none; padding: 0; }
+.game-guide .zy-overlay-team .zy-traits img { width: 14px; height: 14px; }
+.game-guide .zy-overlay-team .zy-compact-roster { gap: 10px; }
+.game-guide .zy-overlay-team .zy-flex-group { padding-left: 9px; }
+.game-guide .zy-overlay-team .zy-compact-roster .lineup-unit { --portrait-size: 36px; width: 36px; }
+.game-guide .zy-overlay-team .zy-compact-roster .mini-equipment { top: 29px; }
+.game-guide .zy-overlay-team .zy-compact-roster .mini-equipment .equipment img { width: 11px; height: 11px; }
+.game-guide .zy-overlay-team .zy-compact-roster .lineup-unit>span { font-size: 8px; }
+/* The overview mirrors the reading direction of the reference: preparation, then board. */
+.zy-tactical-overview { grid-template-columns: minmax(230px,1fr) minmax(0,1.5fr); }
+.zy-tactical-overview>.zy-positioning { grid-column: 2; grid-row: 1; }
+.zy-tactical-overview>.zy-tactical-preparation { grid-column: 1; grid-row: 1; }
+.game-guide .zy-tactical-overview { grid-template-columns: minmax(190px,1fr) minmax(0,1.4fr); }
+.workspace-v4.zyon-reimagined .library-tabs button[aria-selected=true],.game-guide.game-wide .overlay-library-scopes button[aria-pressed=true] { color: #c3dcff; }
+@container (max-width: 850px) {
+ .zy-compact-bottom { grid-template-columns: minmax(0,1fr) 220px; gap: 12px; }
+ :is(.workspace-v4.zyon-reimagined,.game-guide) .zy-compact-roster .lineup-unit { --portrait-size: 38px; width: 38px; }
+ :is(.workspace-v4.zyon-reimagined,.game-guide) .zy-compact-roster .mini-equipment { top: 31px; }
+ .zy-compact-roster { gap: 10px; }
+ .zy-flex-group { padding-left: 9px; }
+}
+@container (max-width: 690px) {
+ .zy-compact-bottom { grid-template-columns: minmax(0,1fr); gap: 12px; }
+ .zy-compact-top { gap: 10px; }
+ .zy-compact-tools { gap: 4px; }
+ .zy-compact-identity { gap: 7px; }
+ .zy-compact-identity>.comp-tier-badge { width: 22px; height: 27px; }
+ :is(.workspace-v4.zyon-reimagined,.game-guide) .zy-compact-face .zy-comp-title strong { font-size: 13px; }
+ .game-guide .zy-compact-decision { display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 14px; align-items: center; }
+ .game-guide .zy-compact-face .performance-sample { justify-content: flex-start; }
+ .game-guide .zy-compact-face .overlay-comp-actions { flex-direction: column; }
+}
+@media(max-width:760px) {
+ .game-guide.game-wide .zy-overlay-team { grid-template-columns: minmax(0,1fr); gap: 8px; }
+ .game-guide .zy-overlay-context .performance-numbers { max-width: 280px; }
+ .game-guide .zy-overlay-context .performance-numbers>div { display: flex; align-items: baseline; gap: 6px; }
+ .game-guide .zy-overlay-context .performance-numbers dd { margin: 0; font-size: 12px; }
+ .game-guide .zy-tactical-overview { grid-template-columns: minmax(0,1fr); }
+ .game-guide .zy-tactical-overview>.zy-positioning { grid-column: 1; grid-row: 1; }
+ .game-guide .zy-tactical-overview>.zy-tactical-preparation { grid-column: 1; grid-row: 2; }
+}
+/* Clear legacy grid placement so the narrow card's metrics and actions share a row. */
+:is(.workspace-v4.zyon-reimagined,.game-guide) .zy-compact-face .comp-performance { grid-column: auto; grid-row: auto; min-height: 0; }
+.workspace-v4.zyon-reimagined .comp-row .zy-compact-face .performance-sample { flex-direction: row; align-items: center; justify-content: flex-end; line-height: 12px; gap: 5px; }
+.workspace-v4.zyon-reimagined .comp-row .zy-compact-face .comp-performance { gap: 5px; }
+.workspace-v4.zyon-reimagined .comp-row .zy-compact-face .row-controls button { height: 28px; min-height: 28px; }
+.zy-tactical-board { min-width: 0; display: flex; flex-direction: column; gap: 12px; grid-column: 2; grid-row: 1; }
+.zy-tactical-equipment { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; align-items: start; }
+.zy-positioning .tft-board-panel { max-width: 570px; margin-inline: auto; }
+.zy-early-levels>div+div { border-top: 1px solid #afc9ef18; margin-top: 12px; padding-top: 12px; }
+.zy-early-level-label { display: flex; align-items: baseline; gap: 10px; margin-bottom: 8px; font-size: 11px; color: #b4cef1; }
+.zy-early-level-label>span { font-size: 10px; color: #9cb3d0; }
+:is(.workspace-v4.zyon-reimagined,.game-guide) .zy-early-levels .lineup-unit { --portrait-size: 37px; width: 37px; }
+.zy-early-levels .lineup-strip { gap: 5px; }
+.zy-early-levels .mini-equipment { display: none; }
+.zy-early-levels .lineup-unit>span { font-size: 9px; }
+@media(max-width:760px) {
+ .game-guide .zy-tactical-board { grid-column: 1; grid-row: 1; }
+ .game-guide .zy-tactical-preparation { grid-column: 1; grid-row: 2; display: flex; }
+}
+.zy-tactical-board>.zy-positioning { width: 100%; align-self: stretch; }
+.zy-compact-roster .zy-roster-label { margin-bottom: 8px; }
+
+/* A pinned plan already has its identity and metrics in the fixed roster. */
+.game-guide .zy-current-detail-source { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin: 5px 0 10px; }
+.game-guide .zy-current-detail-source h2 { margin: 0; font-size: 12px; font-weight: 600; color: #c5d9f3; }
+.zy-performance-source { display: block; color: #a8bedb; font-size: 10px; line-height: 1.5; margin: 0 0 10px; }
+.zy-current-detail-source .zy-performance-source { margin: 0; }
+.game-guide .overlay-comp-detail-back { margin-bottom: 5px; }
+.game-guide .overlay-comp-detail-tabs { margin-bottom: 10px; padding-bottom: 7px; }
+.game-guide .overlay-comp-detail-top { padding: 9px 10px; margin-bottom: 9px; }
+.game-guide .overlay-comp-detail-top>img { width: 34px; height: 38px; }
+.game-guide .overlay-comp-detail-top h2 { font-size: 13px; margin-bottom: 3px; }
+.game-guide .overlay-comp-detail>.comp-performance { padding: 8px 10px; margin-bottom: 10px; }
+.game-guide .overlay-comp-detail .zy-tactical-overview { margin-top: 8px; }
+@media(max-width:760px) {
+ .game-guide .zy-current-detail-source { gap: 8px; flex-wrap: wrap; }
+}
+/* The reference places roster, metrics and both actions on one shared baseline. */
+:is(.workspace-v4.zyon-reimagined,.game-guide) .zy-compact-bottom { grid-template-columns: minmax(0,1fr) 320px; align-items: center; gap: 18px; }
+.workspace-v4.zyon-reimagined .comp-row .zy-compact-bottom .comp-row-decision,.game-guide .zy-compact-bottom .zy-compact-decision { display: flex; flex-direction: row; align-items: center; justify-content: flex-end; gap: 16px; }
+:is(.workspace-v4.zyon-reimagined,.game-guide) .zy-compact-face .comp-performance { flex: 1; width: auto; min-width: 0; }
+.workspace-v4.zyon-reimagined .comp-row .zy-compact-face .row-controls,.game-guide .zy-compact-face .overlay-comp-actions { display: flex; flex-direction: row; width: auto; flex: none; gap: 5px; }
+.workspace-v4.zyon-reimagined .comp-row .zy-compact-face .row-controls button,.game-guide .zy-compact-face .overlay-comp-actions button { display: grid; place-items: center; padding: 6px; width: 32px; height: 32px; min-height: 32px; border: 1px solid #bed4f017; border-radius: 7px; background: #c6d9f010; }
+.workspace-v4.zyon-reimagined .comp-row .zy-compact-face .row-controls button>span { display: none; }
+.workspace-v4.zyon-reimagined .comp-row .zy-compact-face .row-controls button>.zyon-mark,.game-guide .zy-compact-face .overlay-comp-pick>.zyon-mark { width: 19px; height: 19px; }
+.game-guide .zy-compact-face .overlay-comp-pick { order: -1; }
+.workspace-v4.zyon-reimagined .comp-row .zy-compact-face .row-pin.row-pinned { background: #c6d9f01a; }
+:is(.workspace-v4.zyon-reimagined,.game-guide) .zy-compact-face .performance-numbers { gap: 8px; }
+:is(.workspace-v4.zyon-reimagined,.game-guide) .zy-compact-face .performance-sample { font-size: 8px; gap: 4px; white-space: nowrap; justify-content: flex-start; }
+:is(.workspace-v4.zyon-reimagined,.game-guide) .zy-compact-roster .lineup-unit { --portrait-size: 44px; width: 44px; }
+@container (max-width: 1050px) {
+ :is(.workspace-v4.zyon-reimagined,.game-guide) .zy-compact-bottom { grid-template-columns: minmax(0,1fr) 310px; gap: 15px; }
+ :is(.workspace-v4.zyon-reimagined,.game-guide) .zy-compact-roster .lineup-unit { --portrait-size: 38px; width: 38px; }
+ :is(.workspace-v4.zyon-reimagined,.game-guide) .zy-compact-roster .mini-equipment { top: 31px; }
+ .zy-compact-roster { gap: 10px; }
+ .zy-flex-group { padding-left: 9px; }
+}
+@container (max-width: 690px) {
+ :is(.workspace-v4.zyon-reimagined,.game-guide) .zy-compact-bottom { grid-template-columns: minmax(0,1fr); gap: 12px; }
+ .game-guide .zy-compact-bottom .zy-compact-decision { justify-content: space-between; gap: 20px; }
+ .game-guide .zy-compact-face .comp-performance { max-width: 340px; }
+}
+
+/* Neutral charcoal canvas. Blue marks an action or selection, never a whole section. */
+:root {
+ --arena-ground: #101216;
+ --arena-panel: #191c21;
+ --arena-raised: #242a32;
+ --arena-line: #343b45;
+ --arena-ink: #edf1f7;
+ --arena-muted: #aab7c8;
+}
+.workspace-v4.zyon-reimagined { background: var(--arena-ground); }
+.workspace-v4.zyon-reimagined .sidebar { background: #14171c; border-color: #2b3038; }
+.workspace-v4.zyon-reimagined .topbar { background: #101216; border-color: #2b3038; }
+.workspace-v4.zyon-reimagined .brand,.workspace-v4.zyon-reimagined .zy-plan-dock,.workspace-v4.zyon-reimagined .sidebar-bottom { border-color: #2c323b; }
+.workspace-v4.zyon-reimagined .comp-row { background: #191c21; border-color: #303640; border-radius: 8px; }
+.workspace-v4.zyon-reimagined .tier-section-cards .comp-row.row-selected { border-color: #4b6b97; }
+.workspace-v4.zyon-reimagined .comp-expanded { background: #121519; }
+.workspace-v4.zyon-reimagined :is(.detail-toolbar,.database-tabs,.planner-studio-toolbar) { background: #1b1f25; border-color: #303640; }
+.workspace-v4.zyon-reimagined :is(.search-field,select,input) { background-color: #191d23; border-color: #343c47; }
+.workspace-v4.zyon-reimagined :is(.planner-studio,.champion-performance-wrap,.friend-card,.shop-calibration,.settings-layout .settings-category>section,.sources-panel section) { background: #191c21; border-color: #343b45; }
+.workspace-v4.zyon-reimagined .champion-performance-table th { background: #22262d; }
+.workspace-v4.zyon-reimagined .champion-performance-table td { border-color: #303640; }
+.workspace-v4.zyon-reimagined .champion-profile-dialog,.studio-dialog { background: #191d23; border-color: #4b5666; }
+.workspace-v4.zyon-reimagined .studio-header,.studio-dialog .studio-dialog-header { background: #22262d; border-color: #343b45; }
+.workspace-v4.zyon-reimagined .studio-canvas,.workspace-v4.zyon-reimagined .studio-roster { background: #171a1f; border-color: #343b45; }
+.workspace-v4.zyon-reimagined .studio-canvas-top,.workspace-v4.zyon-reimagined .studio-instructions { background: #20242b; border-color: #343b45; }
+.workspace-v4.zyon-reimagined .social-panel .duo-identity,.workspace-v4.zyon-reimagined .social-panel .duo-friend-card,.workspace-v4.zyon-reimagined .social-panel .duo-friends-empty,.workspace-v4.zyon-reimagined .settings-layout>nav { background: #1b1f25; border-color: #343b45; }
+.zy-plan-menu { background: #22262d; border-color: #48576b; }
+.game-guide.game-wide { background: #101216fa; border-color: #414a57; border-radius: 9px; }
+.game-guide.game-wide .game-heading { background: #191c21; border-color: #343b45; }
+.game-guide.game-wide .game-telemetry { background: #14171c; border-color: #303640; }
+.game-guide.game-wide .game-tabs { background: #1b1f25; border-color: #343b45; }
+.game-guide.game-wide .game-tabs button[aria-selected=true] { background: transparent; }
+.game-guide.game-wide .overlay-comp-option { background: #191c21; border-color: #343b45; border-radius: 8px; }
+.game-guide.game-wide .overlay-comp-search,.game-guide.game-wide .overlay-library-tools>select { background: #1c2026; border-color: #39414d; }
+.game-guide .overlay-comp-detail-top,.game-guide .overview-augment-callout { background: #1b1f25; border-color: #343b45; }
+:is(.workspace-v4.zyon-reimagined,.game-guide) .carry-build-group { background: #191c21; border-color: #343b45; border-radius: 6px; }
+:is(.workspace-v4.zyon-reimagined,.game-guide) .carry-build-group h4 { background: #23272e; }
+/* One work surface replaces the nested blue boxes around each bit of the guide. */
+:is(.workspace-v4.zyon-reimagined,.game-guide) .zy-tactical-overview { background: #191c21; padding: 16px; border: 0; border-radius: 6px; gap: 22px; }
+:is(.workspace-v4.zyon-reimagined,.game-guide) .zy-tactical-overview section { background: transparent; border: 0; border-radius: 0; padding: 0; }
+.zy-tactical-overview>.zy-tactical-preparation { border-right: 1px solid #323842; padding-right: 20px; gap: 22px; }
+.zy-tactical-overview h3 { color: #e0e8f3; font-size: 13px; font-weight: 600; }
+.zy-tactical-overview section>header { padding-bottom: 9px; margin-bottom: 12px; border-bottom: 1px solid #ffffff0b; }
+.zy-tactical-overview .zy-early-levels { padding-top: 4px; }
+.zy-tactical-overview .zy-tactical-equipment { border-top: 1px solid #323842; padding-top: 14px; gap: 20px; }
+.zy-tactical-overview .zy-tactical-equipment>section+section { border-left: 1px solid #323842; padding-left: 20px; }
+.zy-positioning .tft-board-panel { background: transparent; }
+.zy-positioning .tft-board-content { background: transparent; }
+.zy-positioning .empty-hex { background: #373e48; }
+.zy-positioning .empty-hex::after { background: #232930; }
+@container (min-width: 691px) and (max-width: 1050px) {
+ :is(.workspace-v4.zyon-reimagined,.game-guide) .zy-compact-bottom { grid-template-columns: minmax(0,1fr) 296px; gap: 12px; }
+ :is(.workspace-v4.zyon-reimagined,.game-guide) .zy-compact-roster .lineup-unit { --portrait-size: 37px; width: 37px; }
+ .workspace-v4.zyon-reimagined .comp-row .zy-compact-bottom .comp-row-decision,.game-guide .zy-compact-bottom .zy-compact-decision { gap: 9px; }
+}
+@media(max-width:760px) {
+ .game-guide .zy-tactical-overview { padding: 12px; gap: 20px; }
+ .game-guide .zy-tactical-overview>.zy-tactical-preparation { border-right: 0; padding-right: 0; border-top: 1px solid #323842; padding-top: 16px; }
+}

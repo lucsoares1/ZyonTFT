@@ -1,3 +1,16 @@
+/** Groups only real plan equipment; a frontline carry remains a carry. */
+export function equipmentGroups(comp, champions, publishedCarries = comp.pivot?.carries || []) {
+  const ids = [...new Set(comp.champions)].filter(id => champions[id]);
+  const carries = new Set([comp.carry, ...publishedCarries].filter(id => ids.includes(id)));
+  const equipped = ids.filter(id => comp.items?.[id]?.length);
+  if (!equipped.length) return [];
+  return [
+    { key: 'carries', label: 'Carries', ids: ids.filter(id => carries.has(id)) },
+    { key: 'frontline', label: 'Linha de frente', ids: equipped.filter(id => !carries.has(id) && champions[id].role === 'Linha de frente') },
+    { key: 'other', label: 'Outras unidades', ids: equipped.filter(id => !carries.has(id) && champions[id].role !== 'Linha de frente') },
+  ].filter(group => group.ids.length);
+}
+
 export function summarizePlan(comp, champions, items, owned = []) {
   const ids = [...new Set(comp.champions)].filter(id => champions[id]);
   const ownedSet = new Set(Array.isArray(owned) ? owned : []);
