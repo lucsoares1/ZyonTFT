@@ -1,5 +1,9 @@
 # Zyon TFT
 
+## 0.17.28
+
+Padronização visual preto/grafite e azul elétrico no app e overlay, consulta tática unificada com estatísticas PivotTFT e capacidade Riftbeast 10, bordas e badges táticas da loja e modo dupla, retratos e itens em linha única com popup de craft e 3 estrelas estilizadas.
+
 ## 0.17.27
 
 Emblemas de tier S, A e B renovados conforme as referencias, com SVGs locais nitidos e acabamento compacto de escudo duplo.
