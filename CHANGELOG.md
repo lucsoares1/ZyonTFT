@@ -1,5 +1,9 @@
 # Zyon TFT
 
+## 0.17.31
+
+Corrige a reabertura do overlay pelo botão e atalho, verifica a versão mais recente antes de baixar e instalar e sincroniza alterações do planejador da dupla com as marcações da loja.
+
 ## 0.17.30
 
 Corrige a rolagem nas quatro abas de Dados, mantém cabeçalhos e filtros acessíveis e padroniza Características, Itens e Aprimoramentos pelo visual de Campeões.
