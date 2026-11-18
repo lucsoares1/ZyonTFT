@@ -1,5 +1,9 @@
 # Zyon TFT
 
+## 0.17.30
+
+Corrige a rolagem nas quatro abas de Dados, mantém cabeçalhos e filtros acessíveis e padroniza Características, Itens e Aprimoramentos pelo visual de Campeões.
+
 ## 0.17.29
 
 Corrige o compartilhamento do guia e das marcações da loja, restaura os overlays após Alt+Tab e recupera automaticamente o observador de foco do Windows.
