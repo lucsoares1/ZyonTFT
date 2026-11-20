@@ -1,5 +1,9 @@
 # Zyon TFT
 
+## 0.17.32
+
+Corrige a moldura da loja quando a detecção individual de bordas falha. Simplifica a escolha de comp no overlay com Usar comp direto no card, detalhes separados e busca sempre visível. Aumenta retratos e itens, ajusta as estrelas e mantém o elenco em uma única linha.
+
 ## 0.17.31
 
 Corrige a reabertura do overlay pelo botão e atalho, verifica a versão mais recente antes de baixar e instalar e sincroniza alterações do planejador da dupla com as marcações da loja.
