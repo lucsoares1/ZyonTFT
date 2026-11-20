@@ -2,9 +2,8 @@ import { TacticalOverview } from "./TacticalOverview";
 import { TraitRail } from "./ZyonPieces";
 import { UnitStrip } from "./TftPanels";
 import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
-import { Check, Search, ArrowRight, ArrowLeft, Layers3, ChevronDown } from "lucide-react";
-import { BrandMark } from './Brand';
-import { byId, portrait, splash, type Comp } from "./data";
+import { Check, Search, ArrowRight, ArrowLeft, LoaderCircle } from "lucide-react";
+import { byId, portrait, type Comp } from "./data";
 import { CompTierBadge } from "./CompTier";
 import {
   CompPerformance,
@@ -13,7 +12,6 @@ import {
   PerformanceSource,
 } from "./CompPerformance";
 import { AugmentGuide } from "./PivotGuide";
-import {BoardPanel} from './TftPanels';
 import {effectiveComp} from './duo-plans.mjs';
 const searchable = (text: string) =>
   text
@@ -29,8 +27,7 @@ export function OverlayComps({ state }: { state: any }) {
     [inspect, setInspect] = useState<string | null>(null),
     [detailTab, setDetailTab] = useState<"overview" | "items" | "augments">("overview"),
     [scope,setScope]=useState<'all'|'top'|'personal'>('all'),
-    [sort,setSort]=useState<'tier'|'average'|'games'>('tier'),
-    [catalogOpen,setCatalogOpen]=useState(false);
+    [sort,setSort]=useState<'tier'|'average'|'games'>('tier');
   const comps: Comp[] = state.saved?.comps || [];
   const matches = useMemo(() => {
     const term = searchable(query.trim());
@@ -56,6 +53,7 @@ export function OverlayComps({ state }: { state: any }) {
     previousInspect.current = inspect;
   }, [inspect]);
   async function choose(id: string) {
+    if(busy!==null||id===state.pinned)return;
     setBusy(id);
     setError("");
     try {
@@ -80,7 +78,9 @@ export function OverlayComps({ state }: { state: any }) {
           <ArrowLeft size={14} />
           Todas as comps
         </button>
-        <button className="zy-comp-disclosure overlay-comp-detail-close" aria-label={`Recolher ${detail.name}`} title="Fechar detalhes" onClick={()=>setInspect(null)}><BrandMark/></button></div>
+        <button className="overlay-comp-use" disabled={detail.id===state.pinned||busy!==null} aria-busy={busy===detail.id} aria-label={detail.id===state.pinned?`Composição ${detail.name} em uso`:`Usar composição ${detail.name}`} onClick={()=>choose(detail.id)}>
+          {busy===detail.id?<><LoaderCircle size={15} className="overlay-choice-spinner"/>Aplicando…</>:detail.id===state.pinned?<><Check size={15}/>Em uso</>:<>Usar comp<ArrowRight size={15}/></>}
+        </button></div>
         {detail.id === state.pinned ? <div className="zy-current-detail-source"><h2 ref={detailHeading} tabIndex={-1}>Plano escolhido</h2><PerformanceSource comp={detail}/></div> : <header className="overlay-comp-detail-top">
           <img src={portrait(detail.carry)} alt="" />
           <div>
@@ -92,12 +92,6 @@ export function OverlayComps({ state }: { state: any }) {
             </p>
           </div>
           <CompTierBadge comp={detail} />
-          <button
-            disabled={detail.id === state.pinned || busy !== null}
-            onClick={() => choose(detail.id)}
-          >
-            {detail.id === state.pinned ? "Comp escolhida" : "Escolher comp"}
-          </button>
         </header>}
         {detail.id !== state.pinned && <CompPerformance comp={detail} />}
         {error && <p role="alert">{error}</p>}
@@ -146,9 +140,9 @@ export function OverlayComps({ state }: { state: any }) {
         <div>
           <h2>Composições</h2>
         </div>
-        <button className="overlay-catalog-toggle" aria-expanded={catalogOpen} aria-controls="overlay-catalog-tools" onClick={()=>setCatalogOpen(value=>!value)}>{catalogOpen?'Fechar busca':'Buscar e ordenar'}<Search size={18}/></button>
+        <span className="overlay-comp-results" aria-live="polite">{matches.length} {matches.length===1?'comp':'comps'}</span>
       </header>
-      <div className="overlay-library-tools" id="overlay-catalog-tools" hidden={!catalogOpen}><label className="overlay-comp-search">
+      <div className="overlay-library-tools"><label className="overlay-comp-search">
         <Search size={16} />
         <input
           aria-label="Buscar composição no overlay"
@@ -163,9 +157,6 @@ export function OverlayComps({ state }: { state: any }) {
           {error}
         </p>
       )}
-      <div className="overlay-comp-results" aria-live="polite">
-        {matches.length} {matches.length === 1 ? "composição" : "composições"}
-      </div>
       <div className="overlay-comp-grid">
         {matches.map((c) => {
           const selected = c.id === state.pinned;
@@ -182,8 +173,13 @@ export function OverlayComps({ state }: { state: any }) {
                 <div className="overlay-card-heading"><h3 title={c.name}>{c.name}</h3><span className="zy-style-tag" title={c.style}>{c.style.replace(/\s*·\s*nível\s*/iu,' ')}</span></div>
                 <div className="overlay-card-traits"><TraitRail comp={c}/><CompactAugments comp={c} onOpen={()=>{setInspect(c.id);setDetailTab('augments');}}/></div>
                 <div className="overlay-card-roster" style={{'--roster-count':c.champions.length} as CSSProperties}><UnitStrip comp={c} showStars/></div>
-                <button className="zy-comp-disclosure overlay-comp-detail-open" aria-expanded={false} aria-label={`Expandir ${c.name}`} title="Ver detalhes da composição" onClick={()=>{setInspect(c.id);setDetailTab('overview');}}><BrandMark/></button>
                 <CompPerformance comp={c}/>
+                <div className="overlay-card-actions">
+                  <button className="overlay-comp-use" disabled={selected||busy!==null} aria-busy={busy===c.id} aria-label={selected?`Composição ${c.name} em uso`:`Usar composição ${c.name}`} onClick={()=>choose(c.id)}>
+                    {busy===c.id?<><LoaderCircle size={15} className="overlay-choice-spinner"/>Aplicando…</>:selected?<><Check size={15}/>Em uso</>:<>Usar comp<ArrowRight size={15}/></>}
+                  </button>
+                  <button className="overlay-comp-detail-open" aria-label={`Ver detalhes de ${c.name}`} onClick={()=>{setInspect(c.id);setDetailTab('overview');}}>Ver detalhes<ArrowRight size={14}/></button>
+                </div>
               </div>
             </article>
           );

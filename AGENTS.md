@@ -1,5 +1,15 @@
 # Zyon TFT
 
+## Escolha direta de comp no overlay
+
+Elenco dos cards: retratos até42px, itens até12px proporcionais ao retrato, estrelas top:-8px (3px abaixo do anterior), uma única linha com tamanho calculado pela quantidade real/largura. Não quebrar a linha nem recortar itens. Estilos específicos em overlay-reference.css; não alterar peças do programa principal ou do compacto.
+
+Lucas rejeitou logo quase escondida + detalhes + Escolher comp. `OverlayComps` agora tem Usar comp explícito em cada card e Ver detalhes separado; busca sempre visível, comp ativa Em uso, espera/erro recuperáveis. IPC existente continua abrindo Agora e preservando sessão/cópias. Barra da consulta também tem Usar comp. Esta instrução supera a antiga exigência de logo como única entrada de detalhes APENAS no overlay; não mudar o programa principal por isso. Contrato e verificações em `docs/overlay-comp-choice.md`. Testes nativos somente no secundário, sem publicação implícita.
+
+## Moldura da loja sem borda individual
+
+`shopCardRect` em `src/shop.mjs` compartilha geometria entre badge e moldura: prefere `shopCards[index]` validado, senão estima pela região física `shopRect`. Não voltar a exigir detecção individual para desenhar a moldura e não usar calibração OCR de texto para ela. Preservar cores de envio/compra/ambos e confiança OCR. Ver `docs/shop-frame-fallback.md`; teste isolado no monitor secundário em `scripts/verify-shop-frame-fallback.mjs`. Sem publicação implícita.
+
 ## Reabertura e sincronização atuais
 
 Abertura MANUAL do guia deve aparecer no desktop sem exigir OCR/foco; medalhas continuam restritas à partida confirmada em foco. Reabrir expande recolhido/só loja sem resetar cópias. Registro de Ctrl+Shift+O deve conferir retorno e tentar Ctrl+Shift+Y se ocupado. UpdateService reconsulta o feed antes de baixar e instalar, substituindo oferta/instalador antigo; não voltar a bloquear checks apenas porque status é available/downloaded. Planejador principal grava via plan:commit atômico e ativa o plano editado; confirmação inclui comp canônica, revisão protege também saved.comps contra respostas atrasadas. Preservar pedidos/sinergias explícitos. Ver docs/reopen-latest-planner-sync.md e verificações isoladas de dois clientes/atualizador HTTP. Sem publicação implícita.

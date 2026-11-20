@@ -16,6 +16,16 @@ export function mergeShopUpdate(previous,next){
   return previous&&(next.shopRevision||0)>=(previous.shopRevision||0)?{...previous,...next}:previous;
 }
 
+export function shopCardRect(shopRect,shopCards,index){
+  if(!Number.isInteger(index)||index<0||index>=5)return null;
+  const valid=rect=>rect&&['x','y','width','height'].every(key=>Number.isFinite(rect[key]))&&rect.x>=0&&rect.y>=0&&rect.width>0&&rect.height>0&&rect.x+rect.width<=1.001&&rect.y+rect.height<=1.001;
+  const detected=shopCards?.[index];
+  if(valid(detected))return detected;
+  if(!valid(shopRect))return null;
+  const slotWidth=shopRect.width/5;
+  return {x:shopRect.x+slotWidth*(index+.025),y:shopRect.y,width:slotWidth*.94,height:shopRect.height*.975};
+}
+
 // Preserve all five positions, including duplicates and sold/empty slots.
 export function matchShop(slots, selected) {
   const wanted = new Set(selected);

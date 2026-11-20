@@ -45,7 +45,7 @@ import { PivotTiersContext, PivotAugmentContext } from "./PivotGuide";
 import {augmentCatalog} from './comp-augments.mjs';
 import { TierBadge, CompTierBadge } from "./CompTier";
 import { buildCompSections, tierSections, compTier } from "./comp-tiers.mjs";
-import { matchShop, recognizeNames, mergeOverlaySnapshot, mergeShopUpdate } from "./shop.mjs";
+import { matchShop, recognizeNames, mergeOverlaySnapshot, mergeShopUpdate, shopCardRect } from "./shop.mjs";
 import ScreenshotProof from "./ScreenshotProof";
 import { Planner, Database, PlanAside, PreparationAside, TraitStrip } from "./Workspace";
 import { moveUnit, boardPositions, personalizePlan } from "./planning.mjs";
@@ -207,7 +207,8 @@ function Overlay() {
   return (
     <div className="native-overlay" style={{ opacity: state.opacity / 100 }}>
       {matches.map((slot: any) => {
-        const card=state.shopCards?.[slot.index] || {x:rect.x+rect.width*slot.index/5+rect.width/5*.025,y:rect.y,width:rect.width/5*.94,height:rect.height};
+        const frameCard=shopCardRect(state.shopRect,state.shopCards,slot.index);
+        const card=frameCard || {x:rect.x+rect.width*slot.index/5+rect.width/5*.025,y:rect.y,width:rect.width/5*.94,height:rect.height};
         const request=sendNeeds.find((w:any)=>w.id===slot.id);
         const requestPriority=request?.priority||0;
         const kind=request?own.includes(slot.id)?'shared':'send':traitWishes.has(slot.id)?'trait':priority.includes(slot.id)||requestWishes.has(slot.id)?'buy':reserve.includes(slot.id)?'reserve':'core';
@@ -227,7 +228,7 @@ function Overlay() {
             '--medal-font': `clamp(7px, ${card.width * 100 * .045}vw, 10px)`,
           } as React.CSSProperties}
         >
-          {slot.highlighted && state.shopCards?.[slot.index] && <ShopFrostFrame index={slot.index} jewel={(byId[slot.id]?.cost || 0) > 1} />}
+          {slot.highlighted && frameCard && <ShopFrostFrame index={slot.index} jewel={(byId[slot.id]?.cost || 0) > 1} />}
           <Badge
             matched={slot.highlighted}
             priority={requestPriority}

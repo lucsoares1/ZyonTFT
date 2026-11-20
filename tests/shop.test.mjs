@@ -1,6 +1,25 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { matchShop, recognizeNames, validateRect, mergeOverlaySnapshot, mergeShopUpdate } from "../src/shop.mjs";
+import { matchShop, recognizeNames, validateRect, mergeOverlaySnapshot, mergeShopUpdate, shopCardRect } from "../src/shop.mjs";
+
+test('shop frames retain physical geometry when individual border detection fails',()=>{
+ const physical={x:.2295,y:.858,width:.53,height:.139};
+ for(const cards of [null,[],[null,null,null,null,null]]){
+  const rects=Array.from({length:5},(_,index)=>shopCardRect(physical,cards,index));
+  rects.forEach((rect,index)=>{
+   assert.equal(rect.y,physical.y);
+   assert.equal(rect.height,physical.height*.975);
+   assert.ok(rect.x>=physical.x+physical.width*index/5);
+   assert.ok(rect.x+rect.width<=physical.x+physical.width*(index+1)/5);
+  });
+ }
+ const snapped={x:.233,y:.86,width:.1,height:.13};
+ assert.equal(shopCardRect(physical,[snapped],0),snapped);
+ assert.deepEqual(shopCardRect(physical,[{...snapped,width:NaN}],0),shopCardRect(physical,null,0));
+ assert.equal(shopCardRect(null,null,0),null);
+ assert.equal(shopCardRect({...physical,y:1},null,0),null);
+ assert.equal(shopCardRect(physical,null,5),null);
+});
 test('a late HUD snapshot cannot restore a shop badge cleared by a newer visual frame',()=>{
  const old={slots:['Ashe'],shopRect:{x:.2,y:.8,width:.5,height:.1},shopCards:[{x:.21}],shopRevision:3,gameSession:{level:7}},cleared={...old,slots:[],shopRect:{x:.3,y:.85,width:.4,height:.1},shopCards:[{x:.31}],shopRevision:4,shopCapturedAt:100,shopLatencyMs:4};
  const next=mergeOverlaySnapshot(cleared,{...old,gameSession:{level:8}});
