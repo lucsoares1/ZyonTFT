@@ -158,3 +158,15 @@ test("enrichment deduplicates champion requests and tolerates a missing champion
   assert.deepEqual(next.comps[0].pivot.statistics.itemBuilds, []);
   assert.equal(next.statisticsError, null);
 });
+
+test('a missing champion endpoint keeps only that champion previous validated item sample',async()=>{
+  const prior={set:18,patch:'18.6',ranks:'Emerald+',region:'all',made:1699999999,performance:null,itemBuilds:[{championId:'unit',items:['a','b','b'],games:150,average:4,top4:.6,winRate:.2}]};
+  const snapshot={edition:{patch:'18.6'},comps:[comp]};
+  const fetcher=async url=>url.endsWith('data.json')?new Response(JSON.stringify(sample())):new Response('',{status:404});
+  const result=await enrichPivotStats(snapshot,registry,{fetcher,previous:{championStatistics:{unit:prior}},champions:[{id:'unit'}]});
+  assert.deepEqual(result.championStatistics.unit,prior);
+  const wrongPatch=await enrichPivotStats(snapshot,registry,{fetcher,previous:{championStatistics:{unit:{...prior,patch:'18.5'}}},champions:[{id:'unit'}]});
+  assert.deepEqual(wrongPatch.championStatistics.unit.itemBuilds,[]);
+  const explicitEmpty=await enrichPivotStats(snapshot,registry,{fetcher:async url=>new Response(JSON.stringify(url.endsWith('data.json')?sample():{slices:{}})),previous:{championStatistics:{unit:prior}},champions:[{id:'unit'}]});
+  assert.deepEqual(explicitEmpty.championStatistics.unit.itemBuilds,[]);
+});

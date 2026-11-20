@@ -30,6 +30,7 @@ import {BrandMark} from "./Brand";
 import {OverlayPlanner} from './OverlayPlanner';
 import {SocialPanel} from './SocialPanel';
 import {OverlayComps} from './OverlayComps';
+import {ModularPanel,OverlayLauncher} from './ModularOverlay';
 import {PerformanceSource,CarryBuildStats} from './CompPerformance';
 import { CompTierBadge } from "./CompTier";
 import { ItemRecipe } from "./CompGuide";
@@ -131,7 +132,7 @@ function Faces({
   );
 }
 
-export default function GameGuide() {
+export default function GameGuide({launcher=false}:{launcher?:boolean} = {}) {
   const [state, setState] = useState<any>(null);
   useEffect(() => {
     document.body.classList.add("overlay-body");
@@ -145,7 +146,7 @@ export default function GameGuide() {
       value={state.catalogTiers || pivotSnapshot.tiers}
     >
       <PivotAugmentContext.Provider value={state.catalogAugments||augmentCatalog(pivotSnapshot)}>
-      <LiveGuide state={state} />
+      {launcher?<OverlayLauncher state={state} renderGuide={guideState=><LiveGuide state={guideState}/>}/>:<ModularPanel state={state} renderGuide={guideState=><LiveGuide state={guideState}/>}/>}
       </PivotAugmentContext.Provider>
     </PivotTiersContext.Provider>
   );

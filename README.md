@@ -2,6 +2,14 @@
 
 Companion para TFT no Windows: biblioteca de comps, equipes por nível, itens, aprimoramentos, planejador e overlay com leitura local da loja. Contas, amigos e Duplas Dinâmicas sincronizam os planos pelo Supabase.
 
+## Overlay em desenvolvimento
+
+O botão **Testar painel integrado** permite ativar ferramentas, conteúdo e resumo na mesma janela. Ao abrir uma aba, o resumo desliza para a base; fechar traz o resumo de volta. **Minimizar overlay** recolhe o conteúdo e o resumo, mantendo apenas a barra compacta. **Expandir overlay** restaura o resumo; clicar em uma ferramenta também expande diretamente para essa aba. Compras, plano e OCR permanecem intactos, com suporte à preferência de movimento reduzido.
+
+O resumo persistente mantém a equipe completa e seus itens ao abrir Campeões, Dupla ou Leitura. **Ver detalhes** abre a consulta de posicionamento e progressão; **Ver comps** abre a biblioteca. Recolher o resumo ou fechar um painel não desliga o OCR nem limpa as compras. Um painel pode ser fixado ao lado do ativo, com posições limitadas à área acima da loja.
+
+Campeões marca compras pessoais em um clique e permite remover alvos herdados da comp na seleção inferior. Passe o mouse ou use o foco para consultar conjuntos individuais de itens, identificados por fonte, patch e amostra; não há kits genéricos por classe. Pedidos ao parceiro ficam exclusivamente em Dupla, junto de amigos, código e convites. O projeto desta revisão está em `design/OVERLAY-COMPANION-2026-11-20.md`; a implementação local não implica publicação.
+
 ## Baixar e instalar
 
 Use o instalador **Zyon-TFT-Setup** da versão mais recente em [Releases](https://github.com/lucsoares1/ZyonTFT/releases/latest). A partir da versão 0.17.0, o app avisa sobre versões novas e permite baixar e reiniciar para atualizar. Os portáteis antigos precisam dessa primeira instalação manual. Windows 64 bits e conexão à internet são necessários para contas e sincronização.
@@ -96,14 +104,12 @@ pode ser ajustada em Meu overlay.
 - **Partida:** modo de leitura do ouro, vida, força, disputa e correções de cópias.
 
 A consulta de nível no app não muda o nível da partida. Sessão, cópias e aba do
-overlay sobrevivem ao reinício do app durante a mesma sessão de jogo. O painel recebe cliques sem tomar foco; a janela
+overlay sobrevivem ao reinício do app durante a mesma sessão de jogo. O painel recebe cliques e não força foco ao aparecer; a janela
 dos badges deixa os cliques passarem. O guia fica acima da faixa de OCR do nível,
-pode trocar de lado e recolher. **Ctrl+Shift+G** recolhe/expande; **Ctrl+Shift+O**
+pode ser movido pelo cabeçalho. O launcher reúne Comp, Campeões, Dupla e Leitura/partida; um painel abre por vez, com opção de fixar um segundo. **Ctrl+Shift+G** oculta/restaura os painéis; **Ctrl+Shift+O**
 oculta/mostra; **Ctrl+Shift+Q** encerra.
 
-O badge **Comprar agora** acompanha as buscas do nível, incluindo temporários;
-**Guardar p/ transição** destaca reservas acessíveis e **Na sua comp** identifica
-as demais peças fixadas. Marcar uma cópia no guia não compra nada no jogo.
+Na loja, uma bandeirinha com a logo marca interesse próprio (azul), da dupla (roxo) ou de ambos (dividida), sem texto ou moldura. Na segunda aba, **Campeões**, um clique marca ou desmarca compras pessoais; a comp já aparece marcada e também pode ser ajustada sem mudar o elenco. A consulta de itens é separada. Amigos, códigos, convites, conexão e pedidos de campeões ficam exclusivamente na terceira aba, **Dupla**, sem níveis de urgência. Marcar um alvo não altera cópias possuídas nem compra nada no jogo.
 
 Windows.Media.Ocr lê os cinco nomes e o nível. Quando falha no texto curto do
 nível, Tesseract.js usa um modelo local incluído no pacote, com confiança mínima
@@ -158,7 +164,7 @@ Desenvolvimento: `npm run dev`. Somente interface no navegador: `npm run dev:web
 - Layout responsivo com navegação preservada, aside contextual e ação de criar comp acessível no mobile.
 - Fixar/desafixar uma lista de campeões para os badges; plano adaptativo separado para orientar decisões com entradas manuais.
 - Loja simulada com reroll, duplicatas, compra e ocultação.
-- Duas janelas nativas: guia clicável sem foco e badges transparentes com passagem de cliques; monitor, opacidade e modo compacto.
+- Launcher e até dois painéis nativos, com bandeirinhas transparentes aos cliques; posições relativas ao monitor e sessão preservada entre tarefas.
 - `Ctrl+Shift+O`: mostrar/esconder overlay. `Ctrl+Shift+Q`: encerrar aplicativo.
 - OCR local experimental para nomes e nível, com recortes posicionais e correspondência exata com o catálogo. Nenhum servidor recebe imagens.
 

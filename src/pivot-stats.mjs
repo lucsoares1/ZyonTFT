@@ -224,13 +224,18 @@ export async function enrichPivotStats(
       }),
     );
     const normalized = normalizeStats(data, snapshot.comps, details, registry);
+    const championStatistics = normalizeChampionStats(data,champions.map(champion=>champion.id),details,registry);
+    for(const champion of champions){
+      const prior=previous?.championStatistics?.[champion.id];
+      if(!details[champion.id]&&prior?.made<=data.made&&validStatistics(prior,{champions:[champion.id]},registry))championStatistics[champion.id]=prior;
+    }
     return {
       ...snapshot,
       comps: snapshot.comps.map((c) => ({
         ...c,
         pivot: { ...c.pivot, statistics: normalized[c.id] || undefined },
       })),
-      championStatistics: normalizeChampionStats(data,champions.map(c=>c.id),details,registry),
+      championStatistics,
       statisticsError: null,
     };
   } catch (error) {

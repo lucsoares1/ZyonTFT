@@ -64,11 +64,24 @@ export function shoppingWishes(comp,edit,session,catalog){
  for(const request of requestedUnits(edit?.requests,catalog))wanted.set(request.id,{...request,reason:'request'});
  return [...wanted.values()].filter(w=>w.goal>0).map(w=>({...w,priority:priority(w.priority),owned:Math.max(0,Math.min(9,Number(copies[w.id])||0))})).sort((a,b)=>b.priority-a.priority);
 }
-export function sharingPayload(comp,edit,session,catalog){
+export function ownShoppingWishes(comp,edit,session,catalog,targets){
+  const wanted=new Map(shoppingWishes(comp,edit,session,catalog).map(entry=>[entry.id,entry]));
+  const explicit=[...new Map((Array.isArray(targets?.buy)?targets.buy:[]).filter(entry=>known(catalog,entry?.id)).slice(0,200).map(entry=>[entry.id,{id:entry.id,goal:[1,3,9].includes(Number(entry.goal))?Number(entry.goal):1,priority:priority(entry.priority)}])).values()];
+  for(const entry of explicit){
+    const inherited=wanted.get(entry.id);
+    wanted.set(entry.id,{...entry,goal:Math.max(entry.goal,inherited?.goal||0),priority:Math.max(entry.priority,inherited?.priority||0),reason:inherited?.reason||'manual',owned:Math.max(0,Math.min(9,Number(session?.context?.copies?.[entry.id])||0))});
+  }
+  const excluded=new Set((Array.isArray(targets?.excluded)?targets.excluded:[]).filter(id=>known(catalog,id)).slice(0,200));
+  return [...wanted.values()].filter(entry=>!excluded.has(entry.id)).sort((first,second)=>second.priority-first.priority);
+}
+export function sharingPayload(comp,edit,session,catalog,targets){
   const ids=unique(comp?.champions,catalog),copies=session?.context?.copies||{};
+  const excluded=new Set((Array.isArray(targets?.excluded)?targets.excluded:[]).filter(id=>known(catalog,id)).slice(0,200));
+  const shopping=new Map(shoppingWishes(comp,edit,session,catalog).filter(entry=>entry.reason==='request'||!excluded.has(entry.id)).map(entry=>[entry.id,entry]));
+  for(const entry of requestedUnits(targets?.requests,catalog))shopping.set(entry.id,{...entry,reason:'request',owned:Math.max(0,Math.min(9,Number(copies[entry.id])||0))});
   return {comp:comp?{id:String(comp.id).slice(0,100),name:String(comp.name).slice(0,80),carry:comp.carry,champions:ids}:null,
-    wishes:ids.map(id=>({id,goal:goal(edit?.goals?.[id]??(comp?.stars?.[id]===3?9:3)),owned:Math.max(0,Math.min(9,Number(copies[id])||0))})).filter(w=>w.goal>0),
-    traits:selectedTraits(edit?.traits,catalog),shopping:shoppingWishes(comp,edit,session,catalog),
+    wishes:ids.filter(id=>!excluded.has(id)).map(id=>({id,goal:goal(edit?.goals?.[id]??(comp?.stars?.[id]===3?9:3)),owned:Math.max(0,Math.min(9,Number(copies[id])||0))})).filter(w=>w.goal>0),
+    traits:selectedTraits(edit?.traits,catalog),shopping:[...shopping.values()].sort((first,second)=>second.priority-first.priority),
     playing:Boolean(session?.matchId&&!session?.ended),startedAt:Number(session?.startedAt)||0,ended:session?.ended===true};
 }
 export function normalizeSharedPlan(value,catalog){

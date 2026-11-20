@@ -1,5 +1,5 @@
 import { Crosshair, Plus, Star, Target } from "lucide-react";
-import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { useEffect, useLayoutEffect, useRef, useState, type CSSProperties } from "react";
 import { createPortal } from "react-dom";
 import {
   byId,
@@ -26,21 +26,36 @@ function ItemTooltip({
   x,
   y,
   above,
+  compact = false,
+  standalone = false,
 }: {
   id: string;
   x: number;
   y: number;
   above: boolean;
+  compact?: boolean;
+  standalone?: boolean;
 }) {
+  const tooltip = useRef<HTMLDivElement>(null);
+  const positionKey = `${id}:${x}:${y}:${above}`;
+  const [placement, setPlacement] = useState<{key:string;top:number} | null>(null);
+  const safeTop = placement?.key === positionKey ? placement.top : null;
+  useLayoutEffect(() => {
+    const bounds = tooltip.current?.getBoundingClientRect();
+    if (standalone && bounds)void window.zyon?.itemTooltip?.({type:'resize',height:Math.ceil(bounds.height)+16});
+    else if (bounds) setPlacement({key:positionKey,top:Math.max(8, Math.min(window.innerHeight - bounds.height - 8, bounds.top))});
+  }, [id, x, y, above]);
   const info = itemById[id];
   if (!info) return null;
   const clampedX = Math.max(156, Math.min(window.innerWidth - 156, x));
-  const style: CSSProperties = above
+  const anchor: CSSProperties = above
     ? { left: clampedX, bottom: window.innerHeight - y + 10 }
     : { left: clampedX, top: y + 10 };
+  const style: CSSProperties = standalone ? {left:'50%',top:8,bottom:'auto',maxHeight:'calc(100dvh - 16px)',overflow:'hidden'} : { ...anchor, ...(safeTop === null ? {} : {top: safeTop, bottom: "auto"}), maxHeight: "calc(100dvh - 16px)", overflow: "auto" };
   return createPortal(
     <div
-      className={`zy-item-tooltip ${above ? "is-above" : "is-below"}`}
+      ref={tooltip}
+      className={`zy-item-tooltip ${above ? "is-above" : "is-below"} ${compact ? "is-compact" : ""}`}
       style={style}
       role="tooltip"
     >
@@ -92,12 +107,25 @@ function ItemTooltip({
   );
 }
 
+export function NativeItemTooltip(){
+  const [item,setItem]=useState<{id:string;token?:number}|null>(null);
+  useEffect(()=>{
+    document.documentElement.classList.add('zy-item-tooltip-root');
+    const unsubscribe=window.zyon?.onItemTooltip?.(setItem);
+    void window.zyon?.itemTooltip?.({type:'get'}).then(setItem);
+    return()=>{unsubscribe?.();document.documentElement.classList.remove('zy-item-tooltip-root');};
+  },[]);
+  return item?<ItemTooltip key={item.token} id={item.id} x={164} y={0} above={false} compact standalone/>:null;
+}
+
 export function Items({
   ids,
   className = "",
+  compact = false,
 }: {
   ids: string[];
   className?: string;
+  compact?: boolean;
 }) {
   const [tip, setTip] = useState<{
     id: string;
@@ -105,6 +133,13 @@ export function Items({
     y: number;
     above: boolean;
   } | null>(null);
+  const nativeTooltip=compact&&Boolean(window.zyon?.itemTooltip);
+  useEffect(()=>{
+    if(!nativeTooltip)return;
+    if(tip)void window.zyon?.itemTooltip?.({type:'show',id:tip.id,x:tip.x});
+    else void window.zyon?.itemTooltip?.({type:'hide'});
+    return()=>{void window.zyon?.itemTooltip?.({type:'hide'});};
+  },[nativeTooltip,tip]);
   useEffect(() => {
     if (!tip) return;
     const hide = () => setTip(null);
@@ -137,7 +172,7 @@ export function Items({
           onMouseLeave={() => setTip(null)}
         />
       ))}
-      {tip && <ItemTooltip {...tip} />}
+      {tip && !nativeTooltip && <ItemTooltip {...tip} compact={compact} />}
     </span>
   );
 }
@@ -273,6 +308,7 @@ export function BoardPanel({
                     <Cell
                       className={`tft-hex ${id ? "occupied" : ""} ${id === comp.carry ? "carry-hex" : ""} ${selectedCell === cell ? "cell-selected" : ""} ${drag?.id===id ? "drag-origin" : ""} ${drag?.target===cell ? "drop-target" : ""}`}
                       data-board-cell={cell}
+                      data-champion-id={id}
                       key={col}
                       title={
                         id

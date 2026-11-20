@@ -5,6 +5,7 @@ import assert from 'node:assert/strict';
 import asar from '@electron/asar';
 export const requiredPackagedFiles=[
  'package.json','electron/main.cjs','electron/level-fallback.cjs','electron/preload.cjs',
+ 'electron/display-selection.cjs','electron/item-tooltip.cjs','electron/overlay-modules.cjs','electron/shop-targets.cjs',
  'electron/shop-reader.ps1','electron/game-presence.ps1','electron/overlay-window.cjs','electron/cloud-config.json','electron/match-start.cjs','electron/round-ocr.cjs',
  'electron/ocr/eng.traineddata','dist/index.html','src/shop.mjs','src/duo-plans.mjs',
  'src/generated/catalog.json','src/generated/pivot.json','src/generated/pivot-registry.json',

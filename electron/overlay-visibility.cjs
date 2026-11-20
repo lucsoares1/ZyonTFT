@@ -62,7 +62,7 @@ class OverlayGate {
   }
   isGuideWindow(data, guideHandle) {
     return Boolean(
-      guideHandle && data.foregroundWindow === guideHandle &&
+      guideHandle && (Array.isArray(guideHandle) ? guideHandle.includes(data.foregroundWindow) : data.foregroundWindow === guideHandle) &&
       this.matchId && data.matchId === this.matchId &&
       this.endedId !== this.matchId &&
       this.startedId === this.matchId && !data.endedMatchId

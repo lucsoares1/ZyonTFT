@@ -1,238 +1,82 @@
-/* Zyon Tactical Edge: electric chamfered frame + winged crest badge. */
 .shop-medal.shop-badge {
   display: inline-flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 0;
+  flex: none;
+  align-items: flex-start;
+  justify-content: center;
+  width: var(--shop-tab-width, 28px);
+  height: calc(var(--shop-tab-width, 28px) * 30 / 28);
   padding: 0;
+  gap: 0;
   border: 0;
   border-radius: 0;
   background: transparent;
-  color: #edf5ff;
-  pointer-events: none;
-  filter: drop-shadow(0 3px 5px #000b);
+  color: #fff;
+  filter: none;
+  box-shadow: none;
+  transform: none;
   animation: none;
+  pointer-events: none;
+  user-select: none;
 }
-.shop-medal.shop-badge.badge-preview,
-.workspace-v4 .shop-open .shop-medal.shop-badge {
-  --shop-accent: #2497ff;
-  --shop-edge: #1479d9;
-  --shop-rim-light: #a5ecff;
-  --shop-rim-mid: #58b8ff;
-  --shop-rim-dark: #071529;
-  --shop-rim-soft: #85d4ff;
-  --shop-rim-end: #4dc3ff;
-  --shop-bar: linear-gradient(180deg, #b6f0ff, #2497ff);
-  --shop-badge-top: #152b4a;
-  --shop-badge-bot: #08101e;
-}
-.shop-medal.shop-badge > svg.shop-medal-crest {
-  width: 30px;
-  height: 30px;
-  flex: none;
+.shop-medal .tft-banner {
+  --banner-blue: linear-gradient(180deg, #12416a 0%, #195f9a 5%, #2186df 10%, #2497ff 18%, #267fc7 42%, #296796 65%, #2d5675 85%, #2d5270 100%);
+  --banner-purple: linear-gradient(180deg, #442951 0%, #63396f 5%, #824495 10%, #88459d 18%, #784689 42%, #684875 65%, #594a66 85%, #574a64 100%);
+  --banner-border: linear-gradient(180deg, #65b9ff 0%, #68aee4 35%, #729ac6 70%, #738cae 90%, #7c98b7 100%);
+  --banner-fill: var(--banner-blue);
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
   position: relative;
-  z-index: 2;
-}
-.shop-medal .shop-medal-logo {
-  filter: drop-shadow(0 0 3px var(--shop-accent));
-}
-.shop-medal .shop-medal-caption {
-  position: relative;
-  z-index: 1;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  height: 21px;
-  margin-left: -9px;
-  padding: 0 13px 0 13px;
-  font: 800 10px/1 "Inter Variable", sans-serif;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  white-space: nowrap;
-  color: #f4f9ff;
-  background: linear-gradient(108deg, var(--shop-badge-top), var(--shop-badge-bot));
-  border: 1.5px solid var(--shop-accent);
-  border-radius: 2px 5px 3px 2px;
-  transform: skewX(-12deg);
-  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--shop-rim-light) 55%, transparent), 0 3px 8px #0009;
+  border: calc(var(--shop-tab-width, var(--medal-size, 28px)) * 2 / 28) solid transparent;
+  border-top: none;
+  border-radius: 0 0 calc(var(--shop-tab-width, var(--medal-size, 28px)) / 8) calc(var(--shop-tab-width, var(--medal-size, 28px)) / 8);
+  background-origin: padding-box, border-box;
+  background-clip: padding-box, border-box;
+  background-image: var(--banner-fill), var(--banner-border);
+  box-shadow: inset 0 0 0 1px rgb(0 10 24 / .14), 0 1px 3px rgb(0 0 0 / .65), 0 0 1px rgb(0 0 0 / .85);
 }
-.shop-medal .shop-medal-caption::after {
-  content: "";
-  position: absolute;
-  top: 3.5px;
-  bottom: 3.5px;
-  right: 4.5px;
-  width: 2.5px;
-  border-radius: 1.5px;
-  background: var(--shop-bar);
-  box-shadow: 0 0 5px var(--shop-accent);
+.shop-medal[data-kind="send"] .tft-banner {
+  --banner-fill: var(--banner-purple);
+  --banner-border: linear-gradient(180deg, #bc8ad1 0%, #ad85bd 35%, #9a7fa9 70%, #8d7a99 90%, #9884a4 100%);
 }
-.shop-medal .shop-medal-text {
-  display: inline-block;
-  line-height: 1;
-  transform: skewX(12deg) translateY(0.5px);
-  text-shadow: 0 1px 2px #000c;
+.shop-medal[data-kind="shared"] .tft-banner {
+  background-image: var(--banner-blue), var(--banner-purple), var(--banner-border);
+  background-size: 50% 100%, 50% 100%, 100% 100%;
+  background-position: left top, right top, center;
+  background-repeat: no-repeat;
+  background-origin: padding-box, padding-box, border-box;
+  background-clip: padding-box, padding-box, border-box;
 }
-.shop-medal.badge-preview { transform: scale(.86); transform-origin: center; }
-.badge-space:has(.shop-medal) { height: 42px; }
-.game-wide .game-mode { display: inline-flex; align-items: center; padding: 5px 8px; border: 1px solid #2b313d; border-radius: 4px; color: #b8c0ce; font-size: 10px; }
-.workspace-v4 .shop-open .shop-medal.shop-badge { padding: 0; gap: 0; }
-.workspace-v4 .shop-open .shop-medal.shop-badge > svg.shop-medal-crest { display: block; width: 30px; height: 30px; }
-
-/* Native in-game shop slots: distinct palettes per tactical intent. */
+.shop-medal .shop-medal-logo {
+  display: block;
+  width: 82%;
+  height: 82%;
+  object-fit: contain;
+  filter: brightness(0) invert(1) drop-shadow(.4px 1px .25px #11161f);
+  pointer-events: none;
+}
+.shop-medal.shop-badge.badge-preview,
+.workspace-v4 .shop-open .shop-medal.shop-badge {
+  padding: 0;
+  gap: 0;
+  transform: none;
+}
+.badge-space:has(.shop-medal) { height: 34px; }
 .native-overlay .native-slot {
   transform: none;
-  pointer-events: none;
-  --shop-accent: #2497ff;
-  --shop-edge: #1479d9;
-  --shop-rim-light: #a5ecff;
-  --shop-rim-mid: #58b8ff;
-  --shop-rim-dark: #071529;
-  --shop-rim-soft: #85d4ff;
-  --shop-rim-end: #5ecbff;
-  --shop-bar: linear-gradient(180deg, #b6f0ff, #2497ff);
-  --shop-badge-top: #133159;
-  --shop-badge-bot: #071122;
-}
-.native-overlay .native-slot[data-kind="reserve"] {
-  --shop-accent: #38bdf8;
-  --shop-edge: #0284c7;
-  --shop-rim-light: #bae6fd;
-  --shop-rim-mid: #7dd3fc;
-  --shop-rim-dark: #071b29;
-  --shop-rim-soft: #99e2ff;
-  --shop-rim-end: #7dd3fc;
-  --shop-bar: linear-gradient(180deg, #d8f3ff, #38bdf8);
-  --shop-badge-top: #102a3d;
-  --shop-badge-bot: #07131e;
-}
-.native-overlay .native-slot[data-kind="trait"] {
-  --shop-accent: #4aa8ff;
-  --shop-edge: #1f74d1;
-  --shop-rim-light: #c4e4ff;
-  --shop-rim-mid: #73bfff;
-  --shop-rim-dark: #0a182d;
-  --shop-rim-soft: #99d0ff;
-  --shop-rim-end: #73bfff;
-  --shop-bar: linear-gradient(180deg, #d6ecff, #4aa8ff);
-  --shop-badge-top: #122845;
-  --shop-badge-bot: #07111f;
-}
-.native-overlay .native-slot[data-kind="send"] {
-  --shop-accent: #a855f7;
-  --shop-edge: #9333ea;
-  --shop-rim-light: #f5d0fe;
-  --shop-rim-mid: #c084fc;
-  --shop-rim-dark: #1d0933;
-  --shop-rim-soft: #c6a0ee;
-  --shop-rim-end: #d946ef;
-  --shop-bar: linear-gradient(180deg, #f5d0fe, #a855f7);
-  --shop-badge-top: #3a1263;
-  --shop-badge-bot: #140624;
-}
-.native-overlay .native-slot[data-kind="send"][data-priority="1"] {
-  --shop-accent: #c084fc;
-  --shop-rim-light: #fae8ff;
-  --shop-rim-end: #e879f9;
-  --shop-bar: linear-gradient(180deg, #fae8ff, #c084fc);
-  --shop-badge-top: #4f1880;
-  --shop-badge-bot: #1a0830;
-}
-.native-overlay .native-slot[data-kind="send"][data-priority="2"] {
-  --shop-accent: #e879f9;
-  --shop-edge: #c026d3;
-  --shop-rim-light: #ffffff;
-  --shop-rim-mid: #e879f9;
-  --shop-rim-soft: #c6a0ee;
-  --shop-rim-end: #f0abfc;
-  --shop-bar: linear-gradient(180deg, #ffffff, #e879f9);
-  --shop-badge-top: #741a94;
-  --shop-badge-bot: #2b083d;
-}
-.native-overlay .native-slot[data-kind="shared"] {
-  --shop-accent: #2497ff;
-  --shop-edge: #9333ea;
-  --shop-rim-light: #8be7ff;
-  --shop-rim-mid: #7c6dff;
-  --shop-rim-dark: #141236;
-  --shop-rim-soft: #c6a0ee;
-  --shop-rim-end: #d946ef;
-  --shop-bar: linear-gradient(180deg, #8be7ff, #e879f9);
-  --shop-badge-top: #163366;
-  --shop-badge-bot: #371259;
-}
-.native-overlay .native-slot[data-kind="shared"][data-priority="2"] {
-  --shop-rim-light: #d6f4ff;
-  --shop-rim-end: #f0abfc;
-  --shop-bar: linear-gradient(180deg, #d6f4ff, #f0abfc);
-  --shop-badge-top: #1d3c73;
-  --shop-badge-bot: #571575;
-}
-.native-overlay .shop-frost-frame {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: visible;
   pointer-events: none;
 }
 .native-overlay .shop-medal.shop-badge {
   position: absolute;
-  right: 3px;
-  top: calc(-1 * var(--medal-size) * 0.54);
-  display: inline-flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 0;
-  isolation: isolate;
-  color: #f4f9ff;
-  filter: drop-shadow(0 3px 6px #000c);
+  left: var(--shop-tab-offset, calc(var(--medal-size, 28px) * .3));
+  right: auto;
+  top: var(--shop-tab-top, 2px);
+  width: var(--shop-tab-width, var(--medal-size, 28px));
+  height: calc(var(--shop-tab-width, var(--medal-size, 28px)) * 30 / 28);
   z-index: 2;
-}
-.native-overlay .shop-medal.shop-badge > svg.shop-medal-crest {
-  position: relative;
-  z-index: 2;
-  width: calc(var(--medal-size) * 0.92);
-  height: calc(var(--medal-size) * 0.92);
-  margin: 0;
-  display: block;
-}
-.native-overlay .shop-medal .shop-medal-caption {
-  position: relative;
-  z-index: 1;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  height: calc(var(--medal-size) * 0.68);
-  margin-left: calc(-1 * var(--medal-size) * 0.27);
-  padding: 0 13px 0 calc(var(--medal-size) * 0.34);
-  background: linear-gradient(108deg, var(--shop-badge-top), var(--shop-badge-bot));
-  border: 1.5px solid var(--shop-accent);
-  border-radius: 2px 5px 3px 2px;
-  transform: skewX(-12deg);
-  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--shop-rim-light) 55%, transparent), 0 2px 6px #000b;
-  font: 800 var(--medal-font)/1 "Inter Variable", sans-serif;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: #f4f9ff;
-}
-.native-overlay .shop-medal .shop-medal-text {
-  display: inline-block;
-  line-height: 1;
-  transform: skewX(12deg) translateY(0.5px);
-}
-.native-overlay .native-slot[data-priority="2"] .shop-medal .shop-medal-caption {
-  padding: 0 12px 0 calc(var(--medal-size) * 0.31);
-  font-size: calc(var(--medal-font) * 0.9);
-  letter-spacing: 0.025em;
-}
-.native-overlay .native-slot[data-kind="shared"] .shop-medal .shop-medal-caption {
-  background: linear-gradient(108deg, #0f386e 0%, #341a66 55%, #58187d 100%);
-  border-color: #a97dff;
-}
-.native-overlay .native-slot[data-kind="send"][data-priority="2"] .shop-medal .shop-medal-caption {
-  border-color: #f5d0fe;
-  box-shadow: inset 0 1px 0 #ffffff, 0 0 10px #d946ef88, 0 2px 6px #000c;
-  color: #ffffff;
+  opacity: 1;
+  filter: none;
 }

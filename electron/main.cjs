@@ -47,7 +47,11 @@ const { PurchaseTracker } = require("./purchase-tracker.cjs");
 const {SocialService}=require('./social-service.cjs');
 const {readBootId,bindSessionEnd}=require('./duo-lifecycle.cjs');
 const {SocialNoticeTracker}=require('./social-notices.cjs');
-const {guideBoundsFor,shopOnlyPlacement}=require('./guide-layout.cjs');
+const {shopOnlyPlacement}=require('./guide-layout.cjs');
+const {normalizeOverlayLayout,overlayAction:changeOverlayLayout,moduleBounds}=require('./overlay-modules.cjs');
+const {normalizeShopTargets,editShopTargets}=require('./shop-targets.cjs');
+const {itemTooltipBounds}=require('./item-tooltip.cjs');
+const {selectDisplay,displaySignature}=require('./display-selection.cjs');
 const {chooseGuideComposition,guardCompositionPublication,commitPlannerComposition}=require('./guide-selection.cjs');
 const socialNotices=new SocialNoticeTracker();
 const {UpdateService}=require('./update-service.cjs');
@@ -83,6 +87,8 @@ let levelJob = 0,
 let mainWindow,
   overlayWindow,
   guideWindow,
+  launcherWindow,
+  pinnedWindow,
   readerProcess,
   staleTimer,
   saveTimer;
@@ -92,6 +98,8 @@ let state = {
   slots: [],
   selected: [],
   overlayPlans: {},
+  overlayLayout: normalizeOverlayLayout(),
+  shopTargets: normalizeShopTargets(null,championById),
   opacity: 92,
   pinned: null,
   source: "demo",
@@ -179,6 +187,8 @@ function validRect(r) {
 function mainSender(event) {
   return mainWindow && event.sender === mainWindow.webContents;
 }
+function panelSender(event) { return [guideWindow,pinnedWindow].some(window=>window&&!window.isDestroyed()&&event.sender===window.webContents)||Boolean(state.overlayLayout?.presentation==='integrated'&&state.overlayLayout.activePanel&&launcherWindow&&!launcherWindow.isDestroyed()&&event.sender===launcherWindow.webContents); }
+function overlaySender(event) { return panelSender(event)||Boolean(launcherWindow&&!launcherWindow.isDestroyed()&&event.sender===launcherWindow.webContents); }
 let publishedShopSlots='[]';
 function stampShop(){
   const key=JSON.stringify([state.slots,state.shopRect,state.shopCards]);
@@ -186,7 +196,7 @@ function stampShop(){
 }
 function broadcast() {
   stampShop();
-  for (const window of [overlayWindow, guideWindow])
+  for (const window of [mainWindow, overlayWindow, guideWindow, launcherWindow, pinnedWindow])
     if (window && !window.isDestroyed())
       window.webContents.send("state:update", state);
 }
@@ -196,6 +206,8 @@ function broadcastShop(){
 }
 function save() {
   if (!state.saved) return;
+  state.saved.overlayLayout=state.overlayLayout;
+  state.saved.shopTargets=state.shopTargets;
   try {
     fs.mkdirSync(app.getPath("userData"), { recursive: true });
     fs.writeFileSync(settingsFile(), JSON.stringify(state.saved, null, 2));
@@ -235,32 +247,84 @@ function loadWindow(window, view = "") {
   });
 }
 function chosenDisplay() {
-  return (
-    screen.getAllDisplays().find((d) => d.id === state.displayId) ||
-    screen.getPrimaryDisplay()
-  );
+  return selectDisplay(screen.getAllDisplays(),screen.getPrimaryDisplay(),state.displayId);
 }
 function guideBounds() {
-  const b = chosenDisplay().bounds;
-  const comp = state.guideComp;
-  const count = (comp?.champions?.length || 0) +
-    (comp?.pivot?.upgrades?.filter(id => !comp.champions.includes(id)).length || 0);
-  const levelRect = validLevelRect(state.levelRect)
-    ? state.levelRect
-    : defaultLevelRect(state.rect);
-  const safeTop = Math.min(state.rect?.y || 0.858, levelRect.y);
-  return guideBoundsFor(b,state.gameSession,{count,safeTop});
+  return currentModuleBounds(state.overlayLayout.activePanel||'comp');
 }
-let expectedGuideBounds,guideMoveTimer;
+function currentModuleBounds(panel=null) {
+  return moduleBounds(chosenDisplay().bounds,state.overlayLayout,panel,Math.min(state.rect?.y||0.858,(validLevelRect(state.levelRect)?state.levelRect:defaultLevelRect(state.rect)).y),{summaryChampions:state.guideComp?.champions?.length||0});
+}
+let expectedGuideBounds,guideMoveTimer,integratedResizeTimer;
+let currentDisplaySignature;
+let itemTooltipWindow,itemTooltipData,itemTooltipSequence=0;
+function hideItemTooltip(){
+  itemTooltipData=null;
+  if(itemTooltipWindow&&!itemTooltipWindow.isDestroyed())itemTooltipWindow.hide();
+}
+function positionItemTooltip(height=180){
+  if(!itemTooltipData||!launcherWindow||launcherWindow.isDestroyed()||!itemTooltipWindow||itemTooltipWindow.isDestroyed())return false;
+  const owner=launcherWindow.getBounds(),display=screen.getDisplayMatching(owner).workArea;
+  const bounds=itemTooltipBounds(owner,display,itemTooltipData.x,height);
+  if(!bounds){hideItemTooltip();return false;}
+  itemTooltipWindow.setBounds(bounds);
+  return true;
+}
+function showItemTooltip(action){
+  if(!launcherWindow?.isVisible()||typeof action.id!=='string'||!Number.isFinite(action.x))return false;
+  if(!state.guideComp?.champions?.some(id=>(state.guideComp.items?.[id]||[]).includes(action.id)))return false;
+  itemTooltipData={id:action.id,x:Math.max(0,Math.min(launcherWindow.getBounds().width,action.x)),token:++itemTooltipSequence};
+  itemTooltipWindow?.hide();
+  if(!itemTooltipWindow||itemTooltipWindow.isDestroyed()){
+    itemTooltipWindow=new BrowserWindow({width:328,height:220,frame:false,transparent:true,backgroundColor:'#00000000',alwaysOnTop:true,skipTaskbar:true,focusable:false,show:false,hasShadow:false,resizable:false,movable:false,webPreferences:{preload:path.join(__dirname,'preload.cjs'),contextIsolation:true,nodeIntegration:false,sandbox:true,backgroundThrottling:false}});
+    itemTooltipWindow.setAlwaysOnTop(true,'screen-saver');
+    itemTooltipWindow.setContentProtection(false);
+    itemTooltipWindow.setIgnoreMouseEvents(true,{forward:true});
+    loadWindow(itemTooltipWindow,'item-tooltip');
+  }
+  positionItemTooltip(220);
+  itemTooltipWindow.webContents.send('item-tooltip:changed',itemTooltipData);
+  return true;
+}
 function positionGuide() {
-  if (guideWindow && !guideWindow.isDestroyed()) {
+  if (state.overlayLayout.activePanel && guideWindow && !guideWindow.isDestroyed()) {
     expectedGuideBounds=guideBounds();
-    guideWindow.setResizable(Boolean(state.gameSession.guideExpanded&&!state.gameSession.collapsed&&!state.gameSession.shopOnly));
+    guideWindow.setResizable(false);
     const current=guideWindow.getBounds();
     if(['x','y','width','height'].some(key=>current[key]!==expectedGuideBounds[key]))guideWindow.setBounds(expectedGuideBounds);
   }
+  for(const [window,panel] of [[launcherWindow,null],[pinnedWindow,state.overlayLayout.pinnedPanel]]){
+    if(window&&!window.isDestroyed()&&(window===launcherWindow||panel)){
+      const bounds=currentModuleBounds(panel);
+      if(window===launcherWindow&&state.overlayLayout.presentation==='integrated'){
+        const current=window.getBounds();
+        if(['x','y','width'].some(key=>current[key]!==bounds[key]))window.setBounds({...bounds,height:current.height});
+        continue;
+      }
+      if(window===launcherWindow)clearTimeout(integratedResizeTimer);
+      if(['x','y','width','height'].some(key=>window.getBounds()[key]!==bounds[key])){
+        window.setBounds(bounds);
+      }
+    }
+  }
+}
+function animateIntegratedBounds(reducedMotion=false){
+  clearTimeout(integratedResizeTimer);
+  const window=launcherWindow;
+  if(!window||window.isDestroyed()||state.overlayLayout.presentation!=='integrated')return;
+  const initial=window.getBounds(),target=currentModuleBounds();
+  const started=performance.now(),duration=reducedMotion?0:260;
+  function frame(){
+    if(quitting||window.isDestroyed()||state.overlayLayout.presentation!=='integrated')return;
+    const progress=duration?Math.min(1,(performance.now()-started)/duration):1;
+    const eased=progress*progress*(3-2*progress);
+    window.setBounds({...target,height:Math.round(initial.height+(target.height-initial.height)*eased)});
+    if(progress<1)integratedResizeTimer=setTimeout(frame,16);
+  }
+  frame();
 }
 function updateGame(action) {
+  if(['reset','round'].includes(action.type)||(action.type==='match'&&action.id!==state.gameSession.matchId))state.shopTargets=normalizeShopTargets(null,championById);
   if (["reset", "match", "round", "copies", "end", "resume"].includes(action.type)) {
     sessionEpoch++;
     sessionBoundaryAt = Date.now();
@@ -310,65 +374,61 @@ function selectGuideComposition(id,showNow=false){
   mainWindow?.webContents.send('guide:build',{id,revision:state.compSelectionRevision});
   return true;
 }
+function rememberModulePosition(window, panel) {
+  const bounds=window.getBounds(),display=chosenDisplay().bounds;
+  const expected=currentModuleBounds(panel);
+  if(['x','y'].every(key=>bounds[key]===expected[key]))return;
+  const position={x:bounds.x-display.x,y:bounds.y-display.y};
+  if(panel)state.overlayLayout.panels[panel]=position;
+  else state.overlayLayout.launcherPosition=position;
+  clearTimeout(guideMoveTimer);
+  guideMoveTimer=setTimeout(()=>{save();broadcast();},120);
+}
+function createModuleWindow(view,panel) {
+  const bounds=currentModuleBounds(panel);
+  if(view==='launcher'&&state.overlayLayout.presentation==='integrated')bounds.height=state.guideComp&&!state.overlayLayout.summaryCollapsed?196:42;
+  const window=new BrowserWindow({
+    ...bounds,
+    frame:false,transparent:false,backgroundColor:'#11161f',alwaysOnTop:true,skipTaskbar:true,
+    focusable:true,show:false,hasShadow:false,resizable:false,movable:true,
+    webPreferences:{preload:path.join(__dirname,'preload.cjs'),contextIsolation:true,nodeIntegration:false,sandbox:true,backgroundThrottling:false}
+  });
+  window.setAlwaysOnTop(true,'screen-saver');
+  window.setContentProtection(false);
+  window.setIgnoreMouseEvents(backgroundTest,{forward:true});
+  window.on('move',()=>{
+    if(view==='launcher')hideItemTooltip();
+    const currentPanel=view==='panel'?state.overlayLayout.pinnedPanel:state.overlayLayout.activePanel;
+    if(view==='launcher'||currentPanel)rememberModulePosition(window,view==='launcher'?null:currentPanel);
+  });
+  window.once('ready-to-show',()=>{
+    if(backgroundTest)window.setIgnoreMouseEvents(true,{forward:true});
+    if(!quitting){syncOverlayVisibility();broadcast();}
+  });
+  loadWindow(window,view);
+  return window;
+}
 function showGuide() {
-  if (guideWindow && !guideWindow.isDestroyed()) {
-    positionGuide();
-    syncOverlayVisibility();
-    return;
+  if(!launcherWindow||launcherWindow.isDestroyed())launcherWindow=createModuleWindow('launcher',null);
+  if(state.overlayLayout.presentation!=='integrated'&&state.overlayLayout.activePanel&&(!guideWindow||guideWindow.isDestroyed()))guideWindow=createModuleWindow('guide',state.overlayLayout.activePanel);
+  if(state.overlayLayout.presentation!=='integrated'&&state.overlayLayout.pinnedPanel&&(!pinnedWindow||pinnedWindow.isDestroyed()))pinnedWindow=createModuleWindow('panel',state.overlayLayout.pinnedPanel);
+  positionGuide();
+  syncOverlayVisibility();
+}
+let lastVisiblePanels=null;
+function performOverlayAction(action) {
+  if(action?.type==='layoutReady'){animateIntegratedBounds(action.reducedMotion===true);return {ok:true};}
+  hideItemTooltip();
+  if(action?.type==='openMain'){showMainWindow();return {ok:true};}
+  if(!['open','toggle','close','pin','unpin','hidePanels','summaryToggle','details','library','setPresentation'].includes(action?.type))return false;
+  if(action.type==='details'||action.type==='library'){
+    state.gameSession=changeSession(state.gameSession,{type:'tab',value:action.type==='library'?'comps':'team'});
+    if(state.saved)state.saved.gameSession=state.gameSession;
   }
-  guideWindow = new BrowserWindow({
-    ...guideBounds(),
-    frame: false,
-    transparent: true,
-    backgroundColor: "#00000000",
-    alwaysOnTop: true,
-    skipTaskbar: true,
-    focusable: true,
-    show: false,
-    hasShadow: false,
-    resizable: false,
-    movable: true,
-    webPreferences: {
-      preload: path.join(__dirname, "preload.cjs"),
-      contextIsolation: true,
-      nodeIntegration: false,
-      sandbox: true,
-      backgroundThrottling: false,
-    },
-  });
-  guideWindow.setAlwaysOnTop(true, "screen-saver");
-  guideWindow.setContentProtection(false);
-  guideWindow.setIgnoreMouseEvents(false);
-  expectedGuideBounds=guideWindow.getBounds();
-  guideWindow.on('resize',()=>{
-    if(!state.gameSession.guideExpanded||state.gameSession.collapsed||state.gameSession.shopOnly)return;
-    const bounds=guideWindow.getBounds();
-    if(bounds.width===expectedGuideBounds?.width&&bounds.height===expectedGuideBounds?.height)return;
-    state.gameSession=changeSession(state.gameSession,{type:'guide-size',size:{width:bounds.width,height:bounds.height}});
-    if(state.saved)state.saved.gameSession=state.gameSession;
-    expectedGuideBounds=bounds;
-    clearTimeout(guideMoveTimer);
-    guideMoveTimer=setTimeout(()=>{positionGuide();save();broadcast();},120);
-  });
-  guideWindow.on('move',()=>{
-    const bounds=guideWindow.getBounds();
-    if(bounds.x===expectedGuideBounds?.x&&bounds.y===expectedGuideBounds?.y)return;
-    const display=chosenDisplay().bounds;
-    // Keep the new position immediately, before another HUD update can
-    // reapply old bounds. Disk writes wait until the movement settles.
-    state.gameSession=changeSession(state.gameSession,{type:'guide-position',position:{x:bounds.x-display.x,y:bounds.y-display.y}});
-    if(state.saved)state.saved.gameSession=state.gameSession;
-    expectedGuideBounds=bounds;
-    clearTimeout(guideMoveTimer);
-    guideMoveTimer=setTimeout(()=>{positionGuide();save();broadcast();},120);
-  });
-  guideWindow.once("ready-to-show", () => {
-    if (!quitting && overlayEnabled) {
-      syncOverlayVisibility();
-      broadcast();
-    }
-  });
-  loadWindow(guideWindow, "guide");
+  if(action.type==='hidePanels')lastVisiblePanels={...state.overlayLayout};
+  state.overlayLayout=changeOverlayLayout(state.overlayLayout,action);
+  showGuide();save();broadcast();
+  return {ok:true,overlayLayout:state.overlayLayout};
 }
 function accountReady(){return Boolean(state.social?.user&&state.social?.profile);}
 function syncOverlayVisibility({ raise = false } = {}) {
@@ -379,35 +439,37 @@ function syncOverlayVisibility({ raise = false } = {}) {
     : !accountReady() ? "account-required"
     : !overlayEnabled ? "disabled"
     : state.gameSession.ended ? "match-ended"
-    : !state.pinned ? "no-composition"
     : !overlayPreview && !overlayGate.foreground ? "game-unfocused"
-    : !overlayPreview && !overlayGate.canShow(overlayEnabled,state.pinned) ? "waiting-for-game-confirmation"
+    : !overlayPreview && !overlayGate.canShow(overlayEnabled,true) ? "waiting-for-game-confirmation"
     : "visible";
   const visible = reason === "visible";
   if(reason!==lastOverlayVisibilityReason){
     startupLog(`Overlay visibility: ${reason}`);
     lastOverlayVisibilityReason=reason;
   }
-  const manualGuide = manualGuideRequested && !quitting && accountReady() && overlayEnabled && Boolean(state.pinned);
+  const manualGuide = manualGuideRequested && !quitting && accountReady() && overlayEnabled;
   if (visible) manualGuideRequested = false;
-  syncOverlayWindows([overlayWindow], visible, { raise });
-  syncOverlayWindows([guideWindow], visible || manualGuide, { raise });
+  syncOverlayWindows([overlayWindow], visible && Boolean(state.pinned||state.shopTargets.buy.length||state.shopTargets.requests.length), { raise });
+  syncOverlayWindows([launcherWindow], visible || manualGuide, { raise });
+  if(!visible&&!manualGuide)hideItemTooltip();
+  syncOverlayWindows([guideWindow], state.overlayLayout.presentation!=='integrated' && (visible || manualGuide) && Boolean(state.overlayLayout.activePanel), { raise });
+  syncOverlayWindows([pinnedWindow], state.overlayLayout.presentation!=='integrated' && (visible || manualGuide) && Boolean(state.overlayLayout.pinnedPanel), { raise });
 }
 function ensureAutomaticReader() {
   if (
     accountReady() &&
     !overlayPreview &&
     overlayGate.foreground &&
-    state.pinned &&
     !readerProcess &&
     !readerSuppressed
   )
     setReader(true, { automatic: true });
 }
 function guideNativeHandle() {
-  if (!guideWindow || guideWindow.isDestroyed()) return null;
-  const handle = guideWindow.getNativeWindowHandle();
-  return handle.length === 8 ? handle.readBigUInt64LE().toString() : String(handle.readUInt32LE());
+  return [launcherWindow,guideWindow,pinnedWindow].filter(window=>window&&!window.isDestroyed()).map(window=>{
+    const handle=window.getNativeWindowHandle();
+    return handle.length===8?handle.readBigUInt64LE().toString():String(handle.readUInt32LE());
+  });
 }
 function acceptPresence(data) {
   if (!data || typeof data !== "object" || quitting || !accountReady()) return;
@@ -535,17 +597,14 @@ function setOverlay(enabled, { automatic = false } = {}) {
   if (!automatic) {
     overlayGate.setEnabled(enabled);
     manualGuideRequested = enabled;
-    if (enabled) {
-      if (!state.pinned) selectGuideComposition(state.saved?.active || state.saved?.comps?.[0]?.id);
-      state.gameSession = {...state.gameSession, collapsed:false, shopOnly:false};
-      if (state.saved) state.saved.gameSession = state.gameSession;
-    }
   }
   if (!enabled) manualGuideRequested = false;
   overlayEnabled = enabled;
   if (!enabled) {
     overlayWindow?.hide();
     guideWindow?.hide();
+    launcherWindow?.hide();
+    pinnedWindow?.hide();
     mainWindow?.webContents.send("overlay:status", false);
     return false;
   }
@@ -982,7 +1041,7 @@ if (primaryInstance)
       mainSender(event)&&accountReady() ? pivotService.refresh(force === true) : null,
     );
     ipcMain.handle("guide:build", (event, id) => {
-      if (!accountReady()||event.sender !== guideWindow?.webContents) return false;
+      if (!accountReady()||!panelSender(event)) return false;
       const build = state.saved?.comps?.find(
         (c) =>
           c.id === id &&
@@ -992,20 +1051,22 @@ if (primaryInstance)
       if (!build) return false;
       return selectGuideComposition(id);
     });
-    ipcMain.handle('guide:comp',(event,id)=>accountReady()&&event.sender===guideWindow?.webContents?selectGuideComposition(id,true):false);
+    ipcMain.handle('guide:comp',(event,id)=>accountReady()&&panelSender(event)?selectGuideComposition(id,true):false);
     startupLog(`Starting ${app.getVersion()}`);
     try {
       const saved = JSON.parse(fs.readFileSync(settingsFile(), "utf8"));
       if ([1, 2].includes(saved?.version)) {
         state.saved = saved;
         state.gameSession = normalizeSession(saved.gameSession);
+        state.overlayLayout=normalizeOverlayLayout(saved.overlayLayout);
+        state.shopTargets=normalizeShopTargets(saved.shopTargets,championById);
         state.overlayPlans=Object.fromEntries((saved.comps||[]).map(c=>[c.id,planTools.normalizeWorkingPlan(c,saved.overlayPlans?.[c.id],championById)]).filter(([,v])=>v));
       }
     } catch {
       /* First launch. */
     }
     socialService=new SocialService({directory:app.getPath('userData'),safeStorage,bootId:await readBootId(),
-      getLocal:()=>planTools.sharingPayload(state.guideComp,state.overlayPlans?.[state.pinned],state.gameSession,championById),
+      getLocal:()=>planTools.sharingPayload(state.guideComp,state.overlayPlans?.[state.pinned],state.gameSession,championById,state.shopTargets),
       normalizePlan:value=>planTools.normalizeSharedPlan(value,championById),
       onChange:snapshot=>{state.social=snapshot;mainWindow?.webContents.send('social:update',snapshot);
         for(const notice of socialNotices.update(snapshot)){
@@ -1091,16 +1152,16 @@ if (primaryInstance)
     });
     ipcMain.handle("state:get", () => ({
       ...state,
-      overlayVisible: Boolean(overlayWindow?.isVisible()),
+      overlayVisible: Boolean(launcherWindow?.isVisible()),
       guideInteractive: overlayGate.interacting,
       overlayArmed: overlayEnabled,
       gameForeground: overlayGate.foreground,
       overlayPreview,
       readerActive: Boolean(readerProcess),
     }));
-    ipcMain.handle('social:get',event=>(mainSender(event)||event.sender===guideWindow?.webContents)?socialService.snapshot():null);
+    ipcMain.handle('social:get',event=>(mainSender(event)||panelSender(event))?socialService.snapshot():null);
     ipcMain.handle('social:action',(event,action)=>{
-      if(!mainSender(event)&&event.sender!==guideWindow?.webContents)return {error:'Janela sem permissão.'};
+      if(!mainSender(event)&&!panelSender(event))return {error:'Janela sem permissão.'};
       if(['signup','login','logout'].includes(action?.type)&&!mainSender(event))return {error:'Entre na conta pela janela principal do Zyon.'};
       if(action?.type==='open'){showMainWindow();mainWindow?.webContents.send('social:open');return {ok:true};}
       return socialService.action(action||{});
@@ -1117,7 +1178,7 @@ if (primaryInstance)
     });
     ipcMain.handle('plan:edit',(event,action)=>{
       if(!accountReady())return {error:'Entre na sua conta para usar o planejador.'};
-      if(!mainSender(event)&&event.sender!==guideWindow?.webContents)return {error:'Janela sem permissão.'};
+      if(!mainSender(event)&&!panelSender(event))return {error:'Janela sem permissão.'};
       const current=action?.compId===state.pinned;
       if(!current&&(!mainSender(event)||action?.type!=='restore'))return {error:'Escolha uma comp antes de editar.'};
       const base=current?state.baseGuideComp:state.saved?.comps?.find(c=>c.id===action.compId);if(!base)return {error:'Escolha uma comp no aplicativo.'};
@@ -1174,7 +1235,9 @@ if (primaryInstance)
         readerPresence: state.readerPresence,
         gameForeground: overlayGate.foreground,
         overlayPreview,
-        saved: { ...next.saved, gameSession: state.gameSession,overlayPlans },
+        saved: { ...next.saved, gameSession: state.gameSession,overlayPlans,overlayLayout:state.overlayLayout,shopTargets:state.shopTargets },
+        overlayLayout:state.overlayLayout,
+        shopTargets:state.shopTargets,
         overlayPlans,social,
         baseGuideComp:next.baseGuideComp||next.guideComp||null,
       };
@@ -1191,6 +1254,7 @@ if (primaryInstance)
         previousDisplay !== state.displayId
       )
         overlayWindow.setBounds(chosenDisplay().bounds);
+      if(previousDisplay!==state.displayId){currentDisplaySignature=displaySignature(chosenDisplay());hideItemTooltip();animateIntegratedBounds(true);}
       if (
         readerProcess &&
         (previousRect !== JSON.stringify(state.rect) ||
@@ -1206,12 +1270,35 @@ if (primaryInstance)
       broadcast();
       return true;
     });
+    ipcMain.handle('item-tooltip:action',(event,action)=>{
+      const tooltipSender=itemTooltipWindow&&!itemTooltipWindow.isDestroyed()&&event.sender===itemTooltipWindow.webContents;
+      if(tooltipSender&&action?.type==='get')return itemTooltipData;
+      if(tooltipSender&&action?.type==='resize'){
+        if(Number.isFinite(action.height)&&positionItemTooltip(Math.max(80,Math.min(300,action.height))))itemTooltipWindow.showInactive();
+        return true;
+      }
+      if(!accountReady()||!launcherWindow||event.sender!==launcherWindow.webContents)return false;
+      if(action?.type==='hide'){hideItemTooltip();return true;}
+      if(action?.type==='show')return showItemTooltip(action);
+      return false;
+    });
+    ipcMain.handle('overlay:action',(event,action)=>{
+      if(action?.type==='layoutReady'&&(state.overlayLayout.presentation!=='integrated'||!launcherWindow||event.sender!==launcherWindow.webContents))return false;
+      return accountReady()&&(mainSender(event)||overlaySender(event))?performOverlayAction(action):false;
+    });
+    ipcMain.handle('shop:target',(event,action)=>{
+      if(!accountReady()||(!mainSender(event)&&!panelSender(event)))return false;
+      if(!['buy','requests'].includes(action?.list)||!['set','remove','toggle'].includes(action?.type)||typeof action?.id!=='string'||!Object.hasOwn(championById,action.id)||(action.type==='toggle'&&action.list!=='buy'))return false;
+      const inherited=planTools.shoppingWishes(state.guideComp,state.overlayPlans?.[state.pinned],state.gameSession,championById);
+      state.shopTargets=editShopTargets(state.shopTargets,action,championById,inherited);
+      save();broadcast();socialService.schedulePublish();return {ok:true,shopTargets:state.shopTargets};
+    });
     ipcMain.handle("overlay:set", (event, enabled) =>
       mainSender(event) ? setOverlay(Boolean(enabled)) : false,
     );
     ipcMain.handle("game:action", (event, action) => {
       if(!accountReady())return false;
-      if (event.sender !== guideWindow?.webContents && !mainSender(event))
+      if (!panelSender(event) && !mainSender(event))
         return false;
       if (action?.compId !== state.pinned) return false;
       if (["level", "level-mode"].includes(action?.type) && !overlayPreview) return false;
@@ -1235,7 +1322,7 @@ if (primaryInstance)
       return action.type==='shop-only'?toggleShopOnly():updateGame(action);
     });
     ipcMain.handle("reader:set", (event, enabled) =>
-      mainSender(event) || event.sender === guideWindow?.webContents
+      mainSender(event) || panelSender(event)
         ? setReader(Boolean(enabled))
         : false,
     );
@@ -1257,7 +1344,7 @@ if (primaryInstance)
     });
     ipcMain.on("window:close", (event) => {
       if (mainSender(event)) app.quit();
-      else if (event.sender === guideWindow?.webContents) setOverlay(false);
+      else if (panelSender(event)) setOverlay(false);
     });
     const toggleGuide = () => setOverlay(!overlayEnabled);
     const primaryShortcut = globalShortcut.register("CommandOrControl+Shift+O", toggleGuide);
@@ -1266,21 +1353,34 @@ if (primaryInstance)
     if (!primaryShortcut) startupLog(`Overlay shortcut unavailable: Ctrl+Shift+O; fallback ${fallbackShortcut ? 'Ctrl+Shift+Y' : 'unavailable; use the app button'}`);
     globalShortcut.register("CommandOrControl+Shift+Q", () => app.quit());
     globalShortcut.register("CommandOrControl+Shift+G", () => {
-      if (overlayEnabled) {if(state.gameSession.shopOnly)void toggleShopOnly();else updateGame({type:'collapse'});}
+      if(overlayEnabled){
+        if(state.overlayLayout.activePanel||state.overlayLayout.pinnedPanel)performOverlayAction({type:'hidePanels'});
+        else if(lastVisiblePanels){state.overlayLayout=normalizeOverlayLayout(lastVisiblePanels);showGuide();save();broadcast();}
+      }
     });
     startPresenceWatch();
-    screen.on("display-removed", () => {
+    currentDisplaySignature=displaySignature(chosenDisplay());
+    const updateDisplay=()=>{
+      const nextSignature=displaySignature(chosenDisplay());
+      if(nextSignature===currentDisplaySignature)return;
+      currentDisplaySignature=nextSignature;
+      hideItemTooltip();
       if (overlayWindow && !overlayWindow.isDestroyed())
         overlayWindow.setBounds(chosenDisplay().bounds);
       positionGuide();
+      animateIntegratedBounds(true);
       clearReader(
         "Monitor alterado. Confira a calibração e reinicie a leitura.",
       );
-    });
+    };
+    screen.on('display-added',updateDisplay);
+    screen.on('display-removed',updateDisplay);
+    screen.on('display-metrics-changed',updateDisplay);
   });
 app.on("before-quit", () => {
   quitting = true;
   clearTimeout(guideMoveTimer);
+  clearTimeout(integratedResizeTimer);
   socialService?.close();
   updateService?.close();
   stopPresenceWatch();
@@ -1288,6 +1388,9 @@ app.on("before-quit", () => {
   clearReader();
   overlayWindow?.destroy();
   guideWindow?.destroy();
+  launcherWindow?.destroy();
+  pinnedWindow?.destroy();
+  itemTooltipWindow?.destroy();
   void stopLevelWorker();
 });
 app.on("will-quit", () => globalShortcut.unregisterAll());

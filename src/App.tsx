@@ -49,7 +49,7 @@ import { matchShop, recognizeNames, mergeOverlaySnapshot, mergeShopUpdate, shopC
 import ScreenshotProof from "./ScreenshotProof";
 import { Planner, Database, PlanAside, PreparationAside, TraitStrip } from "./Workspace";
 import { moveUnit, boardPositions, personalizePlan } from "./planning.mjs";
-import { BoardPanel, UnitStrip, Items, equipmentFor } from "./TftPanels";
+import { BoardPanel, UnitStrip, Items, equipmentFor, NativeItemTooltip } from "./TftPanels";
 import { CompGuide, guideTabs, type GuideTab } from "./CompGuide";
 
 import {
@@ -58,7 +58,7 @@ import {
   type LevelContext,
 } from "./level-planner.mjs";
 import GameGuide from "./GameGuide";
-import { ShopMedal, ShopFrostFrame } from "./ShopMedal";
+import { ShopMedal } from "./ShopMedal";
 import { BrandMark } from "./Brand";
 import {PlanNavigation} from "./PlanNavigation";
 import {SourcesPanel} from "./SourcesPanel";
@@ -67,7 +67,7 @@ import {SidebarComp} from "./SidebarComp";
 import {SocialPanel,useSocial} from './SocialPanel';
 import {SocialNotifications} from './SocialNotifications';
 import {AccountGate,AccountProfile} from './AccountGate';
-import {effectiveComp,partnerNeeds,shoppingWishes} from './duo-plans.mjs';
+import {effectiveComp,partnerNeeds,ownShoppingWishes} from './duo-plans.mjs';
 import {UpdateProvider,UpdatesSettings,UpdateIndicator} from './Updates';
 import {ShopCalibration} from './ShopCalibration';
 
@@ -190,7 +190,7 @@ function Overlay() {
     state?.guideComp && state?.pinned
       ? planForLevel(state.guideComp, byId, state.gameSession?.context)
       : null,[state?.guideComp,state?.pinned,state?.gameSession?.context]);
-  const ownWishes=useMemo(()=>state?.pinned?shoppingWishes(state.guideComp,state.overlayPlans?.[state.pinned],state.gameSession,byId).filter(w=>w.goal>w.owned):[],[state?.pinned,state?.guideComp,state?.overlayPlans,state?.gameSession?.context]);
+  const ownWishes=useMemo(()=>state?ownShoppingWishes(state.guideComp,state.overlayPlans?.[state.pinned],state.gameSession,byId,state.shopTargets).filter(w=>w.goal>w.owned):[],[state?.pinned,state?.guideComp,state?.overlayPlans,state?.gameSession?.context,state?.shopTargets]);
   if (!state) return null;
   const priority = livePlan?.search || [];
   const reserve = livePlan?.reserve || [];
@@ -205,12 +205,12 @@ function Overlay() {
   );
   const rect = state.shopRect || state.rect;
   return (
-    <div className="native-overlay" style={{ opacity: state.opacity / 100 }}>
+    <div className="native-overlay">
       {matches.map((slot: any) => {
         const frameCard=shopCardRect(state.shopRect,state.shopCards,slot.index);
         const card=frameCard || {x:rect.x+rect.width*slot.index/5+rect.width/5*.025,y:rect.y,width:rect.width/5*.94,height:rect.height};
         const request=sendNeeds.find((w:any)=>w.id===slot.id);
-        const requestPriority=request?.priority||0;
+        const requestPriority=0;
         const kind=request?own.includes(slot.id)?'shared':'send':traitWishes.has(slot.id)?'trait':priority.includes(slot.id)||requestWishes.has(slot.id)?'buy':reserve.includes(slot.id)?'reserve':'core';
         return (
         <div
@@ -228,13 +228,12 @@ function Overlay() {
             '--medal-font': `clamp(7px, ${card.width * 100 * .045}vw, 10px)`,
           } as React.CSSProperties}
         >
-          {slot.highlighted && frameCard && <ShopFrostFrame index={slot.index} jewel={(byId[slot.id]?.cost || 0) > 1} />}
           <Badge
             matched={slot.highlighted}
             priority={requestPriority}
             kind={kind}
             label={
-              request?`${own.includes(slot.id)?'Você e sua dupla querem':'Enviar para'} ${state.social?.partner?.display_name||'sua dupla'}${requestPriority===2?' · prioridade urgente':requestPriority===1?' · prioridade alta':''}`:traitWishes.has(slot.id)?`Sinergia: ${(byId[slot.id]?.traits||[]).filter(t=>state.overlayPlans?.[state.pinned]?.traits?.includes(t)).join(', ')}`:priority.includes(slot.id)||requestWishes.has(slot.id)
+              request?`${own.includes(slot.id)?'Você e sua dupla querem':'Enviar para'} ${state.social?.partner?.display_name||'sua dupla'}`:traitWishes.has(slot.id)?`Sinergia: ${(byId[slot.id]?.traits||[]).filter(t=>state.overlayPlans?.[state.pinned]?.traits?.includes(t)).join(', ')}`:priority.includes(slot.id)||requestWishes.has(slot.id)
                 ? "Comprar agora"
                 : reserve.includes(slot.id)
                   ? "Guardar p/ transição"
@@ -252,7 +251,9 @@ export default function App() {
     return <ScreenshotProof />;
   if (new URLSearchParams(location.search).get("view") === "overlay")
     return <Overlay />;
-  if (new URLSearchParams(location.search).get("view") === "guide")
+  if (new URLSearchParams(location.search).get("view") === "item-tooltip") return <NativeItemTooltip/>;
+  if (new URLSearchParams(location.search).get("view") === "launcher") return <GameGuide launcher/>;
+  if (["guide","panel"].includes(new URLSearchParams(location.search).get("view")||""))
     return <GameGuide />;
   return <UpdateProvider><AccountGate><Workbench /></AccountGate></UpdateProvider>;
 }
@@ -407,6 +408,7 @@ function Workbench() {
       guideComp: pinned || null,
       baseGuideComp: pinnedBase || null,
       catalogTiers: catalogStatus.snapshot.tiers,
+      championStatistics: (catalogStatus.snapshot as any).championStatistics || {},
       catalogAugments,
       opacity: saved.opacity,
       rect: saved.rect,
@@ -1116,20 +1118,14 @@ function Workbench() {
                       ))}
                     </select>
                   </label>
-                  <label className="setting-row">
+                  <div className="setting-row">
                     <span>
-                      Modo compacto
+                      Painéis separados
                       <small>
-                        Mostra a comp completa numa faixa e mantém os badges.
+                        Abra uma tarefa pelos botões no jogo e fixe uma segunda pelo ícone de alfinete.
                       </small>
                     </span>
-                    <input
-                      aria-label="Modo compacto"
-                      type="checkbox"
-                      checked={saved.compact}
-                      onChange={(e) => update({ compact: e.target.checked })}
-                    />
-                  </label>
+                  </div>
                 </section>
                 <section className="shop-reader-settings">
                   <h2>Leitura da loja</h2>
@@ -1190,9 +1186,9 @@ function Workbench() {
                     <p>
                       Ative o overlay e a leitura para acompanhar nível, ouro e
                       compras. Consulte Equipe, Itens e Partida sem sair do
-                      jogo. Ctrl+Shift+G recolhe o guia; Ctrl+Shift+O abre ou oculta
+                      jogo. Ctrl+Shift+G oculta ou restaura os painéis; Ctrl+Shift+O abre ou oculta
                       tudo (Ctrl+Shift+Y se o atalho principal estiver ocupado). Ctrl+Shift+Q encerra o app. A leitura da loja pode
-                      ser iniciada no próprio guia; calibre em Preferências.
+                      ser iniciada em Leitura e partida; calibre em Preferências.
                     </p>
                   </div>
                 </div>

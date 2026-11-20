@@ -34,6 +34,9 @@ import "./zyon-prism.css";
 import "./overlay-reference.css";
 import "./product-theme.css";
 import "./database-refinement.css";
+import "./modular-overlay.css";
+import "./overlay-champions.css";
+import "./overlay-duo.css";
 createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <App />

@@ -53,6 +53,7 @@
 .workspace-v4.zyon-reimagined .tier-section-cards .comp-row { background: linear-gradient(120deg,#151922,#0d1118); border-color: #2b3543; }
 .workspace-v4.zyon-reimagined .tier-section-cards .comp-row:hover { background: linear-gradient(120deg,#1a2230,#101721); border-color: #3d5470; }
 .workspace-v4.zyon-reimagined .tier-section-cards .comp-row.row-pinned { border-color: #2497ff80; }
+.workspace-v4.zyon-reimagined .zy-comp-select { padding: 0; }
 .workspace-v4.zyon-reimagined .zy-comp-select[aria-pressed=true] { background: #133252; border-color: #2497ff; }
 .workspace-v4.zyon-reimagined .zy-comp-select[aria-pressed=true]>.zyon-mark { opacity: 1; }
 .workspace-v4.zyon-reimagined :is(.settings-category>section,.settings-card,.studio-canvas,.studio-roster,.data-table,.champion-performance-table,.database-comp-focus,.carry-build-group,.zy-plan-explorer,.zy-plan-priority,.zy-route-equipment,.plan-popover) { background: #10151e; border-color: #293342; }

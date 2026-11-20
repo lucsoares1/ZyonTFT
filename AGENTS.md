@@ -1,5 +1,39 @@
 # Zyon TFT
 
+## Experimento reversível: janela integrada — 20/11/2026
+
+Atualização aprovada: Lucas decidiu manter a apresentação integrada. Remover o botão de retorno da UI e usar Minimizar/Expandir overlay: barra244×42px, sem resumo ou tarefa ao minimizar. Abrir uma ferramenta expande automaticamente. Preservar o snapshot antigo internamente, mas não reintroduzir o botão textual de retorno. Esta atualização substitui o requisito anterior desse botão no parágrafo abaixo.
+
+Lucas quer testar ferramentas no topo, conteúdo no meio e resumo da comp que desliza para a base, tudo na mesma janela. Implementar como modo opt-in `overlayLayout.presentation=integrated`, nunca substituir irreversivelmente o fluxo atual. Salvar layout anterior e restaurá-lo pelo botão textual Voltar ao modo anterior. Preservar comp/cópias/OCR/dupla/alvos. Sem painel fixado adicional durante o experimento; retorno recupera o fixado original. Redimensionamento nativo sincronizado de260ms após confirmação do renderer, mantendo conteúdo até o fechamento e resumo na base, sem espaço vazio antecipado. Suportar movimento reduzido; não estender janela até a loja. Contrato em design/OVERLAY-INTEGRATED-EXPERIMENT.md. Sem publicação implícita.
+
+## Catálogo do overlay por custo — 20/11/2026
+
+Itens no resumo compacto: tooltip nativo não focável e click-through, posicionado fora do retângulo inteiro do launcher (acima/abaixo/lateral conforme espaço do monitor). Não voltar a prender o tooltip dentro da janela de196px sobre o elenco. Esconder ao sair do item, mover/minimizar/mudar aba ou ocultar o overlay. Validar origem IPC e aceitar apenas itens equipados na comp atual. Tooltips completos do app e detalhes permanecem no renderer.
+
+Seleção inferior: sem scrollbar horizontal visível ou seleção de texto/arraste de retratos. Usar setas nas duas extremidades; esquerda oculta no início, direita oculta no final, ambas ocultas quando todos cabem. Recalcular após remoções e resize, preservar clique para remover e hover de itens; suportar teclado e movimento reduzido.
+
+Organizar Campeões em seções crescentes de custo, com título ouro/quantidade e ordem alfabética interna estável. Marcar não deve deslocar o campeão para outro lugar. Cada retrato mostra faixa inferior com os ícones reais de todas as características, nomes em alt/title; pesquisa por característica continua funcionando. Preservar clique único, itens individuais no hover/foco e seleção removível inferior. Referência visual enviada por Lucas com cards de custo1.
+
+## Bandeirinha fornecida por Lucas — 20/11/2026
+
+Usar o modelo CSS `.tft-banner` enviado pelo usuário: proporção28×30, borda2px chanfrada só nas laterais/base, raio inferior3,5px, duplo background e sombras fornecidas. Converter os tons verdes para o azul Zyon (#2497ff), preservar logo branca; parceiro roxo e ambos divididos continuam distintos. Posição mais à esquerda: offset0,3×medal-size (~8px), substituindo1,3× anterior. Este pedido supera a proibição histórica de gradiente na bandeirinha. Nunca reintroduzir moldura da carta nem capturar cliques.
+
+## Resumo persistente e consulta — 20/11/2026
+
+Lucas pediu estratégia com subagents, novo design principal e implementação seguida de validação independente. O launcher não substitui o acompanhamento: restaurar resumo persistente com tier/nome/elenco inteiro em uma linha/itens e ações Ver detalhes, Ver comps e Recolher. Consulta ampla segue as últimas quatro prints, com cabeçalho denso, navegação por pergunta e tabuleiro dominante; sem inventar early boards, XP ou métricas. Preservar contratos de Campeões/Dupla abaixo. Direção em design/OVERLAY-COMPANION-2026-11-20.md supera a apresentação compacta inicial dos painéis, não os limites de foco/IPC/QA.
+
+## Overlay modular — direção atual 20/11/2026
+
+Correção de fluxo exigida por Lucas: segunda aba Campeões é APENAS seleção de compras, um clique marca/desmarca. Inclui alvos herdados da comp já marcados, com exclusões reversíveis sem alterar elenco/cópias. Sem formulários de meta, prioridade ou pedidos à dupla nessa aba; consulta de itens é ação separada. Terceira aba Dupla deve reutilizar integralmente o fluxo social do app: amigos/código/solicitações/convites desconectado; ver plano, pedir campeão e encerrar dupla conectado. Remover níveis de urgência da interface. O pedido supera a versão inicial da interação descrita abaixo e em históricos anteriores. Visual deve seguir o aplicativo, sem inventar outra identidade.
+
+Seleção revisada após rejeição visual: não colocar badge/botão "Itens" abaixo de cada retrato. Consulta é ícone discreto no canto do retrato com nome acessível e foco; clique principal continua marcação. Quatro colunas no painel460, retratos maiores e nomes13px/peso500, sem miúdos10px para identidade. Hosts launcher/painéis são opacos (só a janela de bandeirinhas continua transparente/click-through) para evitar composição transparente desnecessária no texto; não reintroduzir escala CSS na tipografia.
+
+Rodapé da segunda aba mostra todos os campeões marcados (comp e avulsos) com retrato/nome e remoção direta. Independe do filtro/busca do catálogo, usa o mesmo toggle atômico, permite remover herdados sem mexer no elenco. Lista limitada em altura com rolagem para não empurrar o catálogo para fora em painéis baixos.
+
+Itens no catálogo e seleção: consulta abre ao passar o mouse ou focar o campeão, sem bolinha/ícone ou clique extra. Popover não muda o fluxo/posição da grade nem marca compras; permite mover o mouse para ler/rolar, fecha ao sair ou Esc e mantém busca acessível. Recomendações priorizam conjuntos completos de três itens nas estatísticas individuais do campeão (mesmo set/patch, mínimo100partidas, fonte/data/amostra); não misturar peças de conjuntos estatísticos. Itens de guias daquele campeão são alternativa identificada; se faltarem dados, mostrar indisponível. Kits genéricos por função/classe estão proibidos, inclusive no planejador. Atualização parcial que falha num endpoint conserva só a última amostra validada daquele campeão, com sua data original.
+
+Lucas autorizou planejamento e implementação do fluxo modular nativo, substituindo o guia monolítico e suas apresentações antigas. Launcher pequeno no alto esquerdo: Comp, Campeões, Dupla, Leitura/partida. Um painel por vez com opção de fixar um segundo; fechar painel não desliga OCR nem zera sessão. Retrato consulta itens; procurar para si e pedir à dupla são ações distintas, sem alterar elenco/cópias implicitamente. Alvos independentes da comp. Loja usa somente bandeirinha opaca com logo branca, azul/roxo/divisão plana, cantos inferiores arredondados e sem borda superior; SEM moldura de carta, texto ou degradê preto. Esta direção supera as notas históricas de moldura e guia único. Preservar controle nativo de foco, IPC autenticado, atualizador, compra confirmada e frescor da dupla. QA só em perfil isolado no secundário descoberto dinamicamente e janelas invisíveis click-through. Sem publicação implícita. Contrato em design/OVERLAY-MODULAR-2026-11-20.md.
+
 ## Escolha direta de comp no overlay
 
 Elenco dos cards: retratos até42px, itens até12px proporcionais ao retrato, estrelas top:-8px (3px abaixo do anterior), uma única linha com tamanho calculado pela quantidade real/largura. Não quebrar a linha nem recortar itens. Estilos específicos em overlay-reference.css; não alterar peças do programa principal ou do compacto.
@@ -15,6 +49,8 @@ Lucas rejeitou logo quase escondida + detalhes + Escolher comp. `OverlayComps` a
 Abertura MANUAL do guia deve aparecer no desktop sem exigir OCR/foco; medalhas continuam restritas à partida confirmada em foco. Reabrir expande recolhido/só loja sem resetar cópias. Registro de Ctrl+Shift+O deve conferir retorno e tentar Ctrl+Shift+Y se ocupado. UpdateService reconsulta o feed antes de baixar e instalar, substituindo oferta/instalador antigo; não voltar a bloquear checks apenas porque status é available/downloaded. Planejador principal grava via plan:commit atômico e ativa o plano editado; confirmação inclui comp canônica, revisão protege também saved.comps contra respostas atrasadas. Preservar pedidos/sinergias explícitos. Ver docs/reopen-latest-planner-sync.md e verificações isoladas de dois clientes/atualizador HTTP. Sem publicação implícita.
 
 ## Monitor dos testes locais
+
+Compatibilidade de monitores: produção escolhe o display salvo e recorre ao primário atual quando ausente; nunca sobrescrever a API screen em produção. Mudança de monitor/resolução/escala reposiciona janelas e fecha tooltip; mudança no display efetivamente usado pausa OCR para conferir calibração. Alterações em displays não usados não devem parar a leitura. Testes de display-selection cobrem1–4telas, reordenação/desconexão/reconexão, origens negativas/acima, DIP/DPI100–200% e captura por display_id; isto não comprova todos os hardwares físicos.
 
 Lucas usa o monitor principal e proibiu testes nele: usar somente o monitor secundário livre (atualmente DISPLAY2, origem física -1920,0). Descobrir os displays reais antes de abrir QA e falhar se não houver secundário; não assumir coordenadas fixas. Em perfis isolados, direcionar monitor escolhido e janelas para esse display antes de autenticar/abrir overlays. Janelas transparentes de teste precisam permanecer click-through também após show/ready-to-show, porque o guia real reativa mouse após a criação. Nunca deixar uma janela invisível capturando cliques no monitor em uso. Não alterar o monitor/configuração do aplicativo pessoal.
 
