@@ -1,5 +1,9 @@
 # Zyon TFT
 
+## 0.17.33
+
+Novo overlay modular com resumo completo da comp e opção integrada, animação sincronizada, minimizar/expandir e seleção de campeões por custo e características. Marcações de compra independentes, Dupla com fluxo completo, itens individuais no hover e tooltips fora do elenco. Nova bandeirinha da loja, navegação lateral na seleção e alinhamento dos botões. Reposicionamento seguro após mudanças de monitor, resolução e escala; os ajustes de QA não acompanham o instalador.
+
 ## 0.17.32
 
 Corrige a moldura da loja quando a detecção individual de bordas falha. Simplifica a escolha de comp no overlay com Usar comp direto no card, detalhes separados e busca sempre visível. Aumenta retratos e itens, ajusta as estrelas e mantém o elenco em uma única linha.
