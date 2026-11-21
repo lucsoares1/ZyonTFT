@@ -1,5 +1,9 @@
 # Zyon TFT
 
+## 0.17.34
+
+Corrige a posição horizontal da bandeirinha na loja usando as bordas reais de pelo menos três cartas, em vez de manter uma âncora deslocada. Preserva calibração manual, evita deslocar uma loja já alinhada e tenta novamente quando as cartas ainda estão carregando. Verificado com a captura fornecida e cenários de escala de 75% a 200%.
+
 ## 0.17.33
 
 Novo overlay modular com resumo completo da comp e opção integrada, animação sincronizada, minimizar/expandir e seleção de campeões por custo e características. Marcações de compra independentes, Dupla com fluxo completo, itens individuais no hover e tooltips fora do elenco. Nova bandeirinha da loja, navegação lateral na seleção e alinhamento dos botões. Reposicionamento seguro após mudanças de monitor, resolução e escala; os ajustes de QA não acompanham o instalador.
