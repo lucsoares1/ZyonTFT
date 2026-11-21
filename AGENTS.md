@@ -16,6 +16,8 @@ Organizar Campeões em seções crescentes de custo, com título ouro/quantidade
 
 ## Bandeirinha fornecida por Lucas — 20/11/2026
 
+Correção de âncora21/11: antes de fixar os retângulos individuais, confirmar a geometria horizontal usando as bordas laterais de pelo menos3cartas na captura do leitor. Corrigir deslocamento de até0,65largura de slot apenas com evidência visual; geometria já confirmada não é movida, área manual é respeitada e ausência de bordas não inventa âncora. Tentar novamente no carregamento com intervalo1s, sem custo de varredura a cada frame. Teste nativo sintético e captura fornecida por Lucas em75/100/125/200%; não incluir a captura pessoal no repositório nem alegar validação em partida real.
+
 Usar o modelo CSS `.tft-banner` enviado pelo usuário: proporção28×30, borda2px chanfrada só nas laterais/base, raio inferior3,5px, duplo background e sombras fornecidas. Converter os tons verdes para o azul Zyon (#2497ff), preservar logo branca; parceiro roxo e ambos divididos continuam distintos. Posição mais à esquerda: offset0,3×medal-size (~8px), substituindo1,3× anterior. Este pedido supera a proibição histórica de gradiente na bandeirinha. Nunca reintroduzir moldura da carta nem capturar cliques.
 
 ## Resumo persistente e consulta — 20/11/2026

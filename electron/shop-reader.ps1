@@ -48,6 +48,37 @@ public class ZyonWindows {
     double mean=sum/count,deviation=Math.Sqrt(Math.Max(0,square/count-mean*mean));
     return deviation>(vertical?20:90)?-1000:contrast/count-deviation*(vertical?.8:.15)+mean*.025;
   }
+  static double ShopEdgeScore(System.Drawing.Bitmap image,int left,int top,int slotWidth,int height) {
+    double total=0;int confirmed=0;
+    for(int slot=0;slot<5;slot++) {
+      double first=-1000,last=-1000;
+      for(int delta=-2;delta<=2;delta++) {
+        first=Math.Max(first,BorderScore(image,true,left+slot*slotWidth+slotWidth/40+delta,top,height));
+        last=Math.Max(last,BorderScore(image,true,left+(slot+1)*slotWidth-slotWidth/25+delta,top,height));
+      }
+      double score=Math.Min(first,last);
+      if(score>2){confirmed++;total+=Math.Min(40,score);}
+    }
+    return confirmed>=3?total:-1000;
+  }
+  public static double[] AlignShopFrame(System.Drawing.Bitmap image,double[] frame) {
+    int left=(int)Math.Round(frame[0]*image.Width),top=(int)Math.Round(frame[1]*image.Height);
+    int width=(int)Math.Round(frame[2]*image.Width),height=(int)Math.Round(frame[3]*image.Height),slotWidth=width/5;
+    if(slotWidth<40||height<40)return frame;
+    double baseline=ShopEdgeScore(image,left,top,slotWidth,height),best=baseline;
+    if(baseline>=6)return frame;
+    int shift=0,range=(int)(slotWidth*.65);
+    for(int offset=-range;offset<=range;offset++) {
+      if(left+offset<0||left+offset+width>image.Width)continue;
+      double score=ShopEdgeScore(image,left+offset,top,slotWidth,height);
+      if(score>best+.01){best=score;shift=offset;}
+    }
+    if(best<6||best<baseline+3||Math.Abs(shift)<slotWidth*.06)return frame;
+    return new double[]{frame[0]+shift/(double)image.Width,frame[1],frame[2],frame[3]};
+  }
+  public static bool ConfirmShopFrame(System.Drawing.Bitmap image,double[] frame) {
+    return ShopEdgeScore(image,(int)Math.Round(frame[0]*image.Width),(int)Math.Round(frame[1]*image.Height),(int)Math.Round(frame[2]*image.Width)/5,(int)Math.Round(frame[3]*image.Height))>=6;
+  }
   public static double[] FindCardRect(System.Drawing.Bitmap image,int left,int top,int width,int height) {
     int[] best={left+width/40,left+width-width/25,top,Math.Min(image.Height-2,top+height-4)};
     double[] scores={-1000,-1000,-1000,-1000};
@@ -311,6 +342,8 @@ public class ZyonWindows {
     $frameLeft=[int]($bounds.Width*$frameFit[0]);$frameTop=[int]($bounds.Height*$frameFit[1])
     $frameSlotWidth=[int]($bounds.Width*$frameFit[2]/5);$frameHeight=[int]($bounds.Height*$frameFit[3])
   $frameGeometryKey=''
+  $frameAligned=$false
+  $frameAlignAttempt=0L
   $geometryKey=''
   $matchProcess=$null
   $matchId=$null
@@ -366,7 +399,7 @@ public class ZyonWindows {
         if($key -ne $frameGeometryKey){
           $frameLeft=[int]($bounds.Width*$fit[0]);$frameTop=[int]($bounds.Height*$fit[1])
           $frameSlotWidth=[int]($bounds.Width*$fit[2]/5);$frameHeight=[int]($bounds.Height*$fit[3])
-          $cardRects=@($null,$null,$null,$null,$null);$rectAttempt=@(0L,0L,0L,0L,0L);$frameGeometryKey=$key
+          $cardRects=@($null,$null,$null,$null,$null);$rectAttempt=@(0L,0L,0L,0L,0L);$frameGeometryKey=$key;$frameAligned=$false;$frameAlignAttempt=0L
         }
         if($config.automaticRect -and $key -ne $geometryKey){
           # TFT's centered shop scales with viewport height, not monitor width.
@@ -384,6 +417,16 @@ public class ZyonWindows {
       $frame=New-Object System.Drawing.Bitmap($bounds.Width,$bounds.Height)
       $frameGraphics=[System.Drawing.Graphics]::FromImage($frame)
       try {$frameGraphics.CopyFromScreen($bounds.X,$bounds.Y,0,0,$frame.Size)}finally{$frameGraphics.Dispose()}
+    }
+    if(-not $frameAligned -and $capturedAt-$frameAlignAttempt -ge 1000){
+      $frameAlignAttempt=$capturedAt
+      if($manualFrame.Length -ne 4){
+        $aligned=[ZyonWindows]::AlignShopFrame($frame,@([double]$frameRect.x,[double]$frameRect.y,[double]$frameRect.width,[double]$frameRect.height))
+        if([Math]::Abs($frameRect.x-$aligned[0]) -gt .00001){$cardRects=@($null,$null,$null,$null,$null);$rectAttempt=@(0L,0L,0L,0L,0L)}
+        $frameRect=@{x=$aligned[0];y=$aligned[1];width=$aligned[2];height=$aligned[3]}
+        $frameLeft=[int]($bounds.Width*$aligned[0]);$frameSlotWidth=[int]($bounds.Width*$aligned[2]/5)
+        $frameAligned=[ZyonWindows]::ConfirmShopFrame($frame,$aligned)
+      }else{$frameAligned=$true}
     }
     $frameClicks=@([ZyonWindows]::Drain($capturedAt)|Where-Object{$_.pid -eq $foregroundId}|ForEach-Object{@{slot=$_.slot;at=$_.at}})
     $names=@()
@@ -569,7 +612,4 @@ public class ZyonWindows {
   @{error=('OCR indisponível: '+$_.Exception.Message)}|ConvertTo-Json -Compress
   exit 1
 }
-
-
-
 
